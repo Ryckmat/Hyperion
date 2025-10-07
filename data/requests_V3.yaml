@@ -1,0 +1,134 @@
+service: requests
+owner:
+  team: Open Source / PSF
+  contacts:
+  - https://github.com/psf/requests.git
+repositories:
+- name: requests
+  url: https://github.com/psf/requests.git
+  main_language: python
+  default_branch: main
+  stars: null
+  license: Apache-2.0
+tech:
+  runtime: python3
+  framework: none
+  ci: github-actions
+git_summary:
+  commits: 6377
+  first_commit: '2011-02-13'
+  last_commit: '2025-09-09'
+  contributors: 805
+  recent_commits_90d: 14
+  hotspots_top10:
+  - path: requests/models.py
+    changes: 11079
+  - path: tests/test_requests.py
+    changes: 7242
+  - path: test_requests.py
+    changes: 6490
+  - path: requests/sessions.py
+    changes: 4266
+  - path: requests/utils.py
+    changes: 4041
+  - path: requests/core.py
+    changes: 3793
+  - path: HISTORY.rst
+    changes: 3657
+  - path: docs/user/advanced.rst
+    changes: 3112
+  - path: tests/test_utils.py
+    changes: 2451
+  - path: HISTORY.md
+    changes: 2104
+  contributors_top10:
+  - name: Kenneth Reitz
+    email: me@kennethreitz.com
+    commits: 2141
+  - name: Kenneth Reitz
+    email: me@kennethreitz.org
+    commits: 1000
+  - name: Cory Benfield
+    email: lukasaoz@gmail.com
+    commits: 610
+  - name: Nate Prewitt
+    email: nateprewitt@gmail.com
+    commits: 282
+  - name: Ian Cordasco
+    email: graffatcolmingov@gmail.com
+    commits: 192
+  - name: Ian Stapleton Cordasco
+    email: graffatcolmingov@gmail.com
+    commits: 101
+  - name: Ian Cordasco
+    email: sigmavirus24@users.noreply.github.com
+    commits: 91
+  - name: Shivaram Lingamneni
+    email: slingamn@cs.stanford.edu
+    commits: 45
+  - name: Braulio Valdivielso Martínez
+    email: brlvldvlsmrtnz@gmail.com
+    commits: 43
+  - name: Dependabot[Bot]
+    email: 49699333@users.noreply.github.com
+    commits: 30
+  by_extension:
+  - ext: .py
+    files: 116
+    changes: 63806
+  - ext: .rst
+    files: 29
+    changes: 15893
+  - ext: .md
+    files: 18
+    changes: 3449
+  - ext: <noext>
+    files: 31
+    changes: 2505
+  - ext: .html
+    files: 7
+    changes: 2487
+  - ext: .css_t
+    files: 2
+    changes: 1830
+  - ext: .yml
+    files: 15
+    changes: 1710
+  - ext: .ps1
+    files: 1
+    changes: 918
+  - ext: .xml
+    files: 5
+    changes: 838
+  - ext: .js
+    files: 2
+    changes: 756
+  directories_top:
+  - dir: requests
+    changes: 38075
+  - dir: <root>
+    changes: 21386
+  - dir: docs
+    changes: 17801
+  - dir: tests
+    changes: 15368
+  - dir: _appveyor
+    changes: 918
+  - dir: idea
+    changes: 860
+  - dir: github
+    changes: 858
+  - dir: src
+    changes: 519
+  - dir: test_requests.py => tests
+    changes: 410
+  - dir: _azure-pipelines
+    changes: 370
+metrics:
+  evolution_years: 14
+  avg_commits_per_year: 455.5
+  avg_changes_per_hotspot: 4823.5
+notes:
+- Hotspots calculés après filtrage des vendored/artefacts (prefixes & extensions).
+- Contributeurs dédupliqués (noreply, variantes Gmail).
+- Licence et CI détectées localement sans API distante.
