@@ -1,0 +1,9144 @@
+{
+  "repo": "requests",
+  "main_branch": "main",
+  "tag_pattern": "^v?\\d+\\.\\d+\\.\\d+$",
+  "prod_releases": [
+    {
+      "tag": "v0.2.0",
+      "tag_sha": "d2427ecae751a533ddd9026849dd19cfaa3394f4",
+      "released_at": "2011-02-14T02:15:30-05:00",
+      "range": {
+        "from": null,
+        "to": "v0.2.0"
+      },
+      "window": {
+        "start": "2011-02-13T13:41:18-05:00",
+        "end": "2011-02-14T02:15:30-05:00"
+      },
+      "counts": {
+        "commits": 69,
+        "authors": 1,
+        "files_changed": 16,
+        "lines_added": 1716,
+        "lines_deleted": 458
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 898
+        },
+        {
+          "dir": "<root>",
+          "changes": 680
+        },
+        {
+          "dir": "docs",
+          "changes": 596
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 5,
+          "changes": 1233
+        },
+        {
+          "ext": ".rst",
+          "files": 4,
+          "changes": 582
+        },
+        {
+          "ext": ".bat",
+          "files": 1,
+          "changes": 190
+        },
+        {
+          "ext": "<noext>",
+          "files": 4,
+          "changes": 168
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 1
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 0
+        }
+      ]
+    },
+    {
+      "tag": "v0.2.1",
+      "tag_sha": "e09efc490ef6dec36298af3fcc04eabb81cdec54",
+      "released_at": "2011-02-14T10:46:40-05:00",
+      "range": {
+        "from": "v0.2.0",
+        "to": "v0.2.1"
+      },
+      "window": {
+        "start": "2011-02-14T02:35:01-05:00",
+        "end": "2011-02-14T10:46:40-05:00"
+      },
+      "counts": {
+        "commits": 26,
+        "authors": 1,
+        "files_changed": 12,
+        "lines_added": 2342,
+        "lines_deleted": 248
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 2451
+        },
+        {
+          "dir": "<root>",
+          "changes": 139
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 8,
+          "changes": 2517
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 36
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 34
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 3
+        }
+      ]
+    },
+    {
+      "tag": "v0.2.2",
+      "tag_sha": "ed909eaac7e7bc95ca2cf7dba22fe8c64ce627e7",
+      "released_at": "2011-02-14T12:59:06-05:00",
+      "range": {
+        "from": "v0.2.1",
+        "to": "v0.2.2"
+      },
+      "window": {
+        "start": "2011-02-14T10:50:18-05:00",
+        "end": "2011-02-14T12:59:06-05:00"
+      },
+      "counts": {
+        "commits": 20,
+        "authors": 1,
+        "files_changed": 5,
+        "lines_added": 341,
+        "lines_deleted": 172
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 404
+        },
+        {
+          "dir": "<root>",
+          "changes": 109
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 2,
+          "changes": 408
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 79
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 26
+        }
+      ]
+    },
+    {
+      "tag": "v0.2.3",
+      "tag_sha": "53e785f6561ea61e11338f62fc6815c292ae9780",
+      "released_at": "2011-02-15T09:46:55-05:00",
+      "range": {
+        "from": "v0.2.2",
+        "to": "v0.2.3"
+      },
+      "window": {
+        "start": "2011-02-14T12:59:22-05:00",
+        "end": "2011-02-15T09:46:55-05:00"
+      },
+      "counts": {
+        "commits": 12,
+        "authors": 1,
+        "files_changed": 6,
+        "lines_added": 132,
+        "lines_deleted": 39
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 93
+        },
+        {
+          "dir": "requests",
+          "changes": 78
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 3,
+          "changes": 140
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 25
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 6
+        }
+      ]
+    },
+    {
+      "tag": "v0.2.4",
+      "tag_sha": "d2cdefa7df40e8b9cb98e831dc70bcefa71467c5",
+      "released_at": "2011-02-19T01:03:39-05:00",
+      "range": {
+        "from": "v0.2.3",
+        "to": "v0.2.4"
+      },
+      "window": {
+        "start": "2011-02-15T09:46:58-05:00",
+        "end": "2011-02-19T01:03:39-05:00"
+      },
+      "counts": {
+        "commits": 30,
+        "authors": 1,
+        "files_changed": 11,
+        "lines_added": 892,
+        "lines_deleted": 868
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 1220
+        },
+        {
+          "dir": "<root>",
+          "changes": 540
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 6,
+          "changes": 1612
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 86
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 34
+        },
+        {
+          "ext": ".sh",
+          "files": 1,
+          "changes": 18
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 10
+        }
+      ]
+    },
+    {
+      "tag": "v0.3.0",
+      "tag_sha": "044252ea7b6518137c134412dd6192020b069f82",
+      "released_at": "2011-02-25T09:00:23-05:00",
+      "range": {
+        "from": "v0.2.4",
+        "to": "v0.3.0"
+      },
+      "window": {
+        "start": "2011-02-19T01:30:03-05:00",
+        "end": "2011-02-25T09:00:23-05:00"
+      },
+      "counts": {
+        "commits": 37,
+        "authors": 3,
+        "files_changed": 8,
+        "lines_added": 1361,
+        "lines_deleted": 999
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 1814
+        },
+        {
+          "dir": "<root>",
+          "changes": 546
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 4,
+          "changes": 2022
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 274
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 64
+        }
+      ]
+    },
+    {
+      "tag": "v0.3.1",
+      "tag_sha": "ed8ff63048a5ccaf304e2a59bfed58c9206cfd69",
+      "released_at": "2011-04-01T14:53:53-04:00",
+      "range": {
+        "from": "v0.3.0",
+        "to": "v0.3.1"
+      },
+      "window": {
+        "start": "2011-03-01T09:15:14-06:00",
+        "end": "2011-04-01T14:53:53-04:00"
+      },
+      "counts": {
+        "commits": 16,
+        "authors": 3,
+        "files_changed": 5,
+        "lines_added": 109,
+        "lines_deleted": 38
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 77
+        },
+        {
+          "dir": "<root>",
+          "changes": 70
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 2,
+          "changes": 122
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 17
+        },
+        {
+          "ext": ".rst",
+          "files": 1,
+          "changes": 8
+        }
+      ]
+    },
+    {
+      "tag": "v0.3.2",
+      "tag_sha": "fec0d1a9a09e60bd4da70765095a42f56d337f28",
+      "released_at": "2011-04-15T17:29:30-04:00",
+      "range": {
+        "from": "v0.3.1",
+        "to": "v0.3.2"
+      },
+      "window": {
+        "start": "2011-02-25T09:00:23-05:00",
+        "end": "2011-04-15T17:29:26-04:00"
+      },
+      "counts": {
+        "commits": 11,
+        "authors": 1,
+        "files_changed": 11,
+        "lines_added": 655,
+        "lines_deleted": 371
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 738
+        },
+        {
+          "dir": "<root>",
+          "changes": 280
+        },
+        {
+          "dir": "docs",
+          "changes": 8
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 6,
+          "changes": 909
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 92
+        },
+        {
+          "ext": "<noext>",
+          "files": 3,
+          "changes": 25
+        }
+      ]
+    },
+    {
+      "tag": "v0.3.3",
+      "tag_sha": "7215452da57775982b1d50db868b857c530839c2",
+      "released_at": "2011-05-12T04:02:16-04:00",
+      "range": {
+        "from": "v0.3.2",
+        "to": "v0.3.3"
+      },
+      "window": {
+        "start": "2011-04-15T17:29:38-04:00",
+        "end": "2011-05-12T04:02:16-04:00"
+      },
+      "counts": {
+        "commits": 20,
+        "authors": 2,
+        "files_changed": 9,
+        "lines_added": 1410,
+        "lines_deleted": 135
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 1424
+        },
+        {
+          "dir": "<root>",
+          "changes": 109
+        },
+        {
+          "dir": "docs",
+          "changes": 12
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 6,
+          "changes": 1455
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 87
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 3
+        }
+      ]
+    },
+    {
+      "tag": "v0.3.4",
+      "tag_sha": "0c00a17372891f6cfee91d1b5ab5cb632a3b52ef",
+      "released_at": "2011-05-14T14:31:24-04:00",
+      "range": {
+        "from": "v0.3.3",
+        "to": "v0.3.4"
+      },
+      "window": {
+        "start": "2011-05-12T04:02:18-04:00",
+        "end": "2011-05-14T14:31:24-04:00"
+      },
+      "counts": {
+        "commits": 14,
+        "authors": 3,
+        "files_changed": 9,
+        "lines_added": 1427,
+        "lines_deleted": 1172
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 2544
+        },
+        {
+          "dir": "<root>",
+          "changes": 53
+        },
+        {
+          "dir": "docs",
+          "changes": 2
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 7,
+          "changes": 2577
+        },
+        {
+          "ext": ".rst",
+          "files": 1,
+          "changes": 20
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v0.4.0",
+      "tag_sha": "aa3319460630c6280ceae427a57656936880acb5",
+      "released_at": "2011-05-14T23:58:01-04:00",
+      "range": {
+        "from": "v0.3.4",
+        "to": "v0.4.0"
+      },
+      "window": {
+        "start": "2011-05-14T14:46:47-04:00",
+        "end": "2011-05-14T23:58:00-04:00"
+      },
+      "counts": {
+        "commits": 14,
+        "authors": 1,
+        "files_changed": 7,
+        "lines_added": 260,
+        "lines_deleted": 758
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 976
+        },
+        {
+          "dir": "<root>",
+          "changes": 42
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 5,
+          "changes": 976
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 42
+        }
+      ]
+    },
+    {
+      "tag": "v0.4.1",
+      "tag_sha": "add6feab02d21967ca35f1572e6202b1dd11b788",
+      "released_at": "2011-05-22T14:16:48-04:00",
+      "range": {
+        "from": "v0.4.0",
+        "to": "v0.4.1"
+      },
+      "window": {
+        "start": "2011-05-14T23:58:07-04:00",
+        "end": "2011-05-22T14:16:48-04:00"
+      },
+      "counts": {
+        "commits": 71,
+        "authors": 3,
+        "files_changed": 38,
+        "lines_added": 3589,
+        "lines_deleted": 468
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "docs",
+          "changes": 3150
+        },
+        {
+          "dir": "requests",
+          "changes": 735
+        },
+        {
+          "dir": "<root>",
+          "changes": 172
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".css_t",
+          "files": 2,
+          "changes": 1556
+        },
+        {
+          "ext": ".py",
+          "files": 13,
+          "changes": 1085
+        },
+        {
+          "ext": ".rst",
+          "files": 10,
+          "changes": 920
+        },
+        {
+          "ext": ".html",
+          "files": 5,
+          "changes": 210
+        },
+        {
+          "ext": ".css",
+          "files": 1,
+          "changes": 140
+        },
+        {
+          "ext": "<noext>",
+          "files": 3,
+          "changes": 98
+        },
+        {
+          "ext": ".conf",
+          "files": 2,
+          "changes": 34
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 8
+        },
+        {
+          "ext": ".gitignore",
+          "files": 1,
+          "changes": 6
+        }
+      ]
+    },
+    {
+      "tag": "v0.5.0",
+      "tag_sha": "2d98ca7477a2521dd3354c34e1cbde25c4c06a9e",
+      "released_at": "2011-06-21T22:44:02-04:00",
+      "range": {
+        "from": "v0.4.1",
+        "to": "v0.5.0"
+      },
+      "window": {
+        "start": "2011-05-22T23:49:29+02:00",
+        "end": "2011-06-21T22:44:02-04:00"
+      },
+      "counts": {
+        "commits": 55,
+        "authors": 8,
+        "files_changed": 15,
+        "lines_added": 1111,
+        "lines_deleted": 613
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 912
+        },
+        {
+          "dir": "requests",
+          "changes": 764
+        },
+        {
+          "dir": "docs",
+          "changes": 48
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 8,
+          "changes": 1532
+        },
+        {
+          "ext": ".rst",
+          "files": 4,
+          "changes": 120
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 30
+        },
+        {
+          "ext": ".html",
+          "files": 1,
+          "changes": 28
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 14
+        }
+      ]
+    },
+    {
+      "tag": "v0.5.1",
+      "tag_sha": "95ba6fcab2564a0e13f7fec99e4470a851b19c99",
+      "released_at": "2011-07-23T22:59:16-04:00",
+      "range": {
+        "from": "v0.5.0",
+        "to": "v0.5.1"
+      },
+      "window": {
+        "start": "2011-06-21T22:55:35-04:00",
+        "end": "2011-07-23T22:59:15-04:00"
+      },
+      "counts": {
+        "commits": 40,
+        "authors": 5,
+        "files_changed": 20,
+        "lines_added": 4998,
+        "lines_deleted": 144
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "ext",
+          "changes": 4434
+        },
+        {
+          "dir": "requests",
+          "changes": 438
+        },
+        {
+          "dir": "<root>",
+          "changes": 184
+        },
+        {
+          "dir": "docs",
+          "changes": 86
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".ai",
+          "files": 1,
+          "changes": 4434
+        },
+        {
+          "ext": ".py",
+          "files": 7,
+          "changes": 559
+        },
+        {
+          "ext": ".rst",
+          "files": 5,
+          "changes": 74
+        },
+        {
+          "ext": ".html",
+          "files": 2,
+          "changes": 28
+        },
+        {
+          "ext": ".css_t",
+          "files": 1,
+          "changes": 22
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 21
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 4
+        },
+        {
+          "ext": ".png",
+          "files": 1,
+          "changes": 0
+        }
+      ]
+    },
+    {
+      "tag": "v0.6.0",
+      "tag_sha": "9471b0ab889a4684f87952cb951f7f4dc3f59dda",
+      "released_at": "2011-08-17T04:32:46-04:00",
+      "range": {
+        "from": "v0.5.1",
+        "to": "v0.6.0"
+      },
+      "window": {
+        "start": "2011-05-26T15:37:31-04:00",
+        "end": "2011-08-17T04:32:46-04:00"
+      },
+      "counts": {
+        "commits": 105,
+        "authors": 13,
+        "files_changed": 34,
+        "lines_added": 1458,
+        "lines_deleted": 488
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 686
+        },
+        {
+          "dir": "docs",
+          "changes": 571
+        },
+        {
+          "dir": "<root>",
+          "changes": 563
+        },
+        {
+          "dir": "debian",
+          "changes": 126
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 12,
+          "changes": 1076
+        },
+        {
+          "ext": ".rst",
+          "files": 14,
+          "changes": 713
+        },
+        {
+          "ext": "<noext>",
+          "files": 7,
+          "changes": 146
+        },
+        {
+          "ext": ".py}",
+          "files": 1,
+          "changes": 11
+        }
+      ]
+    },
+    {
+      "tag": "v0.6.1",
+      "tag_sha": "8b640979ee06a03a57e72ba3ed73fcb73efc4c74",
+      "released_at": "2011-08-20T18:25:32-04:00",
+      "range": {
+        "from": "v0.6.0",
+        "to": "v0.6.1"
+      },
+      "window": {
+        "start": "2011-06-21T22:44:02-04:00",
+        "end": "2011-08-20T18:25:32-04:00"
+      },
+      "counts": {
+        "commits": 35,
+        "authors": 5,
+        "files_changed": 43,
+        "lines_added": 5572,
+        "lines_deleted": 1030
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "ext",
+          "changes": 2217
+        },
+        {
+          "dir": "requests",
+          "changes": 1792
+        },
+        {
+          "dir": "<root>",
+          "changes": 1463
+        },
+        {
+          "dir": "docs",
+          "changes": 1004
+        },
+        {
+          "dir": "debian",
+          "changes": 126
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 14,
+          "changes": 2819
+        },
+        {
+          "ext": ".ai",
+          "files": 1,
+          "changes": 2217
+        },
+        {
+          "ext": ".rst",
+          "files": 13,
+          "changes": 1304
+        },
+        {
+          "ext": "<noext>",
+          "files": 8,
+          "changes": 175
+        },
+        {
+          "ext": ".orig",
+          "files": 1,
+          "changes": 40
+        },
+        {
+          "ext": ".html",
+          "files": 3,
+          "changes": 28
+        },
+        {
+          "ext": ".css_t",
+          "files": 1,
+          "changes": 10
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 9
+        },
+        {
+          "ext": ".png",
+          "files": 1,
+          "changes": 0
+        }
+      ]
+    },
+    {
+      "tag": "v0.6.2",
+      "tag_sha": "a8695ecd32f18135ae5f34f466382993a4cb7d3d",
+      "released_at": "2011-10-09T07:11:48-04:00",
+      "range": {
+        "from": "v0.6.1",
+        "to": "v0.6.2"
+      },
+      "window": {
+        "start": "2011-08-20T18:26:04-04:00",
+        "end": "2011-10-09T07:11:48-04:00"
+      },
+      "counts": {
+        "commits": 5,
+        "authors": 2,
+        "files_changed": 12,
+        "lines_added": 157,
+        "lines_deleted": 44
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 108
+        },
+        {
+          "dir": "requests",
+          "changes": 91
+        },
+        {
+          "dir": "docs",
+          "changes": 2
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 7,
+          "changes": 127
+        },
+        {
+          "ext": ".orig",
+          "files": 1,
+          "changes": 40
+        },
+        {
+          "ext": ".rst",
+          "files": 3,
+          "changes": 24
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 10
+        }
+      ]
+    },
+    {
+      "tag": "v0.6.3",
+      "tag_sha": "15511584d159314c971e43bcb94b8b096fdc6e19",
+      "released_at": "2011-10-13T21:33:55-04:00",
+      "range": {
+        "from": "v0.6.2",
+        "to": "v0.6.3"
+      },
+      "window": {
+        "start": "2011-10-13T14:54:36-04:00",
+        "end": "2011-10-13T21:33:55-04:00"
+      },
+      "counts": {
+        "commits": 20,
+        "authors": 1,
+        "files_changed": 15,
+        "lines_added": 693,
+        "lines_deleted": 214
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "docs",
+          "changes": 460
+        },
+        {
+          "dir": "requests",
+          "changes": 355
+        },
+        {
+          "dir": "<root>",
+          "changes": 92
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".rst",
+          "files": 9,
+          "changes": 498
+        },
+        {
+          "ext": ".py",
+          "files": 5,
+          "changes": 367
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 42
+        }
+      ]
+    },
+    {
+      "tag": "v0.6.4",
+      "tag_sha": "4f6fc985094f3a7435cc3a18078203ee4bc5ee5b",
+      "released_at": "2011-10-13T22:23:04-04:00",
+      "range": {
+        "from": "v0.6.3",
+        "to": "v0.6.4"
+      },
+      "window": {
+        "start": "2011-08-17T12:49:19+08:00",
+        "end": "2011-10-13T22:23:04-04:00"
+      },
+      "counts": {
+        "commits": 71,
+        "authors": 8,
+        "files_changed": 27,
+        "lines_added": 2077,
+        "lines_deleted": 1106
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 2220
+        },
+        {
+          "dir": "<root>",
+          "changes": 579
+        },
+        {
+          "dir": "docs",
+          "changes": 258
+        },
+        {
+          "dir": "debian",
+          "changes": 126
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 8,
+          "changes": 2516
+        },
+        {
+          "ext": ".rst",
+          "files": 8,
+          "changes": 301
+        },
+        {
+          "ext": "<noext>",
+          "files": 8,
+          "changes": 182
+        },
+        {
+          "ext": ".orig",
+          "files": 1,
+          "changes": 160
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 16
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 8
+        }
+      ]
+    },
+    {
+      "tag": "v0.6.5",
+      "tag_sha": "b37b977d205d8619b057d3e017083e42498692be",
+      "released_at": "2011-10-19T01:30:45-04:00",
+      "range": {
+        "from": "v0.6.4",
+        "to": "v0.6.5"
+      },
+      "window": {
+        "start": "2011-10-13T22:30:19-04:00",
+        "end": "2011-10-19T01:30:45-04:00"
+      },
+      "counts": {
+        "commits": 29,
+        "authors": 1,
+        "files_changed": 9,
+        "lines_added": 258,
+        "lines_deleted": 178
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 253
+        },
+        {
+          "dir": "docs",
+          "changes": 98
+        },
+        {
+          "dir": "requests",
+          "changes": 85
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 3,
+          "changes": 281
+        },
+        {
+          "ext": ".rst",
+          "files": 3,
+          "changes": 113
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 29
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 13
+        }
+      ]
+    },
+    {
+      "tag": "v0.6.6",
+      "tag_sha": "d938f3208968949decbb0a21292deb1451c211d5",
+      "released_at": "2011-10-19T03:39:36-04:00",
+      "range": {
+        "from": "v0.6.5",
+        "to": "v0.6.6"
+      },
+      "window": {
+        "start": "2011-10-19T01:36:38-04:00",
+        "end": "2011-10-19T03:39:36-04:00"
+      },
+      "counts": {
+        "commits": 4,
+        "authors": 1,
+        "files_changed": 4,
+        "lines_added": 43,
+        "lines_deleted": 5
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 38
+        },
+        {
+          "dir": "requests",
+          "changes": 10
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 3,
+          "changes": 38
+        },
+        {
+          "ext": ".rst",
+          "files": 1,
+          "changes": 10
+        }
+      ]
+    },
+    {
+      "tag": "v0.7.0",
+      "tag_sha": "1a4dfad52d4aa419e98d8b3d709704cecaf3f7ba",
+      "released_at": "2011-10-22T21:33:00-04:00",
+      "range": {
+        "from": "v0.6.6",
+        "to": "v0.7.0"
+      },
+      "window": {
+        "start": "2011-10-13T21:33:55-04:00",
+        "end": "2011-10-22T21:33:00-04:00"
+      },
+      "counts": {
+        "commits": 59,
+        "authors": 5,
+        "files_changed": 42,
+        "lines_added": 1707,
+        "lines_deleted": 1097
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 1996
+        },
+        {
+          "dir": "docs",
+          "changes": 392
+        },
+        {
+          "dir": "<root>",
+          "changes": 353
+        },
+        {
+          "dir": "debian",
+          "changes": 63
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 16,
+          "changes": 2179
+        },
+        {
+          "ext": ".rst",
+          "files": 11,
+          "changes": 457
+        },
+        {
+          "ext": "<noext>",
+          "files": 10,
+          "changes": 111
+        },
+        {
+          "ext": ".orig",
+          "files": 1,
+          "changes": 40
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 8
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 7
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 2
+        },
+        {
+          "ext": ".py}",
+          "files": 1,
+          "changes": 0
+        }
+      ]
+    },
+    {
+      "tag": "v0.7.1",
+      "tag_sha": "02cf3dce3786becb89f631185e8207080b0b726c",
+      "released_at": "2011-10-23T15:18:27-04:00",
+      "range": {
+        "from": "v0.7.0",
+        "to": "v0.7.1"
+      },
+      "window": {
+        "start": "2011-10-23T10:04:46-04:00",
+        "end": "2011-10-23T15:18:27-04:00"
+      },
+      "counts": {
+        "commits": 25,
+        "authors": 1,
+        "files_changed": 12,
+        "lines_added": 825,
+        "lines_deleted": 727
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 1350
+        },
+        {
+          "dir": "docs",
+          "changes": 124
+        },
+        {
+          "dir": "<root>",
+          "changes": 78
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 9,
+          "changes": 1404
+        },
+        {
+          "ext": ".rst",
+          "files": 3,
+          "changes": 148
+        }
+      ]
+    },
+    {
+      "tag": "v0.7.2",
+      "tag_sha": "e15834da8eb69e57a024ba205c5483e53ce39d16",
+      "released_at": "2011-10-23T15:40:26-04:00",
+      "range": {
+        "from": "v0.7.1",
+        "to": "v0.7.2"
+      },
+      "window": {
+        "start": "2011-10-23T15:39:33-04:00",
+        "end": "2011-10-23T15:40:26-04:00"
+      },
+      "counts": {
+        "commits": 2,
+        "authors": 1,
+        "files_changed": 3,
+        "lines_added": 9,
+        "lines_deleted": 3
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 6
+        },
+        {
+          "dir": "requests",
+          "changes": 6
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".rst",
+          "files": 1,
+          "changes": 6
+        },
+        {
+          "ext": ".py",
+          "files": 2,
+          "changes": 6
+        }
+      ]
+    },
+    {
+      "tag": "v0.7.3",
+      "tag_sha": "0008b035e2204ea7d1df5d62bd009e51df44aa17",
+      "released_at": "2011-10-23T16:56:47-04:00",
+      "range": {
+        "from": "v0.7.2",
+        "to": "v0.7.3"
+      },
+      "window": {
+        "start": "2011-10-22T22:14:15-04:00",
+        "end": "2011-10-23T16:56:47-04:00"
+      },
+      "counts": {
+        "commits": 6,
+        "authors": 1,
+        "files_changed": 21,
+        "lines_added": 801,
+        "lines_deleted": 685
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 1262
+        },
+        {
+          "dir": "<root>",
+          "changes": 144
+        },
+        {
+          "dir": "docs",
+          "changes": 80
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 14,
+          "changes": 1327
+        },
+        {
+          "ext": ".rst",
+          "files": 6,
+          "changes": 157
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v0.7.4",
+      "tag_sha": "3a4f6ba8b3429b233dada1dddb2fe859119ba494",
+      "released_at": "2011-10-26T18:36:14-04:00",
+      "range": {
+        "from": "v0.7.3",
+        "to": "v0.7.4"
+      },
+      "window": {
+        "start": "2011-10-14T22:24:42+00:00",
+        "end": "2011-10-26T18:36:14-04:00"
+      },
+      "counts": {
+        "commits": 8,
+        "authors": 2,
+        "files_changed": 6,
+        "lines_added": 30,
+        "lines_deleted": 16
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 43
+        },
+        {
+          "dir": "<root>",
+          "changes": 3
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 5,
+          "changes": 43
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 3
+        }
+      ]
+    },
+    {
+      "tag": "v0.7.5",
+      "tag_sha": "cf36d8c7538b2b04adbfea933398f890cd9a85d9",
+      "released_at": "2011-11-04T23:32:15-04:00",
+      "range": {
+        "from": "v0.7.4",
+        "to": "v0.7.5"
+      },
+      "window": {
+        "start": "2011-10-26T18:38:32-04:00",
+        "end": "2011-11-04T23:32:15-04:00"
+      },
+      "counts": {
+        "commits": 25,
+        "authors": 5,
+        "files_changed": 11,
+        "lines_added": 241,
+        "lines_deleted": 60
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "docs",
+          "changes": 238
+        },
+        {
+          "dir": "requests",
+          "changes": 35
+        },
+        {
+          "dir": "<root>",
+          "changes": 28
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".css",
+          "files": 1,
+          "changes": 186
+        },
+        {
+          "ext": ".py",
+          "files": 4,
+          "changes": 43
+        },
+        {
+          "ext": ".css_t",
+          "files": 1,
+          "changes": 35
+        },
+        {
+          "ext": ".rst",
+          "files": 3,
+          "changes": 19
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 9
+        },
+        {
+          "ext": ".html",
+          "files": 1,
+          "changes": 9
+        }
+      ]
+    },
+    {
+      "tag": "v0.7.6",
+      "tag_sha": "8c90c610cd15f91ed0cd1738aa73f088496b6af9",
+      "released_at": "2011-11-07T14:20:32-05:00",
+      "range": {
+        "from": "v0.7.5",
+        "to": "v0.7.6"
+      },
+      "window": {
+        "start": "2011-11-04T23:57:43-04:00",
+        "end": "2011-11-07T14:20:32-05:00"
+      },
+      "counts": {
+        "commits": 9,
+        "authors": 2,
+        "files_changed": 6,
+        "lines_added": 20,
+        "lines_deleted": 10
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 17
+        },
+        {
+          "dir": "requests",
+          "changes": 7
+        },
+        {
+          "dir": "docs",
+          "changes": 6
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".rst",
+          "files": 4,
+          "changes": 23
+        },
+        {
+          "ext": ".py",
+          "files": 2,
+          "changes": 7
+        }
+      ]
+    },
+    {
+      "tag": "v0.8.0",
+      "tag_sha": "9aa62d5622fd69bc77bad3ea24ed8379eb158de8",
+      "released_at": "2011-11-13T00:48:54-05:00",
+      "range": {
+        "from": "v0.7.6",
+        "to": "v0.8.0"
+      },
+      "window": {
+        "start": "2011-08-15T00:12:14-04:00",
+        "end": "2011-11-13T00:48:54-05:00"
+      },
+      "counts": {
+        "commits": 288,
+        "authors": 13,
+        "files_changed": 78,
+        "lines_added": 13411,
+        "lines_deleted": 9235
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 17918
+        },
+        {
+          "dir": "tests",
+          "changes": 1894
+        },
+        {
+          "dir": "docs",
+          "changes": 1530
+        },
+        {
+          "dir": "<root>",
+          "changes": 1115
+        },
+        {
+          "dir": "debian",
+          "changes": 189
+        },
+        {
+          "dir": "test_requests.py => tests",
+          "changes": 0
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 45,
+          "changes": 20370
+        },
+        {
+          "ext": ".rst",
+          "files": 13,
+          "changes": 1594
+        },
+        {
+          "ext": "<noext>",
+          "files": 11,
+          "changes": 360
+        },
+        {
+          "ext": ".css",
+          "files": 1,
+          "changes": 110
+        },
+        {
+          "ext": ".css_t",
+          "files": 1,
+          "changes": 107
+        },
+        {
+          "ext": ".orig",
+          "files": 1,
+          "changes": 40
+        },
+        {
+          "ext": ".py}",
+          "files": 2,
+          "changes": 23
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 16
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 13
+        },
+        {
+          "ext": ".html",
+          "files": 1,
+          "changes": 9
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 4
+        }
+      ]
+    },
+    {
+      "tag": "v0.8.1",
+      "tag_sha": "b79dea97fd0d24bc1dbe52366565361c08675512",
+      "released_at": "2011-11-15T09:56:21-05:00",
+      "range": {
+        "from": "v0.8.0",
+        "to": "v0.8.1"
+      },
+      "window": {
+        "start": "2011-11-13T00:59:22-05:00",
+        "end": "2011-11-15T09:56:21-05:00"
+      },
+      "counts": {
+        "commits": 18,
+        "authors": 5,
+        "files_changed": 8,
+        "lines_added": 80,
+        "lines_deleted": 41
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 65
+        },
+        {
+          "dir": "docs",
+          "changes": 50
+        },
+        {
+          "dir": "<root>",
+          "changes": 6
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 2,
+          "changes": 65
+        },
+        {
+          "ext": ".rst",
+          "files": 6,
+          "changes": 56
+        }
+      ]
+    },
+    {
+      "tag": "v0.8.2",
+      "tag_sha": "ab23536b1b084bb5dd901aa05dd638075351af47",
+      "released_at": "2011-11-19T16:15:48-05:00",
+      "range": {
+        "from": "v0.8.1",
+        "to": "v0.8.2"
+      },
+      "window": {
+        "start": "2011-11-15T10:01:37-05:00",
+        "end": "2011-11-19T16:15:48-05:00"
+      },
+      "counts": {
+        "commits": 31,
+        "authors": 4,
+        "files_changed": 18,
+        "lines_added": 1410,
+        "lines_deleted": 114
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 1396
+        },
+        {
+          "dir": "docs",
+          "changes": 113
+        },
+        {
+          "dir": "<root>",
+          "changes": 15
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 11,
+          "changes": 1396
+        },
+        {
+          "ext": ".rst",
+          "files": 7,
+          "changes": 128
+        }
+      ]
+    },
+    {
+      "tag": "v0.8.3",
+      "tag_sha": "ee36baf4f346b3d6817a6139840ac3b8b7e42621",
+      "released_at": "2011-11-27T10:41:06-05:00",
+      "range": {
+        "from": "v0.8.2",
+        "to": "v0.8.3"
+      },
+      "window": {
+        "start": "2011-11-17T13:44:13+02:00",
+        "end": "2011-11-27T10:41:06-05:00"
+      },
+      "counts": {
+        "commits": 19,
+        "authors": 5,
+        "files_changed": 14,
+        "lines_added": 270,
+        "lines_deleted": 183
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 220
+        },
+        {
+          "dir": "docs",
+          "changes": 159
+        },
+        {
+          "dir": "<root>",
+          "changes": 74
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 7,
+          "changes": 279
+        },
+        {
+          "ext": ".rst",
+          "files": 4,
+          "changes": 129
+        },
+        {
+          "ext": ".html",
+          "files": 3,
+          "changes": 45
+        }
+      ]
+    },
+    {
+      "tag": "v0.8.4",
+      "tag_sha": "10eed6344cf255f48bdee0b665381969ba27bde9",
+      "released_at": "2011-12-11T11:39:57-05:00",
+      "range": {
+        "from": "v0.8.3",
+        "to": "v0.8.4"
+      },
+      "window": {
+        "start": "2011-11-27T11:24:59-05:00",
+        "end": "2011-12-11T11:39:57-05:00"
+      },
+      "counts": {
+        "commits": 23,
+        "authors": 5,
+        "files_changed": 20,
+        "lines_added": 134,
+        "lines_deleted": 85
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 78
+        },
+        {
+          "dir": "docs",
+          "changes": 76
+        },
+        {
+          "dir": "requests",
+          "changes": 65
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 9,
+          "changes": 94
+        },
+        {
+          "ext": ".rst",
+          "files": 6,
+          "changes": 92
+        },
+        {
+          "ext": "<noext>",
+          "files": 3,
+          "changes": 29
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 2
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v0.8.5",
+      "tag_sha": "0e711f2f9d6b4ae13091d00ca4e04f6114159149",
+      "released_at": "2011-12-14T10:43:08-05:00",
+      "range": {
+        "from": "v0.8.4",
+        "to": "v0.8.5"
+      },
+      "window": {
+        "start": "2011-12-11T11:57:50-05:00",
+        "end": "2011-12-14T10:43:08-05:00"
+      },
+      "counts": {
+        "commits": 12,
+        "authors": 1,
+        "files_changed": 10,
+        "lines_added": 74,
+        "lines_deleted": 13
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 51
+        },
+        {
+          "dir": "<root>",
+          "changes": 24
+        },
+        {
+          "dir": "docs",
+          "changes": 12
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 4,
+          "changes": 65
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 17
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 3
+        },
+        {
+          "ext": ".txt",
+          "files": 2,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v0.8.6",
+      "tag_sha": "c910b958f0694a5e5e7a517cf5b9bdec5f2fef03",
+      "released_at": "2011-12-18T19:18:16-05:00",
+      "range": {
+        "from": "v0.8.5",
+        "to": "v0.8.6"
+      },
+      "window": {
+        "start": "2011-12-17T13:40:04-06:00",
+        "end": "2011-12-18T19:18:16-05:00"
+      },
+      "counts": {
+        "commits": 10,
+        "authors": 2,
+        "files_changed": 7,
+        "lines_added": 94,
+        "lines_deleted": 24
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 99
+        },
+        {
+          "dir": "<root>",
+          "changes": 19
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 4,
+          "changes": 99
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 10
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 9
+        }
+      ]
+    },
+    {
+      "tag": "v0.8.7",
+      "tag_sha": "0bfc029b5e549cb41b7c4999b96f3dfe892baf84",
+      "released_at": "2011-12-24T03:16:40-05:00",
+      "range": {
+        "from": "v0.8.6",
+        "to": "v0.8.7"
+      },
+      "window": {
+        "start": "2011-12-19T11:45:32-05:00",
+        "end": "2011-12-24T03:16:40-05:00"
+      },
+      "counts": {
+        "commits": 17,
+        "authors": 3,
+        "files_changed": 8,
+        "lines_added": 250,
+        "lines_deleted": 90
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 165
+        },
+        {
+          "dir": "<root>",
+          "changes": 108
+        },
+        {
+          "dir": "docs",
+          "changes": 67
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 4,
+          "changes": 257
+        },
+        {
+          "ext": ".rst",
+          "files": 4,
+          "changes": 83
+        }
+      ]
+    },
+    {
+      "tag": "v0.8.8",
+      "tag_sha": "5f768b191d76a6d582839e9ac0b2b564fdab41e9",
+      "released_at": "2011-12-28T03:51:41-05:00",
+      "range": {
+        "from": "v0.8.7",
+        "to": "v0.8.8"
+      },
+      "window": {
+        "start": "2011-10-23T16:57:28-04:00",
+        "end": "2011-12-28T03:51:41-05:00"
+      },
+      "counts": {
+        "commits": 29,
+        "authors": 1,
+        "files_changed": 60,
+        "lines_added": 7613,
+        "lines_deleted": 2457
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 8093
+        },
+        {
+          "dir": "docs",
+          "changes": 1363
+        },
+        {
+          "dir": "<root>",
+          "changes": 614
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 35,
+          "changes": 8493
+        },
+        {
+          "ext": ".rst",
+          "files": 13,
+          "changes": 1056
+        },
+        {
+          "ext": ".css",
+          "files": 1,
+          "changes": 200
+        },
+        {
+          "ext": ".css_t",
+          "files": 1,
+          "changes": 197
+        },
+        {
+          "ext": "<noext>",
+          "files": 4,
+          "changes": 64
+        },
+        {
+          "ext": ".html",
+          "files": 3,
+          "changes": 54
+        },
+        {
+          "ext": ".txt",
+          "files": 2,
+          "changes": 4
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v0.8.9",
+      "tag_sha": "082f4d89486e4bfe918fd125431545a6b879155e",
+      "released_at": "2011-12-28T04:38:38-05:00",
+      "range": {
+        "from": "v0.8.8",
+        "to": "v0.8.9"
+      },
+      "window": {
+        "start": "2011-12-28T03:58:08-05:00",
+        "end": "2011-12-28T04:38:38-05:00"
+      },
+      "counts": {
+        "commits": 4,
+        "authors": 1,
+        "files_changed": 4,
+        "lines_added": 11,
+        "lines_deleted": 3
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 8
+        },
+        {
+          "dir": "requests",
+          "changes": 4
+        },
+        {
+          "dir": "docs",
+          "changes": 2
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 8
+        },
+        {
+          "ext": ".py",
+          "files": 2,
+          "changes": 6
+        }
+      ]
+    },
+    {
+      "tag": "v0.9.0",
+      "tag_sha": "9c0a0fbd01ce0a07cebc26f0203e17bfccf7e481",
+      "released_at": "2011-12-28T04:49:51-05:00",
+      "range": {
+        "from": "v0.8.9",
+        "to": "v0.9.0"
+      },
+      "window": {
+        "start": "2011-12-28T04:48:27-05:00",
+        "end": "2011-12-28T04:49:51-05:00"
+      },
+      "counts": {
+        "commits": 3,
+        "authors": 1,
+        "files_changed": 4,
+        "lines_added": 12,
+        "lines_deleted": 5
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 11
+        },
+        {
+          "dir": "requests",
+          "changes": 6
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 3,
+          "changes": 10
+        },
+        {
+          "ext": ".rst",
+          "files": 1,
+          "changes": 7
+        }
+      ]
+    },
+    {
+      "tag": "v0.9.1",
+      "tag_sha": "638532dd9ae319bef4d2eaa4b905d21bfc035c7e",
+      "released_at": "2012-01-06T01:10:53-05:00",
+      "range": {
+        "from": "v0.9.0",
+        "to": "v0.9.1"
+      },
+      "window": {
+        "start": "2011-12-30T18:55:56-05:00",
+        "end": "2012-01-06T01:10:53-05:00"
+      },
+      "counts": {
+        "commits": 13,
+        "authors": 3,
+        "files_changed": 13,
+        "lines_added": 149,
+        "lines_deleted": 132
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 233
+        },
+        {
+          "dir": "<root>",
+          "changes": 34
+        },
+        {
+          "dir": "docs",
+          "changes": 14
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 7,
+          "changes": 257
+        },
+        {
+          "ext": ".rst",
+          "files": 5,
+          "changes": 22
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v0.9.3",
+      "tag_sha": "c18e6459a80d83c54f787549565eedb3a0210156",
+      "released_at": "2012-01-18T21:56:33-05:00",
+      "range": {
+        "from": "v0.9.1",
+        "to": "v0.9.3"
+      },
+      "window": {
+        "start": "2012-01-06T16:20:33+01:00",
+        "end": "2012-01-18T21:56:33-05:00"
+      },
+      "counts": {
+        "commits": 46,
+        "authors": 12,
+        "files_changed": 18,
+        "lines_added": 351,
+        "lines_deleted": 182
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 435
+        },
+        {
+          "dir": "<root>",
+          "changes": 66
+        },
+        {
+          "dir": "docs",
+          "changes": 32
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 12,
+          "changes": 455
+        },
+        {
+          "ext": ".rst",
+          "files": 5,
+          "changes": 68
+        },
+        {
+          "ext": ".html",
+          "files": 1,
+          "changes": 10
+        }
+      ]
+    },
+    {
+      "tag": "v0.10.0",
+      "tag_sha": "b0555b68e7da5a64c46ce24567dbfa178eca1259",
+      "released_at": "2012-01-21T23:06:34-05:00",
+      "range": {
+        "from": "v0.9.3",
+        "to": "v0.10.0"
+      },
+      "window": {
+        "start": "2012-01-17T11:44:59-05:00",
+        "end": "2012-01-21T23:06:34-05:00"
+      },
+      "counts": {
+        "commits": 37,
+        "authors": 4,
+        "files_changed": 12,
+        "lines_added": 298,
+        "lines_deleted": 138
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 285
+        },
+        {
+          "dir": "<root>",
+          "changes": 110
+        },
+        {
+          "dir": "docs",
+          "changes": 41
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 9,
+          "changes": 367
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 66
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 3
+        }
+      ]
+    },
+    {
+      "tag": "v0.10.1",
+      "tag_sha": "8493d8329e9b606503923323af6417844508a744",
+      "released_at": "2012-01-23T02:28:01-05:00",
+      "range": {
+        "from": "v0.10.0",
+        "to": "v0.10.1"
+      },
+      "window": {
+        "start": "2012-01-21T23:10:37-05:00",
+        "end": "2012-01-23T02:28:01-05:00"
+      },
+      "counts": {
+        "commits": 33,
+        "authors": 1,
+        "files_changed": 30,
+        "lines_added": 1072,
+        "lines_deleted": 449
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 1184
+        },
+        {
+          "dir": "<root>",
+          "changes": 322
+        },
+        {
+          "dir": "docs",
+          "changes": 15
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 25,
+          "changes": 1478
+        },
+        {
+          "ext": ".rst",
+          "files": 3,
+          "changes": 27
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 12
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 4
+        }
+      ]
+    },
+    {
+      "tag": "v0.10.2",
+      "tag_sha": "8e2696b385399ccda20c768dc485f38b4b44cdac",
+      "released_at": "2012-02-15T03:14:48-05:00",
+      "range": {
+        "from": "v0.10.1",
+        "to": "v0.10.2"
+      },
+      "window": {
+        "start": "2012-01-23T02:31:16-05:00",
+        "end": "2012-02-15T03:14:48-05:00"
+      },
+      "counts": {
+        "commits": 86,
+        "authors": 15,
+        "files_changed": 25,
+        "lines_added": 784,
+        "lines_deleted": 467
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 740
+        },
+        {
+          "dir": "requests",
+          "changes": 414
+        },
+        {
+          "dir": "docs",
+          "changes": 67
+        },
+        {
+          "dir": "test_requests_async.py => tests",
+          "changes": 20
+        },
+        {
+          "dir": "test_requests.py => tests",
+          "changes": 6
+        },
+        {
+          "dir": "test_requests_ext.py => tests",
+          "changes": 4
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 16,
+          "changes": 1078
+        },
+        {
+          "ext": ".rst",
+          "files": 7,
+          "changes": 154
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 18
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 1
+        }
+      ]
+    },
+    {
+      "tag": "v0.10.3",
+      "tag_sha": "6f5735274b9ce2c61345adf8d7657b01b1623320",
+      "released_at": "2012-02-20T14:02:13-05:00",
+      "range": {
+        "from": "v0.10.2",
+        "to": "v0.10.3"
+      },
+      "window": {
+        "start": "2012-02-16T18:21:32+00:00",
+        "end": "2012-02-20T14:02:13-05:00"
+      },
+      "counts": {
+        "commits": 23,
+        "authors": 4,
+        "files_changed": 10,
+        "lines_added": 171,
+        "lines_deleted": 162
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "tests",
+          "changes": 173
+        },
+        {
+          "dir": "requests",
+          "changes": 136
+        },
+        {
+          "dir": "<root>",
+          "changes": 20
+        },
+        {
+          "dir": "docs",
+          "changes": 4
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 7,
+          "changes": 309
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 22
+        },
+        {
+          "ext": ".html",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v0.10.4",
+      "tag_sha": "c9b49202302085c5b121b5f56962d148f5f21962",
+      "released_at": "2012-02-20T16:21:25-05:00",
+      "range": {
+        "from": "v0.10.3",
+        "to": "v0.10.4"
+      },
+      "window": {
+        "start": "2012-02-20T15:35:02-05:00",
+        "end": "2012-02-20T16:21:25-05:00"
+      },
+      "counts": {
+        "commits": 9,
+        "authors": 1,
+        "files_changed": 6,
+        "lines_added": 100,
+        "lines_deleted": 12
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 100
+        },
+        {
+          "dir": "<root>",
+          "changes": 10
+        },
+        {
+          "dir": "docs",
+          "changes": 2
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 4,
+          "changes": 100
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 12
+        }
+      ]
+    },
+    {
+      "tag": "v0.10.5",
+      "tag_sha": "cfeb485434ec544f57ccfcd3204b1880d821e8ac",
+      "released_at": "2012-02-25T23:05:39-05:00",
+      "range": {
+        "from": "v0.10.4",
+        "to": "v0.10.5"
+      },
+      "window": {
+        "start": "2012-02-21T09:24:52+01:00",
+        "end": "2012-02-25T23:05:39-05:00"
+      },
+      "counts": {
+        "commits": 20,
+        "authors": 4,
+        "files_changed": 11,
+        "lines_added": 128,
+        "lines_deleted": 21
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 77
+        },
+        {
+          "dir": "<root>",
+          "changes": 39
+        },
+        {
+          "dir": "docs",
+          "changes": 21
+        },
+        {
+          "dir": "tests",
+          "changes": 12
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 5,
+          "changes": 89
+        },
+        {
+          "ext": ".rst",
+          "files": 4,
+          "changes": 32
+        },
+        {
+          "ext": ".yml",
+          "files": 1,
+          "changes": 24
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 4
+        }
+      ]
+    },
+    {
+      "tag": "v0.10.6",
+      "tag_sha": "0eb5b633aa9943b447c0033ba97c06bcb7bf0d72",
+      "released_at": "2012-02-25T23:17:45-05:00",
+      "range": {
+        "from": "v0.10.5",
+        "to": "v0.10.6"
+      },
+      "window": {
+        "start": "2012-02-21T22:51:38+00:00",
+        "end": "2012-02-25T23:17:45-05:00"
+      },
+      "counts": {
+        "commits": 11,
+        "authors": 3,
+        "files_changed": 11,
+        "lines_added": 85,
+        "lines_deleted": 36
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 113
+        },
+        {
+          "dir": "<root>",
+          "changes": 8
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 8,
+          "changes": 113
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 6
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v0.10.7",
+      "tag_sha": "946f7ec579c7784cb5c65301eab5d5d81e562128",
+      "released_at": "2012-03-07T16:50:02-08:00",
+      "range": {
+        "from": "v0.10.6",
+        "to": "v0.10.7"
+      },
+      "window": {
+        "start": "2012-02-26T10:22:47-05:00",
+        "end": "2012-03-07T16:50:02-08:00"
+      },
+      "counts": {
+        "commits": 20,
+        "authors": 3,
+        "files_changed": 14,
+        "lines_added": 61,
+        "lines_deleted": 21
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 41
+        },
+        {
+          "dir": "<root>",
+          "changes": 35
+        },
+        {
+          "dir": "tests",
+          "changes": 6
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 7,
+          "changes": 54
+        },
+        {
+          "ext": ".rst",
+          "files": 3,
+          "changes": 12
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 11
+        },
+        {
+          "ext": ".yml",
+          "files": 1,
+          "changes": 4
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 1
+        }
+      ]
+    },
+    {
+      "tag": "v0.10.8",
+      "tag_sha": "6562137731f9ad11be7c156fa25220fc3a7ffe03",
+      "released_at": "2012-03-09T08:59:12-08:00",
+      "range": {
+        "from": "v0.10.7",
+        "to": "v0.10.8"
+      },
+      "window": {
+        "start": "2012-02-28T12:08:37-05:00",
+        "end": "2012-03-09T08:59:12-08:00"
+      },
+      "counts": {
+        "commits": 21,
+        "authors": 4,
+        "files_changed": 14,
+        "lines_added": 252,
+        "lines_deleted": 110
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 177
+        },
+        {
+          "dir": "tests",
+          "changes": 126
+        },
+        {
+          "dir": "<root>",
+          "changes": 32
+        },
+        {
+          "dir": "docs",
+          "changes": 27
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 9,
+          "changes": 310
+        },
+        {
+          "ext": ".rst",
+          "files": 4,
+          "changes": 51
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 1
+        }
+      ]
+    },
+    {
+      "tag": "v0.11.1",
+      "tag_sha": "775b6f6f0098ffa9edd3874b1af4b98378377211",
+      "released_at": "2012-03-30T23:42:56-04:00",
+      "range": {
+        "from": "v0.10.8",
+        "to": "v0.11.1"
+      },
+      "window": {
+        "start": "2012-03-09T17:30:35-05:00",
+        "end": "2012-03-30T23:42:56-04:00"
+      },
+      "counts": {
+        "commits": 57,
+        "authors": 12,
+        "files_changed": 28,
+        "lines_added": 623,
+        "lines_deleted": 378
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 823
+        },
+        {
+          "dir": "docs",
+          "changes": 100
+        },
+        {
+          "dir": "<root>",
+          "changes": 60
+        },
+        {
+          "dir": "tests",
+          "changes": 18
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 18,
+          "changes": 841
+        },
+        {
+          "ext": ".rst",
+          "files": 8,
+          "changes": 147
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 13
+        }
+      ]
+    },
+    {
+      "tag": "v0.12.0",
+      "tag_sha": "373a34a1443b3137b062a699d39cf91e78a892a3",
+      "released_at": "2012-05-02T19:17:14-04:00",
+      "range": {
+        "from": "v0.11.1",
+        "to": "v0.12.0"
+      },
+      "window": {
+        "start": "2012-03-27T15:38:56+02:00",
+        "end": "2012-05-02T19:17:14-04:00"
+      },
+      "counts": {
+        "commits": 113,
+        "authors": 17,
+        "files_changed": 31,
+        "lines_added": 2893,
+        "lines_deleted": 1295
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 2688
+        },
+        {
+          "dir": "tests",
+          "changes": 1235
+        },
+        {
+          "dir": "<root>",
+          "changes": 230
+        },
+        {
+          "dir": "docs",
+          "changes": 35
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 18,
+          "changes": 4021
+        },
+        {
+          "ext": ".rst",
+          "files": 7,
+          "changes": 96
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 46
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 9
+        },
+        {
+          "ext": ".yml",
+          "files": 1,
+          "changes": 6
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 6
+        },
+        {
+          "ext": ".html",
+          "files": 1,
+          "changes": 4
+        }
+      ]
+    },
+    {
+      "tag": "v0.12.1",
+      "tag_sha": "bca920c1c1a96e191ec7f9fcaec5f53e46edf08e",
+      "released_at": "2012-05-08T01:18:05-04:00",
+      "range": {
+        "from": "v0.12.0",
+        "to": "v0.12.1"
+      },
+      "window": {
+        "start": "2012-05-02T16:51:19+03:00",
+        "end": "2012-05-08T01:18:05-04:00"
+      },
+      "counts": {
+        "commits": 38,
+        "authors": 6,
+        "files_changed": 15,
+        "lines_added": 529,
+        "lines_deleted": 119
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "tests",
+          "changes": 273
+        },
+        {
+          "dir": "requests",
+          "changes": 151
+        },
+        {
+          "dir": "<root>",
+          "changes": 128
+        },
+        {
+          "dir": "docs",
+          "changes": 96
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 8,
+          "changes": 430
+        },
+        {
+          "ext": ".rst",
+          "files": 4,
+          "changes": 110
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 100
+        },
+        {
+          "ext": ".yml",
+          "files": 1,
+          "changes": 8
+        }
+      ]
+    },
+    {
+      "tag": "v0.13.0",
+      "tag_sha": "77a57c0e7e669173241a56670ba4d096a303c75e",
+      "released_at": "2012-05-29T20:53:51-04:00",
+      "range": {
+        "from": "v0.12.1",
+        "to": "v0.13.0"
+      },
+      "window": {
+        "start": "2012-05-08T01:21:48-04:00",
+        "end": "2012-05-29T20:53:51-04:00"
+      },
+      "counts": {
+        "commits": 65,
+        "authors": 16,
+        "files_changed": 30,
+        "lines_added": 1373,
+        "lines_deleted": 1982
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 2233
+        },
+        {
+          "dir": "docs",
+          "changes": 795
+        },
+        {
+          "dir": "tests",
+          "changes": 249
+        },
+        {
+          "dir": "<root>",
+          "changes": 78
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 20,
+          "changes": 2489
+        },
+        {
+          "ext": ".rst",
+          "files": 7,
+          "changes": 838
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 26
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v0.13.1",
+      "tag_sha": "10d23981736e0cd7d864b12cd8d12edd9a4d8b6d",
+      "released_at": "2012-06-07T22:21:06-04:00",
+      "range": {
+        "from": "v0.13.0",
+        "to": "v0.13.1"
+      },
+      "window": {
+        "start": "2012-05-30T17:34:24+02:00",
+        "end": "2012-06-07T22:21:06-04:00"
+      },
+      "counts": {
+        "commits": 24,
+        "authors": 7,
+        "files_changed": 10,
+        "lines_added": 191,
+        "lines_deleted": 161
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "docs",
+          "changes": 184
+        },
+        {
+          "dir": "tests",
+          "changes": 74
+        },
+        {
+          "dir": "<root>",
+          "changes": 55
+        },
+        {
+          "dir": "requests",
+          "changes": 39
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".rst",
+          "files": 5,
+          "changes": 200
+        },
+        {
+          "ext": ".py",
+          "files": 5,
+          "changes": 152
+        }
+      ]
+    },
+    {
+      "tag": "v0.13.2",
+      "tag_sha": "d983cfabe232e99f379ef9f0f63bc85993a5217f",
+      "released_at": "2012-06-28T17:35:07-07:00",
+      "range": {
+        "from": "v0.13.1",
+        "to": "v0.13.2"
+      },
+      "window": {
+        "start": "2012-06-07T22:44:38-04:00",
+        "end": "2012-06-28T17:35:07-07:00"
+      },
+      "counts": {
+        "commits": 49,
+        "authors": 11,
+        "files_changed": 108,
+        "lines_added": 21283,
+        "lines_deleted": 416
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 20872
+        },
+        {
+          "dir": "docs",
+          "changes": 603
+        },
+        {
+          "dir": "<root>",
+          "changes": 190
+        },
+        {
+          "dir": "tests",
+          "changes": 34
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 98,
+          "changes": 17634
+        },
+        {
+          "ext": ".pem",
+          "files": 1,
+          "changes": 3338
+        },
+        {
+          "ext": ".rst",
+          "files": 5,
+          "changes": 582
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 109
+        },
+        {
+          "ext": ".css_t",
+          "files": 1,
+          "changes": 34
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v0.13.3",
+      "tag_sha": "884fc333a1a156fd3b94ebec5a0eaa94e0122cb6",
+      "released_at": "2012-07-12T13:18:35-07:00",
+      "range": {
+        "from": "v0.13.2",
+        "to": "v0.13.3"
+      },
+      "window": {
+        "start": "2012-06-30T18:22:22-04:00",
+        "end": "2012-07-12T13:18:35-07:00"
+      },
+      "counts": {
+        "commits": 28,
+        "authors": 9,
+        "files_changed": 11,
+        "lines_added": 218,
+        "lines_deleted": 117
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 199
+        },
+        {
+          "dir": "docs",
+          "changes": 82
+        },
+        {
+          "dir": "<root>",
+          "changes": 34
+        },
+        {
+          "dir": "tests",
+          "changes": 20
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 5,
+          "changes": 219
+        },
+        {
+          "ext": ".rst",
+          "files": 6,
+          "changes": 116
+        }
+      ]
+    },
+    {
+      "tag": "v0.13.4",
+      "tag_sha": "767751599e4d4d7bcf0c5bee3751cbec6ef1fb7f",
+      "released_at": "2012-07-27T02:21:56-04:00",
+      "range": {
+        "from": "v0.13.3",
+        "to": "v0.13.4"
+      },
+      "window": {
+        "start": "2012-06-01T17:15:53-04:00",
+        "end": "2012-07-27T02:21:56-04:00"
+      },
+      "counts": {
+        "commits": 27,
+        "authors": 9,
+        "files_changed": 16,
+        "lines_added": 1081,
+        "lines_deleted": 287
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 1277
+        },
+        {
+          "dir": "tests",
+          "changes": 70
+        },
+        {
+          "dir": "<root>",
+          "changes": 17
+        },
+        {
+          "dir": "docs",
+          "changes": 4
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 14,
+          "changes": 1347
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 21
+        }
+      ]
+    },
+    {
+      "tag": "v0.13.5",
+      "tag_sha": "9abc9ad1b3e93307b6a82c54ed94faa11d43bd4f",
+      "released_at": "2012-07-27T03:23:33-04:00",
+      "range": {
+        "from": "v0.13.4",
+        "to": "v0.13.5"
+      },
+      "window": {
+        "start": "2012-07-27T03:23:33-04:00",
+        "end": "2012-07-27T03:23:33-04:00"
+      },
+      "counts": {
+        "commits": 1,
+        "authors": 1,
+        "files_changed": 1,
+        "lines_added": 2,
+        "lines_deleted": 2
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 4
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 1,
+          "changes": 4
+        }
+      ]
+    },
+    {
+      "tag": "v0.13.6",
+      "tag_sha": "fc6ddfd78a26afe926c0b5430807d2bbe6d7c874",
+      "released_at": "2012-08-06T02:45:52-04:00",
+      "range": {
+        "from": "v0.13.5",
+        "to": "v0.13.6"
+      },
+      "window": {
+        "start": "2012-07-27T09:49:39+01:00",
+        "end": "2012-08-06T02:45:52-04:00"
+      },
+      "counts": {
+        "commits": 24,
+        "authors": 8,
+        "files_changed": 13,
+        "lines_added": 266,
+        "lines_deleted": 123
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 236
+        },
+        {
+          "dir": "tests",
+          "changes": 110
+        },
+        {
+          "dir": "docs",
+          "changes": 31
+        },
+        {
+          "dir": "<root>",
+          "changes": 12
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 9,
+          "changes": 348
+        },
+        {
+          "ext": ".html",
+          "files": 2,
+          "changes": 23
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 18
+        }
+      ]
+    },
+    {
+      "tag": "v0.13.7",
+      "tag_sha": "b130b98086e1826bd0ade3fd9a899e49eeb253ec",
+      "released_at": "2012-08-19T10:46:55+10:00",
+      "range": {
+        "from": "v0.13.6",
+        "to": "v0.13.7"
+      },
+      "window": {
+        "start": "2012-08-02T17:31:30-04:00",
+        "end": "2012-08-19T10:46:55+10:00"
+      },
+      "counts": {
+        "commits": 58,
+        "authors": 10,
+        "files_changed": 30,
+        "lines_added": 1487,
+        "lines_deleted": 711
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 1127
+        },
+        {
+          "dir": "tests",
+          "changes": 673
+        },
+        {
+          "dir": "docs",
+          "changes": 369
+        },
+        {
+          "dir": "<root>",
+          "changes": 29
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 18,
+          "changes": 1800
+        },
+        {
+          "ext": ".rst",
+          "files": 5,
+          "changes": 230
+        },
+        {
+          "ext": ".css_t",
+          "files": 1,
+          "changes": 132
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 16
+        },
+        {
+          "ext": ".html",
+          "files": 2,
+          "changes": 8
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 6
+        },
+        {
+          "ext": ".conf",
+          "files": 1,
+          "changes": 6
+        }
+      ]
+    },
+    {
+      "tag": "v0.13.9",
+      "tag_sha": "1be2a55a39b0738c7e07f3bd356306de2683f04e",
+      "released_at": "2012-08-25T11:07:13-04:00",
+      "range": {
+        "from": "v0.13.7",
+        "to": "v0.13.9"
+      },
+      "window": {
+        "start": "2012-08-16T17:49:00+02:00",
+        "end": "2012-08-25T11:07:13-04:00"
+      },
+      "counts": {
+        "commits": 34,
+        "authors": 8,
+        "files_changed": 13,
+        "lines_added": 777,
+        "lines_deleted": 516
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 1016
+        },
+        {
+          "dir": "docs",
+          "changes": 229
+        },
+        {
+          "dir": "<root>",
+          "changes": 25
+        },
+        {
+          "dir": "tests",
+          "changes": 23
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 9,
+          "changes": 1039
+        },
+        {
+          "ext": ".rst",
+          "files": 3,
+          "changes": 242
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 12
+        }
+      ]
+    },
+    {
+      "tag": "v0.14.0",
+      "tag_sha": "a69cf7e71cc1294fb93cb2d4e7655fab08658dc5",
+      "released_at": "2012-09-02T04:50:05-04:00",
+      "range": {
+        "from": "v0.13.9",
+        "to": "v0.14.0"
+      },
+      "window": {
+        "start": "2012-08-25T11:46:41-04:00",
+        "end": "2012-09-02T04:50:05-04:00"
+      },
+      "counts": {
+        "commits": 17,
+        "authors": 4,
+        "files_changed": 8,
+        "lines_added": 215,
+        "lines_deleted": 110
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 313
+        },
+        {
+          "dir": "<root>",
+          "changes": 10
+        },
+        {
+          "dir": "docs",
+          "changes": 2
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 4,
+          "changes": 313
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 9
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 3
+        }
+      ]
+    },
+    {
+      "tag": "v0.14.1",
+      "tag_sha": "9dce7861134c60596b91dfa8eda2ff66f5c5d5e5",
+      "released_at": "2012-10-01T13:29:38-04:00",
+      "range": {
+        "from": "v0.14.0",
+        "to": "v0.14.1"
+      },
+      "window": {
+        "start": "2012-08-29T21:20:11+02:00",
+        "end": "2012-10-01T13:29:38-04:00"
+      },
+      "counts": {
+        "commits": 45,
+        "authors": 13,
+        "files_changed": 17,
+        "lines_added": 585,
+        "lines_deleted": 330
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 556
+        },
+        {
+          "dir": "tests",
+          "changes": 230
+        },
+        {
+          "dir": "docs",
+          "changes": 108
+        },
+        {
+          "dir": "<root>",
+          "changes": 21
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 12,
+          "changes": 796
+        },
+        {
+          "ext": ".rst",
+          "files": 5,
+          "changes": 119
+        }
+      ]
+    },
+    {
+      "tag": "v0.14.2",
+      "tag_sha": "63243b1e3b435c7736acf1e51c0f6fa6666d861d",
+      "released_at": "2012-10-27T10:08:40-05:00",
+      "range": {
+        "from": "v0.14.1",
+        "to": "v0.14.2"
+      },
+      "window": {
+        "start": "2012-10-01T13:30:41-04:00",
+        "end": "2012-10-27T10:08:40-05:00"
+      },
+      "counts": {
+        "commits": 59,
+        "authors": 15,
+        "files_changed": 26,
+        "lines_added": 756,
+        "lines_deleted": 321
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "tests",
+          "changes": 515
+        },
+        {
+          "dir": "requests",
+          "changes": 297
+        },
+        {
+          "dir": "docs",
+          "changes": 238
+        },
+        {
+          "dir": "<root>",
+          "changes": 27
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 16,
+          "changes": 822
+        },
+        {
+          "ext": ".rst",
+          "files": 8,
+          "changes": 131
+        },
+        {
+          "ext": ".html",
+          "files": 2,
+          "changes": 124
+        }
+      ]
+    },
+    {
+      "tag": "v1.0.0",
+      "tag_sha": "0d8d99de660ecdd3561e5b52d9641d4cb20c5ab1",
+      "released_at": "2012-12-17T10:07:13-05:00",
+      "range": {
+        "from": "v0.14.2",
+        "to": "v1.0.0"
+      },
+      "window": {
+        "start": "2012-10-30T15:25:36+00:00",
+        "end": "2012-12-17T10:07:13-05:00"
+      },
+      "counts": {
+        "commits": 175,
+        "authors": 24,
+        "files_changed": 180,
+        "lines_added": 24475,
+        "lines_deleted": 35709
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 55555
+        },
+        {
+          "dir": "tests",
+          "changes": 2549
+        },
+        {
+          "dir": "<root>",
+          "changes": 1880
+        },
+        {
+          "dir": "docs",
+          "changes": 200
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 160,
+          "changes": 59456
+        },
+        {
+          "ext": ".rst",
+          "files": 9,
+          "changes": 279
+        },
+        {
+          "ext": ".orig",
+          "files": 1,
+          "changes": 246
+        },
+        {
+          "ext": "<noext>",
+          "files": 5,
+          "changes": 176
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 8
+        },
+        {
+          "ext": ".yml",
+          "files": 1,
+          "changes": 7
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 6
+        },
+        {
+          "ext": ".html",
+          "files": 1,
+          "changes": 6
+        },
+        {
+          "ext": ".org",
+          "files": 1,
+          "changes": 0
+        }
+      ]
+    },
+    {
+      "tag": "v1.0.1",
+      "tag_sha": "b30b09e84c5709149e796af5cb07671db823af53",
+      "released_at": "2012-12-17T13:53:24-05:00",
+      "range": {
+        "from": "v1.0.0",
+        "to": "v1.0.1"
+      },
+      "window": {
+        "start": "2012-12-17T10:26:11-05:00",
+        "end": "2012-12-17T13:53:24-05:00"
+      },
+      "counts": {
+        "commits": 9,
+        "authors": 2,
+        "files_changed": 6,
+        "lines_added": 26,
+        "lines_deleted": 19
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 32
+        },
+        {
+          "dir": "<root>",
+          "changes": 11
+        },
+        {
+          "dir": "docs",
+          "changes": 2
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 3,
+          "changes": 32
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 12
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 1
+        }
+      ]
+    },
+    {
+      "tag": "v1.0.2",
+      "tag_sha": "f549efd43d4d9d9b8338b64317c15d4b6739e42e",
+      "released_at": "2012-12-17T13:58:33-05:00",
+      "range": {
+        "from": "v1.0.1",
+        "to": "v1.0.2"
+      },
+      "window": {
+        "start": "2012-12-17T13:58:07-05:00",
+        "end": "2012-12-17T13:58:33-05:00"
+      },
+      "counts": {
+        "commits": 2,
+        "authors": 1,
+        "files_changed": 3,
+        "lines_added": 9,
+        "lines_deleted": 4
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 8
+        },
+        {
+          "dir": "<root>",
+          "changes": 5
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 2,
+          "changes": 8
+        },
+        {
+          "ext": ".rst",
+          "files": 1,
+          "changes": 5
+        }
+      ]
+    },
+    {
+      "tag": "v1.0.3",
+      "tag_sha": "c60b72e2d0c505b016741c419894e1feaeb96d9d",
+      "released_at": "2012-12-18T04:50:41-05:00",
+      "range": {
+        "from": "v1.0.2",
+        "to": "v1.0.3"
+      },
+      "window": {
+        "start": "2012-12-17T18:31:56+00:00",
+        "end": "2012-12-18T04:50:41-05:00"
+      },
+      "counts": {
+        "commits": 16,
+        "authors": 7,
+        "files_changed": 12,
+        "lines_added": 259,
+        "lines_deleted": 241
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "docs",
+          "changes": 364
+        },
+        {
+          "dir": "requests",
+          "changes": 106
+        },
+        {
+          "dir": "<root>",
+          "changes": 30
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".rst",
+          "files": 4,
+          "changes": 370
+        },
+        {
+          "ext": ".py",
+          "files": 7,
+          "changes": 126
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 4
+        }
+      ]
+    },
+    {
+      "tag": "v1.0.4",
+      "tag_sha": "5b5ff6920102e013cf041bd342459e4e0613294f",
+      "released_at": "2012-12-23T02:42:14-05:00",
+      "range": {
+        "from": "v1.0.3",
+        "to": "v1.0.4"
+      },
+      "window": {
+        "start": "2012-12-18T05:01:32-05:00",
+        "end": "2012-12-23T02:42:14-05:00"
+      },
+      "counts": {
+        "commits": 51,
+        "authors": 8,
+        "files_changed": 17,
+        "lines_added": 305,
+        "lines_deleted": 279
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "docs",
+          "changes": 372
+        },
+        {
+          "dir": "requests",
+          "changes": 191
+        },
+        {
+          "dir": "<root>",
+          "changes": 21
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".rst",
+          "files": 10,
+          "changes": 379
+        },
+        {
+          "ext": ".py",
+          "files": 6,
+          "changes": 203
+        },
+        {
+          "ext": ".yml",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v1.1.0",
+      "tag_sha": "1a7c91f6581c80122ed8cd1fdf4a8ca38c842453",
+      "released_at": "2013-01-10T02:13:06-05:00",
+      "range": {
+        "from": "v1.0.4",
+        "to": "v1.1.0"
+      },
+      "window": {
+        "start": "2012-12-23T02:45:41-05:00",
+        "end": "2013-01-10T02:13:06-05:00"
+      },
+      "counts": {
+        "commits": 32,
+        "authors": 8,
+        "files_changed": 14,
+        "lines_added": 397,
+        "lines_deleted": 205
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 467
+        },
+        {
+          "dir": "docs",
+          "changes": 87
+        },
+        {
+          "dir": "<root>",
+          "changes": 48
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 8,
+          "changes": 499
+        },
+        {
+          "ext": ".rst",
+          "files": 5,
+          "changes": 99
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 4
+        }
+      ]
+    },
+    {
+      "tag": "v1.2.0",
+      "tag_sha": "d06908d655eca4467521c28d93a68d329d48d524",
+      "released_at": "2013-03-31T08:28:22+03:00",
+      "range": {
+        "from": "v1.1.0",
+        "to": "v1.2.0"
+      },
+      "window": {
+        "start": "2013-01-11T09:34:14-05:00",
+        "end": "2013-03-31T08:28:22+03:00"
+      },
+      "counts": {
+        "commits": 196,
+        "authors": 40,
+        "files_changed": 46,
+        "lines_added": 2037,
+        "lines_deleted": 996
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 2065
+        },
+        {
+          "dir": "<root>",
+          "changes": 716
+        },
+        {
+          "dir": "docs",
+          "changes": 252
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 33,
+          "changes": 2500
+        },
+        {
+          "ext": ".rst",
+          "files": 7,
+          "changes": 338
+        },
+        {
+          "ext": ".pem",
+          "files": 1,
+          "changes": 144
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 30
+        },
+        {
+          "ext": ".html",
+          "files": 2,
+          "changes": 8
+        },
+        {
+          "ext": ".yml",
+          "files": 1,
+          "changes": 8
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 5
+        }
+      ]
+    },
+    {
+      "tag": "v1.2.1",
+      "tag_sha": "569b59f495ec37639b011591bd2b0c11c3e77581",
+      "released_at": "2013-05-20T16:10:23-04:00",
+      "range": {
+        "from": "v1.2.0",
+        "to": "v1.2.1"
+      },
+      "window": {
+        "start": "2013-03-11T10:28:37+02:00",
+        "end": "2013-05-20T16:10:23-04:00"
+      },
+      "counts": {
+        "commits": 103,
+        "authors": 28,
+        "files_changed": 53,
+        "lines_added": 2969,
+        "lines_deleted": 739
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 2236
+        },
+        {
+          "dir": "<root>",
+          "changes": 973
+        },
+        {
+          "dir": "docs",
+          "changes": 499
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 36,
+          "changes": 3112
+        },
+        {
+          "ext": ".rst",
+          "files": 10,
+          "changes": 505
+        },
+        {
+          "ext": "<noext>",
+          "files": 3,
+          "changes": 43
+        },
+        {
+          "ext": ".html",
+          "files": 2,
+          "changes": 38
+        },
+        {
+          "ext": ".yml",
+          "files": 1,
+          "changes": 5
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 5
+        }
+      ]
+    },
+    {
+      "tag": "v1.2.2",
+      "tag_sha": "00ab8fbfea52795e5f40b18d4707a9799fcd0688",
+      "released_at": "2013-05-21T17:43:53-04:00",
+      "range": {
+        "from": "v1.2.1",
+        "to": "v1.2.2"
+      },
+      "window": {
+        "start": "2013-05-10T23:46:54-07:00",
+        "end": "2013-05-21T17:43:53-04:00"
+      },
+      "counts": {
+        "commits": 21,
+        "authors": 7,
+        "files_changed": 8,
+        "lines_added": 252,
+        "lines_deleted": 175
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 335
+        },
+        {
+          "dir": "<root>",
+          "changes": 92
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 8,
+          "changes": 427
+        }
+      ]
+    },
+    {
+      "tag": "v1.2.3",
+      "tag_sha": "3bb13f8fbb9d4ed1a20bd33495cdc087eb062ca0",
+      "released_at": "2013-05-25T12:48:10-04:00",
+      "range": {
+        "from": "v1.2.2",
+        "to": "v1.2.3"
+      },
+      "window": {
+        "start": "2013-05-25T12:48:10-04:00",
+        "end": "2013-05-25T12:48:10-04:00"
+      },
+      "counts": {
+        "commits": 1,
+        "authors": 1,
+        "files_changed": 2,
+        "lines_added": 14,
+        "lines_deleted": 2
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 12
+        },
+        {
+          "dir": "requests",
+          "changes": 4
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".rst",
+          "files": 1,
+          "changes": 12
+        },
+        {
+          "ext": ".py",
+          "files": 1,
+          "changes": 4
+        }
+      ]
+    },
+    {
+      "tag": "v2.0.0",
+      "tag_sha": "4401620111bee0a7319bf1cb4bd0852f7c854bf6",
+      "released_at": "2013-09-24T15:08:12-04:00",
+      "range": {
+        "from": "v1.2.3",
+        "to": "v2.0.0"
+      },
+      "window": {
+        "start": "2013-05-23T11:21:29-04:00",
+        "end": "2013-09-24T15:08:12-04:00"
+      },
+      "counts": {
+        "commits": 207,
+        "authors": 39,
+        "files_changed": 40,
+        "lines_added": 4501,
+        "lines_deleted": 1283
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 4378
+        },
+        {
+          "dir": "<root>",
+          "changes": 985
+        },
+        {
+          "dir": "docs",
+          "changes": 421
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 26,
+          "changes": 5163
+        },
+        {
+          "ext": ".rst",
+          "files": 13,
+          "changes": 610
+        },
+        {
+          "ext": ".html",
+          "files": 1,
+          "changes": 11
+        }
+      ]
+    },
+    {
+      "tag": "v2.0.1",
+      "tag_sha": "dd777b3d7e8975ec6927dc9cc15b881778d39bc8",
+      "released_at": "2013-10-24T10:32:05-04:00",
+      "range": {
+        "from": "v2.0.0",
+        "to": "v2.0.1"
+      },
+      "window": {
+        "start": "2013-09-24T18:35:22-07:00",
+        "end": "2013-10-24T10:32:05-04:00"
+      },
+      "counts": {
+        "commits": 71,
+        "authors": 15,
+        "files_changed": 28,
+        "lines_added": 10759,
+        "lines_deleted": 6888
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 17107
+        },
+        {
+          "dir": "docs",
+          "changes": 326
+        },
+        {
+          "dir": "<root>",
+          "changes": 214
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".pem",
+          "files": 1,
+          "changes": 16304
+        },
+        {
+          "ext": ".py",
+          "files": 19,
+          "changes": 916
+        },
+        {
+          "ext": ".rst",
+          "files": 6,
+          "changes": 387
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 29
+        },
+        {
+          "ext": ".yml",
+          "files": 1,
+          "changes": 11
+        }
+      ]
+    },
+    {
+      "tag": "v2.1.0",
+      "tag_sha": "3235766d67aecc8db3b343f40d190e9d4752c071",
+      "released_at": "2013-12-05T17:51:10-05:00",
+      "range": {
+        "from": "v2.0.1",
+        "to": "v2.1.0"
+      },
+      "window": {
+        "start": "2013-10-07T12:23:16-05:00",
+        "end": "2013-12-05T17:51:10-05:00"
+      },
+      "counts": {
+        "commits": 127,
+        "authors": 21,
+        "files_changed": 32,
+        "lines_added": 2342,
+        "lines_deleted": 1227
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 1813
+        },
+        {
+          "dir": "<root>",
+          "changes": 1546
+        },
+        {
+          "dir": "docs",
+          "changes": 198
+        },
+        {
+          "dir": "idea",
+          "changes": 12
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 18,
+          "changes": 3119
+        },
+        {
+          "ext": ".rst",
+          "files": 5,
+          "changes": 214
+        },
+        {
+          "ext": ".pem",
+          "files": 1,
+          "changes": 122
+        },
+        {
+          "ext": ".html",
+          "files": 3,
+          "changes": 52
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 36
+        },
+        {
+          "ext": ".xml",
+          "files": 1,
+          "changes": 12
+        },
+        {
+          "ext": ".txt",
+          "files": 2,
+          "changes": 10
+        },
+        {
+          "ext": ".cfg",
+          "files": 1,
+          "changes": 4
+        }
+      ]
+    },
+    {
+      "tag": "v2.2.0",
+      "tag_sha": "0db1d3d6753d6a1e5bee25b874b4eed757009425",
+      "released_at": "2014-01-09T14:33:17-05:00",
+      "range": {
+        "from": "v2.1.0",
+        "to": "v2.2.0"
+      },
+      "window": {
+        "start": "2013-12-06T08:56:30-05:00",
+        "end": "2014-01-09T14:33:17-05:00"
+      },
+      "counts": {
+        "commits": 51,
+        "authors": 11,
+        "files_changed": 61,
+        "lines_added": 14353,
+        "lines_deleted": 13647
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 27056
+        },
+        {
+          "dir": "<root>",
+          "changes": 627
+        },
+        {
+          "dir": "docs",
+          "changes": 317
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 53,
+          "changes": 27607
+        },
+        {
+          "ext": ".rst",
+          "files": 6,
+          "changes": 349
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 44
+        }
+      ]
+    },
+    {
+      "tag": "v2.2.1",
+      "tag_sha": "33735480f77891754304e7f13e3cdf83aaaa76aa",
+      "released_at": "2014-01-23T13:25:40-05:00",
+      "range": {
+        "from": "v2.2.0",
+        "to": "v2.2.1"
+      },
+      "window": {
+        "start": "2014-01-09T11:41:30-05:00",
+        "end": "2014-01-23T13:25:40-05:00"
+      },
+      "counts": {
+        "commits": 22,
+        "authors": 7,
+        "files_changed": 13,
+        "lines_added": 497,
+        "lines_deleted": 162
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 460
+        },
+        {
+          "dir": "docs",
+          "changes": 102
+        },
+        {
+          "dir": "<root>",
+          "changes": 97
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 10,
+          "changes": 502
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 126
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 31
+        }
+      ]
+    },
+    {
+      "tag": "v2.3.0",
+      "tag_sha": "6366d3dd190a9e58ca582955cddf7e2ac5f32dcc",
+      "released_at": "2014-05-16T13:55:47-04:00",
+      "range": {
+        "from": "v2.2.1",
+        "to": "v2.3.0"
+      },
+      "window": {
+        "start": "2014-01-18T22:44:50-06:00",
+        "end": "2014-05-16T13:55:47-04:00"
+      },
+      "counts": {
+        "commits": 138,
+        "authors": 23,
+        "files_changed": 43,
+        "lines_added": 6632,
+        "lines_deleted": 3902
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 4775
+        },
+        {
+          "dir": "ext",
+          "changes": 4640
+        },
+        {
+          "dir": "<root>",
+          "changes": 819
+        },
+        {
+          "dir": "docs",
+          "changes": 300
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 28,
+          "changes": 5367
+        },
+        {
+          "ext": ".ai",
+          "files": 1,
+          "changes": 3666
+        },
+        {
+          "ext": ".svg",
+          "files": 1,
+          "changes": 974
+        },
+        {
+          "ext": ".rst",
+          "files": 10,
+          "changes": 379
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 87
+        },
+        {
+          "ext": ".html",
+          "files": 2,
+          "changes": 61
+        }
+      ]
+    },
+    {
+      "tag": "v2.4.0",
+      "tag_sha": "95161ed313db11296c3bd473336340dbb19bb347",
+      "released_at": "2014-08-29T10:32:18-04:00",
+      "range": {
+        "from": "v2.3.0",
+        "to": "v2.4.0"
+      },
+      "window": {
+        "start": "2014-05-16T14:11:05-04:00",
+        "end": "2014-08-29T10:32:18-04:00"
+      },
+      "counts": {
+        "commits": 130,
+        "authors": 25,
+        "files_changed": 48,
+        "lines_added": 3068,
+        "lines_deleted": 1802
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 3591
+        },
+        {
+          "dir": "<root>",
+          "changes": 790
+        },
+        {
+          "dir": "docs",
+          "changes": 489
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 34,
+          "changes": 4142
+        },
+        {
+          "ext": ".rst",
+          "files": 11,
+          "changes": 651
+        },
+        {
+          "ext": "<noext>",
+          "files": 3,
+          "changes": 77
+        }
+      ]
+    },
+    {
+      "tag": "v2.4.1",
+      "tag_sha": "dff383ce8f7a7f1c348c1cb5ea970a59fbe48527",
+      "released_at": "2014-09-09T12:34:34-04:00",
+      "range": {
+        "from": "v2.4.0",
+        "to": "v2.4.1"
+      },
+      "window": {
+        "start": "2014-08-29T11:50:11-07:00",
+        "end": "2014-09-09T12:34:34-04:00"
+      },
+      "counts": {
+        "commits": 25,
+        "authors": 7,
+        "files_changed": 13,
+        "lines_added": 159,
+        "lines_deleted": 93
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 100
+        },
+        {
+          "dir": "docs",
+          "changes": 98
+        },
+        {
+          "dir": "<root>",
+          "changes": 54
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 8,
+          "changes": 145
+        },
+        {
+          "ext": ".rst",
+          "files": 5,
+          "changes": 107
+        }
+      ]
+    },
+    {
+      "tag": "v2.4.2",
+      "tag_sha": "779c001e44ed436a805a6fea5b4d2895b381d7b3",
+      "released_at": "2014-10-05T13:15:33-04:00",
+      "range": {
+        "from": "v2.4.1",
+        "to": "v2.4.2"
+      },
+      "window": {
+        "start": "2014-08-28T12:53:19-07:00",
+        "end": "2014-10-05T13:15:33-04:00"
+      },
+      "counts": {
+        "commits": 37,
+        "authors": 11,
+        "files_changed": 14,
+        "lines_added": 313,
+        "lines_deleted": 128
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 225
+        },
+        {
+          "dir": "docs",
+          "changes": 128
+        },
+        {
+          "dir": "<root>",
+          "changes": 88
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 7,
+          "changes": 285
+        },
+        {
+          "ext": ".rst",
+          "files": 6,
+          "changes": 154
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v2.4.3",
+      "tag_sha": "46d646064ca0836a7d7b4d50ea2c762d12ff8ce1",
+      "released_at": "2014-10-06T05:44:25-04:00",
+      "range": {
+        "from": "v2.4.2",
+        "to": "v2.4.3"
+      },
+      "window": {
+        "start": "2014-09-25T19:49:28+00:00",
+        "end": "2014-10-06T05:44:25-04:00"
+      },
+      "counts": {
+        "commits": 9,
+        "authors": 5,
+        "files_changed": 7,
+        "lines_added": 76,
+        "lines_deleted": 21
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 70
+        },
+        {
+          "dir": "<root>",
+          "changes": 27
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 6,
+          "changes": 86
+        },
+        {
+          "ext": ".rst",
+          "files": 1,
+          "changes": 11
+        }
+      ]
+    },
+    {
+      "tag": "v2.5.0",
+      "tag_sha": "f172b30356d821d180fa4ecfa3e71c7274a32de4",
+      "released_at": "2014-12-01T17:23:14-06:00",
+      "range": {
+        "from": "v2.4.3",
+        "to": "v2.5.0"
+      },
+      "window": {
+        "start": "2014-09-27T21:05:59+03:00",
+        "end": "2014-12-01T17:22:17-06:00"
+      },
+      "counts": {
+        "commits": 59,
+        "authors": 18,
+        "files_changed": 32,
+        "lines_added": 867,
+        "lines_deleted": 283
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 932
+        },
+        {
+          "dir": "<root>",
+          "changes": 158
+        },
+        {
+          "dir": "docs",
+          "changes": 60
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 26,
+          "changes": 992
+        },
+        {
+          "ext": ".rst",
+          "files": 3,
+          "changes": 104
+        },
+        {
+          "ext": ".html",
+          "files": 2,
+          "changes": 34
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 20
+        }
+      ]
+    },
+    {
+      "tag": "v2.5.1",
+      "tag_sha": "b83131779c701720a9ae9efae78996277d416269",
+      "released_at": "2014-12-23T11:54:13-06:00",
+      "range": {
+        "from": "v2.5.0",
+        "to": "v2.5.1"
+      },
+      "window": {
+        "start": "2014-11-15T16:58:25-08:00",
+        "end": "2014-12-23T11:54:01-06:00"
+      },
+      "counts": {
+        "commits": 22,
+        "authors": 12,
+        "files_changed": 30,
+        "lines_added": 618,
+        "lines_deleted": 224
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 640
+        },
+        {
+          "dir": "<root>",
+          "changes": 183
+        },
+        {
+          "dir": "docs",
+          "changes": 19
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 26,
+          "changes": 766
+        },
+        {
+          "ext": ".rst",
+          "files": 4,
+          "changes": 76
+        }
+      ]
+    },
+    {
+      "tag": "v2.5.2",
+      "tag_sha": "d8be2473d1a586a3673d728d49e10fd4286e3b0e",
+      "released_at": "2015-02-23T16:36:17-06:00",
+      "range": {
+        "from": "v2.5.1",
+        "to": "v2.5.2"
+      },
+      "window": {
+        "start": "2014-12-08T20:48:40-06:00",
+        "end": "2015-02-23T16:28:42-06:00"
+      },
+      "counts": {
+        "commits": 44,
+        "authors": 13,
+        "files_changed": 26,
+        "lines_added": 2232,
+        "lines_deleted": 1490
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 3444
+        },
+        {
+          "dir": "<root>",
+          "changes": 171
+        },
+        {
+          "dir": "docs",
+          "changes": 107
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".pem",
+          "files": 1,
+          "changes": 2370
+        },
+        {
+          "ext": ".py",
+          "files": 17,
+          "changes": 1178
+        },
+        {
+          "ext": ".rst",
+          "files": 4,
+          "changes": 115
+        },
+        {
+          "ext": ".html",
+          "files": 3,
+          "changes": 55
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 4
+        }
+      ]
+    },
+    {
+      "tag": "v2.5.3",
+      "tag_sha": "628474d62666e6691ec35677a918f5e97c35cda2",
+      "released_at": "2015-02-24T10:30:27-06:00",
+      "range": {
+        "from": "v2.5.2",
+        "to": "v2.5.3"
+      },
+      "window": {
+        "start": "2015-02-24T09:44:51-06:00",
+        "end": "2015-02-24T10:30:17-06:00"
+      },
+      "counts": {
+        "commits": 3,
+        "authors": 3,
+        "files_changed": 3,
+        "lines_added": 1110,
+        "lines_deleted": 1272
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 2374
+        },
+        {
+          "dir": "<root>",
+          "changes": 8
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".pem",
+          "files": 1,
+          "changes": 2370
+        },
+        {
+          "ext": ".rst",
+          "files": 1,
+          "changes": 8
+        },
+        {
+          "ext": ".py",
+          "files": 1,
+          "changes": 4
+        }
+      ]
+    },
+    {
+      "tag": "v2.6.0",
+      "tag_sha": "fa338da717124188b21d48df55f2fa9aca459d12",
+      "released_at": "2015-03-14T11:43:57-05:00",
+      "range": {
+        "from": "v2.5.3",
+        "to": "v2.6.0"
+      },
+      "window": {
+        "start": "2015-01-28T08:16:05-06:00",
+        "end": "2015-03-14T11:43:32-05:00"
+      },
+      "counts": {
+        "commits": 34,
+        "authors": 6,
+        "files_changed": 16,
+        "lines_added": 484,
+        "lines_deleted": 98
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 246
+        },
+        {
+          "dir": "<root>",
+          "changes": 182
+        },
+        {
+          "dir": "docs",
+          "changes": 154
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 12,
+          "changes": 358
+        },
+        {
+          "ext": ".rst",
+          "files": 4,
+          "changes": 224
+        }
+      ]
+    },
+    {
+      "tag": "v2.6.1",
+      "tag_sha": "3880cf1255c70e7a13a491cd07d282d41d871649",
+      "released_at": "2015-04-22T21:22:50-05:00",
+      "range": {
+        "from": "v2.6.0",
+        "to": "v2.6.1"
+      },
+      "window": {
+        "start": "2015-01-25T18:11:22-06:00",
+        "end": "2015-04-22T17:12:26-05:00"
+      },
+      "counts": {
+        "commits": 60,
+        "authors": 13,
+        "files_changed": 26,
+        "lines_added": 841,
+        "lines_deleted": 554
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 818
+        },
+        {
+          "dir": "docs",
+          "changes": 429
+        },
+        {
+          "dir": "<root>",
+          "changes": 148
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 16,
+          "changes": 840
+        },
+        {
+          "ext": ".rst",
+          "files": 9,
+          "changes": 550
+        },
+        {
+          "ext": ".html",
+          "files": 1,
+          "changes": 5
+        }
+      ]
+    },
+    {
+      "tag": "v2.6.2",
+      "tag_sha": "ca66267d2cf8adc67ed8857f3f57b45ffde21e01",
+      "released_at": "2015-04-23T11:29:20-05:00",
+      "range": {
+        "from": "v2.6.1",
+        "to": "v2.6.2"
+      },
+      "window": {
+        "start": "2015-04-23T11:27:42-05:00",
+        "end": "2015-04-23T11:29:10-05:00"
+      },
+      "counts": {
+        "commits": 2,
+        "authors": 1,
+        "files_changed": 3,
+        "lines_added": 44,
+        "lines_deleted": 20
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 56
+        },
+        {
+          "dir": "<root>",
+          "changes": 8
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 2,
+          "changes": 56
+        },
+        {
+          "ext": ".rst",
+          "files": 1,
+          "changes": 8
+        }
+      ]
+    },
+    {
+      "tag": "v2.7.0",
+      "tag_sha": "b7bd29734022e634634d908e10bbf7a5ac15e76b",
+      "released_at": "2015-05-03T15:47:20+01:00",
+      "range": {
+        "from": "v2.6.2",
+        "to": "v2.7.0"
+      },
+      "window": {
+        "start": "2015-04-24T19:28:23-05:00",
+        "end": "2015-05-03T15:47:20+01:00"
+      },
+      "counts": {
+        "commits": 15,
+        "authors": 4,
+        "files_changed": 10,
+        "lines_added": 637,
+        "lines_deleted": 137
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "docs",
+          "changes": 618
+        },
+        {
+          "dir": "requests",
+          "changes": 145
+        },
+        {
+          "dir": "<root>",
+          "changes": 11
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".rst",
+          "files": 5,
+          "changes": 629
+        },
+        {
+          "ext": ".py",
+          "files": 5,
+          "changes": 145
+        }
+      ]
+    },
+    {
+      "tag": "v2.8.0",
+      "tag_sha": "e499b354c4215b158db6d4210136e0b9adbe8d14",
+      "released_at": "2015-10-05T11:21:40-05:00",
+      "range": {
+        "from": "v2.7.0",
+        "to": "v2.8.0"
+      },
+      "window": {
+        "start": "2015-03-18T21:31:55+00:00",
+        "end": "2015-10-05T11:21:40-05:00"
+      },
+      "counts": {
+        "commits": 153,
+        "authors": 42,
+        "files_changed": 44,
+        "lines_added": 2740,
+        "lines_deleted": 1146
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 2816
+        },
+        {
+          "dir": "docs",
+          "changes": 636
+        },
+        {
+          "dir": "<root>",
+          "changes": 434
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 27,
+          "changes": 3059
+        },
+        {
+          "ext": ".rst",
+          "files": 14,
+          "changes": 801
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 12
+        },
+        {
+          "ext": ".html",
+          "files": 1,
+          "changes": 12
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v2.8.1",
+      "tag_sha": "18a6b601100db978f3a6e191816456e75bc47e0f",
+      "released_at": "2015-10-13T13:55:09+01:00",
+      "range": {
+        "from": "v2.8.0",
+        "to": "v2.8.1"
+      },
+      "window": {
+        "start": "2015-10-08T08:09:53+01:00",
+        "end": "2015-10-13T13:55:09+01:00"
+      },
+      "counts": {
+        "commits": 10,
+        "authors": 2,
+        "files_changed": 7,
+        "lines_added": 2832,
+        "lines_deleted": 1616
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 4412
+        },
+        {
+          "dir": "<root>",
+          "changes": 36
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".pem",
+          "files": 1,
+          "changes": 4384
+        },
+        {
+          "ext": ".py",
+          "files": 5,
+          "changes": 50
+        },
+        {
+          "ext": ".rst",
+          "files": 1,
+          "changes": 14
+        }
+      ]
+    },
+    {
+      "tag": "v2.9.0",
+      "tag_sha": "5f7a3a74aab1625c2bb65f643197ee885e3da576",
+      "released_at": "2015-12-15T15:29:27Z",
+      "range": {
+        "from": "v2.8.1",
+        "to": "v2.9.0"
+      },
+      "window": {
+        "start": "2015-10-14T13:23:19+01:00",
+        "end": "2015-12-15T15:29:27+00:00"
+      },
+      "counts": {
+        "commits": 71,
+        "authors": 18,
+        "files_changed": 41,
+        "lines_added": 1251,
+        "lines_deleted": 599
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 950
+        },
+        {
+          "dir": "<root>",
+          "changes": 830
+        },
+        {
+          "dir": "docs",
+          "changes": 70
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 34,
+          "changes": 1566
+        },
+        {
+          "ext": ".rst",
+          "files": 4,
+          "changes": 164
+        },
+        {
+          "ext": ".md",
+          "files": 1,
+          "changes": 114
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 4
+        },
+        {
+          "ext": ".gitignore",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v2.9.1",
+      "tag_sha": "1108058626450b863d154bb74d669754b480caa4",
+      "released_at": "2015-12-21T14:53:36Z",
+      "range": {
+        "from": "v2.9.0",
+        "to": "v2.9.1"
+      },
+      "window": {
+        "start": "2014-01-12T14:27:45-06:00",
+        "end": "2015-12-21T14:53:36+00:00"
+      },
+      "counts": {
+        "commits": 13,
+        "authors": 3,
+        "files_changed": 83,
+        "lines_added": 8055,
+        "lines_deleted": 3036
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 8019
+        },
+        {
+          "dir": "<root>",
+          "changes": 1578
+        },
+        {
+          "dir": "docs",
+          "changes": 1007
+        },
+        {
+          "dir": "ext",
+          "changes": 487
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 50,
+          "changes": 6712
+        },
+        {
+          "ext": ".pem",
+          "files": 1,
+          "changes": 2192
+        },
+        {
+          "ext": ".rst",
+          "files": 21,
+          "changes": 1473
+        },
+        {
+          "ext": ".svg",
+          "files": 1,
+          "changes": 487
+        },
+        {
+          "ext": "<noext>",
+          "files": 4,
+          "changes": 110
+        },
+        {
+          "ext": ".md",
+          "files": 1,
+          "changes": 57
+        },
+        {
+          "ext": ".html",
+          "files": 3,
+          "changes": 50
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 9
+        },
+        {
+          "ext": ".gitignore",
+          "files": 1,
+          "changes": 1
+        }
+      ]
+    },
+    {
+      "tag": "v2.9.2",
+      "tag_sha": "c9ef5653cc7df3d2eb7d6065ee68294551bdde40",
+      "released_at": "2016-04-29T17:56:42-04:00",
+      "range": {
+        "from": "v2.9.1",
+        "to": "v2.9.2"
+      },
+      "window": {
+        "start": "2015-11-24T23:08:38+01:00",
+        "end": "2016-04-29T17:56:42-04:00"
+      },
+      "counts": {
+        "commits": 220,
+        "authors": 29,
+        "files_changed": 94,
+        "lines_added": 7478,
+        "lines_deleted": 6776
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "docs",
+          "changes": 7721
+        },
+        {
+          "dir": "tests",
+          "changes": 2670
+        },
+        {
+          "dir": "<root>",
+          "changes": 1480
+        },
+        {
+          "dir": "test_requests.py => tests",
+          "changes": 1232
+        },
+        {
+          "dir": "requests",
+          "changes": 821
+        },
+        {
+          "dir": "testserver",
+          "changes": 282
+        },
+        {
+          "dir": "dummyserver",
+          "changes": 43
+        },
+        {
+          "dir": "{dummyserver => testserver}",
+          "changes": 5
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 53,
+          "changes": 6715
+        },
+        {
+          "ext": ".css_t",
+          "files": 2,
+          "changes": 2469
+        },
+        {
+          "ext": ".rst",
+          "files": 13,
+          "changes": 1857
+        },
+        {
+          "ext": ".bat",
+          "files": 1,
+          "changes": 1359
+        },
+        {
+          "ext": ".html",
+          "files": 8,
+          "changes": 1040
+        },
+        {
+          "ext": ".js",
+          "files": 1,
+          "changes": 348
+        },
+        {
+          "ext": "<noext>",
+          "files": 5,
+          "changes": 274
+        },
+        {
+          "ext": ".txt",
+          "files": 3,
+          "changes": 107
+        },
+        {
+          "ext": ".conf",
+          "files": 2,
+          "changes": 51
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 24
+        },
+        {
+          "ext": ".cfg",
+          "files": 1,
+          "changes": 6
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 3
+        },
+        {
+          "ext": ".gitignore",
+          "files": 1,
+          "changes": 1
+        },
+        {
+          "ext": ".swo",
+          "files": 2,
+          "changes": 0
+        }
+      ]
+    },
+    {
+      "tag": "v2.10.0",
+      "tag_sha": "efb4af01271c8c0ddf49457c7096a5bc91edbdad",
+      "released_at": "2016-04-29T18:11:49-04:00",
+      "range": {
+        "from": "v2.9.2",
+        "to": "v2.10.0"
+      },
+      "window": {
+        "start": "2015-12-30T10:07:16+00:00",
+        "end": "2016-04-29T18:11:49-04:00"
+      },
+      "counts": {
+        "commits": 12,
+        "authors": 2,
+        "files_changed": 23,
+        "lines_added": 859,
+        "lines_deleted": 202
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 1048
+        },
+        {
+          "dir": "<root>",
+          "changes": 13
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 21,
+          "changes": 1049
+        },
+        {
+          "ext": ".rst",
+          "files": 1,
+          "changes": 11
+        },
+        {
+          "ext": ".gitignore",
+          "files": 1,
+          "changes": 1
+        }
+      ]
+    },
+    {
+      "tag": "v2.11.0",
+      "tag_sha": "a2e41ba1f1ae81b2ed224030df908a1432ad435e",
+      "released_at": "2016-08-08T11:06:58-04:00",
+      "range": {
+        "from": "v2.10.0",
+        "to": "v2.11.0"
+      },
+      "window": {
+        "start": "2016-04-29T18:17:21-04:00",
+        "end": "2016-08-08T11:06:58-04:00"
+      },
+      "counts": {
+        "commits": 74,
+        "authors": 23,
+        "files_changed": 44,
+        "lines_added": 2840,
+        "lines_deleted": 676
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 2375
+        },
+        {
+          "dir": "tests",
+          "changes": 925
+        },
+        {
+          "dir": "docs",
+          "changes": 145
+        },
+        {
+          "dir": "<root>",
+          "changes": 71
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 35,
+          "changes": 3298
+        },
+        {
+          "ext": ".rst",
+          "files": 7,
+          "changes": 214
+        },
+        {
+          "ext": ".gitignore",
+          "files": 1,
+          "changes": 2
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v2.11.1",
+      "tag_sha": "532756803d3b2b7155c31a57f1d5e3cf31224b5d",
+      "released_at": "2016-08-17T16:03:38-04:00",
+      "range": {
+        "from": "v2.11.0",
+        "to": "v2.11.1"
+      },
+      "window": {
+        "start": "2016-08-08T17:35:40-04:00",
+        "end": "2016-08-17T16:03:38-04:00"
+      },
+      "counts": {
+        "commits": 25,
+        "authors": 7,
+        "files_changed": 16,
+        "lines_added": 458,
+        "lines_deleted": 201
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 300
+        },
+        {
+          "dir": "docs",
+          "changes": 228
+        },
+        {
+          "dir": "tests",
+          "changes": 98
+        },
+        {
+          "dir": "<root>",
+          "changes": 33
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 7,
+          "changes": 398
+        },
+        {
+          "ext": ".rst",
+          "files": 9,
+          "changes": 261
+        }
+      ]
+    },
+    {
+      "tag": "v2.12.0",
+      "tag_sha": "362da46e9a46da6e86e1907f03014384ab210151",
+      "released_at": "2016-11-15T10:30:17Z",
+      "range": {
+        "from": "v2.11.1",
+        "to": "v2.12.0"
+      },
+      "window": {
+        "start": "2016-08-12T10:54:41-06:00",
+        "end": "2016-11-15T10:30:17+00:00"
+      },
+      "counts": {
+        "commits": 109,
+        "authors": 28,
+        "files_changed": 61,
+        "lines_added": 21676,
+        "lines_deleted": 1006
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 21194
+        },
+        {
+          "dir": "tests",
+          "changes": 938
+        },
+        {
+          "dir": "<root>",
+          "changes": 312
+        },
+        {
+          "dir": "docs",
+          "changes": 238
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 43,
+          "changes": 21308
+        },
+        {
+          "ext": ".pem",
+          "files": 1,
+          "changes": 823
+        },
+        {
+          "ext": ".rst",
+          "files": 12,
+          "changes": 320
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 226
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 4
+        },
+        {
+          "ext": ".gitignore",
+          "files": 1,
+          "changes": 1
+        },
+        {
+          "ext": ".swo",
+          "files": 1,
+          "changes": 0
+        }
+      ]
+    },
+    {
+      "tag": "v2.12.1",
+      "tag_sha": "eb39a557bde2ea9f72733f9e98227b057d675892",
+      "released_at": "2016-11-16T10:44:29Z",
+      "range": {
+        "from": "v2.12.0",
+        "to": "v2.12.1"
+      },
+      "window": {
+        "start": "2016-11-15T10:46:10-07:00",
+        "end": "2016-11-16T10:44:29+00:00"
+      },
+      "counts": {
+        "commits": 14,
+        "authors": 4,
+        "files_changed": 10,
+        "lines_added": 48,
+        "lines_deleted": 20
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 28
+        },
+        {
+          "dir": "requests",
+          "changes": 20
+        },
+        {
+          "dir": "docs",
+          "changes": 12
+        },
+        {
+          "dir": "tests",
+          "changes": 8
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 7,
+          "changes": 34
+        },
+        {
+          "ext": ".rst",
+          "files": 3,
+          "changes": 34
+        }
+      ]
+    },
+    {
+      "tag": "v2.12.2",
+      "tag_sha": "ca15d4808734c86801c8f3d80c9152c35a163dc3",
+      "released_at": "2016-11-30T12:38:26Z",
+      "range": {
+        "from": "v2.12.1",
+        "to": "v2.12.2"
+      },
+      "window": {
+        "start": "2016-11-12T01:39:37+03:00",
+        "end": "2016-11-30T12:38:26+00:00"
+      },
+      "counts": {
+        "commits": 40,
+        "authors": 10,
+        "files_changed": 16,
+        "lines_added": 8472,
+        "lines_deleted": 2219
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "ext",
+          "changes": 10259
+        },
+        {
+          "dir": "tests",
+          "changes": 248
+        },
+        {
+          "dir": "requests",
+          "changes": 118
+        },
+        {
+          "dir": "<root>",
+          "changes": 37
+        },
+        {
+          "dir": "docs",
+          "changes": 29
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".ai",
+          "files": 1,
+          "changes": 9771
+        },
+        {
+          "ext": ".svg",
+          "files": 1,
+          "changes": 488
+        },
+        {
+          "ext": ".py",
+          "files": 6,
+          "changes": 366
+        },
+        {
+          "ext": ".rst",
+          "files": 5,
+          "changes": 56
+        },
+        {
+          "ext": ".html",
+          "files": 2,
+          "changes": 10
+        },
+        {
+          "ext": ".png",
+          "files": 1,
+          "changes": 0
+        }
+      ]
+    },
+    {
+      "tag": "v2.12.3",
+      "tag_sha": "c398ab0e7dcae24f19a998e35da41f075e1ecb44",
+      "released_at": "2016-12-01T10:48:35Z",
+      "range": {
+        "from": "v2.12.2",
+        "to": "v2.12.3"
+      },
+      "window": {
+        "start": "2016-11-30T21:19:31+00:00",
+        "end": "2016-12-01T10:48:35+00:00"
+      },
+      "counts": {
+        "commits": 4,
+        "authors": 1,
+        "files_changed": 4,
+        "lines_added": 157,
+        "lines_deleted": 37
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "tests",
+          "changes": 166
+        },
+        {
+          "dir": "requests",
+          "changes": 16
+        },
+        {
+          "dir": "<root>",
+          "changes": 12
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 3,
+          "changes": 182
+        },
+        {
+          "ext": ".rst",
+          "files": 1,
+          "changes": 12
+        }
+      ]
+    },
+    {
+      "tag": "v2.12.4",
+      "tag_sha": "1285f576ae0a848de27af10d917c19b60940d1fa",
+      "released_at": "2016-12-14T11:37:52Z",
+      "range": {
+        "from": "v2.12.3",
+        "to": "v2.12.4"
+      },
+      "window": {
+        "start": "2016-12-04T12:00:57-07:00",
+        "end": "2016-12-14T11:37:52+00:00"
+      },
+      "counts": {
+        "commits": 11,
+        "authors": 4,
+        "files_changed": 6,
+        "lines_added": 399,
+        "lines_deleted": 12
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "tests",
+          "changes": 330
+        },
+        {
+          "dir": "requests",
+          "changes": 70
+        },
+        {
+          "dir": "<root>",
+          "changes": 11
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 4,
+          "changes": 400
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 11
+        }
+      ]
+    },
+    {
+      "tag": "v2.12.5",
+      "tag_sha": "5dcc03945765a7e7b7044b5f41ff5ee8d707c49b",
+      "released_at": "2017-01-18T12:41:46Z",
+      "range": {
+        "from": "v2.12.4",
+        "to": "v2.12.5"
+      },
+      "window": {
+        "start": "2016-12-20T12:41:47-05:00",
+        "end": "2017-01-18T12:41:46+00:00"
+      },
+      "counts": {
+        "commits": 43,
+        "authors": 11,
+        "files_changed": 22,
+        "lines_added": 191,
+        "lines_deleted": 76
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 147
+        },
+        {
+          "dir": "docs",
+          "changes": 68
+        },
+        {
+          "dir": "tests",
+          "changes": 34
+        },
+        {
+          "dir": "requests",
+          "changes": 18
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".rst",
+          "files": 8,
+          "changes": 116
+        },
+        {
+          "ext": ".py",
+          "files": 8,
+          "changes": 58
+        },
+        {
+          "ext": ".txt",
+          "files": 2,
+          "changes": 48
+        },
+        {
+          "ext": ".yml",
+          "files": 1,
+          "changes": 33
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 12
+        },
+        {
+          "ext": ".swo",
+          "files": 1,
+          "changes": 0
+        }
+      ]
+    },
+    {
+      "tag": "v2.13.0",
+      "tag_sha": "b2289cd2d5d21bd31cf4a818a4e0ff6951b2317a",
+      "released_at": "2017-01-24T06:32:29-06:00",
+      "range": {
+        "from": "v2.12.5",
+        "to": "v2.13.0"
+      },
+      "window": {
+        "start": "2017-01-17T20:34:15+05:30",
+        "end": "2017-01-24T06:32:12-06:00"
+      },
+      "counts": {
+        "commits": 30,
+        "authors": 4,
+        "files_changed": 28,
+        "lines_added": 1295,
+        "lines_deleted": 186
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 1266
+        },
+        {
+          "dir": "<root>",
+          "changes": 209
+        },
+        {
+          "dir": "tests",
+          "changes": 6
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 19,
+          "changes": 1272
+        },
+        {
+          "ext": ".txt",
+          "files": 2,
+          "changes": 94
+        },
+        {
+          "ext": ".lock",
+          "files": 1,
+          "changes": 45
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 34
+        },
+        {
+          "ext": ".rst",
+          "files": 3,
+          "changes": 24
+        },
+        {
+          "ext": ".yml",
+          "files": 1,
+          "changes": 12
+        }
+      ]
+    },
+    {
+      "tag": "v2.14.0",
+      "tag_sha": "508d47dc6e7458f2db3bc3b3bf629e0bdb1b798a",
+      "released_at": "2017-05-09T16:44:27+01:00",
+      "range": {
+        "from": "v2.13.0",
+        "to": "v2.14.0"
+      },
+      "window": {
+        "start": "2017-01-24T06:45:29-06:00",
+        "end": "2017-05-09T16:44:27+01:00"
+      },
+      "counts": {
+        "commits": 144,
+        "authors": 28,
+        "files_changed": 105,
+        "lines_added": 15788,
+        "lines_deleted": 10778
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 23932
+        },
+        {
+          "dir": "tests",
+          "changes": 1151
+        },
+        {
+          "dir": "<root>",
+          "changes": 781
+        },
+        {
+          "dir": "_appveyor",
+          "changes": 458
+        },
+        {
+          "dir": "docs",
+          "changes": 244
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 85,
+          "changes": 24075
+        },
+        {
+          "ext": ".pem",
+          "files": 1,
+          "changes": 1018
+        },
+        {
+          "ext": ".ps1",
+          "files": 1,
+          "changes": 458
+        },
+        {
+          "ext": ".lock",
+          "files": 1,
+          "changes": 346
+        },
+        {
+          "ext": ".rst",
+          "files": 7,
+          "changes": 341
+        },
+        {
+          "ext": ".yml",
+          "files": 2,
+          "changes": 160
+        },
+        {
+          "ext": "<noext>",
+          "files": 4,
+          "changes": 96
+        },
+        {
+          "ext": ".html",
+          "files": 2,
+          "changes": 68
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 4
+        },
+        {
+          "ext": ".png",
+          "files": 1,
+          "changes": 0
+        }
+      ]
+    },
+    {
+      "tag": "v2.14.1",
+      "tag_sha": "3618f3f68ed7b4efe5a6adf6ddf2f413dc71d0e8",
+      "released_at": "2017-05-09T19:58:39+01:00",
+      "range": {
+        "from": "v2.14.0",
+        "to": "v2.14.1"
+      },
+      "window": {
+        "start": "2017-05-09T19:10:31+01:00",
+        "end": "2017-05-09T19:58:39+01:00"
+      },
+      "counts": {
+        "commits": 4,
+        "authors": 1,
+        "files_changed": 3,
+        "lines_added": 14,
+        "lines_deleted": 6
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 16
+        },
+        {
+          "dir": "requests",
+          "changes": 4
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".rst",
+          "files": 1,
+          "changes": 12
+        },
+        {
+          "ext": ".py",
+          "files": 2,
+          "changes": 8
+        }
+      ]
+    },
+    {
+      "tag": "v2.14.2",
+      "tag_sha": "e4693eba4f429230d482ca50d0a537fc13ea6884",
+      "released_at": "2017-05-10T15:04:22+01:00",
+      "range": {
+        "from": "v2.14.1",
+        "to": "v2.14.2"
+      },
+      "window": {
+        "start": "2017-05-10T14:19:46+01:00",
+        "end": "2017-05-10T15:04:22+01:00"
+      },
+      "counts": {
+        "commits": 3,
+        "authors": 1,
+        "files_changed": 3,
+        "lines_added": 12,
+        "lines_deleted": 4
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 12
+        },
+        {
+          "dir": "requests",
+          "changes": 4
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".rst",
+          "files": 1,
+          "changes": 8
+        },
+        {
+          "ext": ".py",
+          "files": 2,
+          "changes": 8
+        }
+      ]
+    },
+    {
+      "tag": "v2.15.0",
+      "tag_sha": "0aee4834970714c399f1375830400ff66104bd92",
+      "released_at": "2017-05-26T21:43:03-04:00",
+      "range": {
+        "from": "v2.14.2",
+        "to": "v2.15.0"
+      },
+      "window": {
+        "start": "2017-05-10T09:58:22-06:00",
+        "end": "2017-05-26T21:43:03-04:00"
+      },
+      "counts": {
+        "commits": 54,
+        "authors": 9,
+        "files_changed": 23,
+        "lines_added": 584,
+        "lines_deleted": 595
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 746
+        },
+        {
+          "dir": "requests",
+          "changes": 399
+        },
+        {
+          "dir": "docs",
+          "changes": 26
+        },
+        {
+          "dir": "tests",
+          "changes": 8
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".lock",
+          "files": 1,
+          "changes": 573
+        },
+        {
+          "ext": ".py",
+          "files": 10,
+          "changes": 513
+        },
+        {
+          "ext": ".rst",
+          "files": 4,
+          "changes": 31
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 31
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 10
+        },
+        {
+          "ext": ".yml",
+          "files": 1,
+          "changes": 10
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 4
+        },
+        {
+          "ext": ".cfg",
+          "files": 1,
+          "changes": 4
+        },
+        {
+          "ext": ".md",
+          "files": 1,
+          "changes": 3
+        },
+        {
+          "ext": ".py}",
+          "files": 1,
+          "changes": 0
+        }
+      ]
+    },
+    {
+      "tag": "v2.15.1",
+      "tag_sha": "282b01a7c9feae30feccbd54e33afcc06197df62",
+      "released_at": "2017-05-26T22:13:29-04:00",
+      "range": {
+        "from": "v2.15.0",
+        "to": "v2.15.1"
+      },
+      "window": {
+        "start": "2017-05-26T21:48:35-04:00",
+        "end": "2017-05-26T22:13:29-04:00"
+      },
+      "counts": {
+        "commits": 4,
+        "authors": 1,
+        "files_changed": 3,
+        "lines_added": 9,
+        "lines_deleted": 4
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 8
+        },
+        {
+          "dir": "<root>",
+          "changes": 5
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 2,
+          "changes": 8
+        },
+        {
+          "ext": ".rst",
+          "files": 1,
+          "changes": 5
+        }
+      ]
+    },
+    {
+      "tag": "v2.16.0",
+      "tag_sha": "bcd0e170ac20bc670ab91c567206e4a268dc8a62",
+      "released_at": "2017-05-26T23:37:08-04:00",
+      "range": {
+        "from": "v2.15.1",
+        "to": "v2.16.0"
+      },
+      "window": {
+        "start": "2017-05-26T22:44:48-04:00",
+        "end": "2017-05-26T23:37:08-04:00"
+      },
+      "counts": {
+        "commits": 23,
+        "authors": 1,
+        "files_changed": 102,
+        "lines_added": 167,
+        "lines_deleted": 64474
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 64192
+        },
+        {
+          "dir": "<root>",
+          "changes": 395
+        },
+        {
+          "dir": "tests",
+          "changes": 54
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 96,
+          "changes": 52948
+        },
+        {
+          "ext": ".pem",
+          "files": 1,
+          "changes": 11320
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 332
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 40
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 1
+        }
+      ]
+    },
+    {
+      "tag": "v2.16.1",
+      "tag_sha": "f687e9f3d8b01d6d99c4df1c539f9b5e3f4e7b4f",
+      "released_at": "2017-05-27T09:58:37-04:00",
+      "range": {
+        "from": "v2.16.0",
+        "to": "v2.16.1"
+      },
+      "window": {
+        "start": "2017-05-27T00:28:48-04:00",
+        "end": "2017-05-27T09:58:37-04:00"
+      },
+      "counts": {
+        "commits": 6,
+        "authors": 1,
+        "files_changed": 5,
+        "lines_added": 18,
+        "lines_deleted": 9
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 12
+        },
+        {
+          "dir": "requests",
+          "changes": 9
+        },
+        {
+          "dir": "docs",
+          "changes": 6
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".rst",
+          "files": 3,
+          "changes": 18
+        },
+        {
+          "ext": ".py",
+          "files": 2,
+          "changes": 9
+        }
+      ]
+    },
+    {
+      "tag": "v2.16.2",
+      "tag_sha": "d42556a936fc3d56299d1462adfa48614f3f9712",
+      "released_at": "2017-05-27T10:53:02-04:00",
+      "range": {
+        "from": "v2.16.1",
+        "to": "v2.16.2"
+      },
+      "window": {
+        "start": "2017-05-27T10:09:03-04:00",
+        "end": "2017-05-27T10:53:02-04:00"
+      },
+      "counts": {
+        "commits": 9,
+        "authors": 1,
+        "files_changed": 31,
+        "lines_added": 86,
+        "lines_deleted": 50
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 72
+        },
+        {
+          "dir": "<root>",
+          "changes": 64
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 30,
+          "changes": 108
+        },
+        {
+          "ext": ".rst",
+          "files": 1,
+          "changes": 28
+        }
+      ]
+    },
+    {
+      "tag": "v2.16.3",
+      "tag_sha": "0aee4834970714c399f1375830400ff66104bd92",
+      "released_at": "2017-05-26T21:43:03-04:00",
+      "range": {
+        "from": "v2.16.2",
+        "to": "v2.16.3"
+      },
+      "window": {
+        "start": null,
+        "end": null
+      },
+      "counts": {
+        "commits": 0,
+        "authors": 0,
+        "files_changed": 0,
+        "lines_added": 0,
+        "lines_deleted": 0
+      },
+      "rollup_by_dir": [],
+      "rollup_by_ext": []
+    },
+    {
+      "tag": "v2.16.4",
+      "tag_sha": "f0fb5034fc7118008c5ee88f10ce780fbcbcf181",
+      "released_at": "2017-05-27T17:14:10-04:00",
+      "range": {
+        "from": "v2.16.3",
+        "to": "v2.16.4"
+      },
+      "window": {
+        "start": "2017-03-23T07:22:55-05:00",
+        "end": "2017-05-27T17:14:10-04:00"
+      },
+      "counts": {
+        "commits": 60,
+        "authors": 2,
+        "files_changed": 132,
+        "lines_added": 1500,
+        "lines_deleted": 96189
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 95955
+        },
+        {
+          "dir": "<root>",
+          "changes": 1118
+        },
+        {
+          "dir": "tests",
+          "changes": 295
+        },
+        {
+          "dir": "_appveyor",
+          "changes": 229
+        },
+        {
+          "dir": "github",
+          "changes": 64
+        },
+        {
+          "dir": "docs",
+          "changes": 28
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 110,
+          "changes": 79329
+        },
+        {
+          "ext": ".pem",
+          "files": 1,
+          "changes": 17009
+        },
+        {
+          "ext": "<noext>",
+          "files": 4,
+          "changes": 512
+        },
+        {
+          "ext": ".rst",
+          "files": 6,
+          "changes": 268
+        },
+        {
+          "ext": ".ps1",
+          "files": 1,
+          "changes": 229
+        },
+        {
+          "ext": ".lock",
+          "files": 1,
+          "changes": 191
+        },
+        {
+          "ext": ".md",
+          "files": 2,
+          "changes": 67
+        },
+        {
+          "ext": ".yml",
+          "files": 2,
+          "changes": 60
+        },
+        {
+          "ext": ".py}",
+          "files": 1,
+          "changes": 15
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 3
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 2
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 2
+        },
+        {
+          "ext": ".cfg",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v2.16.5",
+      "tag_sha": "16c8241a8128920cfc4b64ea41418dbd6f5b36cb",
+      "released_at": "2017-05-28T00:35:36-04:00",
+      "range": {
+        "from": "v2.16.4",
+        "to": "v2.16.5"
+      },
+      "window": {
+        "start": "2017-03-01T13:04:11-06:00",
+        "end": "2017-05-28T00:35:36-04:00"
+      },
+      "counts": {
+        "commits": 44,
+        "authors": 2,
+        "files_changed": 15,
+        "lines_added": 379,
+        "lines_deleted": 563
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 822
+        },
+        {
+          "dir": "docs",
+          "changes": 106
+        },
+        {
+          "dir": "requests",
+          "changes": 8
+        },
+        {
+          "dir": "tests",
+          "changes": 6
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".lock",
+          "files": 1,
+          "changes": 464
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 161
+        },
+        {
+          "ext": "<noext>",
+          "files": 3,
+          "changes": 145
+        },
+        {
+          "ext": ".rst",
+          "files": 3,
+          "changes": 114
+        },
+        {
+          "ext": ".py",
+          "files": 4,
+          "changes": 26
+        },
+        {
+          "ext": ".yml",
+          "files": 2,
+          "changes": 24
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 8
+        }
+      ]
+    },
+    {
+      "tag": "v2.17.0",
+      "tag_sha": "916d171f2bf01155f2c115159ec475e8d76a690b",
+      "released_at": "2017-05-29T13:17:57-04:00",
+      "range": {
+        "from": "v2.16.5",
+        "to": "v2.17.0"
+      },
+      "window": {
+        "start": "2017-05-28T00:43:54-04:00",
+        "end": "2017-05-29T13:17:57-04:00"
+      },
+      "counts": {
+        "commits": 28,
+        "authors": 2,
+        "files_changed": 24,
+        "lines_added": 218,
+        "lines_deleted": 254
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 201
+        },
+        {
+          "dir": "docs",
+          "changes": 120
+        },
+        {
+          "dir": "requests",
+          "changes": 118
+        },
+        {
+          "dir": "tests",
+          "changes": 33
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".rst",
+          "files": 9,
+          "changes": 236
+        },
+        {
+          "ext": ".py",
+          "files": 10,
+          "changes": 154
+        },
+        {
+          "ext": ".yml",
+          "files": 2,
+          "changes": 42
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 20
+        },
+        {
+          "ext": ".html",
+          "files": 1,
+          "changes": 12
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 8
+        }
+      ]
+    },
+    {
+      "tag": "v2.17.1",
+      "tag_sha": "2d763c90ae6ccee1a3c64bf70add776a2ba395ef",
+      "released_at": "2017-05-29T15:59:00-04:00",
+      "range": {
+        "from": "v2.17.0",
+        "to": "v2.17.1"
+      },
+      "window": {
+        "start": "2017-05-29T13:28:18-04:00",
+        "end": "2017-05-29T15:59:00-04:00"
+      },
+      "counts": {
+        "commits": 7,
+        "authors": 2,
+        "files_changed": 5,
+        "lines_added": 21,
+        "lines_deleted": 35
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 42
+        },
+        {
+          "dir": "<root>",
+          "changes": 8
+        },
+        {
+          "dir": "docs",
+          "changes": 6
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 2,
+          "changes": 42
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 12
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v2.17.3",
+      "tag_sha": "5091c15bd71ec934423a71ce1b53668cd15db68f",
+      "released_at": "2017-05-29T17:54:15-04:00",
+      "range": {
+        "from": "v2.17.1",
+        "to": "v2.17.3"
+      },
+      "window": {
+        "start": "2017-05-29T17:27:10-04:00",
+        "end": "2017-05-29T17:54:15-04:00"
+      },
+      "counts": {
+        "commits": 5,
+        "authors": 2,
+        "files_changed": 5,
+        "lines_added": 58,
+        "lines_deleted": 6
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 26
+        },
+        {
+          "dir": "tests",
+          "changes": 26
+        },
+        {
+          "dir": "requests",
+          "changes": 12
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 3,
+          "changes": 38
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 26
+        }
+      ]
+    },
+    {
+      "tag": "v2.18.0",
+      "tag_sha": "d93b37cee77c45807cc6659bbd971d2b983c03b1",
+      "released_at": "2017-06-14T16:43:40+01:00",
+      "range": {
+        "from": "v2.17.3",
+        "to": "v2.18.0"
+      },
+      "window": {
+        "start": "2017-05-29T22:34:32-04:00",
+        "end": "2017-06-14T16:43:40+01:00"
+      },
+      "counts": {
+        "commits": 56,
+        "authors": 10,
+        "files_changed": 26,
+        "lines_added": 609,
+        "lines_deleted": 373
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 617
+        },
+        {
+          "dir": "docs",
+          "changes": 134
+        },
+        {
+          "dir": "tests",
+          "changes": 123
+        },
+        {
+          "dir": "<root>",
+          "changes": 108
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 15,
+          "changes": 763
+        },
+        {
+          "ext": ".rst",
+          "files": 6,
+          "changes": 133
+        },
+        {
+          "ext": ".css",
+          "files": 1,
+          "changes": 39
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 26
+        },
+        {
+          "ext": ".html",
+          "files": 2,
+          "changes": 21
+        }
+      ]
+    },
+    {
+      "tag": "v2.18.1",
+      "tag_sha": "51de61f914fda8d4f6a8ac8c2852abcc82b0b94e",
+      "released_at": "2017-06-14T18:50:53+01:00",
+      "range": {
+        "from": "v2.18.0",
+        "to": "v2.18.1"
+      },
+      "window": {
+        "start": "2017-06-14T16:45:03+01:00",
+        "end": "2017-06-14T18:50:53+01:00"
+      },
+      "counts": {
+        "commits": 2,
+        "authors": 1,
+        "files_changed": 2,
+        "lines_added": 14,
+        "lines_deleted": 6
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 16
+        },
+        {
+          "dir": "requests",
+          "changes": 4
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".rst",
+          "files": 1,
+          "changes": 16
+        },
+        {
+          "ext": ".py",
+          "files": 1,
+          "changes": 4
+        }
+      ]
+    },
+    {
+      "tag": "v2.18.2",
+      "tag_sha": "6cc891fd3204c63e57ccfae4b91bb6edca2d876e",
+      "released_at": "2017-07-25T16:21:48+01:00",
+      "range": {
+        "from": "v2.18.1",
+        "to": "v2.18.2"
+      },
+      "window": {
+        "start": "2017-06-14T18:52:03+01:00",
+        "end": "2017-07-25T16:21:48+01:00"
+      },
+      "counts": {
+        "commits": 17,
+        "authors": 7,
+        "files_changed": 10,
+        "lines_added": 137,
+        "lines_deleted": 38
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "tests",
+          "changes": 63
+        },
+        {
+          "dir": "<root>",
+          "changes": 49
+        },
+        {
+          "dir": "requests",
+          "changes": 42
+        },
+        {
+          "dir": "docs",
+          "changes": 21
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 5,
+          "changes": 109
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 41
+        },
+        {
+          "ext": ".html",
+          "files": 2,
+          "changes": 21
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 4
+        }
+      ]
+    },
+    {
+      "tag": "v2.18.3",
+      "tag_sha": "7c67c4adf9020fe6e279f1633ca477ef2b89ae44",
+      "released_at": "2017-08-02T14:22:44+01:00",
+      "range": {
+        "from": "v2.18.2",
+        "to": "v2.18.3"
+      },
+      "window": {
+        "start": "2017-06-25T12:51:15-04:00",
+        "end": "2017-08-02T14:22:44+01:00"
+      },
+      "counts": {
+        "commits": 18,
+        "authors": 8,
+        "files_changed": 15,
+        "lines_added": 168,
+        "lines_deleted": 41
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "tests",
+          "changes": 81
+        },
+        {
+          "dir": "requests",
+          "changes": 78
+        },
+        {
+          "dir": "<root>",
+          "changes": 39
+        },
+        {
+          "dir": "docs",
+          "changes": 11
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 10,
+          "changes": 161
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 35
+        },
+        {
+          "ext": ".html",
+          "files": 2,
+          "changes": 11
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v2.18.4",
+      "tag_sha": "a3d7cf3f27e74c28ef30f01e9f2e483570ab042e",
+      "released_at": "2017-08-15T14:22:52+01:00",
+      "range": {
+        "from": "v2.18.3",
+        "to": "v2.18.4"
+      },
+      "window": {
+        "start": "2017-08-02T14:24:02+01:00",
+        "end": "2017-08-15T14:22:52+01:00"
+      },
+      "counts": {
+        "commits": 24,
+        "authors": 8,
+        "files_changed": 17,
+        "lines_added": 119,
+        "lines_deleted": 71
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 78
+        },
+        {
+          "dir": "tests",
+          "changes": 48
+        },
+        {
+          "dir": "requests",
+          "changes": 40
+        },
+        {
+          "dir": "docs",
+          "changes": 24
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 9,
+          "changes": 96
+        },
+        {
+          "ext": ".rst",
+          "files": 6,
+          "changes": 82
+        },
+        {
+          "ext": ".yml",
+          "files": 2,
+          "changes": 12
+        }
+      ]
+    },
+    {
+      "tag": "v2.19.0",
+      "tag_sha": "991e8b76b7a9d21f698b24fa0058d3d5968721bc",
+      "released_at": "2018-06-12T07:42:44-07:00",
+      "range": {
+        "from": "v2.18.4",
+        "to": "v2.19.0"
+      },
+      "window": {
+        "start": "2017-08-15T14:24:20+01:00",
+        "end": "2018-06-12T07:38:10-07:00"
+      },
+      "counts": {
+        "commits": 262,
+        "authors": 42,
+        "files_changed": 64,
+        "lines_added": 5817,
+        "lines_deleted": 2259
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 3244
+        },
+        {
+          "dir": "docs",
+          "changes": 1540
+        },
+        {
+          "dir": "tests",
+          "changes": 1298
+        },
+        {
+          "dir": "requests",
+          "changes": 996
+        },
+        {
+          "dir": "idea",
+          "changes": 854
+        },
+        {
+          "dir": "github",
+          "changes": 144
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".lock",
+          "files": 1,
+          "changes": 2717
+        },
+        {
+          "ext": ".py",
+          "files": 19,
+          "changes": 2362
+        },
+        {
+          "ext": ".rst",
+          "files": 23,
+          "changes": 1280
+        },
+        {
+          "ext": ".xml",
+          "files": 4,
+          "changes": 832
+        },
+        {
+          "ext": ".html",
+          "files": 3,
+          "changes": 417
+        },
+        {
+          "ext": "<noext>",
+          "files": 4,
+          "changes": 173
+        },
+        {
+          "ext": ".md",
+          "files": 3,
+          "changes": 144
+        },
+        {
+          "ext": ".yml",
+          "files": 2,
+          "changes": 42
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 38
+        },
+        {
+          "ext": ".iml",
+          "files": 1,
+          "changes": 22
+        },
+        {
+          "ext": ".css",
+          "files": 1,
+          "changes": 20
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 20
+        },
+        {
+          "ext": ".cfg",
+          "files": 1,
+          "changes": 9
+        }
+      ]
+    },
+    {
+      "tag": "v2.19.1",
+      "tag_sha": "883caaf145fbe93bd0d208a6b864de9146087312",
+      "released_at": "2018-06-14T06:26:27-07:00",
+      "range": {
+        "from": "v2.19.0",
+        "to": "v2.19.1"
+      },
+      "window": {
+        "start": "2018-06-12T17:52:50-04:00",
+        "end": "2018-06-14T06:26:27-07:00"
+      },
+      "counts": {
+        "commits": 3,
+        "authors": 3,
+        "files_changed": 3,
+        "lines_added": 15,
+        "lines_deleted": 5
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 10
+        },
+        {
+          "dir": "requests",
+          "changes": 10
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".rst",
+          "files": 1,
+          "changes": 10
+        },
+        {
+          "ext": ".py",
+          "files": 2,
+          "changes": 10
+        }
+      ]
+    },
+    {
+      "tag": "v2.20.0",
+      "tag_sha": "bd840450c0d1e9db3bf62382c15d96378cc3a056",
+      "released_at": "2018-10-17T22:32:22-07:00",
+      "range": {
+        "from": "v2.19.1",
+        "to": "v2.20.0"
+      },
+      "window": {
+        "start": "2018-06-21T09:46:16-04:00",
+        "end": "2018-10-17T22:32:22-07:00"
+      },
+      "counts": {
+        "commits": 90,
+        "authors": 22,
+        "files_changed": 51,
+        "lines_added": 3774,
+        "lines_deleted": 2485
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 3587
+        },
+        {
+          "dir": "docs",
+          "changes": 2092
+        },
+        {
+          "dir": "requests",
+          "changes": 340
+        },
+        {
+          "dir": "tests",
+          "changes": 232
+        },
+        {
+          "dir": "_appveyor",
+          "changes": 4
+        },
+        {
+          "dir": "github",
+          "changes": 4
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".rst",
+          "files": 17,
+          "changes": 2155
+        },
+        {
+          "ext": ".md",
+          "files": 3,
+          "changes": 1772
+        },
+        {
+          "ext": ".js",
+          "files": 1,
+          "changes": 655
+        },
+        {
+          "ext": ".py",
+          "files": 20,
+          "changes": 637
+        },
+        {
+          "ext": ".html",
+          "files": 3,
+          "changes": 538
+        },
+        {
+          "ext": ".css",
+          "files": 1,
+          "changes": 438
+        },
+        {
+          "ext": ".yml",
+          "files": 2,
+          "changes": 48
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 6
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 4
+        },
+        {
+          "ext": ".ps1",
+          "files": 1,
+          "changes": 4
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v2.20.1",
+      "tag_sha": "6cfbe1aedd56f8c2f9ff8b968efe65b22669795b",
+      "released_at": "2018-11-08T09:14:10-08:00",
+      "range": {
+        "from": "v2.20.0",
+        "to": "v2.20.1"
+      },
+      "window": {
+        "start": "2018-10-18T08:44:49-07:00",
+        "end": "2018-11-08T09:14:10-08:00"
+      },
+      "counts": {
+        "commits": 13,
+        "authors": 6,
+        "files_changed": 66,
+        "lines_added": 4194,
+        "lines_deleted": 2292
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 4237
+        },
+        {
+          "dir": "docs",
+          "changes": 1018
+        },
+        {
+          "dir": "requests",
+          "changes": 613
+        },
+        {
+          "dir": "tests",
+          "changes": 568
+        },
+        {
+          "dir": "github",
+          "changes": 48
+        },
+        {
+          "dir": "_appveyor",
+          "changes": 2
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".rst",
+          "files": 22,
+          "changes": 2250
+        },
+        {
+          "ext": ".md",
+          "files": 5,
+          "changes": 1805
+        },
+        {
+          "ext": ".py",
+          "files": 22,
+          "changes": 1241
+        },
+        {
+          "ext": ".lock",
+          "files": 1,
+          "changes": 641
+        },
+        {
+          "ext": ".css",
+          "files": 1,
+          "changes": 149
+        },
+        {
+          "ext": ".html",
+          "files": 3,
+          "changes": 142
+        },
+        {
+          "ext": ".js",
+          "files": 1,
+          "changes": 131
+        },
+        {
+          "ext": ".yml",
+          "files": 2,
+          "changes": 57
+        },
+        {
+          "ext": "<noext>",
+          "files": 4,
+          "changes": 41
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 16
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 6
+        },
+        {
+          "ext": ".cfg",
+          "files": 1,
+          "changes": 3
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 2
+        },
+        {
+          "ext": ".ps1",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v2.21.0",
+      "tag_sha": "5a1e738ea9c399c3f59977f2f98b083986d6037a",
+      "released_at": "2018-12-09T22:13:32-08:00",
+      "range": {
+        "from": "v2.20.1",
+        "to": "v2.21.0"
+      },
+      "window": {
+        "start": "2018-11-06T12:35:39-05:00",
+        "end": "2018-12-09T22:13:32-08:00"
+      },
+      "counts": {
+        "commits": 24,
+        "authors": 7,
+        "files_changed": 14,
+        "lines_added": 1033,
+        "lines_deleted": 671
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "_appveyor",
+          "changes": 687
+        },
+        {
+          "dir": "_azure-pipelines",
+          "changes": 526
+        },
+        {
+          "dir": "<root>",
+          "changes": 429
+        },
+        {
+          "dir": "vscode",
+          "changes": 50
+        },
+        {
+          "dir": "requests",
+          "changes": 12
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".yml",
+          "files": 6,
+          "changes": 928
+        },
+        {
+          "ext": ".ps1",
+          "files": 1,
+          "changes": 687
+        },
+        {
+          "ext": ".json",
+          "files": 1,
+          "changes": 50
+        },
+        {
+          "ext": ".md",
+          "files": 2,
+          "changes": 19
+        },
+        {
+          "ext": ".py",
+          "files": 3,
+          "changes": 14
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 6
+        }
+      ]
+    },
+    {
+      "tag": "v2.22.0",
+      "tag_sha": "aeda65bbe57ac5edbcc2d80db85d010befb7d419",
+      "released_at": "2019-05-15T12:51:39-07:00",
+      "range": {
+        "from": "v2.21.0",
+        "to": "v2.22.0"
+      },
+      "window": {
+        "start": "2018-12-10T07:36:33-08:00",
+        "end": "2019-05-15T12:51:39-07:00"
+      },
+      "counts": {
+        "commits": 42,
+        "authors": 16,
+        "files_changed": 18,
+        "lines_added": 1204,
+        "lines_deleted": 940
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 1696
+        },
+        {
+          "dir": "docs",
+          "changes": 393
+        },
+        {
+          "dir": "tests",
+          "changes": 33
+        },
+        {
+          "dir": "requests",
+          "changes": 22
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".lock",
+          "files": 1,
+          "changes": 1611
+        },
+        {
+          "ext": ".py",
+          "files": 6,
+          "changes": 270
+        },
+        {
+          "ext": ".html",
+          "files": 2,
+          "changes": 131
+        },
+        {
+          "ext": ".rst",
+          "files": 4,
+          "changes": 52
+        },
+        {
+          "ext": ".md",
+          "files": 2,
+          "changes": 41
+        },
+        {
+          "ext": ".yml",
+          "files": 1,
+          "changes": 21
+        },
+        {
+          "ext": "<noext>",
+          "files": 2,
+          "changes": 18
+        }
+      ]
+    },
+    {
+      "tag": "v2.24.0",
+      "tag_sha": "0797c61fd541f92f66e409dbf9515ca287af28d2",
+      "released_at": "2020-06-17T08:50:25-07:00",
+      "range": {
+        "from": "v2.22.0",
+        "to": "v2.24.0"
+      },
+      "window": {
+        "start": "2018-12-29T12:05:33-05:00",
+        "end": "2020-06-17T08:50:25-07:00"
+      },
+      "counts": {
+        "commits": 329,
+        "authors": 57,
+        "files_changed": 72,
+        "lines_added": 7027,
+        "lines_deleted": 6244
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 8450
+        },
+        {
+          "dir": "docs",
+          "changes": 3145
+        },
+        {
+          "dir": "requests",
+          "changes": 1189
+        },
+        {
+          "dir": "tests",
+          "changes": 455
+        },
+        {
+          "dir": "github",
+          "changes": 19
+        },
+        {
+          "dir": "SECURITY.md => .github",
+          "changes": 11
+        },
+        {
+          "dir": "ext",
+          "changes": 2
+        },
+        {
+          "dir": "CODE_OF_CONDUCT.md => .github",
+          "changes": 0
+        },
+        {
+          "dir": "CONTRIBUTING.md => .github",
+          "changes": 0
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".lock",
+          "files": 1,
+          "changes": 6650
+        },
+        {
+          "ext": ".py",
+          "files": 19,
+          "changes": 2572
+        },
+        {
+          "ext": ".md",
+          "files": 8,
+          "changes": 1433
+        },
+        {
+          "ext": ".html",
+          "files": 3,
+          "changes": 947
+        },
+        {
+          "ext": ".rst",
+          "files": 13,
+          "changes": 692
+        },
+        {
+          "ext": ".js",
+          "files": 1,
+          "changes": 524
+        },
+        {
+          "ext": ".css",
+          "files": 1,
+          "changes": 180
+        },
+        {
+          "ext": ".yml",
+          "files": 2,
+          "changes": 149
+        },
+        {
+          "ext": "<noext>",
+          "files": 4,
+          "changes": 96
+        },
+        {
+          "ext": ".ini",
+          "files": 2,
+          "changes": 27
+        },
+        {
+          "ext": ".nojekyll",
+          "files": 1,
+          "changes": 1
+        },
+        {
+          "ext": ".jpg",
+          "files": 5,
+          "changes": 0
+        },
+        {
+          "ext": ".png",
+          "files": 12,
+          "changes": 0
+        }
+      ]
+    },
+    {
+      "tag": "v2.25.0",
+      "tag_sha": "03957eb1c2b9a1e5e6d61f5e930d7c5ed7cfe853",
+      "released_at": "2020-11-11T11:55:50-08:00",
+      "range": {
+        "from": "v2.24.0",
+        "to": "v2.25.0"
+      },
+      "window": {
+        "start": "2020-06-17T13:09:34-07:00",
+        "end": "2020-11-11T11:55:50-08:00"
+      },
+      "counts": {
+        "commits": 29,
+        "authors": 15,
+        "files_changed": 45,
+        "lines_added": 705,
+        "lines_deleted": 1687
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 1425
+        },
+        {
+          "dir": "docs",
+          "changes": 501
+        },
+        {
+          "dir": "_appveyor",
+          "changes": 229
+        },
+        {
+          "dir": "github",
+          "changes": 179
+        },
+        {
+          "dir": "requests",
+          "changes": 52
+        },
+        {
+          "dir": "tests",
+          "changes": 6
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".lock",
+          "files": 1,
+          "changes": 765
+        },
+        {
+          "ext": "<noext>",
+          "files": 4,
+          "changes": 407
+        },
+        {
+          "ext": ".rst",
+          "files": 18,
+          "changes": 301
+        },
+        {
+          "ext": ".yml",
+          "files": 4,
+          "changes": 277
+        },
+        {
+          "ext": ".ps1",
+          "files": 1,
+          "changes": 229
+        },
+        {
+          "ext": ".md",
+          "files": 2,
+          "changes": 138
+        },
+        {
+          "ext": ".js",
+          "files": 1,
+          "changes": 116
+        },
+        {
+          "ext": ".html",
+          "files": 3,
+          "changes": 86
+        },
+        {
+          "ext": ".py",
+          "files": 7,
+          "changes": 65
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 6
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 2
+        },
+        {
+          "ext": ".jpg",
+          "files": 2,
+          "changes": 0
+        }
+      ]
+    },
+    {
+      "tag": "v2.25.1",
+      "tag_sha": "c2b307dbefe21177af03f9feb37181a89a799fcc",
+      "released_at": "2020-12-16T11:34:26-08:00",
+      "range": {
+        "from": "v2.25.0",
+        "to": "v2.25.1"
+      },
+      "window": {
+        "start": "2020-09-23T13:19:29+02:00",
+        "end": "2020-12-16T11:34:26-08:00"
+      },
+      "counts": {
+        "commits": 19,
+        "authors": 11,
+        "files_changed": 13,
+        "lines_added": 271,
+        "lines_deleted": 178
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 198
+        },
+        {
+          "dir": "docs",
+          "changes": 144
+        },
+        {
+          "dir": "tests",
+          "changes": 70
+        },
+        {
+          "dir": "github",
+          "changes": 20
+        },
+        {
+          "dir": "<root>",
+          "changes": 17
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 7,
+          "changes": 274
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 144
+        },
+        {
+          "ext": ".md",
+          "files": 2,
+          "changes": 25
+        },
+        {
+          "ext": ".yml",
+          "files": 2,
+          "changes": 6
+        }
+      ]
+    },
+    {
+      "tag": "v2.26.0",
+      "tag_sha": "a1a6a549a0143d9b32717dbe3d75cd543ae5a4f6",
+      "released_at": "2021-07-13T07:52:02-07:00",
+      "range": {
+        "from": "v2.25.1",
+        "to": "v2.26.0"
+      },
+      "window": {
+        "start": "2020-12-08T18:37:18+01:00",
+        "end": "2021-07-13T07:52:02-07:00"
+      },
+      "counts": {
+        "commits": 26,
+        "authors": 20,
+        "files_changed": 26,
+        "lines_added": 396,
+        "lines_deleted": 77
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 148
+        },
+        {
+          "dir": "<root>",
+          "changes": 131
+        },
+        {
+          "dir": "tests",
+          "changes": 125
+        },
+        {
+          "dir": "docs",
+          "changes": 60
+        },
+        {
+          "dir": "github",
+          "changes": 9
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 13,
+          "changes": 286
+        },
+        {
+          "ext": ".md",
+          "files": 3,
+          "changes": 96
+        },
+        {
+          "ext": ".rst",
+          "files": 6,
+          "changes": 60
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 19
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 6
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 4
+        },
+        {
+          "ext": ".yml",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v2.27.0",
+      "tag_sha": "0192aac24123735b3eaf9b08df46429bb770c283",
+      "released_at": "2022-01-03T08:01:30-07:00",
+      "range": {
+        "from": "v2.26.0",
+        "to": "v2.27.0"
+      },
+      "window": {
+        "start": "2021-07-16T11:06:42-07:00",
+        "end": "2022-01-03T07:59:10-07:00"
+      },
+      "counts": {
+        "commits": 48,
+        "authors": 19,
+        "files_changed": 35,
+        "lines_added": 505,
+        "lines_deleted": 156
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "tests",
+          "changes": 225
+        },
+        {
+          "dir": "requests",
+          "changes": 193
+        },
+        {
+          "dir": "<root>",
+          "changes": 107
+        },
+        {
+          "dir": "docs",
+          "changes": 80
+        },
+        {
+          "dir": "github",
+          "changes": 56
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 14,
+          "changes": 427
+        },
+        {
+          "ext": ".md",
+          "files": 3,
+          "changes": 106
+        },
+        {
+          "ext": ".rst",
+          "files": 10,
+          "changes": 73
+        },
+        {
+          "ext": ".yml",
+          "files": 3,
+          "changes": 40
+        },
+        {
+          "ext": ".html",
+          "files": 1,
+          "changes": 6
+        },
+        {
+          "ext": ".txt",
+          "files": 2,
+          "changes": 5
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 4
+        },
+        {
+          "ext": ".png",
+          "files": 1,
+          "changes": 0
+        }
+      ]
+    },
+    {
+      "tag": "v2.27.1",
+      "tag_sha": "31a89d9c8463c3394ca00f408f4b86d814421a09",
+      "released_at": "2022-01-05T08:38:42-07:00",
+      "range": {
+        "from": "v2.27.0",
+        "to": "v2.27.1"
+      },
+      "window": {
+        "start": "2022-01-04T08:27:23-07:00",
+        "end": "2022-01-05T08:35:04-07:00"
+      },
+      "counts": {
+        "commits": 3,
+        "authors": 2,
+        "files_changed": 4,
+        "lines_added": 34,
+        "lines_deleted": 2
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "tests",
+          "changes": 16
+        },
+        {
+          "dir": "requests",
+          "changes": 12
+        },
+        {
+          "dir": "<root>",
+          "changes": 8
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 3,
+          "changes": 28
+        },
+        {
+          "ext": ".md",
+          "files": 1,
+          "changes": 8
+        }
+      ]
+    },
+    {
+      "tag": "v2.28.0",
+      "tag_sha": "da9996fe4dc63356e9467d0a5e10df3d89a8528e",
+      "released_at": "2022-06-09T08:42:10-06:00",
+      "range": {
+        "from": "v2.27.1",
+        "to": "v2.28.0"
+      },
+      "window": {
+        "start": "2021-11-13T20:58:30-06:00",
+        "end": "2022-06-09T08:42:10-06:00"
+      },
+      "counts": {
+        "commits": 30,
+        "authors": 10,
+        "files_changed": 54,
+        "lines_added": 3428,
+        "lines_deleted": 2817
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "tests",
+          "changes": 3498
+        },
+        {
+          "dir": "requests",
+          "changes": 2199
+        },
+        {
+          "dir": "<root>",
+          "changes": 282
+        },
+        {
+          "dir": "docs",
+          "changes": 223
+        },
+        {
+          "dir": "github",
+          "changes": 43
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 31,
+          "changes": 5855
+        },
+        {
+          "ext": ".rst",
+          "files": 5,
+          "changes": 140
+        },
+        {
+          "ext": ".html",
+          "files": 2,
+          "changes": 83
+        },
+        {
+          "ext": ".md",
+          "files": 3,
+          "changes": 43
+        },
+        {
+          "ext": ".yml",
+          "files": 4,
+          "changes": 41
+        },
+        {
+          "ext": ".yaml",
+          "files": 1,
+          "changes": 28
+        },
+        {
+          "ext": ".cfg",
+          "files": 1,
+          "changes": 18
+        },
+        {
+          "ext": ".toml",
+          "files": 1,
+          "changes": 13
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 11
+        },
+        {
+          "ext": "<noext>",
+          "files": 3,
+          "changes": 8
+        },
+        {
+          "ext": ".ini",
+          "files": 2,
+          "changes": 5
+        }
+      ]
+    },
+    {
+      "tag": "v2.28.1",
+      "tag_sha": "4d394574f5555a8ddcc38f707e0c9f57f55d9a3b",
+      "released_at": "2022-06-29T09:09:11-06:00",
+      "range": {
+        "from": "v2.28.0",
+        "to": "v2.28.1"
+      },
+      "window": {
+        "start": "2022-06-27T20:25:58-06:00",
+        "end": "2022-06-29T09:09:11-06:00"
+      },
+      "counts": {
+        "commits": 4,
+        "authors": 4,
+        "files_changed": 6,
+        "lines_added": 20,
+        "lines_deleted": 9
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 18
+        },
+        {
+          "dir": "requests",
+          "changes": 11
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 4,
+          "changes": 15
+        },
+        {
+          "ext": ".md",
+          "files": 1,
+          "changes": 12
+        },
+        {
+          "ext": ".cfg",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v2.28.2",
+      "tag_sha": "61c324da43dd8b775d3930d76265538b3ca27bc1",
+      "released_at": "2023-01-12T09:25:44-07:00",
+      "range": {
+        "from": "v2.28.1",
+        "to": "v2.28.2"
+      },
+      "window": {
+        "start": "2022-06-29T12:41:49-06:00",
+        "end": "2023-01-12T09:16:09-07:00"
+      },
+      "counts": {
+        "commits": 14,
+        "authors": 12,
+        "files_changed": 15,
+        "lines_added": 49,
+        "lines_deleted": 24
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 23
+        },
+        {
+          "dir": "docs",
+          "changes": 23
+        },
+        {
+          "dir": "github",
+          "changes": 15
+        },
+        {
+          "dir": "requests",
+          "changes": 12
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".rst",
+          "files": 3,
+          "changes": 23
+        },
+        {
+          "ext": ".yml",
+          "files": 3,
+          "changes": 15
+        },
+        {
+          "ext": ".py",
+          "files": 4,
+          "changes": 14
+        },
+        {
+          "ext": ".md",
+          "files": 1,
+          "changes": 11
+        },
+        {
+          "ext": ".yaml",
+          "files": 1,
+          "changes": 4
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 2
+        },
+        {
+          "ext": ".cfg",
+          "files": 1,
+          "changes": 2
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v2.29.0",
+      "tag_sha": "87d63de8739263bbe17034fba2285c79780da7e8",
+      "released_at": "2023-04-26T09:20:42-06:00",
+      "range": {
+        "from": "v2.28.2",
+        "to": "v2.29.0"
+      },
+      "window": {
+        "start": "2023-01-18T22:37:24-07:00",
+        "end": "2023-04-26T09:19:11-06:00"
+      },
+      "counts": {
+        "commits": 11,
+        "authors": 8,
+        "files_changed": 15,
+        "lines_added": 100,
+        "lines_deleted": 91
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "requests",
+          "changes": 117
+        },
+        {
+          "dir": "tests",
+          "changes": 44
+        },
+        {
+          "dir": "<root>",
+          "changes": 15
+        },
+        {
+          "dir": "github",
+          "changes": 11
+        },
+        {
+          "dir": "docs",
+          "changes": 4
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 8,
+          "changes": 163
+        },
+        {
+          "ext": ".yml",
+          "files": 2,
+          "changes": 11
+        },
+        {
+          "ext": ".md",
+          "files": 1,
+          "changes": 8
+        },
+        {
+          "ext": ".rst",
+          "files": 1,
+          "changes": 4
+        },
+        {
+          "ext": ".toml",
+          "files": 1,
+          "changes": 2
+        },
+        {
+          "ext": ".yaml",
+          "files": 1,
+          "changes": 2
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 1
+        }
+      ]
+    },
+    {
+      "tag": "v2.30.0",
+      "tag_sha": "2ad18e0e10e7d7ecd5384c378f25ec8821a10a29",
+      "released_at": "2023-05-03T09:42:03-06:00",
+      "range": {
+        "from": "v2.29.0",
+        "to": "v2.30.0"
+      },
+      "window": {
+        "start": "2023-04-28T13:17:10-06:00",
+        "end": "2023-05-03T09:39:44-06:00"
+      },
+      "counts": {
+        "commits": 2,
+        "authors": 2,
+        "files_changed": 5,
+        "lines_added": 19,
+        "lines_deleted": 8
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 14
+        },
+        {
+          "dir": "requests",
+          "changes": 13
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 4,
+          "changes": 15
+        },
+        {
+          "ext": ".md",
+          "files": 1,
+          "changes": 12
+        }
+      ]
+    },
+    {
+      "tag": "v2.31.0",
+      "tag_sha": "147c8511ddbfa5e8f71bbf5c18ede0c4ceb3bba4",
+      "released_at": "2023-05-22T09:24:03-06:00",
+      "range": {
+        "from": "v2.30.0",
+        "to": "v2.31.0"
+      },
+      "window": {
+        "start": "2023-05-09T10:55:33-06:00",
+        "end": "2023-05-22T09:10:32-06:00"
+      },
+      "counts": {
+        "commits": 5,
+        "authors": 3,
+        "files_changed": 7,
+        "lines_added": 59,
+        "lines_deleted": 11
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 33
+        },
+        {
+          "dir": "tests",
+          "changes": 20
+        },
+        {
+          "dir": "github",
+          "changes": 9
+        },
+        {
+          "dir": "requests",
+          "changes": 8
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 4,
+          "changes": 30
+        },
+        {
+          "ext": ".md",
+          "files": 1,
+          "changes": 29
+        },
+        {
+          "ext": ".yml",
+          "files": 1,
+          "changes": 9
+        },
+        {
+          "ext": ".txt",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v2.32.0",
+      "tag_sha": "d6ebc4a2f1f68b7e355fb7e4dd5ffc0845547f9f",
+      "released_at": "2024-05-20T08:48:32-07:00",
+      "range": {
+        "from": "v2.31.0",
+        "to": "v2.32.0"
+      },
+      "window": {
+        "start": "2022-10-23T18:35:43+00:00",
+        "end": "2024-05-20T08:46:49-07:00"
+      },
+      "counts": {
+        "commits": 128,
+        "authors": 31,
+        "files_changed": 99,
+        "lines_added": 2726,
+        "lines_deleted": 580
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "tests",
+          "changes": 1753
+        },
+        {
+          "dir": "src",
+          "changes": 416
+        },
+        {
+          "dir": "github",
+          "changes": 362
+        },
+        {
+          "dir": "docs",
+          "changes": 288
+        },
+        {
+          "dir": "<root>",
+          "changes": 280
+        },
+        {
+          "dir": "requests",
+          "changes": 207
+        },
+        {
+          "dir": "{requests => src",
+          "changes": 0
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 44,
+          "changes": 1351
+        },
+        {
+          "ext": ".yml",
+          "files": 6,
+          "changes": 350
+        },
+        {
+          "ext": ".pem",
+          "files": 3,
+          "changes": 258
+        },
+        {
+          "ext": ".key",
+          "files": 4,
+          "changes": 224
+        },
+        {
+          "ext": ".cnf",
+          "files": 4,
+          "changes": 186
+        },
+        {
+          "ext": ".md",
+          "files": 7,
+          "changes": 178
+        },
+        {
+          "ext": "<noext>",
+          "files": 9,
+          "changes": 176
+        },
+        {
+          "ext": ".rst",
+          "files": 7,
+          "changes": 176
+        },
+        {
+          "ext": ".csr",
+          "files": 3,
+          "changes": 124
+        },
+        {
+          "ext": ".html",
+          "files": 2,
+          "changes": 114
+        },
+        {
+          "ext": ".yaml",
+          "files": 2,
+          "changes": 72
+        },
+        {
+          "ext": ".crt",
+          "files": 1,
+          "changes": 40
+        },
+        {
+          "ext": ".txt",
+          "files": 2,
+          "changes": 24
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 12
+        },
+        {
+          "ext": ".toml",
+          "files": 1,
+          "changes": 9
+        },
+        {
+          "ext": ".cfg",
+          "files": 1,
+          "changes": 6
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 4
+        },
+        {
+          "ext": ".srl",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    },
+    {
+      "tag": "v2.32.1",
+      "tag_sha": "970e8cec988421bd43da57350723b05c8ce8dc7e",
+      "released_at": "2024-05-20T15:09:05-07:00",
+      "range": {
+        "from": "v2.32.0",
+        "to": "v2.32.1"
+      },
+      "window": {
+        "start": "2024-05-20T15:02:29-07:00",
+        "end": "2024-05-20T15:02:29-07:00"
+      },
+      "counts": {
+        "commits": 1,
+        "authors": 1,
+        "files_changed": 3,
+        "lines_added": 10,
+        "lines_deleted": 2
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "<root>",
+          "changes": 8
+        },
+        {
+          "dir": "src",
+          "changes": 4
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".md",
+          "files": 1,
+          "changes": 7
+        },
+        {
+          "ext": ".py",
+          "files": 1,
+          "changes": 4
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 1
+        }
+      ]
+    },
+    {
+      "tag": "v2.32.2",
+      "tag_sha": "88dce9d854797c05d0ff296b70e0430535ef8aaf",
+      "released_at": "2024-05-21T11:49:58-07:00",
+      "range": {
+        "from": "v2.32.1",
+        "to": "v2.32.2"
+      },
+      "window": {
+        "start": "2024-05-21T05:42:49-07:00",
+        "end": "2024-05-21T11:49:22-07:00"
+      },
+      "counts": {
+        "commits": 4,
+        "authors": 1,
+        "files_changed": 3,
+        "lines_added": 78,
+        "lines_deleted": 14
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "src",
+          "changes": 78
+        },
+        {
+          "dir": "<root>",
+          "changes": 14
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 2,
+          "changes": 78
+        },
+        {
+          "ext": ".md",
+          "files": 1,
+          "changes": 14
+        }
+      ]
+    },
+    {
+      "tag": "v2.32.3",
+      "tag_sha": "0e322af87745eff34caffe4df68456ebc20d9068",
+      "released_at": "2024-05-29T08:37:57-07:00",
+      "range": {
+        "from": "v2.32.2",
+        "to": "v2.32.3"
+      },
+      "window": {
+        "start": "2024-05-22T06:53:24-05:00",
+        "end": "2024-05-29T08:36:10-07:00"
+      },
+      "counts": {
+        "commits": 6,
+        "authors": 2,
+        "files_changed": 3,
+        "lines_added": 190,
+        "lines_deleted": 32
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "src",
+          "changes": 198
+        },
+        {
+          "dir": "<root>",
+          "changes": 24
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 2,
+          "changes": 198
+        },
+        {
+          "ext": ".md",
+          "files": 1,
+          "changes": 24
+        }
+      ]
+    },
+    {
+      "tag": "v2.32.4",
+      "tag_sha": "021dc729f0b71a3030cefdbec7fb57a0e80a6cfd",
+      "released_at": "2025-06-09T11:40:33-05:00",
+      "range": {
+        "from": "v2.32.3",
+        "to": "v2.32.4"
+      },
+      "window": {
+        "start": "2023-09-14T14:29:37+05:30",
+        "end": "2025-06-09T11:39:48-05:00"
+      },
+      "counts": {
+        "commits": 64,
+        "authors": 16,
+        "files_changed": 71,
+        "lines_added": 2510,
+        "lines_deleted": 1295
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "tests",
+          "changes": 2188
+        },
+        {
+          "dir": "src",
+          "changes": 535
+        },
+        {
+          "dir": "github",
+          "changes": 435
+        },
+        {
+          "dir": "docs",
+          "changes": 377
+        },
+        {
+          "dir": "<root>",
+          "changes": 270
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".py",
+          "files": 15,
+          "changes": 1148
+        },
+        {
+          "ext": ".pem",
+          "files": 3,
+          "changes": 591
+        },
+        {
+          "ext": ".key",
+          "files": 4,
+          "changes": 528
+        },
+        {
+          "ext": ".yml",
+          "files": 5,
+          "changes": 395
+        },
+        {
+          "ext": ".rst",
+          "files": 10,
+          "changes": 348
+        },
+        {
+          "ext": ".csr",
+          "files": 3,
+          "changes": 206
+        },
+        {
+          "ext": ".md",
+          "files": 8,
+          "changes": 170
+        },
+        {
+          "ext": ".crt",
+          "files": 1,
+          "changes": 136
+        },
+        {
+          "ext": ".cnf",
+          "files": 4,
+          "changes": 103
+        },
+        {
+          "ext": "<noext>",
+          "files": 9,
+          "changes": 94
+        },
+        {
+          "ext": ".yaml",
+          "files": 1,
+          "changes": 29
+        },
+        {
+          "ext": ".html",
+          "files": 2,
+          "changes": 24
+        },
+        {
+          "ext": ".txt",
+          "files": 2,
+          "changes": 15
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 10
+        },
+        {
+          "ext": ".srl",
+          "files": 1,
+          "changes": 5
+        },
+        {
+          "ext": ".cfg",
+          "files": 1,
+          "changes": 2
+        },
+        {
+          "ext": ".in",
+          "files": 1,
+          "changes": 1
+        }
+      ]
+    },
+    {
+      "tag": "v2.32.5",
+      "tag_sha": "b25c87d7cb8d6a18a37fa12442b5f883f9e41741",
+      "released_at": "2025-08-18T13:23:20-07:00",
+      "range": {
+        "from": "v2.32.4",
+        "to": "v2.32.5"
+      },
+      "window": {
+        "start": "2025-06-09T21:32:45-05:00",
+        "end": "2025-08-18T13:23:20-07:00"
+      },
+      "counts": {
+        "commits": 14,
+        "authors": 8,
+        "files_changed": 14,
+        "lines_added": 167,
+        "lines_deleted": 85
+      },
+      "rollup_by_dir": [
+        {
+          "dir": "github",
+          "changes": 145
+        },
+        {
+          "dir": "src",
+          "changes": 63
+        },
+        {
+          "dir": "<root>",
+          "changes": 35
+        },
+        {
+          "dir": "docs",
+          "changes": 9
+        }
+      ],
+      "rollup_by_ext": [
+        {
+          "ext": ".yml",
+          "files": 4,
+          "changes": 145
+        },
+        {
+          "ext": ".py",
+          "files": 4,
+          "changes": 69
+        },
+        {
+          "ext": ".md",
+          "files": 2,
+          "changes": 18
+        },
+        {
+          "ext": ".rst",
+          "files": 2,
+          "changes": 9
+        },
+        {
+          "ext": "<noext>",
+          "files": 1,
+          "changes": 9
+        },
+        {
+          "ext": ".ini",
+          "files": 1,
+          "changes": 2
+        }
+      ]
+    }
+  ],
+  "alignment": {
+    "main_ahead_of_prod_commits": 5,
+    "prod_ahead_of_main_commits": 0,
+    "diverged": false,
+    "main_head": "420d16bc7ef326f7b65f90e4644adc0f6a0e1d44",
+    "prod_head": "b25c87d7cb8d6a18a37fa12442b5f883f9e41741"
+  }
+}
