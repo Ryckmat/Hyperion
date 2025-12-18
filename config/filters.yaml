@@ -1,0 +1,78 @@
+# Filtres pour le calcul des hotspots
+
+ignore_extensions:
+  # Certificats
+  - .pem
+  - .crt
+  - .cer
+  - .der
+  
+  # Design
+  - .ai
+  - .psd
+  
+  # Images
+  - .png
+  - .jpg
+  - .jpeg
+  - .gif
+  - .svg
+  - .ico
+  - .pdf
+  
+  # Build artifacts
+  - .lock
+  - .min.js
+  - .map
+  
+  # Fonts
+  - .ttf
+  - .otf
+  - .woff
+  - .woff2
+  
+  # Archives
+  - .gz
+  - .zip
+  - .7z
+  - .tar
+  - .bz2
+  
+  # Binaires
+  - .exe
+  - .dll
+  - .so
+  - .dylib
+
+ignore_prefixes:
+  # Vendored
+  - requests/packages/
+  - node_modules/
+  - vendor/
+  - site-packages/
+  - dist-packages/
+  
+  # Assets
+  - ext/
+  - assets/
+  - static/
+  
+  # Docs build
+  - docs/_build/
+  - docs/_static/
+  - docs/_themes/
+  
+  # Git
+  - .git/
+  - .github/
+  - .gitlab/
+
+ignore_files:
+  - HISTORY.rst
+  - HISTORY.md
+  - CHANGELOG
+  - CHANGELOG.md
+  - README
+  - README.md
+  - LICENSE
+  - LICENSE.txt
