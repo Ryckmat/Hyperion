@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyperion Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="bg-gray-50">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Configuration API
+        const API_URL = 'http://localhost:8000';
+
+        // Composant principal
+        function App() {
+            const [repos, setRepos] = useState([]);
+            const [selectedRepo, setSelectedRepo] = useState(null);
+            const [repoDetails, setRepoDetails] = useState(null);
+            const [loading, setLoading] = useState(true);
+            const [error, setError] = useState(null);
+
+            // Charger la liste des repos
+            useEffect(() => {
+                fetch(`${API_URL}/api/repos`)
+                    .then(res => res.json())
+                    .then(data => {
+                        setRepos(data.repos || []);
+                        setLoading(false);
+                    })
+                    .catch(err => {
+                        setError(err.message);
+                        setLoading(false);
+                    });
+            }, []);
+
+            // Charger les détails d'un repo
+            const loadRepoDetails = (repoName) => {
+                setSelectedRepo(repoName);
+                setLoading(true);
+
+                fetch(`${API_URL}/api/repos/${repoName}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        setRepoDetails(data);
+                        setLoading(false);
+                    })
+                    .catch(err => {
+                        setError(err.message);
+                        setLoading(false);
+                    });
+            };
+
+            return (
+                <div className="min-h-screen">
+                    {/* Header */}
+                    <header className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg">
+                        <div className="container mx-auto px-4 py-6">
+                            <h1 className="text-4xl font-bold">🚀 Hyperion Dashboard</h1>
+                            <p className="text-indigo-100 mt-2">Git Repository Profiler & Knowledge Graph</p>
+                        </div>
+                    </header>
+
+                    {/* Main Content */}
+                    <div className="container mx-auto px-4 py-8">
+                        {loading && !repos.length && (
+                            <div className="text-center py-12">
+                                <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                                <p className="mt-4 text-gray-600">Chargement...</p>
+                            </div>
+                        )}
+
+                        {error && (
+                            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                                <strong>Erreur:</strong> {error}
+                            </div>
+                        )}
+
+                        {!selectedRepo && repos.length > 0 && (
+                            <RepoList repos={repos} onSelectRepo={loadRepoDetails} />
+                        )}
+
+                        {selectedRepo && repoDetails && (
+                            <RepoDetails 
+                                repo={repoDetails} 
+                                onBack={() => {
+                                    setSelectedRepo(null);
+                                    setRepoDetails(null);
+                                }} 
+                            />
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        // Liste des repos
+        function RepoList({ repos, onSelectRepo }) {
+            return (
+                <div>
+                    <h2 className="text-2xl font-bold text-gray-800 mb-6">
+                        📚 Repositories analysés ({repos.length})
+                    </h2>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {repos.map(repo => (
+                            <div 
+                                key={repo.name}
+                                onClick={() => onSelectRepo(repo.name)}
+                                className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all cursor-pointer p-6 border border-gray-200 hover:border-indigo-400"
+                            >
+                                <div className="flex items-center justify-between mb-4">
+                                    <h3 className="text-xl font-bold text-gray-800">{repo.name}</h3>
+                                    <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">
+                                        {repo.language}
+                                    </span>
+                                </div>
+                                
+                                <div className="space-y-2 text-sm text-gray-600">
+                                    <div className="flex justify-between">
+                                        <span>Commits:</span>
+                                        <span className="font-semibold">{repo.commits.toLocaleString()}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <span>Contributeurs:</span>
+                                        <span className="font-semibold">{repo.contributors}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <span>Licence:</span>
+                                        <span className="font-semibold">{repo.license || 'N/A'}</span>
+                                    </div>
+                                    <div className="flex justify-between text-xs pt-2 border-t">
+                                        <span>{repo.first_commit}</span>
+                                        <span>→</span>
+                                        <span>{repo.last_commit}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        // Détails d'un repo
+        function RepoDetails({ repo, onBack }) {
+            const metrics = repo.metrics || {};
+            const gitSummary = repo.git_summary || {};
+
+            return (
+                <div>
+                    {/* Header avec bouton retour */}
+                    <div className="flex items-center mb-6">
+                        <button 
+                            onClick={onBack}
+                            className="mr-4 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                        >
+                            ← Retour
+                        </button>
+                        <h2 className="text-3xl font-bold text-gray-800">{repo.service}</h2>
+                    </div>
+
+                    {/* Stats principales */}
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                        <StatCard 
+                            title="Commits" 
+                            value={gitSummary.commits?.toLocaleString()} 
+                            icon="📊"
+                            color="blue"
+                        />
+                        <StatCard 
+                            title="Contributeurs" 
+                            value={gitSummary.contributors} 
+                            icon="👥"
+                            color="green"
+                        />
+                        <StatCard 
+                            title="Activité 90j" 
+                            value={gitSummary.recent_commits_90d} 
+                            icon="🔥"
+                            color="orange"
+                        />
+                        <StatCard 
+                            title="Années" 
+                            value={metrics.evolution_years} 
+                            icon="📅"
+                            color="purple"
+                        />
+                    </div>
+
+                    {/* Métriques qualité */}
+                    <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+                        <h3 className="text-xl font-bold text-gray-800 mb-4">📈 Métriques qualité</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <MetricBar 
+                                label="Code Python" 
+                                value={metrics.changes_ratio?.code_py} 
+                                color="bg-blue-500"
+                            />
+                            <MetricBar 
+                                label="Tests" 
+                                value={metrics.changes_ratio?.tests} 
+                                color="bg-green-500"
+                            />
+                            <MetricBar 
+                                label="Documentation" 
+                                value={metrics.changes_ratio?.docs} 
+                                color="bg-yellow-500"
+                            />
+                        </div>
+                        
+                        <div className="mt-6 grid grid-cols-2 gap-4 text-sm text-gray-600">
+                            <div>
+                                <span className="font-semibold">Commits/an:</span> {metrics.avg_commits_per_year}
+                            </div>
+                            <div>
+                                <span className="font-semibold">Changements/hotspot:</span> {metrics.avg_changes_per_hotspot}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Top contributeurs */}
+                    <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+                        <h3 className="text-xl font-bold text-gray-800 mb-4">👥 Top 10 contributeurs</h3>
+                        <div className="overflow-x-auto">
+                            <table className="min-w-full">
+                                <thead>
+                                    <tr className="border-b border-gray-200">
+                                        <th className="text-left py-2 px-4 text-gray-600">#</th>
+                                        <th className="text-left py-2 px-4 text-gray-600">Nom</th>
+                                        <th className="text-left py-2 px-4 text-gray-600">Email</th>
+                                        <th className="text-right py-2 px-4 text-gray-600">Commits</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {gitSummary.contributors_top10?.map((c, i) => (
+                                        <tr key={i} className="border-b border-gray-100 hover:bg-gray-50">
+                                            <td className="py-3 px-4 text-gray-500">{i + 1}</td>
+                                            <td className="py-3 px-4 font-semibold">{c.name}</td>
+                                            <td className="py-3 px-4 text-sm text-gray-600">{c.email}</td>
+                                            <td className="py-3 px-4 text-right font-bold text-indigo-600">{c.commits}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    {/* Top hotspots */}
+                    <div className="bg-white rounded-lg shadow-md p-6">
+                        <h3 className="text-xl font-bold text-gray-800 mb-4">🔥 Top 10 hotspots</h3>
+                        <div className="space-y-3">
+                            {gitSummary.hotspots_top10?.map((h, i) => (
+                                <div key={i} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                    <div className="flex items-center space-x-3 flex-1">
+                                        <span className="text-gray-500 font-mono text-sm">#{i + 1}</span>
+                                        <code className="text-sm text-gray-800">{h.path}</code>
+                                    </div>
+                                    <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-semibold">
+                                        {h.changes.toLocaleString()} changes
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Composant stat card
+        function StatCard({ title, value, icon, color }) {
+            const colorClasses = {
+                blue: 'bg-blue-50 border-blue-200 text-blue-700',
+                green: 'bg-green-50 border-green-200 text-green-700',
+                orange: 'bg-orange-50 border-orange-200 text-orange-700',
+                purple: 'bg-purple-50 border-purple-200 text-purple-700'
+            };
+
+            return (
+                <div className={`${colorClasses[color]} border rounded-lg p-6 text-center`}>
+                    <div className="text-4xl mb-2">{icon}</div>
+                    <div className="text-3xl font-bold mb-1">{value}</div>
+                    <div className="text-sm opacity-75">{title}</div>
+                </div>
+            );
+        }
+
+        // Composant barre de métrique
+        function MetricBar({ label, value, color }) {
+            return (
+                <div>
+                    <div className="flex justify-between mb-2">
+                        <span className="text-sm font-medium text-gray-700">{label}</span>
+                        <span className="text-sm font-bold text-gray-900">{value}%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-3">
+                        <div 
+                            className={`${color} h-3 rounded-full transition-all duration-500`}
+                            style={{ width: `${value}%` }}
+                        ></div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Render
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
