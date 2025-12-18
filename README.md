@@ -101,6 +101,5 @@ Apache-2.0 - Voir [LICENSE](LICENSE)
 
 ## 👤 Auteur
 
-**Matthieu Ryckembusch** - I-Run
-- Email: matthieu@irun.fr
+**Matthieu Ryckembusch**
 - GitHub: [@Ryckmat](https://github.com/Ryckmat)
