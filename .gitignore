@@ -160,8 +160,9 @@ cython_debug/
 /data/repositories/*/
 /data/cache/
 
-# Documentation générée
+# Documentation générée automatiquement (ne pas committer)
 /output/
+/docs/generated/
 
 # Fichiers temporaires
 *.tmp

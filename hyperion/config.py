@@ -19,7 +19,7 @@ load_dotenv(ENV_PATH, override=True)
 CONFIG_DIR = PROJECT_ROOT / "config"
 TEMPLATES_DIR = PROJECT_ROOT / "templates"
 DATA_DIR = PROJECT_ROOT / "data"
-OUTPUT_DIR = PROJECT_ROOT / "output"
+OUTPUT_DIR = PROJECT_ROOT / "docs" / "generated"  # Changé : docs/generated/ au lieu de output/
 
 # Créer les dossiers s'ils n'existent pas
 for directory in [DATA_DIR, OUTPUT_DIR, CONFIG_DIR]:
