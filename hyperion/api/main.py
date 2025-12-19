@@ -2,13 +2,25 @@
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 from pathlib import Path
-from typing import Optional
+from typing import Optional, List
 import yaml
 
 from hyperion.integrations.neo4j_ingester import Neo4jIngester
-from hyperion.config import DATA_DIR, NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, NEO4J_DATABASE
+from hyperion.config import DATA_DIR
 from hyperion.__version__ import __version__
+
+
+# ============================================================================
+# Pydantic Models
+# ============================================================================
+
+class ChatRequest(BaseModel):
+    """Requête chat RAG."""
+    question: str
+    repo: Optional[str] = None
+    history: Optional[List[dict]] = None
 
 
 # ============================================================================
@@ -17,7 +29,7 @@ from hyperion.__version__ import __version__
 
 app = FastAPI(
     title="Hyperion API",
-    description="API REST pour le profiler Git Hyperion",
+    description="API REST pour le profiler Git Hyperion + RAG",
     version=__version__,
     docs_url="/docs",
     redoc_url="/redoc"
@@ -26,11 +38,26 @@ app = FastAPI(
 # CORS (pour React)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],  # Vite default
+    allow_origins=["http://localhost:3000", "http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+# ============================================================================
+# RAG Global (lazy loading)
+# ============================================================================
+
+_query_engine = None
+
+def get_query_engine():
+    """Get or create RAG query engine."""
+    global _query_engine
+    if _query_engine is None:
+        from hyperion.rag.query import RAGQueryEngine
+        _query_engine = RAGQueryEngine()
+    return _query_engine
 
 
 # ============================================================================
@@ -44,9 +71,11 @@ def read_root():
         "name": "Hyperion API",
         "version": __version__,
         "status": "running",
+        "features": ["repos", "neo4j", "rag"],
         "endpoints": {
             "docs": "/docs",
             "repos": "/api/repos",
+            "chat": "/api/chat",
             "health": "/api/health"
         }
     }
@@ -54,25 +83,33 @@ def read_root():
 
 @app.get("/api/health")
 def health_check():
-    """Health check API + Neo4j."""
+    """Health check API + Neo4j + RAG."""
+    status = {
+        "status": "healthy",
+        "api": "ok",
+        "neo4j": "unknown",
+        "rag": "unknown"
+    }
+    
+    # Test Neo4j
     try:
-        # Tester connexion Neo4j
         ingester = Neo4jIngester()
         ingester.driver.verify_connectivity()
         ingester.close()
-        
-        return {
-            "status": "healthy",
-            "api": "ok",
-            "neo4j": "ok"
-        }
+        status["neo4j"] = "ok"
     except Exception as e:
-        return {
-            "status": "degraded",
-            "api": "ok",
-            "neo4j": "error",
-            "error": str(e)
-        }
+        status["neo4j"] = f"error: {str(e)}"
+        status["status"] = "degraded"
+    
+    # Test RAG
+    try:
+        engine = get_query_engine()
+        status["rag"] = "ok"
+    except Exception as e:
+        status["rag"] = f"error: {str(e)}"
+        status["status"] = "degraded"
+    
+    return status
 
 
 @app.get("/api/repos")
@@ -200,7 +237,38 @@ def get_neo4j_repo(repo_name: str):
 
 
 # ============================================================================
-# Main (pour lancer avec uvicorn)
+# RAG Endpoints
+# ============================================================================
+
+@app.post("/api/chat")
+def chat(request: ChatRequest):
+    """
+    Chat RAG avec les repos.
+    
+    Body:
+        {
+            "question": "Qui est le contributeur principal ?",
+            "repo": "requests",  // optionnel
+            "history": []        // optionnel
+        }
+    """
+    try:
+        engine = get_query_engine()
+        
+        result = engine.chat(
+            question=request.question,
+            repo=request.repo,
+            history=request.history
+        )
+        
+        return result
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============================================================================
+# Main
 # ============================================================================
 
 if __name__ == "__main__":
