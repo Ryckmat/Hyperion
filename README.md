@@ -1,105 +1,235 @@
-# 🚀 Hyperion - Git Repository Profiler & Knowledge Graph
+Parfait 👍
+Je te refais un **README.md complet, propre et “projet sérieux”**, aligné avec **ce que fait réellement Hyperion aujourd’hui** (RAG, graphe, OpenAI-compatible, Open WebUI, orchestration), sans survendre ni simplifier à l’excès.
 
-Hyperion analyse vos dépôts Git et génère automatiquement :
-- 📊 Documentation technique structurée
-- 🔥 Identification des hotspots de code
-- 👥 Déduplication intelligente des contributeurs
-- 📈 Métriques de qualité (code/tests/docs)
-- 🗄️ Ingestion dans Neo4j pour graphe de connaissances
+Tu peux **copier-coller tel quel** pour remplacer ton README actuel.
 
-## 🎯 Installation rapide
+---
 
-```bash
-cd Hyperion
-pip install -e .
-```
+# 🧠 Hyperion
 
-## 🎮 Usage
+**Hyperion** est une plateforme locale d’analyse et d’exploration de dépôts Git, combinant :
 
-### Profiler un dépôt
-```bash
-hyperion profile /path/to/repo --output data/repositories/
-```
+* 📊 **Analyse Git avancée** (commits, hotspots, contributeurs, métriques)
+* 🧠 **RAG (Retrieval Augmented Generation)** basé sur **Qdrant**
+* 🕸️ **Graphe de connaissance** optionnel via **Neo4j**
+* 🤖 **API OpenAI-compatible** (Chat Completions / Models)
+* 💬 **Interface conversationnelle** via **Open WebUI**
+* 🚀 **Script d’orchestration unifié** pour tout lancer / arrêter
 
-### Générer documentation
-```bash
-hyperion generate data/repositories/mon-repo/profile.yaml --format markdown
-```
+Hyperion est conçu comme un **socle de connaissance technique local**, orienté compréhension, audit et exploration de code à grande échelle.
 
-### Export historique production
-```bash
-hyperion export /path/to/repo --tags-pattern "^v\d+\.\d+\.\d+$"
-```
+---
 
-### Ingestion Neo4j
-```bash
-hyperion ingest data/repositories/mon-repo/ --uri bolt://localhost:7687
-```
+## ✨ Fonctionnalités clés
 
-## 📁 Structure du projet
+### 🔍 Analyse Git
+
+* Nombre de commits
+* Contributeurs principaux
+* Fichiers les plus modifiés (hotspots)
+* Historique temporel
+* Métriques de qualité
+
+### 🧠 RAG (Qdrant)
+
+* Indexation sémantique des profils Git
+* Recherche contextuelle multi-sections
+* Réponses enrichies avec **sources**
+* Filtrage par repository
+
+### 🕸️ Graphe de connaissance (optionnel)
+
+* Modélisation des repos, commits, fichiers
+* Requêtes avancées Neo4j
+* Complément du RAG (pas obligatoire)
+
+### 🤖 API OpenAI-compatible
+
+Hyperion expose une API compatible OpenAI :
+
+* `/v1/models`
+* `/v1/chat/completions`
+
+👉 utilisable par :
+
+* Open WebUI
+* outils RAG
+* scripts internes
+* clients OpenAI existants
+
+### 💬 Open WebUI
+
+* Interface chat moderne
+* Sélection de modèle (`hyperion-rag`)
+* Historique de conversation
+* Aucune clé OpenAI requise
+
+### 🚀 Orchestration unifiée
+
+Un seul script pour :
+
+* vérifier les dépendances
+* démarrer Qdrant / Ollama
+* lancer l’API Hyperion
+* lancer Open WebUI
+* lancer le dashboard React
+* arrêter proprement tous les services (Ctrl+C)
+
+---
+
+## 🗂️ Architecture du projet
 
 ```
 Hyperion/
-├── hyperion/           # Package Python principal
-│   ├── cli/           # Interface ligne de commande
-│   ├── core/          # Logique métier (analyseurs)
-│   ├── integrations/  # Neo4j, GitLab, GitHub
-│   ├── generators/    # Générateurs de documentation
-│   ├── models/        # Modèles de données
-│   └── utils/         # Utilitaires
-├── config/            # Configuration (filtres, patterns)
-├── templates/         # Templates Jinja2
-├── data/              # Données générées (gitignore)
-├── output/            # Documentation générée (gitignore)
-├── tests/             # Tests unitaires
-└── docs/              # Documentation projet
+├── hyperion/              # Cœur Python (API, RAG, intégrations)
+│   ├── api/               # FastAPI + OpenAI-compatible
+│   ├── rag/               # Qdrant, embeddings, query engine
+│   ├── integrations/      # Neo4j, Git, autres sources
+│   └── config.py
+│
+├── scripts/               # Scripts d’orchestration
+│   └── run_dashboard.py
+│
+├── frontend/              # Dashboard React
+├── data/                  # Profils Git, index RAG
+├── templates/             # Templates docs / exports
+├── docs/                  # Documentation
+├── tests/                 # Tests
+│
+├── hyperion_master.sh     # 🚀 Script maître
+├── requirements.txt
+├── setup.py
+├── .env.example
+└── README.md
 ```
 
-## 📚 Documentation complète
+---
 
-- [Getting Started](docs/getting_started.md)
-- [Architecture](docs/architecture.md)
-- [CLI Reference](docs/cli_reference.md)
-- [YAML Schema](docs/yaml_schema.md)
-- [Neo4j Model](docs/neo4j_model.md)
+## ⚙️ Prérequis
 
-## 🛠️ Développement
+### Système
+
+* Linux (testé sur Manjaro / Arch)
+* Docker
+* Python ≥ 3.10
+* GPU recommandé (optionnel)
+
+### Services
+
+* 🐳 Docker
+* 🤖 Ollama
+* 📦 Qdrant (Docker)
+* 🕸️ Neo4j (optionnel)
+
+---
+
+## 🚀 Démarrage rapide
+
+### 1️⃣ Cloner le projet
 
 ```bash
-# Installation en mode dev
-pip install -e ".[dev]"
-
-# Tests
-pytest tests/
-
-# Linting
-ruff check hyperion/
-black hyperion/
-
-# Type checking
-mypy hyperion/
+git clone https://github.com/Ryckmat/Hyperion.git
+cd Hyperion
 ```
 
-## 📋 Roadmap
+### 2️⃣ Lancer Hyperion
 
-- [x] Profiling Git avancé
-- [x] Génération documentation Markdown
-- [x] Export historique production
-- [x] Ingestion Neo4j
-- [ ] API REST FastAPI
-- [ ] Dashboard Streamlit
-- [ ] Support multi-repos
-- [ ] Intégration GitLab CI
+```bash
+./hyperion_master.sh
+```
 
-## 🤝 Contribution
+Le script te guide pour :
 
-Contributions bienvenues ! Voir [CONTRIBUTING.md](CONTRIBUTING.md).
+* vérifier les services
+* lancer le dashboard
+* lancer Open WebUI
+* choisir ce que tu veux activer
 
-## 📄 Licence
+👉 **Ctrl+C** arrête proprement tous les services lancés.
 
-Apache-2.0 - Voir [LICENSE](LICENSE)
+---
 
-## 👤 Auteur
+## 💬 Utilisation via Open WebUI
+
+Une fois lancé :
+
+* Open WebUI : [http://localhost:3001](http://localhost:3001)
+* API Hyperion : [http://localhost:8000](http://localhost:8000)
+
+Exemples de questions :
+
+```
+Combien de commits dans requests ?
+Quels sont les fichiers les plus modifiés ?
+Qui est le contributeur principal ?
+Quels sont les hotspots du repo ?
+```
+
+Les réponses incluent :
+
+* texte explicatif
+* **sources**
+* score de pertinence
+
+---
+
+## 🤖 Utilisation via API (OpenAI-compatible)
+
+### Liste des modèles
+
+```bash
+curl http://localhost:8000/v1/models
+```
+
+### Chat completion
+
+```bash
+curl http://localhost:8000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "hyperion-rag",
+    "messages": [
+      {"role": "user", "content": "combien de commit dans requests ?"}
+    ]
+  }'
+```
+
+---
+
+## 🧪 État du projet
+
+* ✔️ Fonctionnel
+* ✔️ Stable en local
+* 🚧 En évolution continue
+* ❌ Pas encore industrialisé (K8s, CI/CD, auth)
+
+Hyperion est un **socle expérimental sérieux**, pensé pour évoluer vers :
+
+* un moteur de connaissance technique
+* un outil d’audit de code
+* une base RAG multi-sources (Git, docs, tickets, graphes)
+
+---
+
+## 🧭 Roadmap (indicative)
+
+* [ ] Séparation API / Dashboard
+* [ ] Mode `start|stop|status`
+* [ ] RAG multi-sources (Git + Neo4j + Docs)
+* [ ] Tests automatiques RAG
+* [ ] Packaging Docker complet
+* [ ] Documentation approfondie
+
+---
+
+## 📜 Licence
+
+Projet personnel — usage libre pour expérimentation.
+Voir le fichier `LICENSE` si présent.
+
+---
+
+## 🙌 Auteur
 
 **Matthieu Ryckman**
-- GitHub: [@Ryckmat](https://github.com/Ryckmat)
+Projet personnel — exploration RAG, graphes et IA locale.
