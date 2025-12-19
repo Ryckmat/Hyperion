@@ -53,7 +53,6 @@ def main():
         stats = ingester.get_stats()
         print(f"\n📊 Stats Qdrant :")
         print(f"   • Points totaux : {stats['total_points']}")
-        print(f"   • Vecteurs      : {stats['vectors_count']}")
         
         print("\n" + "=" * 70)
         print("🎉 INGESTION TERMINÉE !")

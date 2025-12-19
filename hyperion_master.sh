@@ -1,15 +1,174 @@
 #!/bin/bash
-# HYPERION MASTER - Contrôle TOUT avec sélection
+# ============================================================================
+# HYPERION MASTER - Contrôle complet avec vérification automatique
+# ============================================================================
+# Vérifie et démarre automatiquement tous les composants nécessaires
+# ============================================================================
+
+set -e
 
 cd /home/kortazo/Documents/Hyperion
+
+# Couleurs
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+CYAN='\033[0;36m'
+NC='\033[0m'
 
 echo "============================================================"
 echo "🚀 HYPERION MASTER - Contrôle complet"
 echo "============================================================"
 echo ""
 
+# ============================================================================
+# FONCTION : Vérification complète du système
+# ============================================================================
+
+verify_system() {
+    echo ""
+    echo -e "${CYAN}============================================================${NC}"
+    echo -e "${CYAN}🔍 VÉRIFICATION SYSTÈME COMPLÈTE${NC}"
+    echo -e "${CYAN}============================================================${NC}"
+    echo ""
+    
+    # 1. Docker
+    echo -e "${CYAN}🐳 Docker...${NC}"
+    if ! command -v docker &>/dev/null; then
+        echo -e "${RED}   ❌ Docker non installé${NC}"
+        echo "   Installation : sudo pacman -S docker"
+        return 1
+    fi
+    if ! docker info &>/dev/null; then
+        echo -e "${YELLOW}   ⚠️  Docker daemon non actif, démarrage...${NC}"
+        sudo systemctl start docker
+    fi
+    echo -e "${GREEN}   ✅ Docker actif${NC}"
+    
+    # 2. Qdrant
+    echo -e "${CYAN}📦 Qdrant...${NC}"
+    if ! curl -s http://localhost:6333/collections &>/dev/null; then
+        echo -e "${YELLOW}   ⚠️  Qdrant non actif, démarrage...${NC}"
+        if docker ps -a --format '{{.Names}}' | grep -q "^qdrant$"; then
+            docker start qdrant &>/dev/null
+        else
+            docker run -d --name qdrant \
+                -p 6333:6333 -p 6334:6334 \
+                -v ~/qdrant_storage:/qdrant/storage:z \
+                qdrant/qdrant &>/dev/null
+        fi
+        sleep 3
+    fi
+    if curl -s http://localhost:6333/collections &>/dev/null; then
+        echo -e "${GREEN}   ✅ Qdrant actif (http://localhost:6333)${NC}"
+    else
+        echo -e "${RED}   ❌ Qdrant n'a pas démarré${NC}"
+    fi
+    
+    # 3. Ollama
+    echo -e "${CYAN}🤖 Ollama...${NC}"
+    if ! command -v ollama &>/dev/null; then
+        echo -e "${RED}   ❌ Ollama non installé${NC}"
+        echo "   Installation : curl -fsSL https://ollama.ai/install.sh | sh"
+        return 1
+    fi
+    if ! systemctl is-active --quiet ollama 2>/dev/null; then
+        echo -e "${YELLOW}   ⚠️  Service Ollama inactif, démarrage...${NC}"
+        sudo systemctl start ollama
+        sleep 2
+    fi
+    if systemctl is-active --quiet ollama 2>/dev/null; then
+        echo -e "${GREEN}   ✅ Ollama actif${NC}"
+        # Vérifier modèle
+        if ollama list | grep -q "qwen2.5:32b"; then
+            echo -e "${GREEN}   ✅ Modèle qwen2.5:32b disponible${NC}"
+        else
+            echo -e "${YELLOW}   ⚠️  Modèle qwen2.5:32b manquant${NC}"
+            echo "   Téléchargement : ollama pull qwen2.5:32b"
+        fi
+    else
+        echo -e "${RED}   ❌ Ollama non actif${NC}"
+    fi
+    
+    # 4. Neo4j (optionnel)
+    echo -e "${CYAN}🔷 Neo4j (optionnel)...${NC}"
+    if curl -s http://localhost:7474 &>/dev/null; then
+        echo -e "${GREEN}   ✅ Neo4j actif (http://localhost:7474)${NC}"
+    else
+        echo -e "${YELLOW}   ⚠️  Neo4j non actif (optionnel)${NC}"
+        read -p "   Démarrer Neo4j ? (o/n): " start_neo4j
+        if [[ "$start_neo4j" =~ ^[Oo]$ ]]; then
+            if docker ps -a --format '{{.Names}}' | grep -q "^neo4j$"; then
+                docker start neo4j &>/dev/null
+            else
+                docker run -d --name neo4j \
+                    -p 7474:7474 -p 7687:7687 \
+                    -e NEO4J_AUTH=neo4j/hyperion123 \
+                    neo4j &>/dev/null
+            fi
+            sleep 3
+            echo -e "${GREEN}   ✅ Neo4j démarré${NC}"
+        fi
+    fi
+    
+    # 5. Python + venv
+    echo -e "${CYAN}🐍 Python...${NC}"
+    echo -e "${GREEN}   ✅ Python $(python3 --version | cut -d' ' -f2)${NC}"
+    
+    if [ -d "venv" ]; then
+        echo -e "${GREEN}   ✅ Venv présent${NC}"
+    else
+        echo -e "${YELLOW}   ⚠️  Venv absent${NC}"
+        read -p "   Créer venv ? (o/n): " create_venv
+        if [[ "$create_venv" =~ ^[Oo]$ ]]; then
+            python3 -m venv venv
+            source venv/bin/activate
+            pip install -r requirements.txt --quiet
+            echo -e "${GREEN}   ✅ Venv créé et dépendances installées${NC}"
+        fi
+    fi
+    
+    # 6. PyTorch CUDA
+    echo -e "${CYAN}🔥 PyTorch CUDA...${NC}"
+    if python3 -c "import torch; exit(0 if torch.cuda.is_available() else 1)" 2>/dev/null; then
+        GPU=$(python3 -c "import torch; print(torch.cuda.get_device_name(0))" 2>/dev/null)
+        echo -e "${GREEN}   ✅ CUDA disponible : $GPU${NC}"
+    else
+        echo -e "${YELLOW}   ⚠️  CUDA non disponible${NC}"
+        echo "   Installation : pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121"
+    fi
+    
+    # 7. Dépendances Python RAG
+    echo -e "${CYAN}📦 Dépendances Python RAG...${NC}"
+    MISSING=()
+    for pkg in qdrant_client sentence_transformers langchain torch; do
+        if ! python3 -c "import $pkg" 2>/dev/null; then
+            MISSING+=("$pkg")
+        fi
+    done
+    
+    if [ ${#MISSING[@]} -eq 0 ]; then
+        echo -e "${GREEN}   ✅ Toutes les dépendances présentes${NC}"
+    else
+        echo -e "${YELLOW}   ⚠️  Packages manquants : ${MISSING[*]}${NC}"
+        read -p "   Installer maintenant ? (o/n): " install_deps
+        if [[ "$install_deps" =~ ^[Oo]$ ]]; then
+            pip install qdrant-client sentence-transformers langchain langchain-community torch --break-system-packages --quiet
+            echo -e "${GREEN}   ✅ Dépendances installées${NC}"
+        fi
+    fi
+    
+    echo ""
+    echo -e "${GREEN}✅ VÉRIFICATION TERMINÉE${NC}"
+    echo ""
+}
+
+# ============================================================================
+# MENU PRINCIPAL
+# ============================================================================
+
 # Demander ce qu'on veut faire
-read -p "Installer services (Docker/Qdrant/Ollama/Neo4j) ? (o/n): " do_setup
+read -p "Vérifier et démarrer les services ? (o/n): " do_verify
 read -p "Ingérer Neo4j (graphe) ? (o/n): " do_neo4j
 read -p "Ingérer RAG (Qdrant) ? (o/n): " do_ingest
 read -p "Générer documentation ? (o/n): " do_docs
@@ -19,7 +178,7 @@ echo ""
 echo "============================================================"
 echo "🎯 Récapitulatif"
 echo "============================================================"
-[[ "$do_setup" =~ ^[Oo]$ ]] && echo "✅ Setup services"
+[[ "$do_verify" =~ ^[Oo]$ ]] && echo "✅ Vérification services"
 [[ "$do_neo4j" =~ ^[Oo]$ ]] && echo "✅ Ingestion Neo4j"
 [[ "$do_ingest" =~ ^[Oo]$ ]] && echo "✅ Ingestion RAG"
 [[ "$do_docs" =~ ^[Oo]$ ]] && echo "✅ Génération docs"
@@ -34,17 +193,30 @@ echo "============================================================"
 echo "🚀 EXÉCUTION"
 echo "============================================================"
 
-# 1. Setup
-if [[ "$do_setup" =~ ^[Oo]$ ]]; then
-    echo ""
-    echo "📦 1. Setup services..."
-    ./scripts/setup_hyperion.sh
+# 0. Vérification système
+if [[ "$do_verify" =~ ^[Oo]$ ]]; then
+    verify_system
 fi
 
-# 2. Neo4j
+# 1. Neo4j
 if [[ "$do_neo4j" =~ ^[Oo]$ ]]; then
     echo ""
-    echo "🔷 2. Ingestion Neo4j..."
+    echo "🔷 Ingestion Neo4j..."
+    
+    # Vérifier Neo4j actif
+    if ! curl -s http://localhost:7474 &>/dev/null; then
+        echo "   ⚠️  Neo4j non actif, démarrage..."
+        if docker ps -a --format '{{.Names}}' | grep -q "^neo4j$"; then
+            docker start neo4j
+        else
+            docker run -d --name neo4j \
+                -p 7474:7474 -p 7687:7687 \
+                -e NEO4J_AUTH=neo4j/hyperion123 \
+                neo4j
+        fi
+        sleep 5
+    fi
+    
     shopt -s nullglob
     profiles=(data/repositories/*/profile.yaml)
     for profile in "${profiles[@]}"; do
@@ -56,25 +228,46 @@ if [[ "$do_neo4j" =~ ^[Oo]$ ]]; then
     done
 fi
 
-# 3. RAG
+# 2. RAG
 if [[ "$do_ingest" =~ ^[Oo]$ ]]; then
     echo ""
-    echo "📥 3. Ingestion RAG..."
+    echo "📥 Ingestion RAG..."
     
-    # Vérifier dépendances RAG
-    if ! python3 -c "import qdrant_client" 2>/dev/null; then
-        echo "   ⏳ Installation dépendances RAG..."
-        pip install qdrant-client sentence-transformers langchain langchain-community --break-system-packages --quiet
-        echo "   ✅ Dépendances installées"
+    # Vérifier Qdrant actif
+    if ! curl -s http://localhost:6333/collections &>/dev/null; then
+        echo "   ⚠️  Qdrant non actif, démarrage..."
+        if docker ps -a --format '{{.Names}}' | grep -q "^qdrant$"; then
+            docker start qdrant
+        else
+            docker run -d --name qdrant \
+                -p 6333:6333 -p 6334:6334 \
+                -v ~/qdrant_storage:/qdrant/storage:z \
+                qdrant/qdrant
+        fi
+        sleep 3
+    fi
+    
+    # Vérifier Ollama actif
+    if ! systemctl is-active --quiet ollama 2>/dev/null; then
+        echo "   ⚠️  Ollama non actif, démarrage..."
+        sudo systemctl start ollama
+        sleep 2
+    fi
+    
+    # Vérifier modèle
+    if ! ollama list | grep -q "qwen2.5:32b"; then
+        echo "   ❌ Modèle qwen2.5:32b manquant"
+        echo "   Téléchargement : ollama pull qwen2.5:32b (19 GB)"
+        exit 1
     fi
     
     python3 scripts/ingest_rag.py
 fi
 
-# 4. Docs
+# 3. Docs
 if [[ "$do_docs" =~ ^[Oo]$ ]]; then
     echo ""
-    echo "📝 4. Génération documentation..."
+    echo "📝 Génération documentation..."
     shopt -s nullglob
     profiles=(data/repositories/*/profile.yaml)
     for profile in "${profiles[@]}"; do
@@ -82,10 +275,18 @@ if [[ "$do_docs" =~ ^[Oo]$ ]]; then
     done
 fi
 
-# 5. Dashboard
+# 4. Dashboard
 if [[ "$do_dashboard" =~ ^[Oo]$ ]]; then
     echo ""
-    echo "🌐 5. Lancement dashboard..."
+    echo "🌐 Lancement dashboard..."
+    
+    # Vérifier Ollama pour l'API
+    if ! systemctl is-active --quiet ollama 2>/dev/null; then
+        echo "   ⚠️  Ollama non actif, démarrage..."
+        sudo systemctl start ollama
+        sleep 2
+    fi
+    
     python3 scripts/run_dashboard.py
 fi
 
