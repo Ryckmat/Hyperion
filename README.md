@@ -101,5 +101,5 @@ Apache-2.0 - Voir [LICENSE](LICENSE)
 
 ## 👤 Auteur
 
-**Matthieu Ryckembusch**
+**Matthieu Ryckman**
 - GitHub: [@Ryckmat](https://github.com/Ryckmat)
