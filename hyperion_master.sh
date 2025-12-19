@@ -22,6 +22,97 @@ echo "============================================================"
 echo ""
 
 # ============================================================================
+# FONCTION : Importer la fonction Hyperion RAG dans Open WebUI
+# ============================================================================
+
+import_hyperion_function() {
+    echo -e "${CYAN}   📦 Import fonction Hyperion RAG...${NC}"
+    
+    FUNCTION_FILE="config/openwebui_hyperion_function.py"
+    
+    if [ ! -f "$FUNCTION_FILE" ]; then
+        echo -e "${RED}   ❌ Fichier fonction non trouvé: $FUNCTION_FILE${NC}"
+        return 1
+    fi
+    
+    # Lire le contenu de la fonction
+    FUNCTION_CONTENT=$(cat "$FUNCTION_FILE")
+    
+    # Échapper pour JSON
+    FUNCTION_CONTENT_ESCAPED=$(echo "$FUNCTION_CONTENT" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))')
+    
+    # Créer le JSON pour l'API
+    JSON_PAYLOAD=$(cat <<EOF
+{
+    "id": "hyperion_rag",
+    "name": "Hyperion RAG",
+    "type": "pipe",
+    "content": $FUNCTION_CONTENT_ESCAPED,
+    "meta": {
+        "description": "Connecte Open WebUI au RAG Hyperion pour interroger les repos Git analysés"
+    }
+}
+EOF
+)
+    
+    # Attendre que Open WebUI soit prêt
+    for i in {1..30}; do
+        if curl -s http://localhost:3001/api/config &>/dev/null; then
+            break
+        fi
+        sleep 1
+    done
+    
+    # Créer un compte admin si nécessaire et récupérer le token
+    SIGNUP_RESPONSE=$(curl -s -X POST "http://localhost:3001/api/v1/auths/signup" \
+        -H "Content-Type: application/json" \
+        -d '{"name":"admin", "email":"admin@hyperion.local", "password":"hyperion123"}' 2>/dev/null || echo "{}")
+    
+    # Extraire le token (soit du signup, soit on essaie signin)
+    TOKEN=$(echo "$SIGNUP_RESPONSE" | python3 -c 'import json,sys; d=json.loads(sys.stdin.read()); print(d.get("token",""))' 2>/dev/null)
+    
+    if [ -z "$TOKEN" ]; then
+        # Essayer signin si signup a échoué (compte existe déjà)
+        SIGNIN_RESPONSE=$(curl -s -X POST "http://localhost:3001/api/v1/auths/signin" \
+            -H "Content-Type: application/json" \
+            -d '{"email":"admin@hyperion.local", "password":"hyperion123"}' 2>/dev/null || echo "{}")
+        TOKEN=$(echo "$SIGNIN_RESPONSE" | python3 -c 'import json,sys; d=json.loads(sys.stdin.read()); print(d.get("token",""))' 2>/dev/null)
+    fi
+    
+    if [ -z "$TOKEN" ]; then
+        echo -e "${YELLOW}   ⚠️  Impossible d'obtenir un token, import manuel requis${NC}"
+        return 1
+    fi
+    
+    # Vérifier si la fonction existe déjà
+    EXISTING=$(curl -s -X GET "http://localhost:3001/api/v1/functions/" \
+        -H "Authorization: Bearer $TOKEN" \
+        -H "Content-Type: application/json" 2>/dev/null)
+    
+    if echo "$EXISTING" | grep -q "hyperion_rag"; then
+        echo -e "${GREEN}   ✅ Fonction Hyperion RAG déjà présente${NC}"
+        return 0
+    fi
+    
+    # Importer la fonction
+    RESPONSE=$(curl -s -X POST "http://localhost:3001/api/v1/functions/create" \
+        -H "Authorization: Bearer $TOKEN" \
+        -H "Content-Type: application/json" \
+        -d "$JSON_PAYLOAD" 2>/dev/null)
+    
+    if echo "$RESPONSE" | grep -q "hyperion_rag"; then
+        # Activer la fonction
+        curl -s -X POST "http://localhost:3001/api/v1/functions/id/hyperion_rag/toggle" \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Content-Type: application/json" &>/dev/null
+        echo -e "${GREEN}   ✅ Fonction Hyperion RAG importée et activée${NC}"
+    else
+        echo -e "${YELLOW}   ⚠️  Erreur import fonction: $RESPONSE${NC}"
+        return 1
+    fi
+}
+
+# ============================================================================
 # FONCTION : Vérification complète du système
 # ============================================================================
 
@@ -171,26 +262,23 @@ verify_system() {
                 docker start open-webui &>/dev/null
             else
                 echo -e "${YELLOW}   🚀 Création container Open WebUI...${NC}"
-                # Détection IP hôte
-                HOST_IP=$(ip route get 1 2>/dev/null | awk '{print $7; exit}' || echo "192.168.1.104")
                 docker run -d \
                     --name open-webui \
+                    --add-host=host.docker.internal:host-gateway \
                     -p 3001:8080 \
-                    -e OLLAMA_BASE_URL=http://${HOST_IP}:11434 \
+                    -e OLLAMA_BASE_URL=http://host.docker.internal:11434 \
                     -e WEBUI_AUTH=false \
-                    -e ENABLE_RAG_WEB_SEARCH=false \
                     -e VECTOR_DB=qdrant \
-                    -e QDRANT_HOST=${HOST_IP} \
-                    -e QDRANT_PORT=6333 \
+                    -e QDRANT_URI=http://host.docker.internal:6333 \
                     -v open-webui:/app/backend/data \
                     --restart always \
                     ghcr.io/open-webui/open-webui:main &>/dev/null
-                echo -e "${GREEN}   📡 Ollama: http://${HOST_IP}:11434${NC}"
-                echo -e "${GREEN}   📦 Qdrant: http://${HOST_IP}:6333${NC}"
             fi
-            sleep 5
+            sleep 8
             if curl -s http://localhost:3001 &>/dev/null; then
                 echo -e "${GREEN}   ✅ Open WebUI démarré (http://localhost:3001)${NC}"
+                # Importer la fonction Hyperion RAG
+                import_hyperion_function
             else
                 echo -e "${RED}   ❌ Open WebUI n'a pas démarré${NC}"
             fi
@@ -346,22 +434,17 @@ if [[ "$do_openwebui" =~ ^[Oo]$ ]]; then
             docker start open-webui
         else
             echo "   🚀 Création container Open WebUI..."
-            # Détection IP hôte
-            HOST_IP=$(ip route get 1 2>/dev/null | awk '{print $7; exit}' || echo "192.168.1.104")
             docker run -d \
                 --name open-webui \
+                --add-host=host.docker.internal:host-gateway \
                 -p 3001:8080 \
-                -e OLLAMA_BASE_URL=http://${HOST_IP}:11434 \
+                -e OLLAMA_BASE_URL=http://host.docker.internal:11434 \
                 -e WEBUI_AUTH=false \
-                -e ENABLE_RAG_WEB_SEARCH=false \
                 -e VECTOR_DB=qdrant \
-                -e QDRANT_HOST=${HOST_IP} \
-                -e QDRANT_PORT=6333 \
+                -e QDRANT_URI=http://host.docker.internal:6333 \
                 -v open-webui:/app/backend/data \
                 --restart always \
                 ghcr.io/open-webui/open-webui:main
-            echo "   📡 Ollama: http://${HOST_IP}:11434"
-            echo "   📦 Qdrant: http://${HOST_IP}:6333"
         fi
         
         echo "   ⏳ Attente démarrage..."
@@ -369,14 +452,14 @@ if [[ "$do_openwebui" =~ ^[Oo]$ ]]; then
         
         if curl -s http://localhost:3001 &>/dev/null; then
             echo "   ✅ Open WebUI prêt !"
+            
+            # Importer la fonction Hyperion RAG
+            import_hyperion_function
+            
             echo ""
             echo "   🌐 Open WebUI : http://localhost:3001"
             echo "   🤖 Modèle      : qwen2.5:32b (auto-détecté)"
-            echo "   💡 Fonctionnalités :"
-            echo "      - Chat avec Qwen 2.5 32B"
-            echo "      - Historique conversations"
-            echo "      - Support markdown"
-            echo "      - Export conversations"
+            echo "   🔌 Hyperion RAG : Sélectionner 'Hyperion RAG' dans les modèles"
             echo ""
             
             # Ouvrir navigateur
