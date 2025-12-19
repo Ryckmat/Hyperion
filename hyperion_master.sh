@@ -158,6 +158,45 @@ verify_system() {
         fi
     fi
     
+    # 8. Open WebUI
+    echo -e "${CYAN}💬 Open WebUI...${NC}"
+    if docker ps --format '{{.Names}}' | grep -q "^open-webui$"; then
+        echo -e "${GREEN}   ✅ Open WebUI actif (http://localhost:3001)${NC}"
+    else
+        echo -e "${YELLOW}   ⚠️  Open WebUI non actif${NC}"
+        read -p "   Démarrer Open WebUI ? (o/n): " start_openwebui
+        if [[ "$start_openwebui" =~ ^[Oo]$ ]]; then
+            if docker ps -a --format '{{.Names}}' | grep -q "^open-webui$"; then
+                echo -e "${YELLOW}   ♻️  Redémarrage container existant...${NC}"
+                docker start open-webui &>/dev/null
+            else
+                echo -e "${YELLOW}   🚀 Création container Open WebUI...${NC}"
+                # Détection IP hôte
+                HOST_IP=$(ip route get 1 2>/dev/null | awk '{print $7; exit}' || echo "192.168.1.104")
+                docker run -d \
+                    --name open-webui \
+                    -p 3001:8080 \
+                    -e OLLAMA_BASE_URL=http://${HOST_IP}:11434 \
+                    -e WEBUI_AUTH=false \
+                    -e ENABLE_RAG_WEB_SEARCH=false \
+                    -e VECTOR_DB=qdrant \
+                    -e QDRANT_HOST=${HOST_IP} \
+                    -e QDRANT_PORT=6333 \
+                    -v open-webui:/app/backend/data \
+                    --restart always \
+                    ghcr.io/open-webui/open-webui:main &>/dev/null
+                echo -e "${GREEN}   📡 Ollama: http://${HOST_IP}:11434${NC}"
+                echo -e "${GREEN}   📦 Qdrant: http://${HOST_IP}:6333${NC}"
+            fi
+            sleep 5
+            if curl -s http://localhost:3001 &>/dev/null; then
+                echo -e "${GREEN}   ✅ Open WebUI démarré (http://localhost:3001)${NC}"
+            else
+                echo -e "${RED}   ❌ Open WebUI n'a pas démarré${NC}"
+            fi
+        fi
+    fi
+    
     echo ""
     echo -e "${GREEN}✅ VÉRIFICATION TERMINÉE${NC}"
     echo ""
@@ -172,7 +211,8 @@ read -p "Vérifier et démarrer les services ? (o/n): " do_verify
 read -p "Ingérer Neo4j (graphe) ? (o/n): " do_neo4j
 read -p "Ingérer RAG (Qdrant) ? (o/n): " do_ingest
 read -p "Générer documentation ? (o/n): " do_docs
-read -p "Lancer dashboard ? (o/n): " do_dashboard
+read -p "Lancer dashboard React ? (o/n): " do_dashboard
+read -p "Lancer Open WebUI (chat) ? (o/n): " do_openwebui
 
 echo ""
 echo "============================================================"
@@ -182,7 +222,8 @@ echo "============================================================"
 [[ "$do_neo4j" =~ ^[Oo]$ ]] && echo "✅ Ingestion Neo4j"
 [[ "$do_ingest" =~ ^[Oo]$ ]] && echo "✅ Ingestion RAG"
 [[ "$do_docs" =~ ^[Oo]$ ]] && echo "✅ Génération docs"
-[[ "$do_dashboard" =~ ^[Oo]$ ]] && echo "✅ Lancement dashboard"
+[[ "$do_dashboard" =~ ^[Oo]$ ]] && echo "✅ Lancement dashboard React"
+[[ "$do_openwebui" =~ ^[Oo]$ ]] && echo "✅ Lancement Open WebUI"
 echo ""
 
 read -p "Confirmer ? (o/n): " confirm
@@ -275,10 +316,10 @@ if [[ "$do_docs" =~ ^[Oo]$ ]]; then
     done
 fi
 
-# 4. Dashboard
+# 4. Dashboard React
 if [[ "$do_dashboard" =~ ^[Oo]$ ]]; then
     echo ""
-    echo "🌐 Lancement dashboard..."
+    echo "🌐 Lancement dashboard React..."
     
     # Vérifier Ollama pour l'API
     if ! systemctl is-active --quiet ollama 2>/dev/null; then
@@ -290,7 +331,73 @@ if [[ "$do_dashboard" =~ ^[Oo]$ ]]; then
     python3 scripts/run_dashboard.py
 fi
 
+# 5. Open WebUI
+if [[ "$do_openwebui" =~ ^[Oo]$ ]]; then
+    echo ""
+    echo "💬 Lancement Open WebUI..."
+    
+    # Vérifier si déjà actif
+    if docker ps --format '{{.Names}}' | grep -q "^open-webui$"; then
+        echo "   ✅ Open WebUI déjà actif"
+    else
+        # Vérifier si container existe
+        if docker ps -a --format '{{.Names}}' | grep -q "^open-webui$"; then
+            echo "   ♻️  Redémarrage container..."
+            docker start open-webui
+        else
+            echo "   🚀 Création container Open WebUI..."
+            # Détection IP hôte
+            HOST_IP=$(ip route get 1 2>/dev/null | awk '{print $7; exit}' || echo "192.168.1.104")
+            docker run -d \
+                --name open-webui \
+                -p 3001:8080 \
+                -e OLLAMA_BASE_URL=http://${HOST_IP}:11434 \
+                -e WEBUI_AUTH=false \
+                -e ENABLE_RAG_WEB_SEARCH=false \
+                -e VECTOR_DB=qdrant \
+                -e QDRANT_HOST=${HOST_IP} \
+                -e QDRANT_PORT=6333 \
+                -v open-webui:/app/backend/data \
+                --restart always \
+                ghcr.io/open-webui/open-webui:main
+            echo "   📡 Ollama: http://${HOST_IP}:11434"
+            echo "   📦 Qdrant: http://${HOST_IP}:6333"
+        fi
+        
+        echo "   ⏳ Attente démarrage..."
+        sleep 10
+        
+        if curl -s http://localhost:3001 &>/dev/null; then
+            echo "   ✅ Open WebUI prêt !"
+            echo ""
+            echo "   🌐 Open WebUI : http://localhost:3001"
+            echo "   🤖 Modèle      : qwen2.5:32b (auto-détecté)"
+            echo "   💡 Fonctionnalités :"
+            echo "      - Chat avec Qwen 2.5 32B"
+            echo "      - Historique conversations"
+            echo "      - Support markdown"
+            echo "      - Export conversations"
+            echo ""
+            
+            # Ouvrir navigateur
+            if command -v xdg-open &>/dev/null; then
+                xdg-open http://localhost:3001 &>/dev/null &
+            fi
+        else
+            echo "   ❌ Open WebUI n'a pas démarré"
+            echo "   Logs : docker logs open-webui"
+        fi
+    fi
+fi
+
 echo ""
 echo "============================================================"
 echo "🎉 TERMINÉ !"
 echo "============================================================"
+echo ""
+echo "📱 Services actifs :"
+[[ "$do_dashboard" =~ ^[Oo]$ ]] && echo "   • Dashboard React : http://localhost:3000"
+[[ "$do_openwebui" =~ ^[Oo]$ ]] && echo "   • Open WebUI Chat : http://localhost:3001"
+echo "   • API Hyperion    : http://localhost:8000"
+echo "   • API Docs        : http://localhost:8000/docs"
+echo ""
