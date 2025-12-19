@@ -2,6 +2,7 @@
 
 from typing import List, Dict, Optional
 from qdrant_client import QdrantClient
+from qdrant_client.models import Filter, FieldCondition, MatchValue
 from sentence_transformers import SentenceTransformer
 from langchain_community.llms import Ollama
 
@@ -91,21 +92,24 @@ class RAGQueryEngine:
             convert_to_numpy=True
         )
         
-        # 2. Recherche dans Qdrant
+        # 2. Recherche dans Qdrant (API v1.7+)
         search_filter = None
         if repo_filter:
-            search_filter = {
-                "must": [
-                    {"key": "repo", "match": {"value": repo_filter}}
+            search_filter = Filter(
+                must=[
+                    FieldCondition(
+                        key="repo",
+                        match=MatchValue(value=repo_filter)
+                    )
                 ]
-            }
+            )
         
-        search_results = self.qdrant_client.search(
+        search_results = self.qdrant_client.query_points(
             collection_name=self.collection_name,
-            query_vector=question_embedding.tolist(),
+            query=question_embedding.tolist(),
             limit=top_k,
             query_filter=search_filter
-        )
+        ).points
         
         # 3. Assembler contexte
         context_parts = []
