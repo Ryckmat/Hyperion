@@ -45,7 +45,9 @@ fi
 if [[ "$do_neo4j" =~ ^[Oo]$ ]]; then
     echo ""
     echo "🔷 2. Ingestion Neo4j..."
-    for profile in data/repositories/*/profile.yaml 2>/dev/null; do
+    shopt -s nullglob
+    profiles=(data/repositories/*/profile.yaml)
+    for profile in "${profiles[@]}"; do
         if [ -f "$profile" ]; then
             REPO=$(basename $(dirname "$profile"))
             echo "   → $REPO"
@@ -58,6 +60,14 @@ fi
 if [[ "$do_ingest" =~ ^[Oo]$ ]]; then
     echo ""
     echo "📥 3. Ingestion RAG..."
+    
+    # Vérifier dépendances RAG
+    if ! python3 -c "import qdrant_client" 2>/dev/null; then
+        echo "   ⏳ Installation dépendances RAG..."
+        pip install qdrant-client sentence-transformers langchain langchain-community --break-system-packages --quiet
+        echo "   ✅ Dépendances installées"
+    fi
+    
     python3 scripts/ingest_rag.py
 fi
 
@@ -65,7 +75,9 @@ fi
 if [[ "$do_docs" =~ ^[Oo]$ ]]; then
     echo ""
     echo "📝 4. Génération documentation..."
-    for profile in data/repositories/*/profile.yaml 2>/dev/null; do
+    shopt -s nullglob
+    profiles=(data/repositories/*/profile.yaml)
+    for profile in "${profiles[@]}"; do
         [ -f "$profile" ] && python3 -m hyperion.cli.main generate "$profile"
     done
 fi

@@ -300,7 +300,5 @@ Quality Metrics:
         """Statistiques de la collection."""
         info = self.qdrant_client.get_collection(self.collection_name)
         return {
-            "total_points": info.points_count,
-            "vectors_count": info.vectors_count,
-            "indexed_vectors_count": info.indexed_vectors_count
+            "total_points": info.points_count
         }
