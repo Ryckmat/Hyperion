@@ -15,7 +15,7 @@ set -euo pipefail
 # - Sinon : dossier parent du script (hyperion_master.sh) => racine projet
 # ----------------------------------------------------------------------------
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-PROJECT_ROOT="${HYPERION_HOME:-$SCRIPT_DIR}"
+PROJECT_ROOT="${HYPERION_HOME:-$(dirname "$(dirname "$SCRIPT_DIR")")}"
 cd "$PROJECT_ROOT"
 
 # ----------------------------------------------------------------------------
@@ -41,7 +41,8 @@ WAIT_MAX_SECONDS="${WAIT_MAX_SECONDS:-300}"
 WAIT_STEP_SECONDS="${WAIT_STEP_SECONDS:-2}"
 
 # PID dashboard (pour Ctrl+C stop)
-DASH_PID=""
+API_PID=""
+FRONTEND_PID=""
 
 # ----------------------------------------------------------------------------
 # Helpers affichage
@@ -68,12 +69,20 @@ cleanup() {
   echo ""
   banner "🛑 ARRÊT DEMANDÉ (Ctrl+C) — STOP SERVICES"
 
-  if [ -n "${DASH_PID:-}" ] && kill -0 "$DASH_PID" 2>/dev/null; then
-    warn "Stop dashboard (PID $DASH_PID)"
-    kill "$DASH_PID" 2>/dev/null || true
+  if [ -n "${API_PID:-}" ] && kill -0 "$API_PID" 2>/dev/null; then
+    warn "Stop API (PID $API_PID)"
+    kill "$API_PID" 2>/dev/null || true
     sleep 1
-    kill -9 "$DASH_PID" 2>/dev/null || true
-    ok "Dashboard stoppé"
+    kill -9 "$API_PID" 2>/dev/null || true
+    ok "API stoppée"
+  fi
+
+  if [ -n "${FRONTEND_PID:-}" ] && kill -0 "$FRONTEND_PID" 2>/dev/null; then
+    warn "Stop Frontend (PID $FRONTEND_PID)"
+    kill "$FRONTEND_PID" 2>/dev/null || true
+    sleep 1
+    kill -9 "$FRONTEND_PID" 2>/dev/null || true
+    ok "Frontend stoppé"
   fi
 
   if docker ps --format '{{.Names}}' | grep -q "^open-webui$"; then
@@ -81,18 +90,6 @@ cleanup() {
     docker stop open-webui >/dev/null || true
     ok "open-webui stoppé"
   fi
-
-  # OPTIONNEL : décommente si tu veux stopper aussi Qdrant / Neo4j
-  # if docker ps --format '{{.Names}}' | grep -q "^qdrant$"; then
-  #   warn "Stop qdrant"
-  #   docker stop qdrant >/dev/null || true
-  #   ok "qdrant stoppé"
-  # fi
-  # if docker ps --format '{{.Names}}' | grep -q "^neo4j$"; then
-  #   warn "Stop neo4j"
-  #   docker stop neo4j >/dev/null || true
-  #   ok "neo4j stoppé"
-  # fi
 
   echo ""
   ok "Arrêt terminé."
@@ -133,7 +130,7 @@ wait_container_healthy_or_http() {
 }
 
 wait_hyperion() {
-  # Attendre que l'API Hyperion soit dispo (car lancée par run_dashboard.py)
+  # Attendre que l'API Hyperion soit dispo
   local elapsed=0
   while [ "$elapsed" -lt 120 ]; do
     if curl -s "http://localhost:${HYPERION_PORT}/v1/models" >/dev/null 2>&1; then
@@ -244,7 +241,7 @@ start_openwebui() {
     fi
   fi
 
-  echo -e "${CYAN}   ⏳ Attente Open WebUI (jusqu’à ${WAIT_MAX_SECONDS}s)...${NC}"
+  echo -e "${CYAN}   ⏳ Attente Open WebUI (jusqu'à ${WAIT_MAX_SECONDS}s)...${NC}"
   if ! wait_container_healthy_or_http "open-webui" "${OPENWEBUI_URL}/" "${WAIT_MAX_SECONDS}" "${WAIT_STEP_SECONDS}"; then
     fail "Open WebUI ne répond pas dans le délai"
     echo -e "${YELLOW}   Logs (tail 120):${NC}"
@@ -273,18 +270,29 @@ start_openwebui() {
 }
 
 # ----------------------------------------------------------------------------
-# Dashboard (background)
+# Dashboard (background) - CORRIGÉ
 # ----------------------------------------------------------------------------
 start_dashboard_background() {
   section "🌐 DASHBOARD REACT — LANCEMENT"
-  mkdir -p output
+  mkdir -p logs
 
-  # Pas de nohup/disown : on veut pouvoir kill via Ctrl+C
-  python3 scripts/run_dashboard.py > output/dashboard.log 2>&1 &
-  DASH_PID=$!
+  # Lancer API en arrière-plan
+  cd "$PROJECT_ROOT"
+  nohup python3 scripts/dev/run_api.py > logs/api.log 2>&1 &
+  API_PID=$!
+  ok "API lancée (PID ${API_PID})"
 
-  ok "Dashboard lancé (PID ${DASH_PID})"
-  echo -e "${GREEN}   • Logs : tail -f output/dashboard.log${NC}"
+  # Attendre que l'API démarre
+  sleep 5
+
+  # Lancer frontend en arrière-plan
+  cd "$PROJECT_ROOT/frontend"
+  nohup python3 -m http.server 3000 > "$PROJECT_ROOT/logs/dashboard.log" 2>&1 &
+  FRONTEND_PID=$!
+
+  ok "Dashboard lancé (PID ${FRONTEND_PID})"
+  echo -e "${GREEN}   • Logs API: tail -f logs/api.log${NC}"
+  echo -e "${GREEN}   • Logs Dashboard: tail -f logs/dashboard.log${NC}"
   echo -e "${GREEN}   • Front: http://localhost:3000${NC}"
   echo -e "${GREEN}   • API  : http://localhost:${HYPERION_PORT}${NC}"
 }
@@ -359,7 +367,7 @@ echo ""
 banner "🎉 TERMINÉ !"
 echo ""
 echo "📱 Services actifs :"
-[[ "$do_dashboard" =~ ^[Oo]$ ]] && echo "   • Dashboard React : http://localhost:3000 (logs: output/dashboard.log)"
+[[ "$do_dashboard" =~ ^[Oo]$ ]] && echo "   • Dashboard React : http://localhost:3000 (logs: logs/dashboard.log)"
 [[ "$do_openwebui" =~ ^[Oo]$ ]] && echo "   • Open WebUI      : ${OPENWEBUI_URL}"
 echo "   • Hyperion API    : http://localhost:${HYPERION_PORT}"
 echo "   • API Docs        : http://localhost:${HYPERION_PORT}/docs"

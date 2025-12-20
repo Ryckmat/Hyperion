@@ -10,7 +10,8 @@ from dotenv import load_dotenv
 # Chemins projet
 # ============================================================================
 
-PROJECT_ROOT = Path(__file__).parent.parent
+# src/hyperion/config.py -> src/hyperion/ -> src/ -> Hyperion/
+PROJECT_ROOT = Path(__file__).parent.parent.parent
 
 # Charger le .env à la racine du projet
 ENV_PATH = PROJECT_ROOT / ".env"
@@ -19,7 +20,7 @@ load_dotenv(ENV_PATH, override=True)
 CONFIG_DIR = PROJECT_ROOT / "config"
 TEMPLATES_DIR = PROJECT_ROOT / "templates"
 DATA_DIR = PROJECT_ROOT / "data"
-OUTPUT_DIR = PROJECT_ROOT / "docs" / "generated"  # Changé : docs/generated/ au lieu de output/
+OUTPUT_DIR = PROJECT_ROOT / "docs" / "generated"
 
 # Créer les dossiers s'ils n'existent pas
 for directory in [DATA_DIR, OUTPUT_DIR, CONFIG_DIR]:
