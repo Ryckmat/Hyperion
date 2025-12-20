@@ -8,7 +8,7 @@ from qdrant_client.models import Distance, VectorParams, PointStruct
 from sentence_transformers import SentenceTransformer
 import hashlib
 
-from hyperion.rag.config import (
+from hyperion.modules.rag.config import (
     QDRANT_HOST,
     QDRANT_PORT,
     QDRANT_COLLECTION,

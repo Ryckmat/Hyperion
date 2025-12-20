@@ -1,20 +1,13 @@
-Parfait 👍
-Je te refais un **README.md complet, propre et “projet sérieux”**, aligné avec **ce que fait réellement Hyperion aujourd’hui** (RAG, graphe, OpenAI-compatible, Open WebUI, orchestration), sans survendre ni simplifier à l’excès.
-
-Tu peux **copier-coller tel quel** pour remplacer ton README actuel.
-
----
-
 # 🧠 Hyperion
 
-**Hyperion** est une plateforme locale d’analyse et d’exploration de dépôts Git, combinant :
+**Hyperion** est une plateforme locale d'analyse et d'exploration de dépôts Git, combinant :
 
 * 📊 **Analyse Git avancée** (commits, hotspots, contributeurs, métriques)
 * 🧠 **RAG (Retrieval Augmented Generation)** basé sur **Qdrant**
 * 🕸️ **Graphe de connaissance** optionnel via **Neo4j**
 * 🤖 **API OpenAI-compatible** (Chat Completions / Models)
 * 💬 **Interface conversationnelle** via **Open WebUI**
-* 🚀 **Script d’orchestration unifié** pour tout lancer / arrêter
+* 🚀 **Script d'orchestration unifié** pour tout lancer / arrêter
 
 Hyperion est conçu comme un **socle de connaissance technique local**, orienté compréhension, audit et exploration de code à grande échelle.
 
@@ -70,7 +63,7 @@ Un seul script pour :
 
 * vérifier les dépendances
 * démarrer Qdrant / Ollama
-* lancer l’API Hyperion
+* lancer l'API Hyperion
 * lancer Open WebUI
 * lancer le dashboard React
 * arrêter proprement tous les services (Ctrl+C)
@@ -81,22 +74,35 @@ Un seul script pour :
 
 ```
 Hyperion/
-├── hyperion/              # Cœur Python (API, RAG, intégrations)
+├── src/hyperion/          # Code source (structure moderne)
+│   ├── core/              # Analyseur Git
 │   ├── api/               # FastAPI + OpenAI-compatible
-│   ├── rag/               # Qdrant, embeddings, query engine
-│   ├── integrations/      # Neo4j, Git, autres sources
-│   └── config.py
+│   ├── cli/               # Interface ligne de commande
+│   ├── utils/             # Utilitaires
+│   └── modules/           # Modules métier
+│       ├── rag/           # Qdrant, embeddings, query engine
+│       ├── generators/    # Générateurs de documentation
+│       ├── integrations/  # Neo4j, Git, autres sources
+│       └── models/        # Modèles de données
 │
-├── scripts/               # Scripts d’orchestration
-│   └── run_dashboard.py
+├── scripts/               # Scripts d'orchestration
+│   ├── setup/             # Installation système
+│   ├── dev/               # Développement (run_api, run_dashboard)
+│   ├── deploy/            # Déploiement (hyperion_master)
+│   └── maintenance/       # Maintenance
 │
 ├── frontend/              # Dashboard React
 ├── data/                  # Profils Git, index RAG
 ├── templates/             # Templates docs / exports
 ├── docs/                  # Documentation
+│   ├── architecture/      # Designs techniques
+│   ├── guides/            # Guides utilisateur
+│   └── api/               # Documentation API
 ├── tests/                 # Tests
+│   ├── unit/              # Tests unitaires
+│   ├── integration/       # Tests d'intégration
+│   └── e2e/               # Tests end-to-end
 │
-├── hyperion_master.sh     # 🚀 Script maître
 ├── requirements.txt
 ├── setup.py
 ├── .env.example
@@ -132,10 +138,21 @@ git clone https://github.com/Ryckmat/Hyperion.git
 cd Hyperion
 ```
 
-### 2️⃣ Lancer Hyperion
+### 2️⃣ Installation
 
 ```bash
-./hyperion_master.sh
+# Installer les dépendances Python
+pip install -e . --break-system-packages
+
+# Vérifier l'installation
+hyperion --version
+hyperion info
+```
+
+### 3️⃣ Lancer Hyperion
+
+```bash
+./scripts/deploy/hyperion_master.sh
 ```
 
 Le script te guide pour :
@@ -154,6 +171,7 @@ Le script te guide pour :
 Une fois lancé :
 
 * Open WebUI : [http://localhost:3001](http://localhost:3001)
+* Dashboard : [http://localhost:3000](http://localhost:3000)
 * API Hyperion : [http://localhost:8000](http://localhost:8000)
 
 Exemples de questions :
@@ -170,6 +188,26 @@ Les réponses incluent :
 * texte explicatif
 * **sources**
 * score de pertinence
+
+---
+
+## 🖥️ Interface CLI
+
+Hyperion propose une interface en ligne de commande :
+
+```bash
+# Profiler un repository
+hyperion profile /path/to/repo
+
+# Générer la documentation
+hyperion generate data/repositories/mon-repo/profile.yaml
+
+# Ingérer dans Neo4j
+hyperion ingest data/repositories/mon-repo/profile.yaml --clear
+
+# Afficher la configuration
+hyperion info
+```
 
 ---
 
@@ -194,42 +232,99 @@ curl http://localhost:8000/v1/chat/completions \
   }'
 ```
 
+### Endpoints disponibles
+
+* `GET /` - Info API
+* `GET /api/health` - Health check
+* `GET /api/repos` - Liste des repos analysés
+* `GET /api/repos/{repo_name}` - Détails d'un repo
+* `POST /api/chat` - Chat RAG
+* `GET /v1/models` - Liste modèles OpenAI-compatible
+* `POST /v1/chat/completions` - Chat OpenAI-compatible
+
+Documentation complète : [http://localhost:8000/docs](http://localhost:8000/docs)
+
 ---
 
 ## 🧪 État du projet
 
-* ✔️ Fonctionnel
-* ✔️ Stable en local
+* ✔️ **v1.1.0** - Structure moderne (`src/` layout)
+* ✔️ Fonctionnel et stable en local
+* ✔️ RAG opérationnel avec sources
+* ✔️ API OpenAI-compatible testée
+* ✔️ Open WebUI intégré
 * 🚧 En évolution continue
 * ❌ Pas encore industrialisé (K8s, CI/CD, auth)
 
 Hyperion est un **socle expérimental sérieux**, pensé pour évoluer vers :
 
 * un moteur de connaissance technique
-* un outil d’audit de code
+* un outil d'audit de code
 * une base RAG multi-sources (Git, docs, tickets, graphes)
 
 ---
 
 ## 🧭 Roadmap (indicative)
 
-* [ ] Séparation API / Dashboard
-* [ ] Mode `start|stop|status`
+* [x] Structure `src/` moderne (v1.1.0)
+* [x] CLI fonctionnelle
+* [x] API OpenAI-compatible
+* [x] Dashboard React
+* [ ] Tests automatiques complets
 * [ ] RAG multi-sources (Git + Neo4j + Docs)
-* [ ] Tests automatiques RAG
 * [ ] Packaging Docker complet
+* [ ] Mode `start|stop|status`
 * [ ] Documentation approfondie
+
+---
+
+## 🛠️ Développement
+
+### Structure des imports
+
+Depuis la version 1.1.0, les imports utilisent la structure `src/` :
+
+```python
+# Imports core
+from hyperion.core import GitAnalyzer
+from hyperion.api.main import app
+
+# Imports modules
+from hyperion.modules.rag.query import RAGQueryEngine
+from hyperion.modules.generators.markdown_generator import MarkdownGenerator
+from hyperion.modules.integrations.neo4j_ingester import Neo4jIngester
+```
+
+### Lancer en mode développement
+
+```bash
+# API seule
+python scripts/dev/run_api.py
+
+# Dashboard seul (dans un autre terminal)
+cd frontend
+python -m http.server 3000
+
+# Tests
+pytest tests/
+```
 
 ---
 
 ## 📜 Licence
 
 Projet personnel — usage libre pour expérimentation.
-Voir le fichier `LICENSE` si présent.
 
 ---
 
 ## 🙌 Auteur
 
-**Matthieu Ryckman**
-Projet personnel — exploration RAG, graphes et IA locale.
+**Matthieu Ryckembusch**  
+Chef de projet data chez I-Run  
+Projet personnel — exploration RAG, graphes et IA locale
+
+---
+
+## 🤝 Contribution
+
+Ce projet est en développement actif. Les contributions, suggestions et retours sont les bienvenus via les issues GitHub.

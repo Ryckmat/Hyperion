@@ -82,7 +82,7 @@ def generate(profile_yaml: str, format: str, output: str):
     Exemple :
         hyperion generate data/repositories/mon-repo/profile.yaml --output output/mon-repo/
     """
-    from hyperion.generators.markdown_generator import MarkdownGenerator
+    from hyperion.modules.generators.markdown_generator import MarkdownGenerator
     
     click.echo(f"📝 Génération documentation ({format}) depuis : {profile_yaml}")
     
@@ -118,7 +118,7 @@ def generate(profile_yaml: str, format: str, output: str):
 
 @cli.command()
 @click.argument("repo_path", type=click.Path(exists=True))
-@click.option("--tags-pattern", default=r"^v?\d+\.\d+\.\d+$", help="Pattern regex tags prod")
+@click.option("--tags-pattern", default=r"^v?\d+\.\d+\.\d+$", help=r"Pattern regex tags prod")
 @click.option("--output", "-o", default="data/repositories/", help="Dossier de sortie")
 def export(repo_path: str, tags_pattern: str, output: str):
     """
@@ -130,7 +130,7 @@ def export(repo_path: str, tags_pattern: str, output: str):
     - prod_files.jsonl : Fichiers modifiés (1 par ligne)
     
     Exemple :
-        hyperion export /path/to/repo --tags-pattern "^v\d+\.\d+\.\d+$"
+        hyperion export /path/to/repo --tags-pattern "^v\\d+\\.\\d+\\.\\d+$"
     """
     click.echo(f"📦 Export historique prod : {repo_path}")
     click.echo(f"   Pattern tags : {tags_pattern}")
@@ -158,7 +158,7 @@ def ingest(profile_yaml: str, uri: str, user: str, password: str, database: str,
     Exemple :
         hyperion ingest data/repositories/mon-repo/profile.yaml --clear
     """
-    from hyperion.integrations.neo4j_ingester import Neo4jIngester
+    from hyperion.modules.integrations.neo4j_ingester import Neo4jIngester
     
     click.echo(f"🗄️  Ingestion Neo4j depuis : {profile_yaml}")
     
@@ -228,6 +228,10 @@ def info():
     click.echo(f"   Préfixes        : {len(config.FILTERS.get('ignore_prefixes', []))} ignorés")
     click.echo(f"   Fichiers        : {len(config.FILTERS.get('ignore_files', []))} ignorés")
     click.echo()
+
+
+# Alias pour entry_point console_scripts
+main = cli
 
 
 if __name__ == "__main__":

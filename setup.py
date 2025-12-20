@@ -1,58 +1,58 @@
 from setuptools import setup, find_packages
 from pathlib import Path
 
-# Lire README
-readme = Path("README.md").read_text(encoding="utf-8")
-
 # Lire version
-version_file = Path("hyperion/__version__.py").read_text()
+version_file = Path(__file__).parent / "src" / "hyperion" / "__version__.py"
 version = {}
-exec(version_file, version)
+exec(version_file.read_text(), version)
+
+# Lire README
+readme = (Path(__file__).parent / "README.md").read_text()
+
+# Lire requirements
+requirements = (Path(__file__).parent / "requirements.txt").read_text().splitlines()
+requirements = [r.strip() for r in requirements if r.strip() and not r.startswith("#")]
 
 setup(
     name="hyperion",
     version=version["__version__"],
-    description="Git Repository Profiler & Knowledge Graph",
-    long_description=readme,
-    long_description_content_type="text/markdown",
     author="Matthieu Ryckembusch",
     author_email="matthieu@irun.fr",
-    url="https://github.com/Ryckmat/Hyperion",
-    packages=find_packages(),
-    include_package_data=True,
-    install_requires=[
-        "pyyaml>=6.0",
-        "jinja2>=3.1.0",
-        "click>=8.1.0",
-        "neo4j>=5.28.0",
-    ],
-    extras_require={
-        "dev": [
-            "pytest>=7.4.0",
-            "pytest-cov>=4.1.0",
-            "black>=23.0.0",
-            "ruff>=0.1.0",
-            "mypy>=1.7.0",
-        ],
-        "docs": [
-            "mkdocs>=1.5.0",
-            "mkdocs-material>=9.5.0",
-        ],
+    description="Git Repository Profiler & Knowledge Graph Platform",
+    long_description=readme,
+    long_description_content_type="text/markdown",
+    url="https://github.com/kortazo/hyperion",
+    
+    # IMPORTANT: package_dir pour src/ layout
+    package_dir={"": "src"},
+    packages=find_packages(where="src"),
+    
+    # Inclure templates et données
+    package_data={
+        "hyperion": ["../templates/**/*"],
     },
+    include_package_data=True,
+    
+    install_requires=requirements,
+    python_requires=">=3.10",
+    
     entry_points={
         "console_scripts": [
-            "hyperion=hyperion.cli.main:cli",
+            "hyperion=hyperion.cli.main:main",
         ],
     },
-    python_requires=">=3.10",
+    
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
-        "License :: OSI Approved :: Apache Software License",
+        "Topic :: Software Development :: Version Control :: Git",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
-        "Topic :: Software Development :: Documentation",
-        "Topic :: Software Development :: Version Control :: Git",
+        "Programming Language :: Python :: 3.13",
+        "Operating System :: OS Independent",
     ],
 )

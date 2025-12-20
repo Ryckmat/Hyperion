@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from typing import Optional, List
 import yaml
 
-from hyperion.integrations.neo4j_ingester import Neo4jIngester
+from hyperion.modules.integrations.neo4j_ingester import Neo4jIngester
 from hyperion.config import DATA_DIR
 from hyperion.__version__ import __version__
 
@@ -54,7 +54,7 @@ def get_query_engine():
     """Get or create RAG query engine."""
     global _query_engine
     if _query_engine is None:
-        from hyperion.rag.query import RAGQueryEngine
+        from hyperion.modules.rag.query import RAGQueryEngine
         _query_engine = RAGQueryEngine()
     return _query_engine
 

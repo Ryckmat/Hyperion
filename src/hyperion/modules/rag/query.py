@@ -6,7 +6,7 @@ from qdrant_client.models import Filter, FieldCondition, MatchValue
 from sentence_transformers import SentenceTransformer
 from langchain_community.llms import Ollama
 
-from hyperion.rag.config import (
+from hyperion.modules.rag.config import (
     QDRANT_HOST,
     QDRANT_PORT,
     QDRANT_COLLECTION,
