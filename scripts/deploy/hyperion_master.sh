@@ -19,6 +19,19 @@ PROJECT_ROOT="${HYPERION_HOME:-$(dirname "$(dirname "$SCRIPT_DIR")")}"
 cd "$PROJECT_ROOT"
 
 # ----------------------------------------------------------------------------
+# Vérifier et installer hyperion si nécessaire
+# ----------------------------------------------------------------------------
+if [ -d "$PROJECT_ROOT/venv" ]; then
+  source "$PROJECT_ROOT/venv/bin/activate" 2>/dev/null || true
+  if ! pip list 2>/dev/null | grep -q "^hyperion "; then
+    echo "   🔧 Installation hyperion en mode éditable..."
+    pip install -e . >/dev/null 2>&1 || {
+      echo "   ⚠️  Échec installation hyperion"
+    }
+  fi
+fi
+
+# ----------------------------------------------------------------------------
 # Couleurs
 # ----------------------------------------------------------------------------
 GREEN='\033[0;32m'
@@ -276,14 +289,39 @@ start_dashboard_background() {
   section "🌐 DASHBOARD REACT — LANCEMENT"
   mkdir -p logs
 
-  # Lancer API en arrière-plan
+  # Vérifier que le venv existe
+  if [ ! -d "$PROJECT_ROOT/venv" ]; then
+    fail "Virtual environment non trouvé"
+    echo "   Créer avec: python -m venv venv && source venv/bin/activate.fish"
+    exit 1
+  fi
+
+  # Lancer API en arrière-plan AVEC venv activé
   cd "$PROJECT_ROOT"
-  nohup python3 scripts/dev/run_api.py > logs/api.log 2>&1 &
+  nohup bash -c "source venv/bin/activate && python3 scripts/dev/run_api.py" > logs/api.log 2>&1 &
   API_PID=$!
   ok "API lancée (PID ${API_PID})"
 
-  # Attendre que l'API démarre
-  sleep 5
+  # Attendre que l'API démarre (avec vérification)
+  echo -e "${CYAN}   ⏳ Attente démarrage API (max 60s)...${NC}"
+  local elapsed=0
+  while [ $elapsed -lt 60 ]; do
+    if curl -s "http://localhost:${HYPERION_PORT}/api/health" >/dev/null 2>&1; then
+      ok "API prête (http://localhost:${HYPERION_PORT})"
+      break
+    fi
+    if [ $((elapsed % 10)) -eq 0 ] && [ $elapsed -gt 0 ]; then
+      echo -e "${YELLOW}      Attente... ${elapsed}s${NC}"
+    fi
+    sleep 2
+    elapsed=$((elapsed + 2))
+  done
+
+  if [ $elapsed -ge 60 ]; then
+    warn "API met du temps à démarrer (voir logs/api.log)"
+    echo -e "${YELLOW}   Dernières lignes du log:${NC}"
+    tail -10 logs/api.log 2>/dev/null || echo "   (pas de log)"
+  fi
 
   # Lancer frontend en arrière-plan
   cd "$PROJECT_ROOT/frontend"
