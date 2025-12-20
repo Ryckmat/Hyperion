@@ -319,8 +319,7 @@ Projet personnel — usage libre pour expérimentation.
 
 ## 🙌 Auteur
 
-**Matthieu Ryckembusch**  
-Chef de projet data chez I-Run  
+**Matthieu Ryckman**  
 Projet personnel — exploration RAG, graphes et IA locale
 
 ---
