@@ -1,5 +1,6 @@
-from fastapi.testclient import TestClient
 import yaml
+from fastapi.testclient import TestClient
+
 import hyperion.api.main as api_main
 
 
