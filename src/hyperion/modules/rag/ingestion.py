@@ -1,21 +1,19 @@
 """Ingestion des données dans Qdrant."""
 
-from pathlib import Path
-from typing import List, Dict, Optional
-import yaml
-from qdrant_client import QdrantClient
-from qdrant_client.models import Distance, VectorParams, PointStruct
-from sentence_transformers import SentenceTransformer
 import hashlib
 
+import yaml
+from qdrant_client import QdrantClient
+from qdrant_client.models import Distance, PointStruct, VectorParams
+from sentence_transformers import SentenceTransformer
+
 from hyperion.modules.rag.config import (
-    QDRANT_HOST,
-    QDRANT_PORT,
-    QDRANT_COLLECTION,
-    EMBEDDING_MODEL,
     EMBEDDING_DEVICE,
     EMBEDDING_DIM,
-    CHUNK_SIZE,
+    EMBEDDING_MODEL,
+    QDRANT_COLLECTION,
+    QDRANT_HOST,
+    QDRANT_PORT,
     REPOS_DIR,
 )
 
@@ -82,7 +80,7 @@ class RAGIngester:
         print(f"\n📊 Ingestion repo : {repo_name}")
 
         # Charger profil
-        with open(profile_path, "r") as f:
+        with open(profile_path) as f:
             profile = yaml.safe_load(f)
 
         # Découper en chunks
@@ -91,14 +89,14 @@ class RAGIngester:
 
         # Générer embeddings
         texts = [c["text"] for c in chunks]
-        print(f"   • Génération embeddings...")
+        print("   • Génération embeddings...")
         embeddings = self.embedding_model.encode(
             texts, batch_size=32, show_progress_bar=True, convert_to_numpy=True
         )
 
         # Créer points Qdrant
         points = []
-        for i, (chunk, embedding) in enumerate(zip(chunks, embeddings)):
+        for i, (chunk, embedding) in enumerate(zip(chunks, embeddings, strict=False)):
             point_id = self._generate_id(repo_name, i)
 
             points.append(
@@ -115,13 +113,13 @@ class RAGIngester:
             )
 
         # Uploader vers Qdrant
-        print(f"   • Upload vers Qdrant...")
+        print("   • Upload vers Qdrant...")
         self.qdrant_client.upsert(collection_name=self.collection_name, points=points)
 
         print(f"✅ {len(points)} chunks ingérés")
         return len(points)
 
-    def ingest_all_repos(self) -> Dict[str, int]:
+    def ingest_all_repos(self) -> dict[str, int]:
         """
         Ingère tous les repos disponibles.
 
@@ -152,7 +150,7 @@ class RAGIngester:
 
         return results
 
-    def _create_chunks(self, profile: dict, repo_name: str) -> List[Dict]:
+    def _create_chunks(self, profile: dict, repo_name: str) -> list[dict]:
         """Découpe le profil en chunks sémantiques."""
         chunks = []
 

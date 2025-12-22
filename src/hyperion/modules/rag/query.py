@@ -1,23 +1,21 @@
 """Query engine pour RAG."""
 
-from typing import List, Dict, Optional
-from qdrant_client import QdrantClient
-from qdrant_client.models import Filter, FieldCondition, MatchValue
-from sentence_transformers import SentenceTransformer
 from langchain_community.llms import Ollama
+from qdrant_client import QdrantClient
+from qdrant_client.models import FieldCondition, Filter, MatchValue
+from sentence_transformers import SentenceTransformer
 
 from hyperion.modules.rag.config import (
-    QDRANT_HOST,
-    QDRANT_PORT,
-    QDRANT_COLLECTION,
-    EMBEDDING_MODEL,
     EMBEDDING_DEVICE,
+    EMBEDDING_MODEL,
+    LLM_MAX_TOKENS,
+    LLM_TEMPERATURE,
+    LLM_TOP_K,
     OLLAMA_BASE_URL,
     OLLAMA_MODEL,
-    LLM_TEMPERATURE,
-    LLM_MAX_TOKENS,
-    LLM_TOP_K,
-    SYSTEM_PROMPT,
+    QDRANT_COLLECTION,
+    QDRANT_HOST,
+    QDRANT_PORT,
     QUERY_PROMPT_TEMPLATE,
 )
 
@@ -48,7 +46,7 @@ class RAGQueryEngine:
         self.collection_name = collection_name
 
         # Modèle embeddings (même que ingestion)
-        print(f"📥 Chargement modèle embeddings...")
+        print("📥 Chargement modèle embeddings...")
         self.embedding_model = SentenceTransformer(EMBEDDING_MODEL, device=EMBEDDING_DEVICE)
         print(f"✅ Embeddings prêts ({EMBEDDING_DEVICE})")
 
@@ -60,11 +58,9 @@ class RAGQueryEngine:
             temperature=LLM_TEMPERATURE,
             num_predict=LLM_MAX_TOKENS,
         )
-        print(f"✅ LLM prêt")
+        print("✅ LLM prêt")
 
-    def query(
-        self, question: str, repo_filter: Optional[str] = None, top_k: int = LLM_TOP_K
-    ) -> Dict:
+    def query(self, question: str, repo_filter: str | None = None, top_k: int = LLM_TOP_K) -> dict:
         """
         Répond à une question via RAG.
 
@@ -129,8 +125,8 @@ class RAGQueryEngine:
         }
 
     def chat(
-        self, question: str, repo: Optional[str] = None, history: Optional[List[Dict]] = None
-    ) -> Dict:
+        self, question: str, repo: str | None = None, history: list[dict] | None = None
+    ) -> dict:
         """
         Chat avec historique de conversation.
 

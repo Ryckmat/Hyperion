@@ -1,10 +1,8 @@
 """Utilitaires Git - Wrappers subprocess pour interactions Git."""
 
-import subprocess
 import re
+import subprocess
 from pathlib import Path
-from typing import Optional
-from datetime import datetime
 
 
 class GitCommandError(Exception):
@@ -88,7 +86,7 @@ class GitRepo:
 
         return self.repo_path.name
 
-    def get_remote_url(self) -> Optional[str]:
+    def get_remote_url(self) -> str | None:
         """
         Retourne l'URL du remote origin.
 
@@ -101,7 +99,7 @@ class GitRepo:
         except Exception:
             return None
 
-    def detect_main_branch(self, candidates: Optional[list[str]] = None) -> str:
+    def detect_main_branch(self, candidates: list[str] | None = None) -> str:
         """
         Détecte la branche principale du dépôt.
 
@@ -134,7 +132,7 @@ class GitRepo:
 
         return "main"  # Défaut
 
-    def get_commits(self, since: Optional[str] = None) -> list[dict]:
+    def get_commits(self, since: str | None = None) -> list[dict]:
         """
         Retourne la liste des commits avec métadonnées.
 
@@ -310,7 +308,7 @@ class GitRepo:
 
         return "unknown"
 
-    def detect_license(self) -> Optional[str]:
+    def detect_license(self) -> str | None:
         """
         Détecte la licence du projet (heuristique basique).
 
@@ -349,7 +347,7 @@ class GitRepo:
 
         return None
 
-    def get_date_range(self) -> tuple[Optional[str], Optional[str]]:
+    def get_date_range(self) -> tuple[str | None, str | None]:
         """
         Retourne la date du premier et dernier commit.
 

@@ -1,8 +1,8 @@
 """Tests pour hyperion.utils.git_utils."""
 
 import pytest
-from pathlib import Path
-from hyperion.utils.git_utils import GitRepo, GitCommandError
+
+from hyperion.utils.git_utils import GitCommandError, GitRepo
 
 
 def test_git_repo_invalid_path():

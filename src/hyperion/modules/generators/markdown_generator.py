@@ -1,11 +1,11 @@
 """Générateur de documentation Markdown depuis profils Hyperion."""
 
 from pathlib import Path
-from typing import Optional
+
 import yaml
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from hyperion.config import TEMPLATES_DIR, OUTPUT_DIR
+from hyperion.config import OUTPUT_DIR, TEMPLATES_DIR
 
 
 class MarkdownGenerator:
@@ -22,7 +22,7 @@ class MarkdownGenerator:
         >>> print(docs["index.md"][:100])
     """
 
-    def __init__(self, templates_dir: Optional[str] = None):
+    def __init__(self, templates_dir: str | None = None):
         """
         Initialise le générateur Markdown.
 
@@ -49,8 +49,8 @@ class MarkdownGenerator:
     def generate(
         self,
         profile_path: str,
-        output_dir: Optional[str] = None,
-        formats: Optional[list[str]] = None,
+        output_dir: str | None = None,
+        formats: list[str] | None = None,
     ) -> dict[str, str]:
         """
         Génère la documentation Markdown depuis un profil YAML.
@@ -85,10 +85,7 @@ class MarkdownGenerator:
                 continue
 
         # Sauvegarder si output_dir spécifié
-        if output_dir:
-            output_path = Path(output_dir)
-        else:
-            output_path = OUTPUT_DIR / service
+        output_path = Path(output_dir) if output_dir else OUTPUT_DIR / service
 
         output_path.mkdir(parents=True, exist_ok=True)
 
@@ -99,7 +96,7 @@ class MarkdownGenerator:
         return docs
 
     def generate_all(
-        self, profiles_dir: str, output_base: Optional[str] = None
+        self, profiles_dir: str, output_base: str | None = None
     ) -> dict[str, dict[str, str]]:
         """
         Génère la documentation pour tous les profils d'un dossier.
@@ -130,10 +127,7 @@ class MarkdownGenerator:
             service = repo_dir.name
 
             # Output dir pour ce service
-            if output_base:
-                output_dir = Path(output_base) / service
-            else:
-                output_dir = OUTPUT_DIR / service
+            output_dir = Path(output_base) / service if output_base else OUTPUT_DIR / service
 
             try:
                 docs = self.generate(str(profile_file), str(output_dir))
@@ -150,7 +144,7 @@ class MarkdownGenerator:
         if not path.exists():
             raise FileNotFoundError(f"Profil introuvable : {profile_path}")
 
-        with open(path, "r", encoding="utf-8") as f:
+        with open(path, encoding="utf-8") as f:
             return yaml.safe_load(f)
 
     def list_templates(self) -> list[str]:

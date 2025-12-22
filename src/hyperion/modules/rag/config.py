@@ -1,7 +1,8 @@
 """Configuration RAG Hyperion."""
 
 import os
-from pathlib import Path
+
+from hyperion.config import DATA_DIR
 
 # ============================================================================
 # Qdrant Configuration
@@ -63,7 +64,5 @@ Si l'information n'est pas dans le contexte, dis "Je ne trouve pas cette informa
 # ============================================================================
 # Paths
 # ============================================================================
-
-from hyperion.config import DATA_DIR
 
 REPOS_DIR = DATA_DIR / "repositories"

@@ -1,16 +1,16 @@
 """Ingestion Neo4j - Importe les profils Hyperion dans le graphe."""
 
+import contextlib
 from pathlib import Path
-from typing import Optional
-import yaml
 
+import yaml
 from neo4j import GraphDatabase
+
 from hyperion.config import (
+    NEO4J_DATABASE,
+    NEO4J_PASSWORD,
     NEO4J_URI,
     NEO4J_USER,
-    NEO4J_PASSWORD,
-    NEO4J_DATABASE,
-    BATCH_SIZE_COMMITS,
 )
 
 
@@ -31,10 +31,10 @@ class Neo4jIngester:
 
     def __init__(
         self,
-        uri: Optional[str] = None,
-        user: Optional[str] = None,
-        password: Optional[str] = None,
-        database: Optional[str] = None,
+        uri: str | None = None,
+        user: str | None = None,
+        password: str | None = None,
+        database: str | None = None,
     ):
         """
         Initialise la connexion Neo4j.
@@ -126,7 +126,7 @@ class Neo4jIngester:
         if not path.exists():
             raise FileNotFoundError(f"Profil introuvable : {profile_path}")
 
-        with open(path, "r", encoding="utf-8") as f:
+        with open(path, encoding="utf-8") as f:
             return yaml.safe_load(f)
 
     def _setup_constraints(self, tx):
@@ -140,10 +140,8 @@ class Neo4jIngester:
         ]
 
         for constraint in constraints:
-            try:
+            with contextlib.suppress(Exception):
                 tx.run(constraint)
-            except Exception:
-                pass  # Contrainte déjà existante
 
     def _create_repo(self, tx, profile: dict):
         """Crée le nœud Repository principal."""
