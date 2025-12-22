@@ -117,9 +117,11 @@ def generate(profile_yaml: str, format: str, output: str):
 
 @cli.command()
 @click.argument("repo_path", type=click.Path(exists=True))
-@click.option("--tags-pattern", default=r"^v?\d+\.\d+\.\d+$", help=r"Pattern regex tags prod")
-@click.option("--output", "-o", default="data/repositories/", help="Dossier de sortie")
-def export(repo_path: str, tags_pattern: str, _output: str):
+@click.option("--tags-pattern", default=r"^v?\d+\.\d+\\.\\d+$", help=r"Pattern regex tags prod")
+@click.option(
+    "--output", "-o", "output_dir", default="data/repositories/", help="Dossier de sortie"
+)
+def export(repo_path: str, tags_pattern: str, output_dir: str):
     """
     Exporte l'historique production (releases taggées)
 
