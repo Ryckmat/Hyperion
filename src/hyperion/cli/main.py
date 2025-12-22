@@ -1,8 +1,9 @@
 """Point d'entrée CLI Hyperion."""
 
-import click
-from pathlib import Path
 import sys
+from pathlib import Path
+
+import click
 import yaml
 
 from hyperion.__version__ import __version__
@@ -57,7 +58,7 @@ def profile(repo_path: str, output: str, name: str):
             yaml.safe_dump(profile_data, f, allow_unicode=True, sort_keys=False)
 
         # Stats
-        click.echo(f"\n✅ Analyse terminée !")
+        click.echo("\n✅ Analyse terminée !")
         click.echo(f"   • Repo          : {repo_name}")
         click.echo(f"   • Commits       : {profile_data['git_summary']['commits']:,}")
         click.echo(f"   • Contributeurs : {profile_data['git_summary']['contributors']:,}")
@@ -93,7 +94,7 @@ def generate(profile_yaml: str, format: str, output: str):
 
     try:
         # Charger le profil pour récupérer le nom
-        with open(profile_yaml, "r") as f:
+        with open(profile_yaml) as f:
             profile_data = yaml.safe_load(f)
 
         repo_name = profile_data["service"]
@@ -101,15 +102,12 @@ def generate(profile_yaml: str, format: str, output: str):
         # Générer
         generator = MarkdownGenerator()
 
-        if output == "output/":
-            output_dir = Path(output) / repo_name
-        else:
-            output_dir = Path(output)
+        output_dir = Path(output) / repo_name if output == "output/" else Path(output)
 
         docs = generator.generate(profile_yaml, str(output_dir))
 
-        click.echo(f"\n✅ Documentation générée !")
-        for filename in docs.keys():
+        click.echo("\n✅ Documentation générée !")
+        for filename in docs:
             click.echo(f"   • {output_dir / filename}")
 
     except Exception as e:
@@ -121,7 +119,7 @@ def generate(profile_yaml: str, format: str, output: str):
 @click.argument("repo_path", type=click.Path(exists=True))
 @click.option("--tags-pattern", default=r"^v?\d+\.\d+\.\d+$", help=r"Pattern regex tags prod")
 @click.option("--output", "-o", default="data/repositories/", help="Dossier de sortie")
-def export(repo_path: str, tags_pattern: str, output: str):
+def export(repo_path: str, tags_pattern: str, _output: str):
     """
     Exporte l'historique production (releases taggées)
 
@@ -165,7 +163,7 @@ def ingest(profile_yaml: str, uri: str, user: str, password: str, database: str,
 
     try:
         # Charger le profil
-        with open(profile_yaml, "r") as f:
+        with open(profile_yaml) as f:
             profile_data = yaml.safe_load(f)
 
         repo_name = profile_data["service"]
@@ -180,10 +178,10 @@ def ingest(profile_yaml: str, uri: str, user: str, password: str, database: str,
             ingester.clear_repo(repo_name)
 
         # Ingestion
-        click.echo(f"⏳ Ingestion en cours...")
+        click.echo("⏳ Ingestion en cours...")
         stats = ingester.ingest_profile(profile_yaml)
 
-        click.echo(f"\n✅ Ingestion terminée !")
+        click.echo("\n✅ Ingestion terminée !")
         click.echo(f"   • Repo          : {stats['repo']}")
         click.echo(f"   • Contributeurs : {stats['contributors']}")
         click.echo(f"   • Hotspots      : {stats['hotspots']}")

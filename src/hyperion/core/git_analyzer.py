@@ -1,12 +1,11 @@
 """Analyseur Git principal - Génère un profil Hyperion complet."""
 
-from pathlib import Path
-from typing import Optional
-from collections import Counter
 import re
+from collections import Counter
+from pathlib import Path
 
-from hyperion.utils.git_utils import GitRepo
 from hyperion.config import FILTERS
+from hyperion.utils.git_utils import GitRepo
 
 
 class GitAnalyzer:
@@ -265,10 +264,7 @@ class GitAnalyzer:
 
         # Fichiers à ignorer (nom exact)
         filename = path.split("/")[-1]
-        if filename in self.filters.get("ignore_files", []):
-            return True
-
-        return False
+        return filename in self.filters.get("ignore_files", [])
 
     def _stats_by_extension(self, numstat: list[tuple[int, int, str]]) -> list[dict]:
         """
@@ -331,8 +327,8 @@ class GitAnalyzer:
         hotspots: list[tuple[str, int]],
         by_extension: list[dict],
         numstat: list[tuple[int, int, str]],
-        first_date: Optional[str],
-        last_date: Optional[str],
+        first_date: str | None,
+        last_date: str | None,
     ) -> dict:
         """
         Calcule les métriques qualité du projet.

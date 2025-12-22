@@ -1,15 +1,13 @@
 """API REST Hyperion - Backend FastAPI."""
 
+import yaml
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import Optional, List
-import yaml
 
-from hyperion.modules.integrations.neo4j_ingester import Neo4jIngester
-from hyperion.config import DATA_DIR
 from hyperion.__version__ import __version__
-
+from hyperion.config import DATA_DIR
+from hyperion.modules.integrations.neo4j_ingester import Neo4jIngester
 
 # ============================================================================
 # Pydantic Models
@@ -20,8 +18,8 @@ class ChatRequest(BaseModel):
     """Requête chat RAG."""
 
     question: str
-    repo: Optional[str] = None
-    history: Optional[List[dict]] = None
+    repo: str | None = None
+    history: list[dict] | None = None
 
 
 # ============================================================================
@@ -138,7 +136,7 @@ def list_repos():
             continue
 
         try:
-            with open(profile_file, "r") as f:
+            with open(profile_file) as f:
                 profile = yaml.safe_load(f)
 
             repos.append(
@@ -166,21 +164,21 @@ def get_repo(repo_name: str):
     if not profile_file.exists():
         raise HTTPException(status_code=404, detail=f"Repo '{repo_name}' non trouvé")
 
-    with open(profile_file, "r") as f:
+    with open(profile_file) as f:
         profile = yaml.safe_load(f)
 
     return profile
 
 
 @app.get("/api/repos/{repo_name}/contributors")
-def get_contributors(repo_name: str, limit: Optional[int] = 10):
+def get_contributors(repo_name: str, limit: int | None = 10):
     """Top contributeurs d'un repo."""
     profile_file = DATA_DIR / "repositories" / repo_name / "profile.yaml"
 
     if not profile_file.exists():
         raise HTTPException(status_code=404, detail=f"Repo '{repo_name}' non trouvé")
 
-    with open(profile_file, "r") as f:
+    with open(profile_file) as f:
         profile = yaml.safe_load(f)
 
     contributors = profile["git_summary"]["contributors_top10"][:limit]
@@ -189,14 +187,14 @@ def get_contributors(repo_name: str, limit: Optional[int] = 10):
 
 
 @app.get("/api/repos/{repo_name}/hotspots")
-def get_hotspots(repo_name: str, limit: Optional[int] = 10):
+def get_hotspots(repo_name: str, limit: int | None = 10):
     """Top hotspots d'un repo."""
     profile_file = DATA_DIR / "repositories" / repo_name / "profile.yaml"
 
     if not profile_file.exists():
         raise HTTPException(status_code=404, detail=f"Repo '{repo_name}' non trouvé")
 
-    with open(profile_file, "r") as f:
+    with open(profile_file) as f:
         profile = yaml.safe_load(f)
 
     hotspots = profile["git_summary"]["hotspots_top10"][:limit]
@@ -212,7 +210,7 @@ def get_metrics(repo_name: str):
     if not profile_file.exists():
         raise HTTPException(status_code=404, detail=f"Repo '{repo_name}' non trouvé")
 
-    with open(profile_file, "r") as f:
+    with open(profile_file) as f:
         profile = yaml.safe_load(f)
 
     return {"repo": repo_name, "metrics": profile["metrics"]}
@@ -233,7 +231,7 @@ def get_neo4j_repo(repo_name: str):
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 
 # ============================================================================
@@ -265,7 +263,7 @@ def chat(request: ChatRequest):
         return result
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 
 # ============================================================================

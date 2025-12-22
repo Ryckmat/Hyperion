@@ -2,22 +2,21 @@
 from __future__ import annotations
 
 import time
-from typing import Any, Optional
+from typing import Any
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
 from hyperion.api.main import get_query_engine  # réutilise ton lazy loader existant
 
-
 router = APIRouter(tags=["openai-compat"])
 
 
 class ChatCompletionsIn(BaseModel):
-    model: Optional[str] = "hyperion-rag"
+    model: str | None = "hyperion-rag"
     messages: list[dict[str, Any]]
-    stream: Optional[bool] = False
-    temperature: Optional[float] = None
+    stream: bool | None = False
+    temperature: float | None = None
 
 
 @router.get("/v1/models")
@@ -65,7 +64,7 @@ def chat_completions(body: ChatCompletionsIn):
             history=history if history else None,
         )
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
     answer = data.get("answer", "Pas de réponse.")
 
@@ -73,7 +72,7 @@ def chat_completions(body: ChatCompletionsIn):
     sources = data.get("sources", [])
     if sources:
         answer += "\n\n---\n**Sources:**\n"
-        for i, src in enumerate(sources[:3], 1):
+        for _i, src in enumerate(sources[:3], 1):
             answer += f"- [{src.get('repo','?')}/{src.get('section','?')}] (score: {src.get('score',0):.2f})\n"
 
     return {

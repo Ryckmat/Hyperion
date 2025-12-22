@@ -1,7 +1,5 @@
 """Tests de base pour vérifier la structure."""
 
-import pytest
-from pathlib import Path
 from hyperion import __version__
 
 
