@@ -182,7 +182,7 @@ Ton repo aura :
 Tu peux maintenant :
 1. Faire le push sur GitHub
 2. Le partager sur ton profil
-3. L'utiliser dans tes présentations I-Run
+3. L'utiliser dans tes présentations personnel
 4. Continuer le développement progressivement
 
 **Le gros du travail est fait ! 🚀**

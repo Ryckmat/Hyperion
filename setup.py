@@ -16,8 +16,8 @@ requirements = [r.strip() for r in requirements if r.strip() and not r.startswit
 setup(
     name="hyperion",
     version=version["__version__"],
-    author="Matthieu Ryckembusch",
-    author_email="matthieu@irun.fr",
+    author="Matthieu Ryckman",
+    author_email="contact@ryckmat.dev",
     description="Git Repository Profiler & Knowledge Graph Platform",
     long_description=readme,
     long_description_content_type="text/markdown",

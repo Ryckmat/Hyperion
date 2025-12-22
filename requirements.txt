@@ -1,3 +1,6 @@
+# Production dependencies for Hyperion v1.5
+# For development dependencies, see requirements-dev.txt
+
 # Core
 pyyaml>=6.0
 jinja2>=3.1.0
@@ -16,16 +19,5 @@ langchain>=0.1.0
 langchain-community>=0.0.20
 torch>=2.0.0
 
-# Intégrations
+# Integrations
 neo4j>=5.28.0
-
-# Dev dependencies
-pytest>=7.4.0
-pytest-cov>=4.1.0
-black>=23.0.0
-ruff>=0.1.0
-mypy>=1.7.0
-
-# Documentation
-mkdocs>=1.5.0
-mkdocs-material>=9.5.0

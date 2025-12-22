@@ -28,12 +28,13 @@ class GitAnalyzer:
     def __init__(self, repo_path: str):
         """
         Initialise l'analyseur Git.
-        
+
         Args:
             repo_path: Chemin vers le dépôt Git local
         """
         self.repo = GitRepo(repo_path)
         self.filters = FILTERS
+        self.repo_name = self.repo.get_name().lower()
     
     def analyze(self) -> dict:
         """
@@ -379,9 +380,10 @@ class GitAnalyzer:
             total_changes += changes
             
             path_lower = path.lower()
-            
+
             # Code (heuristique : dossiers src/, lib/, module principal)
-            if (path_lower.startswith(("src/", "lib/", "requests/")) 
+            # Détection automatique du package principal par nom du repo
+            if (path_lower.startswith(("src/", "lib/", f"{self.repo_name}/"))
                 and Path(path).suffix == ".py"):
                 code_changes += changes
             
