@@ -82,6 +82,10 @@ def chat_completions(body: ChatCompletionsIn):
         "created": int(time.time()),
         "model": body.model or "hyperion-rag",
         "choices": [
-            {"index": 0, "message": {"role": "assistant", "content": answer}, "finish_reason": "stop"}
+            {
+                "index": 0,
+                "message": {"role": "assistant", "content": answer},
+                "finish_reason": "stop",
+            }
         ],
     }

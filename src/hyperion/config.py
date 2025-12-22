@@ -53,6 +53,7 @@ BATCH_SIZE_FILES = int(os.getenv("BATCH_SIZE_FILES", "2000"))
 # Filtres
 # ============================================================================
 
+
 def load_filters() -> dict:
     """Charge les filtres depuis config/filters.yaml."""
     filters_path = CONFIG_DIR / "filters.yaml"
@@ -62,24 +63,59 @@ def load_filters() -> dict:
     # Filtres par défaut si le fichier n'existe pas
     return {
         "ignore_extensions": [
-            ".pem", ".crt", ".cer", ".der", ".ai", ".psd",
-            ".png", ".jpg", ".jpeg", ".gif", ".svg", ".ico", ".pdf",
-            ".lock", ".min.js", ".map",
-            ".ttf", ".otf", ".woff", ".woff2",
-            ".gz", ".zip", ".7z", ".tar", ".bz2",
-            ".exe", ".dll", ".so", ".dylib",
+            ".pem",
+            ".crt",
+            ".cer",
+            ".der",
+            ".ai",
+            ".psd",
+            ".png",
+            ".jpg",
+            ".jpeg",
+            ".gif",
+            ".svg",
+            ".ico",
+            ".pdf",
+            ".lock",
+            ".min.js",
+            ".map",
+            ".ttf",
+            ".otf",
+            ".woff",
+            ".woff2",
+            ".gz",
+            ".zip",
+            ".7z",
+            ".tar",
+            ".bz2",
+            ".exe",
+            ".dll",
+            ".so",
+            ".dylib",
         ],
         "ignore_prefixes": [
-            "requests/packages/", "ext/",
-            "docs/_build/", "docs/_static/", "docs/_themes/",
-            ".git/", ".github/", ".gitlab/",
-            "node_modules/", "vendor/", "site-packages/", "dist-packages/",
+            "requests/packages/",
+            "ext/",
+            "docs/_build/",
+            "docs/_static/",
+            "docs/_themes/",
+            ".git/",
+            ".github/",
+            ".gitlab/",
+            "node_modules/",
+            "vendor/",
+            "site-packages/",
+            "dist-packages/",
         ],
         "ignore_files": [
-            "HISTORY.rst", "HISTORY.md",
-            "CHANGELOG", "CHANGELOG.md",
-            "README", "README.md",
+            "HISTORY.rst",
+            "HISTORY.md",
+            "CHANGELOG",
+            "CHANGELOG.md",
+            "README",
+            "README.md",
         ],
     }
+
 
 FILTERS = load_filters()

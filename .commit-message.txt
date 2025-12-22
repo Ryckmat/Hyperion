@@ -1,0 +1,92 @@
+feat(v1.5): modernisation infrastructure et proprification complète
+
+BREAKING CHANGES: Aucun (100% rétrocompatible avec v1.0/v1.1)
+
+Cette version apporte une modernisation complète de l'infrastructure
+sans toucher aux fonctionnalités. C'est une version de proprification
+et de préparation pour la v2.0.
+
+## ✨ Added
+
+Infrastructure:
+- pyproject.toml moderne (PEP 518/621) avec config complète
+- requirements-dev.txt séparé (pytest, black, ruff, mypy, pre-commit)
+- GitHub Actions CI/CD pipeline (3 jobs: lint, test matrix, security)
+- Pre-commit hooks (black, ruff, mypy, bandit)
+- Support Python 3.13
+
+Documentation:
+- docs/ARCHITECTURE.md (500+ lignes, diagrammes, flux de données)
+- docs/V1.5-MIGRATION.md (guide de migration complet)
+- Réorganisation: tous les .md dans docs/ (sauf README.md)
+
+Configuration:
+- Black formatting (line-length=100)
+- Ruff linting (E, W, F, I, B, C4, UP, ARG, SIM)
+- MyPy type checking
+- Pytest markers (unit, integration, e2e, slow)
+- Coverage reporting (HTML, XML, terminal)
+
+## 🔄 Changed
+
+Code:
+- .gitignore: ajout .claude/, logs/, data/*, qdrant_storage/
+- git_analyzer.py: détection auto package principal (fix hardcode "requests/")
+- requirements.txt: séparation prod/dev, commentaires clairs
+- Version: 1.0.0 → 1.5.0
+
+Métadonnées:
+- Auteur: Matthieu Ryckman (correction orthographe)
+- Email: contact@ryckmat.dev (projet personnel)
+- Suppression mentions "irun" (projet personnel)
+
+Documentation:
+- CHANGELOG.md → docs/CHANGELOG.md
+- CONTRIBUTING.md → docs/CONTRIBUTING.md
+- ARCHITECTURE.md créé dans docs/
+- V1.5-MIGRATION.md créé dans docs/
+
+## 🐛 Fixed
+
+- Hardcode "requests/" dans git_analyzer.py (maintenant détection auto)
+- Nom auteur (Ryckembusch → Ryckman)
+- Email professionnel remplacé par email projet perso
+
+## 🔒 Security
+
+- Bandit security scan dans CI
+- Secrets jamais committés (.env.local, secrets.yaml ignorés)
+
+## 📊 Métriques Qualité
+
+Avant v1.5:
+- ❌ Pas de CI/CD
+- ❌ Pas de pre-commit hooks
+- ❌ Configuration éparpillée
+- ❌ Code smells (hardcode)
+
+Après v1.5:
+- ✅ CI/CD GitHub Actions (3 jobs)
+- ✅ Pre-commit hooks (7 hooks)
+- ✅ Configuration centralisée
+- ✅ Code smells corrigés
+
+## 🎯 Prochaines Étapes
+
+v1.6 (court terme):
+- Tests coverage 70%+ (actuellement ~10%)
+- API validators Pydantic stricts
+- Logging structuré (structlog)
+
+v2.0 (vision stratégique):
+- Impact Analysis Engine
+- Code Understanding
+- AST Parsing multi-langage
+- Domain models
+- Auth & Security
+
+Voir docs/V1.5-MIGRATION.md et docs/ARCHITECTURE.md pour détails.
+
+---
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
