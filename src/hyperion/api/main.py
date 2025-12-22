@@ -15,8 +15,10 @@ from hyperion.__version__ import __version__
 # Pydantic Models
 # ============================================================================
 
+
 class ChatRequest(BaseModel):
     """Requête chat RAG."""
+
     question: str
     repo: Optional[str] = None
     history: Optional[List[dict]] = None
@@ -50,11 +52,13 @@ app.add_middleware(
 
 _query_engine = None
 
+
 def get_query_engine():
     """Get or create RAG query engine."""
     global _query_engine
     if _query_engine is None:
         from hyperion.modules.rag.query import RAGQueryEngine
+
         _query_engine = RAGQueryEngine()
     return _query_engine
 
@@ -62,6 +66,7 @@ def get_query_engine():
 # ============================================================================
 # Routes
 # ============================================================================
+
 
 @app.get("/")
 def read_root():
@@ -235,6 +240,7 @@ def get_neo4j_repo(repo_name: str):
 # RAG Endpoints
 # ============================================================================
 
+
 @app.post("/api/chat")
 def chat(request: ChatRequest):
     """
@@ -277,4 +283,5 @@ app.include_router(openai_router)
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=8000)
