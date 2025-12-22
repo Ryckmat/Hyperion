@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hyperion"
-version = "1.5.0"
+version = "1.6.0"
 description = "Git Repository Profiler & Knowledge Graph Platform with RAG capabilities"
 readme = "README.md"
 authors = [
