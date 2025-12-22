@@ -159,10 +159,17 @@ cython_debug/
 # Données générées (peuvent être volumineuses)
 /data/repositories/*/
 /data/cache/
+/data/*.tsv
+/data/*.json
+/data/*.jsonl
 
 # Documentation générée automatiquement (ne pas committer)
 /output/
 /docs/generated/
+
+# Logs Hyperion
+/logs/*.log
+/logs/*.log.*
 
 # Fichiers temporaires
 *.tmp
@@ -172,3 +179,17 @@ cython_debug/
 # Credentials Neo4j (ne jamais committer)
 .env.local
 secrets.yaml
+
+# IDE
+.vscode/
+.idea/
+.claude/
+*.swp
+*.swo
+*~
+
+# OS
+Thumbs.db
+
+# Qdrant data (si lancé en local sans Docker)
+/qdrant_storage/

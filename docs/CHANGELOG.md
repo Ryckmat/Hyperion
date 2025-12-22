@@ -160,4 +160,4 @@ hyperion --help
 
 ## Contributeurs
 
-- **Matthieu Ryckembusch** (@Ryckmat) - Créateur & Lead Developer
+- **Matthieu Ryckman** (@Ryckmat) - Créateur & Lead Developer

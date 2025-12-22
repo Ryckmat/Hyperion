@@ -205,4 +205,4 @@ cd /path/to/repo && git log --oneline -1
 ## 💬 Support
 
 - Issues GitHub : https://github.com/Ryckmat/Hyperion/issues
-- Email : matthieu@irun.fr
+- Email : contact@ryckmat.dev

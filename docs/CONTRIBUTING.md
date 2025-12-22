@@ -222,7 +222,7 @@ hyperion/
 
 - 💬 Discussions : [GitHub Discussions](https://github.com/Ryckmat/Hyperion/discussions)
 - 🐛 Bugs : [GitHub Issues](https://github.com/Ryckmat/Hyperion/issues)
-- 📧 Email : matthieu@irun.fr
+- 📧 Email : contact@ryckmat.dev
 
 ---
 
