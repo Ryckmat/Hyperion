@@ -135,6 +135,10 @@ def export(repo_path: str, tags_pattern: str, output_dir: str):
     """
     click.echo(f"📦 Export historique prod : {repo_path}")
     click.echo(f"   Pattern tags : {tags_pattern}")
+    repo_name = Path(repo_path).resolve().name
+    out_dir = Path(output_dir) / repo_name
+    out_dir.mkdir(parents=True, exist_ok=True)
+    click.echo(f"   Output dir    : {out_dir}")
     click.echo("⚠️  Module core en cours de développement")
     click.echo("📋 Voir : https://github.com/Ryckmat/Hyperion/issues")
     sys.exit(1)
