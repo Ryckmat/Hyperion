@@ -7,7 +7,12 @@ from pydantic import BaseModel
 
 from hyperion.__version__ import __version__
 from hyperion.config import DATA_DIR
-from hyperion.modules.integrations.neo4j_ingester import Neo4jIngester
+
+try:
+    from hyperion.modules.integrations.neo4j_ingester import Neo4jIngester
+except ModuleNotFoundError:
+    Neo4jIngester = None
+
 
 # ============================================================================
 # Pydantic Models
@@ -97,14 +102,18 @@ def health_check():
     }
 
     # Test Neo4j
-    try:
-        ingester = Neo4jIngester()
-        ingester.driver.verify_connectivity()
-        ingester.close()
-        status["neo4j"] = "ok"
-    except Exception as e:
-        status["neo4j"] = f"error: {str(e)}"
+    if Neo4jIngester is None:
+        status["neo4j"] = "error: dependency neo4j not installed"
         status["status"] = "degraded"
+    else:
+        try:
+            ingester = Neo4jIngester()
+            ingester.driver.verify_connectivity()
+            ingester.close()
+            status["neo4j"] = "ok"
+        except Exception as e:
+            status["neo4j"] = f"error: {str(e)}"
+            status["status"] = "degraded"
 
     # Test RAG
     try:
