@@ -1,6 +1,6 @@
 """Tests de base pour vérifier la structure."""
 
-from hyperion import __version__
+from hyperion.__version__ import __version__
 
 
 def test_version():

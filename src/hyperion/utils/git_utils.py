@@ -354,7 +354,12 @@ class GitRepo:
         Returns:
             Tuple (first_commit_date, last_commit_date) en ISO format
         """
-        commits = self.get_commits()
+        try:
+            commits = self.get_commits()
+        except GitCommandError:
+            # Repo vide ou erreur Git
+            return None, None
+
         if not commits:
             return None, None
 
