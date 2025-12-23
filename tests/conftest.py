@@ -23,6 +23,18 @@ def project_root():
 
 
 @pytest.fixture
+def templates_dir(project_root):
+    """Répertoire templates."""
+    return project_root / "templates"
+
+
+@pytest.fixture
+def hyperion_repo(project_root):
+    """Repository Hyperion lui-même pour tests."""
+    return project_root
+
+
+@pytest.fixture
 def sample_repo(tmp_path):
     """
     Créé un repository d'exemple pour tests.

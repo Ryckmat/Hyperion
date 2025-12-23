@@ -400,7 +400,7 @@ Quality Metrics:
 
     def clear_repo(self, repo_name: str):
         """Supprime les données d'un repo."""
-        from qdrant_client.models import Filter, FieldCondition, MatchValue
+        from qdrant_client.models import FieldCondition, Filter, MatchValue
 
         self.qdrant_client.delete(
             collection_name=self.collection_name,
