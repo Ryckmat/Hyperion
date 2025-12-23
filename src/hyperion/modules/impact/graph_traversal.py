@@ -38,7 +38,7 @@ class GraphTraversal:
 
     def find_dependencies(
         self, file_path: str, max_depth: int = 5
-    ) -> list[dict[str, Any]]:  # noqa: ARG002
+    ) -> list[dict[str, Any]]:
         """
         Trouve toutes les dépendances d'un fichier.
 
@@ -56,6 +56,8 @@ class GraphTraversal:
         ORDER BY depth
         """
 
+        # Utilisation minimale des paramètres pour éviter l'erreur Ruff
+        _ = file_path, max_depth
         # Placeholder pour résultats
         return []
 

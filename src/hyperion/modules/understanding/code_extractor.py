@@ -107,13 +107,13 @@ class CodeExtractor:
             for node in ast.walk(tree):
                 # Fonctions
                 if isinstance(node, ast.FunctionDef):
-                    func_data = self._extract_function(node, rel_path, content)
+                    func_data = self._extract_function(node, rel_path)
                     if func_data:
                         result["functions"].append(func_data)
 
                 # Classes
                 elif isinstance(node, ast.ClassDef):
-                    class_data = self._extract_class(node, rel_path, content)
+                    class_data = self._extract_class(node, rel_path)
                     if class_data:
                         result["classes"].append(class_data)
 
@@ -129,8 +129,8 @@ class CodeExtractor:
         return result
 
     def _extract_function(
-        self, node: ast.FunctionDef, file_path: str, content: str
-    ) -> dict:  # noqa: ARG002
+        self, node: ast.FunctionDef, file_path: str
+    ) -> dict:
         """Extrait info d'une fonction."""
         # Docstring
         docstring = ast.get_docstring(node) or "Aucune documentation"
@@ -155,8 +155,8 @@ class CodeExtractor:
         }
 
     def _extract_class(
-        self, node: ast.ClassDef, file_path: str, content: str
-    ) -> dict:  # noqa: ARG002
+        self, node: ast.ClassDef, file_path: str
+    ) -> dict:
         """Extrait info d'une classe."""
         # Docstring
         docstring = ast.get_docstring(node) or "Aucune documentation"
