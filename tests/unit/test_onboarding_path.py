@@ -6,8 +6,6 @@ Projet: Hyperion (projet personnel)
 Version: 2.0.0
 """
 
-import pytest
-
 from hyperion.modules.onboarding.path_generator import LearningPathGenerator
 
 

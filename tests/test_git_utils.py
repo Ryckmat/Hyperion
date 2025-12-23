@@ -356,7 +356,9 @@ def test_detect_license_bsd(tmp_path):
     subprocess.run(["git", "init"], cwd=repo_dir, check=True, capture_output=True)
 
     license_file = repo_dir / "LICENSE"
-    license_file.write_text("BSD License\n\nRedistribution and use in source and binary forms\n")
+    license_file.write_text(
+        "BSD License\n\nRedistribution and use in source and binary forms\n"
+    )
 
     repo = GitRepo(str(repo_dir))
     assert repo.detect_license() == "BSD-3-Clause"
@@ -441,7 +443,9 @@ def test_detect_license_gpl_generic(tmp_path):
     subprocess.run(["git", "init"], cwd=repo_dir, check=True, capture_output=True)
 
     license_file = repo_dir / "LICENSE"
-    license_file.write_text("GNU General Public License\n\nThis program is free software\n")
+    license_file.write_text(
+        "GNU General Public License\n\nThis program is free software\n"
+    )
 
     repo = GitRepo(str(repo_dir))
     license_name = repo.detect_license()
@@ -455,7 +459,9 @@ def test_get_remote_url_error_handling(hyperion_repo):
     repo = GitRepo(str(hyperion_repo))
 
     # Mock _run_git pour lever une exception inattendue
-    with mock.patch.object(repo, "_run_git", side_effect=RuntimeError("Unexpected error")):
+    with mock.patch.object(
+        repo, "_run_git", side_effect=RuntimeError("Unexpected error")
+    ):
         # Ne doit pas crasher, retourne None
         result = repo.get_remote_url()
         assert result is None
@@ -510,7 +516,9 @@ def test_detect_license_read_error(tmp_path):
     repo = GitRepo(str(repo_dir))
 
     # Mock read_text pour lever une exception
-    with mock.patch("pathlib.Path.read_text", side_effect=PermissionError("Access denied")):
+    with mock.patch(
+        "pathlib.Path.read_text", side_effect=PermissionError("Access denied")
+    ):
         # Doit continuer et retourner None (pas de crash)
         result = repo.detect_license()
         assert result is None
@@ -545,7 +553,10 @@ def test_detect_main_branch_exception_handling(tmp_path):
         capture_output=True,
     )
     subprocess.run(
-        ["git", "commit", "-m", "Initial"], cwd=repo_dir, check=True, capture_output=True
+        ["git", "commit", "-m", "Initial"],
+        cwd=repo_dir,
+        check=True,
+        capture_output=True,
     )
 
     repo = GitRepo(str(repo_dir))
@@ -565,7 +576,9 @@ def test_get_commits_malformed_line(hyperion_repo):
 
     # Mock _run_git pour retourner une ligne malformée
     with mock.patch.object(
-        repo, "_run_git", return_value=["malformed|line", "good|line|a|b|c|d|e|f|parents"]
+        repo,
+        "_run_git",
+        return_value=["malformed|line", "good|line|a|b|c|d|e|f|parents"],
     ):
         commits = repo.get_commits()
         # Seule la ligne bien formée doit être parsée
@@ -646,7 +659,9 @@ def test_get_contributors_malformed_line(hyperion_repo):
 
     # Mock _run_git pour retourner des lignes malformées
     with mock.patch.object(
-        repo, "_run_git", return_value=["malformed line", "     5  John Doe <john@example.com>"]
+        repo,
+        "_run_git",
+        return_value=["malformed line", "     5  John Doe <john@example.com>"],
     ):
         contributors = repo.get_contributors()
         # Seule la ligne bien formée doit être parsée

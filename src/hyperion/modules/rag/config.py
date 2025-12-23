@@ -58,7 +58,8 @@ QUERY_PROMPT_TEMPLATE = """Contexte sur le repository :
 Question : {question}
 
 Réponds de manière précise en te basant UNIQUEMENT sur le contexte ci-dessus.
-Si l'information n'est pas dans le contexte, dis "Je ne trouve pas cette information dans les données analysées."
+Si l'information n'est pas dans le contexte, dis "Je ne trouve pas cette information dans \
+les données analysées."
 """
 
 # ============================================================================

@@ -26,7 +26,9 @@ class LearningPathGenerator:
         """
         self.repo_path = Path(repo_path)
 
-    def generate_path(self, target_role: str, experience_level: str = "junior") -> dict[str, Any]:
+    def generate_path(
+        self, target_role: str, experience_level: str = "junior"
+    ) -> dict[str, Any]:
         """
         Génère un parcours d'apprentissage.
 
@@ -43,9 +45,24 @@ class LearningPathGenerator:
             "level": experience_level,
             "duration_weeks": 4,
             "steps": [
-                {"week": 1, "topic": "Architecture overview", "files": [], "exercises": []},
+                {
+                    "week": 1,
+                    "topic": "Architecture overview",
+                    "files": [],
+                    "exercises": [],
+                },
                 {"week": 2, "topic": "Core modules", "files": [], "exercises": []},
-                {"week": 3, "topic": "API & integrations", "files": [], "exercises": []},
-                {"week": 4, "topic": "Testing & deployment", "files": [], "exercises": []},
+                {
+                    "week": 3,
+                    "topic": "API & integrations",
+                    "files": [],
+                    "exercises": [],
+                },
+                {
+                    "week": 4,
+                    "topic": "Testing & deployment",
+                    "files": [],
+                    "exercises": [],
+                },
             ],
         }

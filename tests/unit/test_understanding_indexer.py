@@ -6,8 +6,6 @@ Projet: Hyperion (projet personnel)
 Version: 2.0.0
 """
 
-from pathlib import Path
-
 import pytest
 
 from hyperion.modules.understanding.indexer import CodeIndexer

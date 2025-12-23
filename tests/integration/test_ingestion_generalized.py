@@ -6,12 +6,11 @@ Projet: Hyperion (projet personnel)
 Version: 2.0.0
 """
 
+# Import relatif pour éviter l'exécution du script
+import sys
 from pathlib import Path
 
 import pytest
-
-# Import relatif pour éviter l'exécution du script
-import sys
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "scripts" / "maintenance"))
 from ingest_generalized import GeneralizedIngestion
@@ -66,7 +65,9 @@ def test_run_complete_workflow(sample_repo, sample_docs):
     """Test workflow complet d'ingestion."""
     ingestion = GeneralizedIngestion()
 
-    stats = ingestion.run(repo_path=sample_repo, docs_path=sample_docs, tickets_api=None)
+    stats = ingestion.run(
+        repo_path=sample_repo, docs_path=sample_docs, tickets_api=None
+    )
 
     assert "git" in stats
     assert "docs" in stats

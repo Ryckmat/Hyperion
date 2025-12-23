@@ -60,15 +60,16 @@ class ImpactAnalyzer:
         for node in ast.walk(tree):
             if isinstance(node, ast.Import):
                 imports.extend(alias.name for alias in node.names)
-            elif isinstance(node, ast.ImportFrom):
-                if node.module:
-                    imports.append(node.module)
+            elif isinstance(node, ast.ImportFrom) and node.module:
+                imports.append(node.module)
         return imports
 
     def _extract_functions(self, tree: ast.AST) -> list[str]:
         """Extrait les noms de fonctions d'un AST."""
         # TODO: Implémenter extraction fonctions
-        return [node.name for node in ast.walk(tree) if isinstance(node, ast.FunctionDef)]
+        return [
+            node.name for node in ast.walk(tree) if isinstance(node, ast.FunctionDef)
+        ]
 
     def _extract_classes(self, tree: ast.AST) -> list[str]:
         """Extrait les noms de classes d'un AST."""

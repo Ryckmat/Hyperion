@@ -48,6 +48,7 @@ class GeneralizedIngestion:
         self.qdrant_host = qdrant_host
         self.qdrant_port = qdrant_port
         self.neo4j_uri = neo4j_uri
+        self.neo4j_password = neo4j_password
         self.stats = {"git": 0, "docs": 0, "tickets": 0, "code": 0, "neo4j_nodes": 0, "neo4j_relations": 0}
 
         # Connexion Neo4j
@@ -82,7 +83,7 @@ class GeneralizedIngestion:
 
     def ingest_git_repository(self, repo_path: Path) -> int:
         """
-        Ingère un repository Git.
+        Ingère un repository Git avec tracking complet Commit->Contributor->File.
 
         Args:
             repo_path: Chemin du repository
@@ -91,11 +92,47 @@ class GeneralizedIngestion:
             Nombre d'éléments ingérés
         """
         print(f"📦 Ingestion Git: {repo_path}")
-        # TODO: Utiliser existing hyperion.core.git_analyzer
-        # TODO: Indexer dans Qdrant + Neo4j
-        count = 0
-        self.stats["git"] = count
-        return count
+
+        # Import ici pour éviter la dépendance circulaire
+        from hyperion.modules.integrations.neo4j_v2_git_ingester import (
+            Neo4jV2GitIngester,
+        )
+
+        if self.neo4j_driver:
+            git_ingester = Neo4jV2GitIngester(
+                uri=self.neo4j_uri,
+                user="neo4j",
+                password=self.neo4j_password,
+            )
+
+            try:
+                git_stats = git_ingester.ingest_git_history(repo_path)
+                git_ingester.close()
+
+                print(f"   ✅ Git History: {git_stats}")
+
+                # Mettre à jour les stats
+                count = git_stats["commits"]
+                self.stats["git"] = count
+                self.stats["neo4j_nodes"] += (
+                    git_stats["commits"]
+                    + git_stats["contributors"]
+                    + git_stats["directories"]
+                )
+                self.stats["neo4j_relations"] += (
+                    git_stats["commit_relations"]
+                    + git_stats["file_relations"]
+                    + git_stats["directory_relations"]
+                )
+
+                return count
+
+            except Exception as e:
+                print(f"   ⚠️  Erreur ingestion Git: {e}")
+                return 0
+
+        print("   ⚠️  Neo4j non disponible - Git skip")
+        return 0
 
     def ingest_documentation(self, docs_path: Path) -> int:
         """
