@@ -90,7 +90,7 @@ class ImpactAnalyzer:
 
         return self.dependency_graph
 
-    def get_impacted_files(self, modified_file: Path) -> set[str]:
+    def get_impacted_files(self, modified_file: Path) -> set[str]:  # noqa: ARG002
         """
         Retourne les fichiers impactés par une modification.
 

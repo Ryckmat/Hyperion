@@ -391,10 +391,8 @@ Quality Metrics:
         ]
 
         for path in possible_paths:
-            if path.exists() and path.is_dir():
-                # Vérifier que c'est bien un repo git
-                if (path / ".git").exists():
-                    return path
+            if path.exists() and path.is_dir() and (path / ".git").exists():
+                return path
 
         return None
 

@@ -52,7 +52,7 @@ class UnderstandingQueryEngine:
             "confidence": self._calculate_confidence(results),
         }
 
-    def _generate_answer(self, question: str, results: list[dict[str, Any]]) -> str:
+    def _generate_answer(self, question: str, results: list[dict[str, Any]]) -> str:  # noqa: ARG002
         """Génère une réponse textuelle."""
         # TODO: Implémenter génération via LLM
         if not results:
@@ -107,7 +107,9 @@ class UnderstandingQueryEngine:
 
         return test_files
 
-    def get_related_files(self, file_path: str, max_results: int = 10) -> list[dict[str, Any]]:
+    def get_related_files(
+        self, file_path: str, max_results: int = 10
+    ) -> list[dict[str, Any]]:  # noqa: ARG002
         """
         Trouve les fichiers liés sémantiquement.
 

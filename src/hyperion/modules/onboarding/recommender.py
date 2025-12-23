@@ -25,7 +25,7 @@ class OnboardingRecommender:
         """
         self.code_index = code_index
 
-    def recommend_files(self, n: int = 10) -> list[dict[str, Any]]:
+    def recommend_files(self, n: int = 10) -> list[dict[str, Any]]:  # noqa: ARG002
         """
         Recommande les N fichiers à étudier en priorité.
 

@@ -16,7 +16,7 @@ class AutoDocGenerator:
         """Initialise le générateur."""
         self.repo_path = Path(repo_path)
 
-    def generate_module_doc(self, module_path: Path) -> str:
+    def generate_module_doc(self, module_path: Path) -> str:  # noqa: ARG002
         """
         Génère la documentation d'un module.
 
