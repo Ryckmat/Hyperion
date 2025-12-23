@@ -128,9 +128,7 @@ class CodeExtractor:
 
         return result
 
-    def _extract_function(
-        self, node: ast.FunctionDef, file_path: str
-    ) -> dict:
+    def _extract_function(self, node: ast.FunctionDef, file_path: str) -> dict:
         """Extrait info d'une fonction."""
         # Docstring
         docstring = ast.get_docstring(node) or "Aucune documentation"
@@ -154,9 +152,7 @@ class CodeExtractor:
             "is_private": node.name.startswith("_"),
         }
 
-    def _extract_class(
-        self, node: ast.ClassDef, file_path: str
-    ) -> dict:
+    def _extract_class(self, node: ast.ClassDef, file_path: str) -> dict:
         """Extrait info d'une classe."""
         # Docstring
         docstring = ast.get_docstring(node) or "Aucune documentation"

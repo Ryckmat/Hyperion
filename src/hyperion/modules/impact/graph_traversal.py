@@ -36,9 +36,7 @@ class GraphTraversal:
         self.password = password
         self.driver = None
 
-    def find_dependencies(
-        self, file_path: str, max_depth: int = 5
-    ) -> list[dict[str, Any]]:
+    def find_dependencies(self, file_path: str, max_depth: int = 5) -> list[dict[str, Any]]:
         """
         Trouve toutes les dépendances d'un fichier.
 
