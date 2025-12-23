@@ -36,7 +36,9 @@ class MarkdownGenerator:
             self.templates_dir = TEMPLATES_DIR / "markdown"
 
         if not self.templates_dir.exists():
-            raise FileNotFoundError(f"Dossier templates introuvable : {self.templates_dir}")
+            raise FileNotFoundError(
+                f"Dossier templates introuvable : {self.templates_dir}"
+            )
 
         # Configurer Jinja2
         self.env = Environment(
@@ -127,7 +129,9 @@ class MarkdownGenerator:
             service = repo_dir.name
 
             # Output dir pour ce service
-            output_dir = Path(output_base) / service if output_base else OUTPUT_DIR / service
+            output_dir = (
+                Path(output_base) / service if output_base else OUTPUT_DIR / service
+            )
 
             try:
                 docs = self.generate(str(profile_file), str(output_dir))
