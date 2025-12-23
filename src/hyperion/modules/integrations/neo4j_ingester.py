@@ -91,9 +91,7 @@ class Neo4jIngester:
             # 3. Ingérer contributeurs
             contributors = profile.get("git_summary", {}).get("contributors_top10", [])
             if contributors:
-                session.execute_write(
-                    self._ingest_contributors, repo_name, contributors
-                )
+                session.execute_write(self._ingest_contributors, repo_name, contributors)
                 stats["contributors"] = len(contributors)
 
             # 4. Ingérer hotspots

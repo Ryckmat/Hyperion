@@ -43,9 +43,7 @@ class RAGIngester:
 
         # Modèle d'embeddings (GPU)
         print(f"📥 Chargement modèle embeddings : {EMBEDDING_MODEL}")
-        self.embedding_model = SentenceTransformer(
-            EMBEDDING_MODEL, device=EMBEDDING_DEVICE
-        )
+        self.embedding_model = SentenceTransformer(EMBEDDING_MODEL, device=EMBEDDING_DEVICE)
         print(f"✅ Modèle chargé sur {EMBEDDING_DEVICE}")
 
         # Créer collection si nécessaire
@@ -60,9 +58,7 @@ class RAGIngester:
             print(f"📦 Création collection : {self.collection_name}")
             self.qdrant_client.create_collection(
                 collection_name=self.collection_name,
-                vectors_config=VectorParams(
-                    size=EMBEDDING_DIM, distance=Distance.COSINE
-                ),
+                vectors_config=VectorParams(size=EMBEDDING_DIM, distance=Distance.COSINE),
             )
             print("✅ Collection créée")
         else:
@@ -95,7 +91,9 @@ class RAGIngester:
             print("   • Extraction code source...")
             code_extractor = CodeExtractor(str(repo_path))
             code_data = code_extractor.extract_repo_code()
-            print(f"   • {len(code_data['files'])} fichiers, {len(code_data['functions'])} fonctions, {len(code_data['classes'])} classes")
+            print(
+                f"   • {len(code_data['files'])} fichiers, {len(code_data['functions'])} fonctions, {len(code_data['classes'])} classes"
+            )
         else:
             print("   • ⚠️  Code source non trouvé, utilisation profil Git seul")
             code_data = None
@@ -220,9 +218,7 @@ class RAGIngester:
         # 5. Extensions
         extensions = profile.get("git_summary", {}).get("by_extension", [])[:10]
         ext_text = self._format_extensions(extensions, repo_name)
-        chunks.append(
-            {"text": ext_text, "section": "extensions", "metadata": {"type": "tech"}}
-        )
+        chunks.append({"text": ext_text, "section": "extensions", "metadata": {"type": "tech"}})
 
         # 6. Code source (nouveau) - Si disponible
         if code_data:
@@ -335,7 +331,11 @@ Quality Metrics:
             lines.append(f"\n- **{func['name']}** in {func['file']}:{func['line_start']}")
             lines.append(f"  Signature: {signature}")
             if func.get("docstring"):
-                doc = func["docstring"][:200] + "..." if len(func["docstring"]) > 200 else func["docstring"]
+                doc = (
+                    func["docstring"][:200] + "..."
+                    if len(func["docstring"]) > 200
+                    else func["docstring"]
+                )
                 lines.append(f"  Documentation: {doc}")
             lines.append(f"  Type: {'Method' if func.get('is_method') else 'Function'}")
 
@@ -348,7 +348,11 @@ Quality Metrics:
         for cls in classes:
             lines.append(f"\n- **{cls['name']}** in {cls['file']}:{cls['line_start']}")
             if cls.get("docstring"):
-                doc = cls["docstring"][:200] + "..." if len(cls["docstring"]) > 200 else cls["docstring"]
+                doc = (
+                    cls["docstring"][:200] + "..."
+                    if len(cls["docstring"]) > 200
+                    else cls["docstring"]
+                )
                 lines.append(f"  Documentation: {doc}")
             if cls.get("methods"):
                 methods_str = ", ".join(cls["methods"][:5])  # Limiter à 5 méthodes
@@ -367,7 +371,11 @@ Quality Metrics:
             lines.append(f"\n- **{file_info['path']}**")
             lines.append(f"  Size: {file_info['size_lines']} lines")
             if file_info.get("summary"):
-                summary = file_info["summary"][:150] + "..." if len(file_info["summary"]) > 150 else file_info["summary"]
+                summary = (
+                    file_info["summary"][:150] + "..."
+                    if len(file_info["summary"]) > 150
+                    else file_info["summary"]
+                )
                 lines.append(f"  Purpose: {summary}")
 
         return "\n".join(lines)
@@ -379,7 +387,7 @@ Quality Metrics:
             Path(f"/home/kortazo/Documents/{repo_name}"),
             Path(f"/tmp/{repo_name}"),
             REPOS_DIR.parent / repo_name,
-            Path(f"./{repo_name}")
+            Path(f"./{repo_name}"),
         ]
 
         for path in possible_paths:
@@ -405,13 +413,8 @@ Quality Metrics:
         self.qdrant_client.delete(
             collection_name=self.collection_name,
             points_selector=Filter(
-                must=[
-                    FieldCondition(
-                        key="repo",
-                        match=MatchValue(value=repo_name)
-                    )
-                ]
-            )
+                must=[FieldCondition(key="repo", match=MatchValue(value=repo_name))]
+            ),
         )
         print(f"🧹 Repo {repo_name} supprimé de Qdrant")
 

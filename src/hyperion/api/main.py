@@ -234,9 +234,7 @@ def get_neo4j_repo(repo_name: str):
         ingester.close()
 
         if not stats:
-            raise HTTPException(
-                status_code=404, detail=f"Repo '{repo_name}' non trouvé dans Neo4j"
-            )
+            raise HTTPException(status_code=404, detail=f"Repo '{repo_name}' non trouvé dans Neo4j")
 
         return stats
     except HTTPException:

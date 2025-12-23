@@ -356,9 +356,7 @@ def test_detect_license_bsd(tmp_path):
     subprocess.run(["git", "init"], cwd=repo_dir, check=True, capture_output=True)
 
     license_file = repo_dir / "LICENSE"
-    license_file.write_text(
-        "BSD License\n\nRedistribution and use in source and binary forms\n"
-    )
+    license_file.write_text("BSD License\n\nRedistribution and use in source and binary forms\n")
 
     repo = GitRepo(str(repo_dir))
     assert repo.detect_license() == "BSD-3-Clause"
@@ -443,9 +441,7 @@ def test_detect_license_gpl_generic(tmp_path):
     subprocess.run(["git", "init"], cwd=repo_dir, check=True, capture_output=True)
 
     license_file = repo_dir / "LICENSE"
-    license_file.write_text(
-        "GNU General Public License\n\nThis program is free software\n"
-    )
+    license_file.write_text("GNU General Public License\n\nThis program is free software\n")
 
     repo = GitRepo(str(repo_dir))
     license_name = repo.detect_license()
@@ -459,9 +455,7 @@ def test_get_remote_url_error_handling(hyperion_repo):
     repo = GitRepo(str(hyperion_repo))
 
     # Mock _run_git pour lever une exception inattendue
-    with mock.patch.object(
-        repo, "_run_git", side_effect=RuntimeError("Unexpected error")
-    ):
+    with mock.patch.object(repo, "_run_git", side_effect=RuntimeError("Unexpected error")):
         # Ne doit pas crasher, retourne None
         result = repo.get_remote_url()
         assert result is None
@@ -516,9 +510,7 @@ def test_detect_license_read_error(tmp_path):
     repo = GitRepo(str(repo_dir))
 
     # Mock read_text pour lever une exception
-    with mock.patch(
-        "pathlib.Path.read_text", side_effect=PermissionError("Access denied")
-    ):
+    with mock.patch("pathlib.Path.read_text", side_effect=PermissionError("Access denied")):
         # Doit continuer et retourner None (pas de crash)
         result = repo.detect_license()
         assert result is None

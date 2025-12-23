@@ -61,9 +61,7 @@ def profile(repo_path: str, output: str, name: str):
         click.echo("\n✅ Analyse terminée !")
         click.echo(f"   • Repo          : {repo_name}")
         click.echo(f"   • Commits       : {profile_data['git_summary']['commits']:,}")
-        click.echo(
-            f"   • Contributeurs : {profile_data['git_summary']['contributors']:,}"
-        )
+        click.echo(f"   • Contributeurs : {profile_data['git_summary']['contributors']:,}")
         click.echo(f"   • Profil YAML   : {yaml_file}")
 
     except Exception as e:
@@ -73,9 +71,7 @@ def profile(repo_path: str, output: str, name: str):
 
 @cli.command()
 @click.argument("profile_yaml", type=click.Path(exists=True))
-@click.option(
-    "--format", "-f", type=click.Choice(["markdown", "html"]), default="markdown"
-)
+@click.option("--format", "-f", type=click.Choice(["markdown", "html"]), default="markdown")
 @click.option("--output", "-o", default="output/", help="Dossier de sortie")
 def generate(profile_yaml: str, format: str, output: str):
     """
@@ -121,9 +117,7 @@ def generate(profile_yaml: str, format: str, output: str):
 
 @cli.command()
 @click.argument("repo_path", type=click.Path(exists=True))
-@click.option(
-    "--tags-pattern", default=r"^v?\d+\.\d+\\.\\d+$", help=r"Pattern regex tags prod"
-)
+@click.option("--tags-pattern", default=r"^v?\d+\.\d+\\.\\d+$", help=r"Pattern regex tags prod")
 @click.option(
     "--output",
     "-o",
@@ -158,16 +152,10 @@ def export(repo_path: str, tags_pattern: str, output_dir: str):
 @click.argument("profile_yaml", type=click.Path(exists=True))
 @click.option("--uri", default=None, help="Neo4j URI (défaut: env NEO4J_URI)")
 @click.option("--user", default=None, help="Neo4j user (défaut: env NEO4J_USER)")
-@click.option(
-    "--password", default=None, help="Neo4j password (défaut: env NEO4J_PASSWORD)"
-)
-@click.option(
-    "--database", default=None, help="Neo4j database (défaut: env NEO4J_DATABASE)"
-)
+@click.option("--password", default=None, help="Neo4j password (défaut: env NEO4J_PASSWORD)")
+@click.option("--database", default=None, help="Neo4j database (défaut: env NEO4J_DATABASE)")
 @click.option("--clear", is_flag=True, help="Nettoyer les données existantes")
-def ingest(
-    profile_yaml: str, uri: str, user: str, password: str, database: str, clear: bool
-):
+def ingest(profile_yaml: str, uri: str, user: str, password: str, database: str, clear: bool):
     """
     Ingestion Neo4j depuis profil Hyperion
 
@@ -191,9 +179,7 @@ def ingest(
         repo_name = profile_data["service"]
 
         # Créer l'ingester
-        ingester = Neo4jIngester(
-            uri=uri, user=user, password=password, database=database
-        )
+        ingester = Neo4jIngester(uri=uri, user=user, password=password, database=database)
         click.echo("✅ Connexion Neo4j établie")
 
         # Clear si demandé
@@ -247,15 +233,9 @@ def info():
     click.echo(f"   FILES           : {config.BATCH_SIZE_FILES}")
     click.echo()
     click.echo("🔍 Filtres actifs :")
-    click.echo(
-        f"   Extensions      : {len(config.FILTERS.get('ignore_extensions', []))} ignorées"
-    )
-    click.echo(
-        f"   Préfixes        : {len(config.FILTERS.get('ignore_prefixes', []))} ignorés"
-    )
-    click.echo(
-        f"   Fichiers        : {len(config.FILTERS.get('ignore_files', []))} ignorés"
-    )
+    click.echo(f"   Extensions      : {len(config.FILTERS.get('ignore_extensions', []))} ignorées")
+    click.echo(f"   Préfixes        : {len(config.FILTERS.get('ignore_prefixes', []))} ignorés")
+    click.echo(f"   Fichiers        : {len(config.FILTERS.get('ignore_files', []))} ignorés")
     click.echo()
 
 

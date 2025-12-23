@@ -94,13 +94,9 @@ class Neo4jV2GitIngester:
 
             # 4. Créer relations Directory->File
             directory_files = self._extract_directory_structure(repo_path)
-            session.execute_write(
-                self._ingest_directory_relations, repo_name, directory_files
-            )
+            session.execute_write(self._ingest_directory_relations, repo_name, directory_files)
             stats["directories"] = len(directory_files)
-            stats["directory_relations"] = sum(
-                len(files) for files in directory_files.values()
-            )
+            stats["directory_relations"] = sum(len(files) for files in directory_files.values())
 
         return stats
 
