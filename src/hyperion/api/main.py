@@ -234,7 +234,9 @@ def get_neo4j_repo(repo_name: str):
         ingester.close()
 
         if not stats:
-            raise HTTPException(status_code=404, detail=f"Repo '{repo_name}' non trouvé dans Neo4j")
+            raise HTTPException(
+                status_code=404, detail=f"Repo '{repo_name}' non trouvé dans Neo4j"
+            )
 
         return stats
     except HTTPException:
@@ -280,8 +282,10 @@ def chat(request: ChatRequest):
 # ============================================================================
 # NOTE: On l'importe ICI, après que get_query_engine existe, pour éviter les cycles.
 from hyperion.api.openai_compat import router as openai_router  # noqa: E402
+from hyperion.api.v2_endpoints import router as v2_router  # noqa: E402
 
 app.include_router(openai_router)
+app.include_router(v2_router)
 
 
 # ============================================================================

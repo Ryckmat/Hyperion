@@ -54,7 +54,9 @@ def test_profile_command_missing_repo(runner):
 
 def test_profile_command_success(runner, hyperion_repo, temp_output_dir):
     """Test profile sur le repo Hyperion."""
-    result = runner.invoke(cli, ["profile", str(hyperion_repo), "--output", str(temp_output_dir)])
+    result = runner.invoke(
+        cli, ["profile", str(hyperion_repo), "--output", str(temp_output_dir)]
+    )
 
     # Doit réussir
     assert result.exit_code == 0
@@ -136,7 +138,9 @@ def test_generate_command_success(runner, hyperion_repo, temp_output_dir):
 
     # Générer la documentation
     output_dir = temp_output_dir / "output"
-    result = runner.invoke(cli, ["generate", str(profile_file), "--output", str(output_dir)])
+    result = runner.invoke(
+        cli, ["generate", str(profile_file), "--output", str(output_dir)]
+    )
 
     assert result.exit_code == 0
     assert "Documentation générée" in result.output
@@ -247,7 +251,9 @@ def test_ingest_command_success(runner, temp_output_dir):
         yaml.dump(profile_data, f)
 
     # Mock Neo4jIngester dans le bon module
-    with mock.patch("hyperion.modules.integrations.neo4j_ingester.Neo4jIngester") as MockIngester:
+    with mock.patch(
+        "hyperion.modules.integrations.neo4j_ingester.Neo4jIngester"
+    ) as MockIngester:
         mock_instance = MockIngester.return_value
         mock_instance.ingest_profile.return_value = {
             "repo": 1,
@@ -278,7 +284,9 @@ def test_ingest_command_with_clear(runner, temp_output_dir):
     with open(profile_file, "w") as f:
         yaml.dump(profile_data, f)
 
-    with mock.patch("hyperion.modules.integrations.neo4j_ingester.Neo4jIngester") as MockIngester:
+    with mock.patch(
+        "hyperion.modules.integrations.neo4j_ingester.Neo4jIngester"
+    ) as MockIngester:
         mock_instance = MockIngester.return_value
         mock_instance.ingest_profile.return_value = {
             "repo": 1,
@@ -305,7 +313,9 @@ def test_ingest_command_error(runner, temp_output_dir):
     with open(profile_file, "w") as f:
         yaml.dump(profile_data, f)
 
-    with mock.patch("hyperion.modules.integrations.neo4j_ingester.Neo4jIngester") as MockIngester:
+    with mock.patch(
+        "hyperion.modules.integrations.neo4j_ingester.Neo4jIngester"
+    ) as MockIngester:
         MockIngester.side_effect = RuntimeError("Connection failed")
 
         result = runner.invoke(cli, ["ingest", str(profile_file)])

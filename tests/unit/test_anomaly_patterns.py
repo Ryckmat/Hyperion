@@ -6,8 +6,6 @@ Projet: Hyperion (projet personnel)
 Version: 2.0.0
 """
 
-from pathlib import Path
-
 import pytest
 
 from hyperion.modules.anomaly.patterns import DangerousPatterns
@@ -17,11 +15,11 @@ from hyperion.modules.anomaly.patterns import DangerousPatterns
 def vulnerable_file(tmp_path):
     """Crée un fichier avec vulnérabilité SQL injection."""
     file_path = tmp_path / "vulnerable.py"
-    content = '''
+    content = """
 def get_user(user_id):
     query = "SELECT * FROM users WHERE id = " + user_id
     return execute(query)
-'''
+"""
     file_path.write_text(content)
     return file_path
 
