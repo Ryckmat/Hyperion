@@ -1,18 +1,16 @@
 #!/bin/bash
 # ============================================================================
-# 🚀 HYPERION MASTER - Contrôle complet (esthétique + supervision)
+# 🚀 HYPERION MASTER V2 - Contrôle complet + Ingestion multi-sources
 # - Path projet auto (pas de hardcode)
 # - Open WebUI auto-configuré (OpenAI-compatible Hyperion)
 # - Dashboard en background + Ctrl+C stop tout
-# - Affichage "bandeaux" comme avant
+# - Ingestion v1 (profils Git) + v2 (Code Analysis)
 # ============================================================================
 
 set -euo pipefail
 
 # ----------------------------------------------------------------------------
-# Résolution du dossier projet (pas de hardcode)
-# - Priorité 1 : variable HYPERION_HOME si définie
-# - Sinon : dossier parent du script (hyperion_master.sh) => racine projet
+# Résolution du dossier projet
 # ----------------------------------------------------------------------------
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 PROJECT_ROOT="${HYPERION_HOME:-$(dirname "$(dirname "$SCRIPT_DIR")")}"
@@ -143,7 +141,6 @@ wait_container_healthy_or_http() {
 }
 
 wait_hyperion() {
-  # Attendre que l'API Hyperion soit dispo
   local elapsed=0
   while [ "$elapsed" -lt 120 ]; do
     if curl -s "http://localhost:${HYPERION_PORT}/v1/models" >/dev/null 2>&1; then
@@ -162,7 +159,6 @@ ensure_docker() {
   section "🐳 DOCKER"
   if ! command -v docker &>/dev/null; then
     fail "Docker non installé"
-    echo "   Installation : sudo pacman -S docker"
     exit 1
   fi
   if ! docker info &>/dev/null; then
@@ -224,6 +220,133 @@ verify_python() {
   fi
 }
 
+verify_system() {
+  banner "🔍 VÉRIFICATION SYSTÈME COMPLÈTE"
+  ensure_docker
+  ensure_qdrant
+  ensure_ollama
+  verify_python
+
+  section "💬 OPEN WEBUI (STATUT)"
+  if docker ps --format '{{.Names}}' | grep -q "^open-webui$"; then
+    ok "Open WebUI actif (${OPENWEBUI_URL})"
+  else
+    warn "Open WebUI non actif"
+  fi
+
+  echo ""
+  ok "VÉRIFICATION TERMINÉE"
+}
+
+# ----------------------------------------------------------------------------
+# Ingestion v1 (profils Git)
+# ----------------------------------------------------------------------------
+run_ingestion_v1() {
+  section "📥 INGESTION V1 - Profils Git (Stats agrégées)"
+  
+  echo ""
+  echo -e "${CYAN}Profil YAML à ingérer :${NC}"
+  echo -e "${YELLOW}   Format: data/repositories/<nom>/profile.yaml${NC}"
+  read -p "   Chemin : " profile_path
+  
+  if [ -z "$profile_path" ]; then
+    warn "Aucun chemin fourni, abandon"
+    return 0
+  fi
+  
+  if [ ! -f "$profile_path" ]; then
+    fail "Profil introuvable: $profile_path"
+    return 1
+  fi
+  
+  echo ""
+  echo -e "${YELLOW}Ingestion: $profile_path${NC}"
+  read -p "Confirmer ? (o/n): " confirm
+  
+  if [[ ! "$confirm" =~ ^[Oo]$ ]]; then
+    warn "Ingestion v1 annulée"
+    return 0
+  fi
+  
+  cd "$PROJECT_ROOT"
+  [ -d "venv" ] && source venv/bin/activate 2>/dev/null || true
+  
+  echo ""
+  if python3 -c "
+from hyperion.modules.integrations.neo4j_ingester import Neo4jIngester
+ing = Neo4jIngester()
+stats = ing.ingest_profile('$profile_path')
+print(f'✅ Stats: {stats}')
+ing.close()
+"; then
+    echo ""
+    ok "Ingestion v1 terminée !"
+    echo -e "${GREEN}   Neo4j: :Repo, :Contributor, :Hotspot, :Directory, :Extension${NC}"
+  else
+    echo ""
+    fail "Échec ingestion v1"
+    return 1
+  fi
+}
+
+# ----------------------------------------------------------------------------
+# Ingestion v2 (multi-sources)
+# ----------------------------------------------------------------------------
+run_ingestion_v2() {
+  section "📥 INGESTION V2 - Code Analysis (Structure détaillée)"
+  
+  echo ""
+  echo -e "${CYAN}Repository à analyser :${NC}"
+  read -p "   Chemin (ex: /tmp/requests) : " repo_path
+  
+  if [ -z "$repo_path" ]; then
+    warn "Aucun chemin fourni, abandon"
+    return 0
+  fi
+  
+  if [ ! -d "$repo_path" ]; then
+    fail "Repository non trouvé: $repo_path"
+    return 1
+  fi
+  
+  echo ""
+  read -p "   Ingérer documentation ? (o/n): " with_docs
+  
+  CMD="python3 scripts/maintenance/ingest_generalized.py --repo \"$repo_path\""
+  
+  if [[ "$with_docs" =~ ^[Oo]$ ]]; then
+    if [ -d "$repo_path/docs" ]; then
+      CMD="$CMD --docs \"$repo_path/docs\""
+      ok "Documentation trouvée"
+    else
+      warn "Dossier docs non trouvé, ignoré"
+    fi
+  fi
+  
+  echo ""
+  echo -e "${YELLOW}Commande: $CMD${NC}"
+  read -p "Confirmer ? (o/n): " confirm
+  
+  if [[ ! "$confirm" =~ ^[Oo]$ ]]; then
+    warn "Ingestion v2 annulée"
+    return 0
+  fi
+  
+  cd "$PROJECT_ROOT"
+  [ -d "venv" ] && source venv/bin/activate 2>/dev/null || true
+  
+  echo ""
+  if eval "$CMD"; then
+    echo ""
+    ok "Ingestion v2 terminée !"
+    echo -e "${GREEN}   Neo4j: :File, :Function, :Class + :DEPENDS_ON${NC}"
+  else
+    echo ""
+    fail "Échec ingestion v2"
+    return 1
+  fi
+}
+
 # ----------------------------------------------------------------------------
 # Open WebUI
 # ----------------------------------------------------------------------------
@@ -254,28 +377,12 @@ start_openwebui() {
     fi
   fi
 
-  echo -e "${CYAN}   ⏳ Attente Open WebUI (jusqu'à ${WAIT_MAX_SECONDS}s)...${NC}"
+  echo -e "${CYAN}   ⏳ Attente Open WebUI...${NC}"
   if ! wait_container_healthy_or_http "open-webui" "${OPENWEBUI_URL}/" "${WAIT_MAX_SECONDS}" "${WAIT_STEP_SECONDS}"; then
-    fail "Open WebUI ne répond pas dans le délai"
-    echo -e "${YELLOW}   Logs (tail 120):${NC}"
-    docker logs --tail 120 open-webui || true
-    exit 1
+    fail "Open WebUI ne répond pas"
+    return 1
   fi
   ok "Open WebUI prêt : ${OPENWEBUI_URL}"
-
-  section "🔌 OPEN WEBUI → TEST HYPERION"
-  echo -e "${CYAN}   ⏳ Attente Hyperion (/v1/models) ...${NC}"
-  if wait_hyperion; then
-    ok "Hyperion API prête sur http://localhost:${HYPERION_PORT}"
-    if docker exec -it open-webui sh -lc "apk add --no-cache curl >/dev/null 2>&1 || true; curl -s ${HYPERION_OPENAI_BASE_URL}/models >/dev/null 2>&1"; then
-      ok "Hyperion joignable depuis Open WebUI (${HYPERION_OPENAI_BASE_URL})"
-      ok "Default model: ${HYPERION_MODEL}"
-    else
-      warn "Test Open WebUI→Hyperion KO (souvent transitoire, retenter dans 5–10s)"
-    fi
-  else
-    warn "Hyperion API pas prête → on skip le test Open WebUI→Hyperion"
-  fi
 
   if command -v xdg-open &>/dev/null; then
     xdg-open "${OPENWEBUI_URL}" >/dev/null 2>&1 &
@@ -283,88 +390,58 @@ start_openwebui() {
 }
 
 # ----------------------------------------------------------------------------
-# Dashboard (background) - CORRIGÉ
+# Dashboard
 # ----------------------------------------------------------------------------
 start_dashboard_background() {
   section "🌐 DASHBOARD REACT — LANCEMENT"
   mkdir -p logs
 
-  # Vérifier que le venv existe
   if [ ! -d "$PROJECT_ROOT/venv" ]; then
     fail "Virtual environment non trouvé"
-    echo "   Créer avec: python -m venv venv && source venv/bin/activate.fish"
-    exit 1
+    return 1
   fi
 
-  # Lancer API en arrière-plan AVEC venv activé
   cd "$PROJECT_ROOT"
   nohup bash -c "source venv/bin/activate && python3 scripts/dev/run_api.py" > logs/api.log 2>&1 &
   API_PID=$!
   ok "API lancée (PID ${API_PID})"
 
-  # Attendre que l'API démarre (avec vérification)
-  echo -e "${CYAN}   ⏳ Attente démarrage API (max 60s)...${NC}"
+  echo -e "${CYAN}   ⏳ Attente API (max 60s)...${NC}"
   local elapsed=0
   while [ $elapsed -lt 60 ]; do
     if curl -s "http://localhost:${HYPERION_PORT}/api/health" >/dev/null 2>&1; then
       ok "API prête (http://localhost:${HYPERION_PORT})"
       break
     fi
-    if [ $((elapsed % 10)) -eq 0 ] && [ $elapsed -gt 0 ]; then
-      echo -e "${YELLOW}      Attente... ${elapsed}s${NC}"
-    fi
     sleep 2
     elapsed=$((elapsed + 2))
   done
 
-  if [ $elapsed -ge 60 ]; then
-    warn "API met du temps à démarrer (voir logs/api.log)"
-    echo -e "${YELLOW}   Dernières lignes du log:${NC}"
-    tail -10 logs/api.log 2>/dev/null || echo "   (pas de log)"
-  fi
-
-  # Lancer frontend en arrière-plan
   cd "$PROJECT_ROOT/frontend"
   nohup python3 -m http.server 3000 > "$PROJECT_ROOT/logs/dashboard.log" 2>&1 &
   FRONTEND_PID=$!
 
   ok "Dashboard lancé (PID ${FRONTEND_PID})"
-  echo -e "${GREEN}   • Logs API: tail -f logs/api.log${NC}"
-  echo -e "${GREEN}   • Logs Dashboard: tail -f logs/dashboard.log${NC}"
   echo -e "${GREEN}   • Front: http://localhost:3000${NC}"
   echo -e "${GREEN}   • API  : http://localhost:${HYPERION_PORT}${NC}"
 }
 
 # ----------------------------------------------------------------------------
-# Vérification complète (esthétique)
-# ----------------------------------------------------------------------------
-verify_system() {
-  banner "🔍 VÉRIFICATION SYSTÈME COMPLÈTE"
-  ensure_docker
-  ensure_qdrant
-  ensure_ollama
-  verify_python
-
-  section "💬 OPEN WEBUI (STATUT)"
-  if docker ps --format '{{.Names}}' | grep -q "^open-webui$"; then
-    ok "Open WebUI actif (${OPENWEBUI_URL})"
-  else
-    warn "Open WebUI non actif"
-  fi
-
-  echo ""
-  ok "VÉRIFICATION TERMINÉE"
-}
-
-# ----------------------------------------------------------------------------
 # MAIN
 # ----------------------------------------------------------------------------
-banner "🚀 HYPERION MASTER - Contrôle complet"
+banner "🚀 HYPERION MASTER V2 - Contrôle complet"
 echo ""
 
 read -p "Vérifier et démarrer les services ? (o/n): " do_verify
-read -p "Ingérer Neo4j (graphe) ? (o/n): " do_neo4j
-read -p "Ingérer RAG (Qdrant) ? (o/n): " do_ingest
+
+echo ""
+echo -e "${CYAN}Quelle ingestion souhaitez-vous ?${NC}"
+echo "  ${YELLOW}all${NC} - V1 + V2 (profils Git + Code Analysis)"
+echo "  ${YELLOW}1${NC}   - V1 uniquement (profils Git → Stats agrégées)"
+echo "  ${YELLOW}2${NC}   - V2 uniquement (Code Analysis → Structure)"
+echo "  ${YELLOW}n${NC}   - Aucune"
+read -p "Choix [all/1/2/n]: " ingest_choice
+
 read -p "Générer documentation ? (o/n): " do_docs
 read -p "Lancer dashboard React ? (o/n): " do_dashboard
 read -p "Lancer Open WebUI (chat) ? (o/n): " do_openwebui
@@ -372,8 +449,18 @@ read -p "Lancer Open WebUI (chat) ? (o/n): " do_openwebui
 echo ""
 banner "🎯 Récapitulatif"
 [[ "$do_verify" =~ ^[Oo]$ ]] && echo "✅ Vérification services"
-[[ "$do_neo4j" =~ ^[Oo]$ ]] && echo "✅ Ingestion Neo4j"
-[[ "$do_ingest" =~ ^[Oo]$ ]] && echo "✅ Ingestion RAG"
+case "$ingest_choice" in
+  all)
+    echo "✅ Ingestion V1 (profils Git)"
+    echo "✅ Ingestion V2 (Code Analysis)"
+    ;;
+  1)
+    echo "✅ Ingestion V1 (profils Git)"
+    ;;
+  2)
+    echo "✅ Ingestion V2 (Code Analysis)"
+    ;;
+esac
 [[ "$do_docs" =~ ^[Oo]$ ]] && echo "✅ Génération docs"
 [[ "$do_dashboard" =~ ^[Oo]$ ]] && echo "✅ Lancement dashboard React"
 [[ "$do_openwebui" =~ ^[Oo]$ ]] && echo "✅ Lancement Open WebUI"
@@ -390,12 +477,27 @@ if [[ "$do_verify" =~ ^[Oo]$ ]]; then
   verify_system
 fi
 
-# NOTE : l'API Hyperion vient du dashboard, donc on le lance AVANT Open WebUI
+# 1) Ingestion
+case "$ingest_choice" in
+  all)
+    run_ingestion_v1
+    run_ingestion_v2
+    ;;
+  1)
+    run_ingestion_v1
+    ;;
+  2)
+    run_ingestion_v2
+    ;;
+esac
+
+# 2) Dashboard (lance l'API)
 if [[ "$do_dashboard" =~ ^[Oo]$ ]]; then
   ensure_ollama
   start_dashboard_background
 fi
 
+# 3) Open WebUI
 if [[ "$do_openwebui" =~ ^[Oo]$ ]]; then
   ensure_docker
   start_openwebui
@@ -405,13 +507,9 @@ echo ""
 banner "🎉 TERMINÉ !"
 echo ""
 echo "📱 Services actifs :"
-[[ "$do_dashboard" =~ ^[Oo]$ ]] && echo "   • Dashboard React : http://localhost:3000 (logs: logs/dashboard.log)"
+[[ "$do_dashboard" =~ ^[Oo]$ ]] && echo "   • Dashboard React : http://localhost:3000"
 [[ "$do_openwebui" =~ ^[Oo]$ ]] && echo "   • Open WebUI      : ${OPENWEBUI_URL}"
 echo "   • Hyperion API    : http://localhost:${HYPERION_PORT}"
-echo "   • API Docs        : http://localhost:${HYPERION_PORT}/docs"
-echo ""
-echo "✅ Hyperion OpenAI base URL : ${HYPERION_OPENAI_BASE_URL}"
-echo "✅ Default model           : ${HYPERION_MODEL}"
 echo ""
 echo -e "${CYAN}🔎 Supervision active. Ctrl+C pour tout arrêter.${NC}"
 
