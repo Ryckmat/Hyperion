@@ -47,9 +47,7 @@ class RAGQueryEngine:
 
         # Modèle embeddings (même que ingestion)
         print("📥 Chargement modèle embeddings...")
-        self.embedding_model = SentenceTransformer(
-            EMBEDDING_MODEL, device=EMBEDDING_DEVICE
-        )
+        self.embedding_model = SentenceTransformer(EMBEDDING_MODEL, device=EMBEDDING_DEVICE)
         print(f"✅ Embeddings prêts ({EMBEDDING_DEVICE})")
 
         # LLM Ollama
@@ -62,9 +60,7 @@ class RAGQueryEngine:
         )
         print("✅ LLM prêt")
 
-    def query(
-        self, question: str, repo_filter: str | None = None, top_k: int = LLM_TOP_K
-    ) -> dict:
+    def query(self, question: str, repo_filter: str | None = None, top_k: int = LLM_TOP_K) -> dict:
         """
         Répond à une question via RAG.
 
@@ -81,9 +77,7 @@ class RAGQueryEngine:
             }
         """
         # 1. Générer embedding de la question
-        question_embedding = self.embedding_model.encode(
-            question, convert_to_numpy=True
-        )
+        question_embedding = self.embedding_model.encode(question, convert_to_numpy=True)
 
         # 2. Recherche dans Qdrant (API v1.7+)
         search_filter = None

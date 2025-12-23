@@ -65,9 +65,7 @@ def test_run_complete_workflow(sample_repo, sample_docs):
     """Test workflow complet d'ingestion."""
     ingestion = GeneralizedIngestion()
 
-    stats = ingestion.run(
-        repo_path=sample_repo, docs_path=sample_docs, tickets_api=None
-    )
+    stats = ingestion.run(repo_path=sample_repo, docs_path=sample_docs, tickets_api=None)
 
     assert "git" in stats
     assert "docs" in stats

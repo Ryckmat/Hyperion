@@ -1,6 +1,5 @@
 """Endpoints API v2 pour les 8 moteurs d'intelligence Hyperion."""
 
-
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
@@ -12,24 +11,29 @@ router = APIRouter(prefix="/api/v2", tags=["Hyperion v2"])
 # Models Pydantic
 # ============================================================================
 
+
 class ImpactAnalysisRequest(BaseModel):
     repo: str
     file: str
     changes: list[str]
     depth: int | None = 3
 
+
 class CodeSearchRequest(BaseModel):
     query: str
     repo: str
     type: str | None = None  # function, class, file
 
+
 class AnomalyRequest(BaseModel):
     repo: str
     types: list[str] | None = ["complexity", "size", "duplicates"]
 
+
 # ============================================================================
 # Neo4j v2 Endpoints (Code Understanding)
 # ============================================================================
+
 
 @router.get("/repos/{repo_name}/functions")
 async def get_repo_functions(repo_name: str, limit: int = 50):
@@ -38,37 +42,40 @@ async def get_repo_functions(repo_name: str, limit: int = 50):
         ingester = Neo4jCodeIngester()
 
         with ingester.driver.session(database=ingester.database) as session:
-            result = session.run("""
+            result = session.run(
+                """
                 MATCH (f:Function {repo: $repo})
                 RETURN f.name as name, f.file as file, f.line_start as line,
                        f.signature as signature, f.docstring as docstring,
                        f.is_method as is_method, f.is_private as is_private
                 ORDER BY f.file, f.line_start
                 LIMIT $limit
-            """, repo=repo_name, limit=limit)
+            """,
+                repo=repo_name,
+                limit=limit,
+            )
 
             functions = []
             for record in result:
-                functions.append({
-                    "name": record["name"],
-                    "file": record["file"],
-                    "line": record["line"],
-                    "signature": record["signature"],
-                    "docstring": record["docstring"][:200] if record["docstring"] else "",
-                    "is_method": record["is_method"],
-                    "is_private": record["is_private"]
-                })
+                functions.append(
+                    {
+                        "name": record["name"],
+                        "file": record["file"],
+                        "line": record["line"],
+                        "signature": record["signature"],
+                        "docstring": record["docstring"][:200] if record["docstring"] else "",
+                        "is_method": record["is_method"],
+                        "is_private": record["is_private"],
+                    }
+                )
 
         ingester.close()
 
-        return {
-            "repo": repo_name,
-            "functions": functions,
-            "count": len(functions)
-        }
+        return {"repo": repo_name, "functions": functions, "count": len(functions)}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur Neo4j: {str(e)}")
+
 
 @router.get("/repos/{repo_name}/classes")
 async def get_repo_classes(repo_name: str, limit: int = 30):
@@ -77,37 +84,40 @@ async def get_repo_classes(repo_name: str, limit: int = 30):
         ingester = Neo4jCodeIngester()
 
         with ingester.driver.session(database=ingester.database) as session:
-            result = session.run("""
+            result = session.run(
+                """
                 MATCH (c:Class {repo: $repo})
                 RETURN c.name as name, c.file as file, c.line_start as line,
                        c.docstring as docstring, c.methods as methods,
                        c.bases as bases, c.is_private as is_private
                 ORDER BY c.file, c.line_start
                 LIMIT $limit
-            """, repo=repo_name, limit=limit)
+            """,
+                repo=repo_name,
+                limit=limit,
+            )
 
             classes = []
             for record in result:
-                classes.append({
-                    "name": record["name"],
-                    "file": record["file"],
-                    "line": record["line"],
-                    "docstring": record["docstring"][:200] if record["docstring"] else "",
-                    "methods": record["methods"] or [],
-                    "bases": record["bases"] or [],
-                    "is_private": record["is_private"]
-                })
+                classes.append(
+                    {
+                        "name": record["name"],
+                        "file": record["file"],
+                        "line": record["line"],
+                        "docstring": record["docstring"][:200] if record["docstring"] else "",
+                        "methods": record["methods"] or [],
+                        "bases": record["bases"] or [],
+                        "is_private": record["is_private"],
+                    }
+                )
 
         ingester.close()
 
-        return {
-            "repo": repo_name,
-            "classes": classes,
-            "count": len(classes)
-        }
+        return {"repo": repo_name, "classes": classes, "count": len(classes)}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur Neo4j: {str(e)}")
+
 
 @router.get("/repos/{repo_name}/stats")
 async def get_repo_code_stats(repo_name: str):
@@ -119,8 +129,7 @@ async def get_repo_code_stats(repo_name: str):
 
         if stats["functions"] == 0 and stats["classes"] == 0:
             raise HTTPException(
-                status_code=404,
-                detail=f"Repo '{repo_name}' non trouvé dans Neo4j v2"
+                status_code=404, detail=f"Repo '{repo_name}' non trouvé dans Neo4j v2"
             )
 
         return {"repo": repo_name, **stats}
@@ -130,9 +139,11 @@ async def get_repo_code_stats(repo_name: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur Neo4j: {str(e)}")
 
+
 # ============================================================================
 # Code Understanding Engine
 # ============================================================================
+
 
 @router.post("/understanding/search")
 async def search_code(request: CodeSearchRequest):
@@ -148,22 +159,19 @@ async def search_code(request: CodeSearchRequest):
         if request.type:
             question += f" (type: {request.type})"
 
-        result = engine.chat(
-            question=question,
-            repo=request.repo,
-            history=None
-        )
+        result = engine.chat(question=question, repo=request.repo, history=None)
 
         return {
             "query": request.query,
             "repo": request.repo,
             "answer": result["answer"],
             "sources": result["sources"],
-            "type": "semantic_search"
+            "type": "semantic_search",
         }
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur recherche: {str(e)}")
+
 
 @router.get("/understanding/{repo_name}/explore")
 async def explore_codebase(repo_name: str, pattern: str = ""):
@@ -203,12 +211,14 @@ async def explore_codebase(repo_name: str, pattern: str = ""):
 
             exploration = []
             for record in result:
-                exploration.append({
-                    "name": record["f.name"],
-                    "file": record["f.file"],
-                    "signature": record["f.signature"],
-                    "docstring": record["f.docstring"][:150] if record["f.docstring"] else ""
-                })
+                exploration.append(
+                    {
+                        "name": record["f.name"],
+                        "file": record["f.file"],
+                        "signature": record["f.signature"],
+                        "docstring": record["f.docstring"][:150] if record["f.docstring"] else "",
+                    }
+                )
 
         ingester.close()
 
@@ -216,15 +226,17 @@ async def explore_codebase(repo_name: str, pattern: str = ""):
             "repo": repo_name,
             "pattern": pattern,
             "results": exploration,
-            "type": "code_exploration"
+            "type": "code_exploration",
         }
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur exploration: {str(e)}")
 
+
 # ============================================================================
 # Impact Analysis Engine (simplifié)
 # ============================================================================
+
 
 @router.post("/impact/analyze")
 async def analyze_impact(request: ImpactAnalysisRequest):
@@ -234,48 +246,62 @@ async def analyze_impact(request: ImpactAnalysisRequest):
 
         with ingester.driver.session(database=ingester.database) as session:
             # Trouver les fonctions dans le fichier modifié
-            result = session.run("""
+            result = session.run(
+                """
                 MATCH (f:Function {repo: $repo, file: $file})
                 RETURN f.name, f.signature
-            """, repo=request.repo, file=request.file)
+            """,
+                repo=request.repo,
+                file=request.file,
+            )
 
             affected_functions = []
             for record in result:
-                affected_functions.append({
-                    "name": record["f.name"],
-                    "signature": record["f.signature"],
-                    "impact": "DIRECT"
-                })
+                affected_functions.append(
+                    {
+                        "name": record["f.name"],
+                        "signature": record["f.signature"],
+                        "impact": "DIRECT",
+                    }
+                )
 
             # Trouver les classes dans le même fichier
-            result = session.run("""
+            result = session.run(
+                """
                 MATCH (c:Class {repo: $repo, file: $file})
                 RETURN c.name, c.methods
-            """, repo=request.repo, file=request.file)
+            """,
+                repo=request.repo,
+                file=request.file,
+            )
 
             affected_classes = []
             for record in result:
-                affected_classes.append({
-                    "name": record["c.name"],
-                    "methods": record["c.methods"],
-                    "impact": "DIRECT"
-                })
+                affected_classes.append(
+                    {"name": record["c.name"], "methods": record["c.methods"], "impact": "DIRECT"}
+                )
 
             # Impact potentiel : fichiers qui importent ce module
-            result = session.run("""
+            result = session.run(
+                """
                 MATCH (file:File {repo: $repo})-[:IMPORTS]->(m:Module)
                 WHERE $file CONTAINS m.name OR m.name CONTAINS $file
                 RETURN DISTINCT file.path
                 LIMIT 5
-            """, repo=request.repo, file=request.file.replace('.py', ''))
+            """,
+                repo=request.repo,
+                file=request.file.replace(".py", ""),
+            )
 
             potentially_affected_files = []
             for record in result:
-                potentially_affected_files.append({
-                    "file": record["file.path"],
-                    "impact": "INDIRECT",
-                    "reason": "imports_modified_module"
-                })
+                potentially_affected_files.append(
+                    {
+                        "file": record["file.path"],
+                        "impact": "INDIRECT",
+                        "reason": "imports_modified_module",
+                    }
+                )
 
         ingester.close()
 
@@ -287,15 +313,17 @@ async def analyze_impact(request: ImpactAnalysisRequest):
             "affected_classes": affected_classes,
             "potentially_affected_files": potentially_affected_files,
             "risk_level": "MEDIUM" if len(affected_functions) > 3 else "LOW",
-            "impact_summary": f"{len(affected_functions)} functions, {len(affected_classes)} classes"
+            "impact_summary": f"{len(affected_functions)} functions, {len(affected_classes)} classes",
         }
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur impact analysis: {str(e)}")
 
+
 # ============================================================================
 # Anomaly Detection Engine (simplifié)
 # ============================================================================
+
 
 @router.post("/anomaly/scan")
 async def scan_anomalies(request: AnomalyRequest):
@@ -308,61 +336,76 @@ async def scan_anomalies(request: AnomalyRequest):
         with ingester.driver.session(database=ingester.database) as session:
             # Anomalie : Fonctions avec beaucoup d'arguments
             if "complexity" in request.types:
-                result = session.run("""
+                result = session.run(
+                    """
                     MATCH (f:Function {repo: $repo})
                     WHERE size(f.args) > 5
                     RETURN f.name, f.file, f.signature, size(f.args) as arg_count
                     ORDER BY arg_count DESC
                     LIMIT 10
-                """, repo=request.repo)
+                """,
+                    repo=request.repo,
+                )
 
                 for record in result:
-                    anomalies.append({
-                        "type": "high_complexity",
-                        "severity": "MEDIUM",
-                        "function": record["f.name"],
-                        "file": record["f.file"],
-                        "signature": record["f.signature"],
-                        "metric": f"{record['arg_count']} arguments",
-                        "suggestion": "Consider breaking into smaller functions"
-                    })
+                    anomalies.append(
+                        {
+                            "type": "high_complexity",
+                            "severity": "MEDIUM",
+                            "function": record["f.name"],
+                            "file": record["f.file"],
+                            "signature": record["f.signature"],
+                            "metric": f"{record['arg_count']} arguments",
+                            "suggestion": "Consider breaking into smaller functions",
+                        }
+                    )
 
             # Anomalie : Fichiers avec beaucoup de fonctions
             if "size" in request.types:
-                result = session.run("""
+                result = session.run(
+                    """
                     MATCH (file:File {repo: $repo})-[:CONTAINS]->(f:Function)
                     WITH file, count(f) as function_count
                     WHERE function_count > 15
                     RETURN file.path, function_count
                     ORDER BY function_count DESC
                     LIMIT 5
-                """, repo=request.repo)
+                """,
+                    repo=request.repo,
+                )
 
                 for record in result:
-                    anomalies.append({
-                        "type": "large_file",
-                        "severity": "LOW",
-                        "file": record["file.path"],
-                        "metric": f"{record['function_count']} functions",
-                        "suggestion": "Consider splitting into multiple modules"
-                    })
+                    anomalies.append(
+                        {
+                            "type": "large_file",
+                            "severity": "LOW",
+                            "file": record["file.path"],
+                            "metric": f"{record['function_count']} functions",
+                            "suggestion": "Consider splitting into multiple modules",
+                        }
+                    )
 
             # Anomalie : Classes sans docstring
-            result = session.run("""
+            result = session.run(
+                """
                 MATCH (c:Class {repo: $repo})
                 WHERE c.docstring IS NULL OR c.docstring = ""
                 RETURN c.name, c.file
                 LIMIT 5
-            """, repo=request.repo)
+            """,
+                repo=request.repo,
+            )
 
             for record in result:
-                anomalies.append({
-                    "type": "missing_documentation",
-                    "severity": "LOW",
-                    "class": record["c.name"],
-                    "file": record["c.file"],
-                    "suggestion": "Add class docstring"
-                })
+                anomalies.append(
+                    {
+                        "type": "missing_documentation",
+                        "severity": "LOW",
+                        "class": record["c.name"],
+                        "file": record["c.file"],
+                        "suggestion": "Add class docstring",
+                    }
+                )
 
         ingester.close()
 
@@ -374,26 +417,23 @@ async def scan_anomalies(request: AnomalyRequest):
             "severity_summary": {
                 "HIGH": len([a for a in anomalies if a["severity"] == "HIGH"]),
                 "MEDIUM": len([a for a in anomalies if a["severity"] == "MEDIUM"]),
-                "LOW": len([a for a in anomalies if a["severity"] == "LOW"])
-            }
+                "LOW": len([a for a in anomalies if a["severity"] == "LOW"]),
+            },
         }
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur anomaly detection: {str(e)}")
 
+
 # ============================================================================
 # Health Check v2
 # ============================================================================
 
+
 @router.get("/health")
 async def health_check_v2():
     """Health check des moteurs v2."""
-    status = {
-        "status": "healthy",
-        "neo4j_code": "unknown",
-        "rag": "unknown",
-        "modules": []
-    }
+    status = {"status": "healthy", "neo4j_code": "unknown", "rag": "unknown", "modules": []}
 
     # Test Neo4j Code
     try:
@@ -411,6 +451,7 @@ async def health_check_v2():
     # Test RAG
     try:
         from hyperion.modules.rag.query import RAGQueryEngine
+
         _ = RAGQueryEngine()
         status["rag"] = "ok"
     except Exception as e:
@@ -418,11 +459,6 @@ async def health_check_v2():
         status["status"] = "degraded"
 
     # Status modules
-    status["modules"] = [
-        "code_understanding",
-        "impact_analysis",
-        "anomaly_detection",
-        "neo4j_v2"
-    ]
+    status["modules"] = ["code_understanding", "impact_analysis", "anomaly_detection", "neo4j_v2"]
 
     return status

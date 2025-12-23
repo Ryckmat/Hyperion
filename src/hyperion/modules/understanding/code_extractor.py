@@ -25,13 +25,7 @@ class CodeExtractor:
         Returns:
             Dict avec sections: files, functions, classes, imports
         """
-        result = {
-            "files": [],
-            "functions": [],
-            "classes": [],
-            "imports": [],
-            "docstrings": []
-        }
+        result = {"files": [], "functions": [], "classes": [], "imports": [], "docstrings": []}
 
         # Scanner tous les fichiers Python
         for py_file in self.repo_path.rglob("*.py"):
@@ -59,7 +53,7 @@ class CodeExtractor:
     def _extract_file_content(self, file_path: Path) -> dict:
         """Extrait métadonnées d'un fichier."""
         try:
-            with open(file_path, encoding='utf-8') as f:
+            with open(file_path, encoding="utf-8") as f:
                 content = f.read()
 
             rel_path = file_path.relative_to(self.repo_path)
@@ -68,7 +62,7 @@ class CodeExtractor:
                 "path": str(rel_path),
                 "size_lines": len(content.splitlines()),
                 "size_bytes": len(content.encode()),
-                "summary": self._extract_file_summary(content)
+                "summary": self._extract_file_summary(content),
             }
         except Exception:
             return None
@@ -80,7 +74,11 @@ class CodeExtractor:
         # Extraire docstring module si disponible
         try:
             tree = ast.parse(content)
-            if tree.body and isinstance(tree.body[0], ast.Expr) and isinstance(tree.body[0].value, ast.Str):
+            if (
+                tree.body
+                and isinstance(tree.body[0], ast.Expr)
+                and isinstance(tree.body[0].value, ast.Str)
+            ):
                 return tree.body[0].value.s[:200] + "..."
         except:
             pass
@@ -97,15 +95,10 @@ class CodeExtractor:
 
     def _parse_ast(self, file_path: Path) -> dict:
         """Parse AST et extrait fonctions/classes."""
-        result = {
-            "functions": [],
-            "classes": [],
-            "imports": [],
-            "docstrings": []
-        }
+        result = {"functions": [], "classes": [], "imports": [], "docstrings": []}
 
         try:
-            with open(file_path, encoding='utf-8') as f:
+            with open(file_path, encoding="utf-8") as f:
                 content = f.read()
 
             tree = ast.parse(content)
@@ -156,7 +149,7 @@ class CodeExtractor:
             "docstring": docstring[:500],  # Limiter taille
             "signature": f"def {node.name}({', '.join(args)})",
             "is_method": self._is_method(node),
-            "is_private": node.name.startswith('_')
+            "is_private": node.name.startswith("_"),
         }
 
     def _extract_class(self, node: ast.ClassDef, file_path: str, content: str) -> dict:
@@ -184,33 +177,27 @@ class CodeExtractor:
             "docstring": docstring[:500],
             "methods": methods,
             "bases": bases,
-            "is_private": node.name.startswith('_')
+            "is_private": node.name.startswith("_"),
         }
 
     def _extract_import(self, node, file_path: str) -> dict:
         """Extrait info d'un import."""
         if isinstance(node, ast.Import):
             modules = [alias.name for alias in node.names]
-            return {
-                "type": "import",
-                "modules": modules,
-                "file": file_path,
-                "line": node.lineno
-            }
+            return {"type": "import", "modules": modules, "file": file_path, "line": node.lineno}
         elif isinstance(node, ast.ImportFrom):
             return {
                 "type": "from_import",
                 "module": node.module or "",
                 "names": [alias.name for alias in node.names],
                 "file": file_path,
-                "line": node.lineno
+                "line": node.lineno,
             }
 
     def _is_method(self, node: ast.FunctionDef) -> bool:
         """Vérifie si une fonction est une méthode."""
         # Approximation : fonction avec 'self' en premier argument
-        return (node.args.args and
-                node.args.args[0].arg in ['self', 'cls'])
+        return node.args.args and node.args.args[0].arg in ["self", "cls"]
 
     def _should_skip_file(self, file_path: Path) -> bool:
         """Vérifie si un fichier doit être ignoré."""
@@ -224,7 +211,7 @@ class CodeExtractor:
             "node_modules",
             ".pytest_cache",
             "tests/",  # On garde les tests mais séparément
-            "test_"
+            "test_",
         ]
 
         path_str = str(file_path)

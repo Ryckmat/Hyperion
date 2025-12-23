@@ -19,9 +19,7 @@ def test_predictor_initialization():
 def test_extract_features():
     """Test extraction de features."""
     predictor = RiskPredictor()
-    features = predictor.extract_features(
-        "test.py", {"test.py": {"dep1.py", "dep2.py"}}
-    )
+    features = predictor.extract_features("test.py", {"test.py": {"dep1.py", "dep2.py"}})
 
     assert "num_impacted_files" in features
     assert "complexity_score" in features

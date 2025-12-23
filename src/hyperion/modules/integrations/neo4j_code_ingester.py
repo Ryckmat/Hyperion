@@ -65,7 +65,7 @@ class Neo4jCodeIngester:
             "imports": 0,
             "methods": 0,
             "function_relations": 0,
-            "class_relations": 0
+            "class_relations": 0,
         }
 
         # Extraire le code source
@@ -116,7 +116,7 @@ class Neo4jCodeIngester:
             "CREATE CONSTRAINT IF NOT EXISTS FOR (f:Function) REQUIRE f.id IS UNIQUE",
             "CREATE CONSTRAINT IF NOT EXISTS FOR (c:Class) REQUIRE c.id IS UNIQUE",
             "CREATE CONSTRAINT IF NOT EXISTS FOR (f:File) REQUIRE f.path IS UNIQUE",
-            "CREATE CONSTRAINT IF NOT EXISTS FOR (m:Module) REQUIRE m.name IS UNIQUE"
+            "CREATE CONSTRAINT IF NOT EXISTS FOR (m:Module) REQUIRE m.name IS UNIQUE",
         ]
 
         for constraint in constraints:
@@ -188,7 +188,9 @@ class Neo4jCodeIngester:
 
         tx.run(query, classes=classes, repo=repo_name)
 
-    def _create_file_relations(self, tx, repo_name: str, functions: list[dict], classes: list[dict]) -> None:
+    def _create_file_relations(
+        self, tx, repo_name: str, functions: list[dict], classes: list[dict]
+    ) -> None:
         """Crée les relations File->Function et File->Class."""
 
         # File->Function
@@ -248,7 +250,8 @@ class Neo4jCodeIngester:
     def get_repo_stats(self, repo_name: str) -> dict:
         """Obtient les statistiques d'un repo."""
         with self.driver.session(database=self.database) as session:
-            result = session.run("""
+            result = session.run(
+                """
                 MATCH (f:Function {repo: $repo})
                 WITH count(f) as functions
                 MATCH (c:Class {repo: $repo})
@@ -257,22 +260,27 @@ class Neo4jCodeIngester:
                 WITH functions, classes, count(file) as files
                 MATCH (m:Method {repo: $repo})
                 RETURN functions, classes, files, count(m) as methods
-            """, repo=repo_name).single()
+            """,
+                repo=repo_name,
+            ).single()
 
             if result:
                 return {
                     "functions": result["functions"],
                     "classes": result["classes"],
                     "files": result["files"],
-                    "methods": result["methods"]
+                    "methods": result["methods"],
                 }
             return {"functions": 0, "classes": 0, "files": 0, "methods": 0}
 
     def clear_repo(self, repo_name: str) -> None:
         """Supprime toutes les données d'un repo."""
         with self.driver.session(database=self.database) as session:
-            session.run("""
+            session.run(
+                """
                 MATCH (n {repo: $repo})
                 DETACH DELETE n
-            """, repo=repo_name)
+            """,
+                repo=repo_name,
+            )
         print(f"🧹 Repo {repo_name} supprimé de Neo4j")

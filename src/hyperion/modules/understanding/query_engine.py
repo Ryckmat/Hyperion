@@ -107,9 +107,7 @@ class UnderstandingQueryEngine:
 
         return test_files
 
-    def get_related_files(
-        self, file_path: str, max_results: int = 10
-    ) -> list[dict[str, Any]]:
+    def get_related_files(self, file_path: str, max_results: int = 10) -> list[dict[str, Any]]:
         """
         Trouve les fichiers liés sémantiquement.
 
