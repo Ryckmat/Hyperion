@@ -91,7 +91,9 @@ class Neo4jIngester:
             # 3. Ingérer contributeurs
             contributors = profile.get("git_summary", {}).get("contributors_top10", [])
             if contributors:
-                session.execute_write(self._ingest_contributors, repo_name, contributors)
+                session.execute_write(
+                    self._ingest_contributors, repo_name, contributors
+                )
                 stats["contributors"] = len(contributors)
 
             # 4. Ingérer hotspots
@@ -133,7 +135,10 @@ class Neo4jIngester:
         """Crée les contraintes et index Neo4j."""
         constraints = [
             "CREATE CONSTRAINT repo_name IF NOT EXISTS FOR (r:Repo) REQUIRE r.name IS UNIQUE",
-            "CREATE CONSTRAINT contributor_id IF NOT EXISTS FOR (c:Contributor) REQUIRE c.id IS UNIQUE",
+            (
+                "CREATE CONSTRAINT contributor_id IF NOT EXISTS "
+                "FOR (c:Contributor) REQUIRE c.id IS UNIQUE"
+            ),
             "CREATE CONSTRAINT hotspot_path IF NOT EXISTS FOR (h:Hotspot) REQUIRE h.path IS UNIQUE",
             "CREATE INDEX hotspot_changes IF NOT EXISTS FOR (h:Hotspot) ON (h.changes)",
             "CREATE INDEX contributor_commits IF NOT EXISTS FOR (c:Contributor) ON (c.commits)",
