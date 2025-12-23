@@ -55,6 +55,7 @@ dev = [
     "pytest>=7.4.0",
     "pytest-cov>=4.1.0",
     "pytest-asyncio>=0.21.0",
+    "pytest-benchmark>=4.0.0",
     "black>=23.0.0",
     "ruff>=0.1.0",
     "mypy>=1.7.0",
@@ -197,6 +198,7 @@ markers = [
     "integration: Integration tests",
     "e2e: End-to-end tests",
     "slow: Slow tests",
+    "benchmark: Performance benchmark tests",
 ]
 filterwarnings = [
     "ignore::DeprecationWarning",
