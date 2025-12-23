@@ -57,7 +57,9 @@ class FeatureMapper:
         results.sort(key=lambda x: x["score"], reverse=True)
         return results
 
-    def _calculate_relevance(self, keywords: set[str], metadata: dict[str, Any]) -> float:
+    def _calculate_relevance(
+        self, keywords: set[str], metadata: dict[str, Any]
+    ) -> float:
         """Calcule un score de pertinence."""
         # TODO: Implémenter scoring avancé
         score = 0.0

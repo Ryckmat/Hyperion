@@ -354,29 +354,12 @@ ing.close()
 run_v2() {
   section "📊 INGESTION V2 - Code Analysis"
 
-  local repo_name=$(basename "$REPO_PATH")
   info "Repository: $REPO_PATH"
-  info "Repo name: $repo_name"
 
-  echo "🔄 Analyse structure code avec Neo4j v2..."
-  if python3 -c "
-from hyperion.modules.integrations.neo4j_code_ingester import Neo4jCodeIngester
-
-# Clear ancien + ingestion nouveau
-ingester = Neo4jCodeIngester()
-print('🧹 Clear ancien repo...')
-ingester.clear_repo('$repo_name')
-
-print('🚀 Ingestion code source...')
-stats = ingester.ingest_repo_code('$REPO_PATH', '$repo_name')
-print(f'✅ Neo4j v2: {stats}')
-
-# Vérification
-final_stats = ingester.get_repo_stats('$repo_name')
-print(f'📊 Validation: {final_stats}')
-
-ingester.close()
-"; then
+  echo "🔄 Analyse structure code..."
+  if python3 scripts/maintenance/ingest_generalized.py \
+    --repo "$REPO_PATH" \
+    --neo4j-password hyperion123; then
     ok "Neo4j v2 ingéré avec succès"
   else
     fail "Échec ingestion Neo4j v2"
@@ -532,108 +515,12 @@ except Exception as e:
 "
 }
 
-# Test validation Hyperion v2 complète
-test_hyperion_v2() {
-  section "🚀 TEST VALIDATION HYPERION V2"
-
-  local repo_name=$(basename "$REPO_PATH")
-
-  echo "🔄 Validation des 8 moteurs..."
-
-  # Test 1: Health Check v2
-  echo "   1. Health Check API v2..."
-  if curl -s http://localhost:8000/api/v2/health | python3 -c "
-import sys, json
-try:
-  data = json.load(sys.stdin)
-  print(f'✅ Health: {data[\"status\"]} - Neo4j: {data.get(\"neo4j_code\", \"unknown\")}')
-except:
-  print('⚠️ Health check failed')
-  exit(1)
-"; then
-    echo "   ✓ API v2 fonctionnelle"
-  else
-    warn "API v2 non accessible"
-    return 1
-  fi
-
-  # Test 2: Neo4j v2 functions
-  echo "   2. Neo4j Functions endpoint..."
-  if curl -s "http://localhost:8000/api/v2/repos/$repo_name/functions?limit=5" | python3 -c "
-import sys, json
-try:
-  data = json.load(sys.stdin)
-  count = data.get('count', 0)
-  if count > 0:
-    print(f'✅ Functions: {count} found')
-  else:
-    print('⚠️ No functions found')
-    exit(1)
-except:
-  print('⚠️ Functions endpoint failed')
-  exit(1)
-"; then
-    echo "   ✓ Neo4j v2 opérationnel"
-  else
-    warn "Neo4j v2 échec"
-    return 1
-  fi
-
-  # Test 3: Impact Analysis
-  echo "   3. Impact Analysis engine..."
-  if curl -s -X POST http://localhost:8000/api/v2/impact/analyze \
-    -H "Content-Type: application/json" \
-    -d "{\"repo\":\"$repo_name\",\"file\":\"test.py\",\"changes\":[\"test\"]}" | python3 -c "
-import sys, json
-try:
-  data = json.load(sys.stdin)
-  if 'impact_summary' in data:
-    print(f'✅ Impact Analysis: {data[\"impact_summary\"]}')
-  else:
-    print('⚠️ Impact analysis incomplete')
-    exit(1)
-except:
-  print('⚠️ Impact analysis failed')
-  exit(1)
-"; then
-    echo "   ✓ Impact Analysis fonctionnel"
-  else
-    warn "Impact Analysis échec"
-    return 1
-  fi
-
-  # Test 4: Anomaly Detection
-  echo "   4. Anomaly Detection engine..."
-  if curl -s -X POST http://localhost:8000/api/v2/anomaly/scan \
-    -H "Content-Type: application/json" \
-    -d "{\"repo\":\"$repo_name\",\"types\":[\"complexity\"]}" | python3 -c "
-import sys, json
-try:
-  data = json.load(sys.stdin)
-  total = data.get('total_found', 0)
-  print(f'✅ Anomaly Detection: {total} issues found')
-except:
-  print('⚠️ Anomaly detection failed')
-  exit(1)
-"; then
-    echo "   ✓ Anomaly Detection fonctionnel"
-  else
-    warn "Anomaly Detection échec"
-    return 1
-  fi
-
-  ok "🎯 Validation Hyperion v2 complète réussie!"
-  return 0
-}
-
 # Résumé final
 show_summary() {
   section "🎉 RÉSUMÉ FINAL"
 
-  local repo_name=$(basename "$REPO_PATH")
-
   echo "📱 ${BOLD}Services actifs:${NC}"
-  echo "   • API Hyperion v2 : http://localhost:8000 (+ /api/v2/health)"
+  echo "   • API Hyperion    : http://localhost:8000"
   if [ "$LAUNCH_DASHBOARD" = true ]; then
     echo "   • Dashboard React : http://localhost:3000"
   fi
@@ -649,53 +536,16 @@ show_summary() {
   echo "   • Repository analysé: $(basename "$REPO_PATH")"
   echo "   • Modules exécutés: $MODULES"
 
-  # Stats v2 en temps réel
-  echo ""
-  echo "🔍 ${BOLD}Stats Hyperion v2:${NC}"
-
-  # Neo4j v2 stats
-  python3 -c "
-from hyperion.modules.integrations.neo4j_code_ingester import Neo4jCodeIngester
-try:
-    ingester = Neo4jCodeIngester()
-    stats = ingester.get_repo_stats('$repo_name')
-    print(f'   • Neo4j v2: {stats[\"functions\"]} functions, {stats[\"classes\"]} classes')
-    ingester.close()
-except Exception as e:
-    print(f'   • Neo4j v2: Error - {e}')
-" 2>/dev/null || echo "   • Neo4j v2: Non accessible"
-
-  # RAG stats
-  curl -s http://localhost:6333/collections/hyperion_repos 2>/dev/null | python3 -c "
-import sys, json
-try:
-    data = json.load(sys.stdin)
-    points = data['result']['points_count']
-    print(f'   • RAG: {points} chunks indexés')
-except:
-    print('   • RAG: Non accessible')
-" 2>/dev/null || echo "   • RAG: Non accessible"
-
-  # API v2 endpoints
-  echo "   • API v2: Impact Analysis, Anomaly Detection, Code Search"
-
   echo ""
   echo "🎯 ${BOLD}Tout est opérationnel !${NC}"
   echo "   Ctrl+C pour arrêter tous les services"
 
-  echo ""
-  echo "🧪 ${BOLD}Tests disponibles:${NC}"
-  echo "   • Validation v2: curl http://localhost:8000/api/v2/health"
-  echo "   • Functions: curl http://localhost:8000/api/v2/repos/$repo_name/functions"
-  echo "   • Chat RAG: curl -X POST http://localhost:8000/api/chat -d '{\"question\":\"test\",\"repo\":\"$repo_name\"}'"
-
-  echo ""
-  info "Appuyez sur Ctrl+C pour arrêter..."
-
-  # Keep-alive loop (fonctionne en mode interactif ET automatique)
-  while true; do
-    sleep 10
-  done
+  if [ "$AUTO_MODE" = false ]; then
+    echo ""
+    info "Appuyez sur Ctrl+C pour arrêter..."
+    # Keep-alive
+    while true; do sleep 10; done
+  fi
 }
 
 # ============================================================================
@@ -741,12 +591,6 @@ main() {
   test_rag
   launch_api
   launch_openwebui
-
-  # Validation v2 (si modules v2 activés)
-  if [[ "$MODULES" == *"v2"* || "$MODULES" == "all" ]]; then
-    test_hyperion_v2
-  fi
-
   show_summary
 }
 

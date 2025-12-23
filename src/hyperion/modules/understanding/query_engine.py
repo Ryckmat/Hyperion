@@ -59,7 +59,10 @@ class UnderstandingQueryEngine:
             return "Aucune localisation code trouvée pour cette question."
 
         top_result = results[0]
-        return f"La fonctionnalité est implémentée dans {top_result['file']} (score: {top_result['score']:.2f})"
+        return (
+            f"La fonctionnalité est implémentée dans {top_result['file']} "
+            f"(score: {top_result['score']:.2f})"
+        )
 
     def _calculate_confidence(self, results: list[dict[str, Any]]) -> float:
         """Calcule la confiance de la réponse."""
@@ -93,7 +96,9 @@ class UnderstandingQueryEngine:
         # TODO: Implémenter recherche tests
         # Stratégie: chercher test_*.py ou *_test.py contenant le nom
         test_files = []
-        test_paths = list(self.repo_path.rglob("test_*.py")) + list(self.repo_path.rglob("*_test.py"))
+        test_paths = list(self.repo_path.rglob("test_*.py")) + list(
+            self.repo_path.rglob("*_test.py")
+        )
 
         for test_file in test_paths:
             # Vérifier si le nom du fichier est mentionné
@@ -102,7 +107,9 @@ class UnderstandingQueryEngine:
 
         return test_files
 
-    def get_related_files(self, file_path: str, max_results: int = 10) -> list[dict[str, Any]]:
+    def get_related_files(
+        self, file_path: str, max_results: int = 10
+    ) -> list[dict[str, Any]]:
         """
         Trouve les fichiers liés sémantiquement.
 

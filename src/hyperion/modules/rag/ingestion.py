@@ -1,6 +1,7 @@
 """Ingestion des données dans Qdrant."""
 
 import hashlib
+from pathlib import Path
 
 import yaml
 from qdrant_client import QdrantClient
@@ -16,6 +17,7 @@ from hyperion.modules.rag.config import (
     QDRANT_PORT,
     REPOS_DIR,
 )
+from hyperion.modules.understanding.code_extractor import CodeExtractor
 
 
 class RAGIngester:
@@ -41,7 +43,9 @@ class RAGIngester:
 
         # Modèle d'embeddings (GPU)
         print(f"📥 Chargement modèle embeddings : {EMBEDDING_MODEL}")
-        self.embedding_model = SentenceTransformer(EMBEDDING_MODEL, device=EMBEDDING_DEVICE)
+        self.embedding_model = SentenceTransformer(
+            EMBEDDING_MODEL, device=EMBEDDING_DEVICE
+        )
         print(f"✅ Modèle chargé sur {EMBEDDING_DEVICE}")
 
         # Créer collection si nécessaire
@@ -56,7 +60,9 @@ class RAGIngester:
             print(f"📦 Création collection : {self.collection_name}")
             self.qdrant_client.create_collection(
                 collection_name=self.collection_name,
-                vectors_config=VectorParams(size=EMBEDDING_DIM, distance=Distance.COSINE),
+                vectors_config=VectorParams(
+                    size=EMBEDDING_DIM, distance=Distance.COSINE
+                ),
             )
             print("✅ Collection créée")
         else:
@@ -83,8 +89,19 @@ class RAGIngester:
         with open(profile_path) as f:
             profile = yaml.safe_load(f)
 
-        # Découper en chunks
-        chunks = self._create_chunks(profile, repo_name)
+        # Extraire code source du repo (nouveau)
+        repo_path = self._get_repo_path(repo_name)
+        if repo_path and repo_path.exists():
+            print("   • Extraction code source...")
+            code_extractor = CodeExtractor(str(repo_path))
+            code_data = code_extractor.extract_repo_code()
+            print(f"   • {len(code_data['files'])} fichiers, {len(code_data['functions'])} fonctions, {len(code_data['classes'])} classes")
+        else:
+            print("   • ⚠️  Code source non trouvé, utilisation profil Git seul")
+            code_data = None
+
+        # Découper en chunks (Git + Code)
+        chunks = self._create_chunks(profile, repo_name, code_data)
         print(f"   • {len(chunks)} chunks créés")
 
         # Générer embeddings
@@ -150,19 +167,29 @@ class RAGIngester:
 
         return results
 
-    def _create_chunks(self, profile: dict, repo_name: str) -> list[dict]:
+    def _create_chunks(self, profile: dict, repo_name: str, code_data: dict = None) -> list[dict]:
         """Découpe le profil en chunks sémantiques."""
         chunks = []
 
         # 1. Overview
         overview_text = self._format_overview(profile)
         chunks.append(
-            {"text": overview_text, "section": "overview", "metadata": {"type": "summary"}}
+            {
+                "text": overview_text,
+                "section": "overview",
+                "metadata": {"type": "summary"},
+            }
         )
 
         # 2. Métriques
         metrics_text = self._format_metrics(profile)
-        chunks.append({"text": metrics_text, "section": "metrics", "metadata": {"type": "quality"}})
+        chunks.append(
+            {
+                "text": metrics_text,
+                "section": "metrics",
+                "metadata": {"type": "quality"},
+            }
+        )
 
         # 3. Contributeurs (par batch de 5)
         contributors = profile.get("git_summary", {}).get("contributors_top10", [])
@@ -193,7 +220,50 @@ class RAGIngester:
         # 5. Extensions
         extensions = profile.get("git_summary", {}).get("by_extension", [])[:10]
         ext_text = self._format_extensions(extensions, repo_name)
-        chunks.append({"text": ext_text, "section": "extensions", "metadata": {"type": "tech"}})
+        chunks.append(
+            {"text": ext_text, "section": "extensions", "metadata": {"type": "tech"}}
+        )
+
+        # 6. Code source (nouveau) - Si disponible
+        if code_data:
+            # 6.1. Fonctions (par batch de 3)
+            functions = code_data.get("functions", [])
+            for i in range(0, len(functions), 3):
+                batch = functions[i : i + 3]
+                func_text = self._format_functions(batch, repo_name)
+                chunks.append(
+                    {
+                        "text": func_text,
+                        "section": "functions",
+                        "metadata": {"type": "code", "batch": i // 3},
+                    }
+                )
+
+            # 6.2. Classes (par batch de 2)
+            classes = code_data.get("classes", [])
+            for i in range(0, len(classes), 2):
+                batch = classes[i : i + 2]
+                class_text = self._format_classes(batch, repo_name)
+                chunks.append(
+                    {
+                        "text": class_text,
+                        "section": "classes",
+                        "metadata": {"type": "code", "batch": i // 2},
+                    }
+                )
+
+            # 6.3. Modules/Fichiers (par batch de 5)
+            files = code_data.get("files", [])
+            for i in range(0, len(files), 5):
+                batch = files[i : i + 5]
+                files_text = self._format_code_files(batch, repo_name)
+                chunks.append(
+                    {
+                        "text": files_text,
+                        "section": "code_files",
+                        "metadata": {"type": "structure", "batch": i // 5},
+                    }
+                )
 
         return chunks
 
@@ -256,6 +326,70 @@ Quality Metrics:
 
         return "\n".join(lines)
 
+    def _format_functions(self, functions: list, repo_name: str) -> str:
+        """Formate les fonctions pour RAG."""
+        lines = [f"Repository: {repo_name}", "Functions:"]
+
+        for func in functions:
+            signature = func.get("signature", f"def {func['name']}()")
+            lines.append(f"\n- **{func['name']}** in {func['file']}:{func['line_start']}")
+            lines.append(f"  Signature: {signature}")
+            if func.get("docstring"):
+                doc = func["docstring"][:200] + "..." if len(func["docstring"]) > 200 else func["docstring"]
+                lines.append(f"  Documentation: {doc}")
+            lines.append(f"  Type: {'Method' if func.get('is_method') else 'Function'}")
+
+        return "\n".join(lines)
+
+    def _format_classes(self, classes: list, repo_name: str) -> str:
+        """Formate les classes pour RAG."""
+        lines = [f"Repository: {repo_name}", "Classes:"]
+
+        for cls in classes:
+            lines.append(f"\n- **{cls['name']}** in {cls['file']}:{cls['line_start']}")
+            if cls.get("docstring"):
+                doc = cls["docstring"][:200] + "..." if len(cls["docstring"]) > 200 else cls["docstring"]
+                lines.append(f"  Documentation: {doc}")
+            if cls.get("methods"):
+                methods_str = ", ".join(cls["methods"][:5])  # Limiter à 5 méthodes
+                lines.append(f"  Methods: {methods_str}")
+            if cls.get("bases"):
+                bases_str = ", ".join(cls["bases"])
+                lines.append(f"  Inherits from: {bases_str}")
+
+        return "\n".join(lines)
+
+    def _format_code_files(self, files: list, repo_name: str) -> str:
+        """Formate les fichiers de code pour RAG."""
+        lines = [f"Repository: {repo_name}", "Code Files:"]
+
+        for file_info in files:
+            lines.append(f"\n- **{file_info['path']}**")
+            lines.append(f"  Size: {file_info['size_lines']} lines")
+            if file_info.get("summary"):
+                summary = file_info["summary"][:150] + "..." if len(file_info["summary"]) > 150 else file_info["summary"]
+                lines.append(f"  Purpose: {summary}")
+
+        return "\n".join(lines)
+
+    def _get_repo_path(self, repo_name: str) -> Path:
+        """Trouve le chemin du code source du repo."""
+        # 1. Essayer dans le dossier parent de data
+        possible_paths = [
+            Path(f"/home/kortazo/Documents/{repo_name}"),
+            Path(f"/tmp/{repo_name}"),
+            REPOS_DIR.parent / repo_name,
+            Path(f"./{repo_name}")
+        ]
+
+        for path in possible_paths:
+            if path.exists() and path.is_dir():
+                # Vérifier que c'est bien un repo git
+                if (path / ".git").exists():
+                    return path
+
+        return None
+
     def _generate_id(self, repo_name: str, index: int) -> int:
         """Génère un ID unique pour un point."""
         # Hash repo_name + index
@@ -266,9 +400,18 @@ Quality Metrics:
 
     def clear_repo(self, repo_name: str):
         """Supprime les données d'un repo."""
+        from qdrant_client.models import Filter, FieldCondition, MatchValue
+
         self.qdrant_client.delete(
             collection_name=self.collection_name,
-            points_selector={"filter": {"must": [{"key": "repo", "match": {"value": repo_name}}]}},
+            points_selector=Filter(
+                must=[
+                    FieldCondition(
+                        key="repo",
+                        match=MatchValue(value=repo_name)
+                    )
+                ]
+            )
         )
         print(f"🧹 Repo {repo_name} supprimé de Qdrant")
 

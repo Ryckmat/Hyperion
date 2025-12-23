@@ -35,13 +35,47 @@ class CodeIndexer:
         Returns:
             Index complet {file_path: metadata}
         """
-        # TODO: Implémenter indexation complète
-        python_files = self.repo_path.rglob("*.py")
+        python_files = list(self.repo_path.rglob("*.py"))
 
+        # Filtres pour éviter les problèmes
+        excluded_patterns = [
+            "__pycache__",
+            ".git",
+            ".pytest_cache",
+            "venv",
+            "env",
+            ".tox",
+            "dist",
+            "build",
+            ".egg-info",
+            "node_modules",
+        ]
+
+        filtered_files = []
         for file_path in python_files:
-            metadata = self.index_file(file_path)
-            self.index[str(file_path)] = metadata
+            # Skip si dans un répertoire exclu
+            if any(pattern in str(file_path) for pattern in excluded_patterns):
+                continue
+            # Skip si trop gros (>1MB)
+            try:
+                if file_path.stat().st_size > 1_000_000:
+                    continue
+            except OSError:
+                continue
 
+            filtered_files.append(file_path)
+
+        print(f"📁 Indexation de {len(filtered_files)} fichiers Python...")
+
+        for i, file_path in enumerate(filtered_files):
+            if i % 10 == 0:
+                print(f"   Progression: {i}/{len(filtered_files)}")
+
+            metadata = self.index_file(file_path)
+            if "error" not in metadata:  # Seulement si pas d'erreur
+                self.index[str(file_path)] = metadata
+
+        print(f"✅ Indexation terminée: {len(self.index)} fichiers")
         return self.index
 
     def index_file(self, file_path: Path) -> dict[str, Any]:
@@ -55,9 +89,20 @@ class CodeIndexer:
             Métadonnées extraites
         """
         # TODO: Implémenter extraction complète
-        with open(file_path) as f:
-            content = f.read()
-            tree = ast.parse(content, filename=str(file_path))
+        try:
+            with open(file_path, encoding="utf-8", errors="ignore") as f:
+                content = f.read()
+                tree = ast.parse(content, filename=str(file_path))
+        except (UnicodeDecodeError, SyntaxError) as e:
+            # Skip non-Python or binary files
+            return {
+                "path": str(file_path),
+                "error": str(e),
+                "docstrings": [],
+                "imports": [],
+                "functions": [],
+                "classes": [],
+            }
 
         return {
             "path": str(file_path),
@@ -113,7 +158,9 @@ class CodeIndexer:
         for node in ast.walk(tree):
             if isinstance(node, ast.ClassDef):
                 methods = [
-                    n.name for n in node.body if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef))
+                    n.name
+                    for n in node.body
+                    if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef))
                 ]
                 classes.append(
                     {
@@ -141,7 +188,6 @@ class CodeIndexer:
         for node in ast.walk(tree):
             if isinstance(node, ast.Import):
                 imports.extend(alias.name for alias in node.names)
-            elif isinstance(node, ast.ImportFrom):
-                if node.module:
-                    imports.append(node.module)
+            elif isinstance(node, ast.ImportFrom) and node.module:
+                imports.append(node.module)
         return imports

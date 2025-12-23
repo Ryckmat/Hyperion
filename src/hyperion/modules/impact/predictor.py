@@ -38,7 +38,9 @@ class RiskPredictor:
             "last_modified_days",
         ]
 
-    def extract_features(self, file_path: str, dependency_graph: dict[str, set[str]]) -> dict[str, Any]:
+    def extract_features(
+        self, file_path: str, dependency_graph: dict[str, set[str]]
+    ) -> dict[str, Any]:
         """
         Extrait les features pour prédiction ML.
 
@@ -58,7 +60,9 @@ class RiskPredictor:
             "last_modified_days": 0,  # Git history
         }
 
-    def predict_risk(self, file_path: str, dependency_graph: dict[str, set[str]]) -> RiskLevel:
+    def predict_risk(
+        self, file_path: str, dependency_graph: dict[str, set[str]]
+    ) -> RiskLevel:
         """
         Prédit le niveau de risque.
 
@@ -83,7 +87,9 @@ class RiskPredictor:
         else:
             return RiskLevel.LOW
 
-    def get_risk_score(self, file_path: str, dependency_graph: dict[str, set[str]]) -> float:
+    def get_risk_score(
+        self, file_path: str, dependency_graph: dict[str, set[str]]
+    ) -> float:
         """
         Retourne un score de risque normalisé [0, 1].
 

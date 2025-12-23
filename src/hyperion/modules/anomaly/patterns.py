@@ -149,22 +149,35 @@ class DangerousPatterns:
 
         return {
             "file": str(file_path),
-            "security_findings": [f for f in security_findings if f["type"] == "security"],
-            "performance_issues": [f for f in security_findings if f["type"] == "performance"],
+            "security_findings": [
+                f for f in security_findings if f["type"] == "security"
+            ],
+            "performance_issues": [
+                f for f in security_findings if f["type"] == "performance"
+            ],
             "rgpd_violations": rgpd_violations,
             "total_issues": len(security_findings) + len(rgpd_violations),
-            "risk_score": self._calculate_risk_score(security_findings, rgpd_violations),
+            "risk_score": self._calculate_risk_score(
+                security_findings, rgpd_violations
+            ),
         }
 
     def _calculate_risk_score(
-        self, security_findings: list[dict[str, Any]], rgpd_violations: list[dict[str, Any]]
+        self,
+        security_findings: list[dict[str, Any]],
+        rgpd_violations: list[dict[str, Any]],
     ) -> float:
         """Calcule un score de risque global."""
         severity_weights = {"low": 0.2, "medium": 0.5, "high": 0.9, "critical": 1.0}
 
-        security_score = sum(severity_weights.get(f.get("severity", "low"), 0.5) for f in security_findings)
+        security_score = sum(
+            severity_weights.get(f.get("severity", "low"), 0.5)
+            for f in security_findings
+        )
 
-        rgpd_score = sum(severity_weights.get(v.get("severity", "low"), 0.5) for v in rgpd_violations)
+        rgpd_score = sum(
+            severity_weights.get(v.get("severity", "low"), 0.5) for v in rgpd_violations
+        )
 
         total = security_score + rgpd_score
         return min(total / 10, 1.0)  # Normalisé sur 10 issues max

@@ -16,7 +16,12 @@ class GraphTraversal:
     Utilise Cypher pour traversal efficace des dépendances.
     """
 
-    def __init__(self, neo4j_uri: str = "bolt://localhost:7687", username: str = "neo4j", password: str = "password"):
+    def __init__(
+        self,
+        neo4j_uri: str = "bolt://localhost:7687",
+        username: str = "neo4j",
+        password: str = "password",
+    ):
         """
         Initialise la connexion Neo4j.
 
@@ -31,7 +36,9 @@ class GraphTraversal:
         self.password = password
         self.driver = None
 
-    def find_dependencies(self, file_path: str, max_depth: int = 5) -> list[dict[str, Any]]:
+    def find_dependencies(
+        self, file_path: str, max_depth: int = 5
+    ) -> list[dict[str, Any]]:
         """
         Trouve toutes les dépendances d'un fichier.
 
@@ -43,11 +50,11 @@ class GraphTraversal:
             Liste des dépendances avec métadonnées
         """
         # TODO: Implémenter requête Cypher
-        query = """
-        MATCH path = (f:File {path: $file_path})-[:DEPENDS_ON*1..%d]->(dep:File)
+        _query = f"""
+        MATCH path = (f:File {{path: $file_path}})-[:DEPENDS_ON*1..{max_depth}]->(dep:File)
         RETURN dep.path AS dependency, length(path) AS depth
         ORDER BY depth
-        """ % max_depth
+        """
 
         # Placeholder pour résultats
         return []
@@ -63,7 +70,7 @@ class GraphTraversal:
             Liste des fichiers dépendants
         """
         # TODO: Implémenter requête Cypher reverse
-        query = """
+        _query = """
         MATCH (dependent:File)-[:DEPENDS_ON]->(f:File {path: $file_path})
         RETURN dependent.path AS dependent_file
         """
@@ -82,7 +89,7 @@ class GraphTraversal:
             Liste des fichiers dans le chemin
         """
         # TODO: Implémenter algorithme shortest path
-        query = """
+        _query = """
         MATCH path = shortestPath(
             (source:File {path: $source})-[:DEPENDS_ON*]-(target:File {path: $target})
         )
@@ -107,10 +114,14 @@ class GraphTraversal:
 
         return {
             "file": file_path,
-            "direct_dependencies": len([d for d in dependencies if d.get("depth") == 1]),
+            "direct_dependencies": len(
+                [d for d in dependencies if d.get("depth") == 1]
+            ),
             "total_dependencies": len(dependencies),
             "files_depending_on_this": len(reverse_deps),
-            "max_dependency_depth": max([d.get("depth", 0) for d in dependencies], default=0),
+            "max_dependency_depth": max(
+                [d.get("depth", 0) for d in dependencies], default=0
+            ),
         }
 
     def close(self):
