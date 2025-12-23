@@ -109,7 +109,7 @@ class UnderstandingQueryEngine:
 
     def get_related_files(
         self, file_path: str, max_results: int = 10
-    ) -> list[dict[str, Any]]:  # noqa: ARG002
+    ) -> list[dict[str, Any]]:
         """
         Trouve les fichiers liés sémantiquement.
 
@@ -121,4 +121,6 @@ class UnderstandingQueryEngine:
             Fichiers similaires avec scores
         """
         # TODO: Implémenter similarité sémantique via embeddings
+        # Pour l'instant, utilisation minimale des paramètres pour éviter l'erreur Ruff
+        _ = file_path, max_results
         return []
