@@ -1,9 +1,7 @@
 """Extraction du contenu de code source pour ingestion RAG."""
 
 import ast
-import os
 from pathlib import Path
-from typing import Dict, List
 
 
 class CodeExtractor:
@@ -20,7 +18,7 @@ class CodeExtractor:
         """Initialise l'extracteur."""
         self.repo_path = Path(repo_path)
 
-    def extract_repo_code(self) -> Dict:
+    def extract_repo_code(self) -> dict:
         """
         Extrait tout le contenu de code du repository.
 
@@ -58,10 +56,10 @@ class CodeExtractor:
 
         return result
 
-    def _extract_file_content(self, file_path: Path) -> Dict:
+    def _extract_file_content(self, file_path: Path) -> dict:
         """Extrait métadonnées d'un fichier."""
         try:
-            with open(file_path, 'r', encoding='utf-8') as f:
+            with open(file_path, encoding='utf-8') as f:
                 content = f.read()
 
             rel_path = file_path.relative_to(self.repo_path)
@@ -97,7 +95,7 @@ class CodeExtractor:
 
         return f"Module Python avec {len(lines)} lignes"
 
-    def _parse_ast(self, file_path: Path) -> Dict:
+    def _parse_ast(self, file_path: Path) -> dict:
         """Parse AST et extrait fonctions/classes."""
         result = {
             "functions": [],
@@ -107,7 +105,7 @@ class CodeExtractor:
         }
 
         try:
-            with open(file_path, 'r', encoding='utf-8') as f:
+            with open(file_path, encoding='utf-8') as f:
                 content = f.read()
 
             tree = ast.parse(content)
@@ -137,7 +135,7 @@ class CodeExtractor:
 
         return result
 
-    def _extract_function(self, node: ast.FunctionDef, file_path: str, content: str) -> Dict:
+    def _extract_function(self, node: ast.FunctionDef, file_path: str, content: str) -> dict:
         """Extrait info d'une fonction."""
         # Docstring
         docstring = ast.get_docstring(node) or "Aucune documentation"
@@ -161,7 +159,7 @@ class CodeExtractor:
             "is_private": node.name.startswith('_')
         }
 
-    def _extract_class(self, node: ast.ClassDef, file_path: str, content: str) -> Dict:
+    def _extract_class(self, node: ast.ClassDef, file_path: str, content: str) -> dict:
         """Extrait info d'une classe."""
         # Docstring
         docstring = ast.get_docstring(node) or "Aucune documentation"
@@ -189,7 +187,7 @@ class CodeExtractor:
             "is_private": node.name.startswith('_')
         }
 
-    def _extract_import(self, node, file_path: str) -> Dict:
+    def _extract_import(self, node, file_path: str) -> dict:
         """Extrait info d'un import."""
         if isinstance(node, ast.Import):
             modules = [alias.name for alias in node.names]
