@@ -1,7 +1,6 @@
 """Ingestion Neo4j v2 - Code Source avec Functions, Classes, Imports."""
 
 from pathlib import Path
-from typing import Any, Dict, List
 
 from neo4j import GraphDatabase
 
@@ -44,7 +43,7 @@ class Neo4jCodeIngester:
         """Ferme la connexion Neo4j."""
         self.driver.close()
 
-    def ingest_repo_code(self, repo_path: str | Path, repo_name: str = None) -> Dict[str, int]:
+    def ingest_repo_code(self, repo_path: str | Path, repo_name: str = None) -> dict[str, int]:
         """
         Ingère tout le code source dans Neo4j v2.
 
@@ -123,10 +122,10 @@ class Neo4jCodeIngester:
         for constraint in constraints:
             try:
                 tx.run(constraint)
-            except Exception as e:
+            except Exception:
                 print(f"⚠️  Constraint exists: {constraint[:50]}...")
 
-    def _ingest_files(self, tx, repo_name: str, files: List[Dict]) -> None:
+    def _ingest_files(self, tx, repo_name: str, files: list[dict]) -> None:
         """Ingère les fichiers de code."""
         query = """
         UNWIND $files AS file
@@ -140,7 +139,7 @@ class Neo4jCodeIngester:
 
         tx.run(query, files=files, repo=repo_name)
 
-    def _ingest_functions(self, tx, repo_name: str, functions: List[Dict]) -> None:
+    def _ingest_functions(self, tx, repo_name: str, functions: list[dict]) -> None:
         """Ingère les fonctions."""
         # Préparer les données avec ID unique
         for func in functions:
@@ -165,7 +164,7 @@ class Neo4jCodeIngester:
 
         tx.run(query, functions=functions, repo=repo_name)
 
-    def _ingest_classes(self, tx, repo_name: str, classes: List[Dict]) -> None:
+    def _ingest_classes(self, tx, repo_name: str, classes: list[dict]) -> None:
         """Ingère les classes."""
         # Préparer les données avec ID unique
         for cls in classes:
@@ -189,7 +188,7 @@ class Neo4jCodeIngester:
 
         tx.run(query, classes=classes, repo=repo_name)
 
-    def _create_file_relations(self, tx, repo_name: str, functions: List[Dict], classes: List[Dict]) -> None:
+    def _create_file_relations(self, tx, repo_name: str, functions: list[dict], classes: list[dict]) -> None:
         """Crée les relations File->Function et File->Class."""
 
         # File->Function
@@ -210,7 +209,7 @@ class Neo4jCodeIngester:
         """
         tx.run(query_class, classes=classes, repo=repo_name)
 
-    def _create_class_method_relations(self, tx, repo_name: str, functions: List[Dict]) -> int:
+    def _create_class_method_relations(self, tx, repo_name: str, functions: list[dict]) -> int:
         """Crée les relations Class->Method."""
         methods_count = 0
 
@@ -229,7 +228,7 @@ class Neo4jCodeIngester:
 
         return len(methods)
 
-    def _ingest_imports(self, tx, repo_name: str, imports: List[Dict]) -> None:
+    def _ingest_imports(self, tx, repo_name: str, imports: list[dict]) -> None:
         """Ingère les imports."""
         query = """
         UNWIND $imports AS imp
@@ -246,7 +245,7 @@ class Neo4jCodeIngester:
 
         tx.run(query, imports=imports, repo=repo_name)
 
-    def get_repo_stats(self, repo_name: str) -> Dict:
+    def get_repo_stats(self, repo_name: str) -> dict:
         """Obtient les statistiques d'un repo."""
         with self.driver.session(database=self.database) as session:
             result = session.run("""

@@ -1,8 +1,8 @@
 """Endpoints API v2 pour les 8 moteurs d'intelligence Hyperion."""
 
+
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from typing import List, Optional, Dict, Any
 
 from hyperion.modules.integrations.neo4j_code_ingester import Neo4jCodeIngester
 
@@ -15,17 +15,17 @@ router = APIRouter(prefix="/api/v2", tags=["Hyperion v2"])
 class ImpactAnalysisRequest(BaseModel):
     repo: str
     file: str
-    changes: List[str]
-    depth: Optional[int] = 3
+    changes: list[str]
+    depth: int | None = 3
 
 class CodeSearchRequest(BaseModel):
     query: str
     repo: str
-    type: Optional[str] = None  # function, class, file
+    type: str | None = None  # function, class, file
 
 class AnomalyRequest(BaseModel):
     repo: str
-    types: Optional[List[str]] = ["complexity", "size", "duplicates"]
+    types: list[str] | None = ["complexity", "size", "duplicates"]
 
 # ============================================================================
 # Neo4j v2 Endpoints (Code Understanding)
