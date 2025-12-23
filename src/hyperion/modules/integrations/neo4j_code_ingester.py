@@ -213,8 +213,6 @@ class Neo4jCodeIngester:
 
     def _create_class_method_relations(self, tx, repo_name: str, functions: list[dict]) -> int:
         """Crée les relations Class->Method."""
-        methods_count = 0
-
         query = """
         UNWIND $methods AS method
         MATCH (c:Class {repo: $repo})

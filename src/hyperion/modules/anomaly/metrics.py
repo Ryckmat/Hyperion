@@ -71,7 +71,7 @@ class CodeMetrics:
 
         return complexity
 
-    def _calculate_maintainability(self, tree: ast.AST) -> float:
+    def _calculate_maintainability(self, tree: ast.AST) -> float:  # noqa: ARG002
         """
         Calcule l'indice de maintenabilité (0-100).
 
@@ -92,7 +92,7 @@ class CodeMetrics:
 
         return comment_lines / (code_lines + comment_lines)
 
-    def calculate_duplication(self, repo_path: Path) -> dict[str, Any]:
+    def calculate_duplication(self, repo_path: Path) -> dict[str, Any]:  # noqa: ARG002
         """
         Détecte la duplication de code.
 

@@ -74,7 +74,7 @@ async def get_repo_functions(repo_name: str, limit: int = 50):
         return {"repo": repo_name, "functions": functions, "count": len(functions)}
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erreur Neo4j: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Erreur Neo4j: {str(e)}") from e
 
 
 @router.get("/repos/{repo_name}/classes")
@@ -116,7 +116,7 @@ async def get_repo_classes(repo_name: str, limit: int = 30):
         return {"repo": repo_name, "classes": classes, "count": len(classes)}
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erreur Neo4j: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Erreur Neo4j: {str(e)}") from e
 
 
 @router.get("/repos/{repo_name}/stats")
@@ -137,7 +137,7 @@ async def get_repo_code_stats(repo_name: str):
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erreur Neo4j: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Erreur Neo4j: {str(e)}") from e
 
 
 # ============================================================================
@@ -170,7 +170,7 @@ async def search_code(request: CodeSearchRequest):
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erreur recherche: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Erreur recherche: {str(e)}") from e
 
 
 @router.get("/understanding/{repo_name}/explore")
@@ -230,7 +230,7 @@ async def explore_codebase(repo_name: str, pattern: str = ""):
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erreur exploration: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Erreur exploration: {str(e)}") from e
 
 
 # ============================================================================
@@ -317,7 +317,7 @@ async def analyze_impact(request: ImpactAnalysisRequest):
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erreur impact analysis: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Erreur impact analysis: {str(e)}") from e
 
 
 # ============================================================================
@@ -422,7 +422,7 @@ async def scan_anomalies(request: AnomalyRequest):
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erreur anomaly detection: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Erreur anomaly detection: {str(e)}") from e
 
 
 # ============================================================================

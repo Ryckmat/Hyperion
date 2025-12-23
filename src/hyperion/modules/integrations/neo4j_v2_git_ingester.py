@@ -1,5 +1,6 @@
 """Ingestion Neo4j v2 - Git History avec tracking Commit->Contributor->File."""
 
+import contextlib
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -118,10 +119,8 @@ class Neo4jV2GitIngester:
         ]
 
         for constraint in constraints:
-            try:
-                tx.run(constraint)
-            except Exception:
-                pass  # Contrainte existe déjà
+            with contextlib.suppress(Exception):
+                tx.run(constraint)  # Contrainte existe déjà si échec
 
     def _extract_contributors(self, repo_path: Path) -> list[dict[str, Any]]:
         """Extrait la liste des contributeurs."""
@@ -247,10 +246,7 @@ class Neo4jV2GitIngester:
 
             # Extraire le directory parent
             path_obj = Path(file_path)
-            if path_obj.parent == Path("."):
-                directory = "."  # Root directory
-            else:
-                directory = str(path_obj.parent)
+            directory = "." if path_obj.parent == Path(".") else str(path_obj.parent)
 
             if directory not in directory_files:
                 directory_files[directory] = []

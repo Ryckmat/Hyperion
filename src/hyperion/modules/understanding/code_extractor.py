@@ -80,7 +80,7 @@ class CodeExtractor:
                 and isinstance(tree.body[0].value, ast.Str)
             ):
                 return tree.body[0].value.s[:200] + "..."
-        except:
+        except (SyntaxError, ValueError, AttributeError):
             pass
 
         # Sinon utiliser premiers commentaires
@@ -128,7 +128,9 @@ class CodeExtractor:
 
         return result
 
-    def _extract_function(self, node: ast.FunctionDef, file_path: str, content: str) -> dict:
+    def _extract_function(
+        self, node: ast.FunctionDef, file_path: str, content: str
+    ) -> dict:  # noqa: ARG002
         """Extrait info d'une fonction."""
         # Docstring
         docstring = ast.get_docstring(node) or "Aucune documentation"
@@ -152,7 +154,9 @@ class CodeExtractor:
             "is_private": node.name.startswith("_"),
         }
 
-    def _extract_class(self, node: ast.ClassDef, file_path: str, content: str) -> dict:
+    def _extract_class(
+        self, node: ast.ClassDef, file_path: str, content: str
+    ) -> dict:  # noqa: ARG002
         """Extrait info d'une classe."""
         # Docstring
         docstring = ast.get_docstring(node) or "Aucune documentation"

@@ -17,7 +17,7 @@ class RefactoringSuggestions:
         """Initialise le générateur."""
         self.repo_path = Path(repo_path)
 
-    def analyze_file(self, file_path: Path) -> list[dict[str, Any]]:
+    def analyze_file(self, file_path: Path) -> list[dict[str, Any]]:  # noqa: ARG002
         """
         Analyse un fichier et génère suggestions.
 
