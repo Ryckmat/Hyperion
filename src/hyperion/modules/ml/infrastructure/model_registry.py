@@ -293,6 +293,10 @@ class ModelRegistry:
         metadata["status"] = status
         metadata["promoted_at"] = datetime.now().isoformat()
 
+        # Convertir datetime en string pour JSON
+        if 'created_at' in metadata and isinstance(metadata['created_at'], datetime):
+            metadata['created_at'] = metadata['created_at'].isoformat()
+
         # Sauvegarder
         with open(metadata_path, "w", encoding="utf-8") as f:
             json.dump(metadata, f, indent=2, ensure_ascii=False)
