@@ -35,7 +35,7 @@ def test_cli_version(runner):
     """Test affichage de la version."""
     result = runner.invoke(cli, ["--version"])
     assert result.exit_code == 0
-    assert "2.5.0-dev" in result.output
+    assert "2.5.0" in result.output
 
 
 def test_profile_command_help(runner):
