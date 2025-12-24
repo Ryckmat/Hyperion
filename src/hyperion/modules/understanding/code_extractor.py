@@ -74,11 +74,7 @@ class CodeExtractor:
         # Extraire docstring module si disponible
         try:
             tree = ast.parse(content)
-            if (
-                tree.body
-                and isinstance(tree.body[0], ast.Expr)
-                and isinstance(tree.body[0].value, ast.Str)
-            ):
+            if tree.body and isinstance(tree.body[0], ast.Expr) and isinstance(tree.body[0].value, ast.Str):
                 return tree.body[0].value.s[:200] + "..."
         except (SyntaxError, ValueError, AttributeError):
             pass

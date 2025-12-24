@@ -108,9 +108,7 @@ class GitAnalyzer:
                 "last_commit": last_date[:10] if last_date else None,
                 "contributors": len(contributors),
                 "recent_commits_90d": recent_commits,
-                "hotspots_top10": [
-                    {"path": path, "changes": changes} for path, changes in hotspots_top10
-                ],
+                "hotspots_top10": [{"path": path, "changes": changes} for path, changes in hotspots_top10],
                 "contributors_top10": contributors_top10,
                 "by_extension": by_extension[:10],
                 "directories_top": directories_top[:10],
@@ -293,10 +291,7 @@ class GitAnalyzer:
             ext_changes[ext] += add + delete
 
         # Convertir en liste
-        result = [
-            {"ext": ext, "files": len(files), "changes": ext_changes[ext]}
-            for ext, files in ext_files.items()
-        ]
+        result = [{"ext": ext, "files": len(files), "changes": ext_changes[ext]} for ext, files in ext_files.items()]
 
         return sorted(result, key=lambda x: x["changes"], reverse=True)
 
@@ -350,9 +345,7 @@ class GitAnalyzer:
         avg_commits_per_year = round(len(commits) / years, 1)
 
         # Moyenne changements par hotspot
-        avg_changes_per_hotspot = (
-            round(sum(ch for _, ch in hotspots[:10]) / len(hotspots[:10]), 1) if hotspots else 0
-        )
+        avg_changes_per_hotspot = round(sum(ch for _, ch in hotspots[:10]) / len(hotspots[:10]), 1) if hotspots else 0
 
         # Ratios code/tests/docs
         code_changes = 0
@@ -372,10 +365,7 @@ class GitAnalyzer:
 
             # Code (heuristique : dossiers src/, lib/, module principal)
             # Détection automatique du package principal par nom du repo
-            if (
-                path_lower.startswith(("src/", "lib/", f"{self.repo_name}/"))
-                and Path(path).suffix == ".py"
-            ):
+            if path_lower.startswith(("src/", "lib/", f"{self.repo_name}/")) and Path(path).suffix == ".py":
                 code_changes += changes
 
             # Tests
@@ -395,9 +385,7 @@ class GitAnalyzer:
         # Densité changements par fichier .py
         py_entry = next((e for e in by_extension if e["ext"] == ".py"), None)
         py_changes_per_file = (
-            round(py_entry["changes"] / py_entry["files"], 1)
-            if py_entry and py_entry["files"] > 0
-            else 0
+            round(py_entry["changes"] / py_entry["files"], 1) if py_entry and py_entry["files"] > 0 else 0
         )
 
         return {

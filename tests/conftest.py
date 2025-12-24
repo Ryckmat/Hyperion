@@ -121,9 +121,7 @@ def large_repo(tmp_path):
         (module_dir / "__init__.py").write_text("")
 
         # Fichier avec imports de 3 autres modules
-        imports = "\n".join(
-            [f"from module_{(i-1) % 100:03d}.logic import func_{(i-1) % 100}" for _ in range(3)]
-        )
+        imports = "\n".join([f"from module_{(i-1) % 100:03d}.logic import func_{(i-1) % 100}" for _ in range(3)])
 
         (module_dir / "logic.py").write_text(
             f"""

@@ -164,13 +164,9 @@ class DangerousPatterns:
         """Calcule un score de risque global."""
         severity_weights = {"low": 0.2, "medium": 0.5, "high": 0.9, "critical": 1.0}
 
-        security_score = sum(
-            severity_weights.get(f.get("severity", "low"), 0.5) for f in security_findings
-        )
+        security_score = sum(severity_weights.get(f.get("severity", "low"), 0.5) for f in security_findings)
 
-        rgpd_score = sum(
-            severity_weights.get(v.get("severity", "low"), 0.5) for v in rgpd_violations
-        )
+        rgpd_score = sum(severity_weights.get(v.get("severity", "low"), 0.5) for v in rgpd_violations)
 
         total = security_score + rgpd_score
         return min(total / 10, 1.0)  # Normalisé sur 10 issues max

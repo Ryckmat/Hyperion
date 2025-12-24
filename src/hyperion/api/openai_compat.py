@@ -78,10 +78,7 @@ def chat_completions(body: ChatCompletionsIn):
     if sources:
         answer += "\n\n---\n**Sources:**\n"
         for _i, src in enumerate(sources[:3], 1):
-            answer += (
-                f"- [{src.get('repo','?')}/{src.get('section','?')}] "
-                f"(score: {src.get('score',0):.2f})\n"
-            )
+            answer += f"- [{src.get('repo','?')}/{src.get('section','?')}] " f"(score: {src.get('score',0):.2f})\n"
 
     return {
         "id": f"chatcmpl-{int(time.time())}",
