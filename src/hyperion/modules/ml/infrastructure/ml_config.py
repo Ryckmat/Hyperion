@@ -18,7 +18,8 @@ class ModelConfig(BaseModel):
     type: str = Field(..., description="Type: RandomForest, XGBoost, IsolationForest, etc.")
     version: str = Field(default="1.0.0", description="Version du modèle")
     path: str | None = Field(default=None, description="Chemin du modèle sauvegardé")
-    hyperparameters: dict[str, Any] = Field(default_factory=dict, description="Hyperparamètres")
+    hyperparameters: dict[str, Any] = Field(..., description="Hyperparamètres")
+    description: str | None = Field(default=None, description="Description du modèle")
 
     @validator("type")
     def validate_model_type(cls, v):
@@ -39,8 +40,8 @@ class ModelConfig(BaseModel):
 class FeatureConfig(BaseModel):
     """Configuration des features ML."""
 
-    # Features code metrics (12)
-    complexity_features: list[str] = Field(
+    # Features qualité code (12)
+    code_quality_features: list[str] = Field(
         default=[
             "complexite_cyclomatique",
             "complexite_cognitive",
@@ -57,35 +58,12 @@ class FeatureConfig(BaseModel):
         ]
     )
 
-    # Features Git history (8)
-    git_features: list[str] = Field(
+    # Features team dynamics (8)
+    team_dynamics_features: list[str] = Field(
         default=[
             "frequence_commits",
             "experience_auteur",
-            "age_fichier_jours",
-            "nb_bugs_historiques",
-            "frequence_rollbacks",
-            "nb_hotfixes",
             "nb_contributeurs_uniques",
-            "volatilite_fichier",
-        ]
-    )
-
-    # Features dépendances (6)
-    dependency_features: list[str] = Field(
-        default=[
-            "profondeur_dependances",
-            "nb_dependances_circulaires",
-            "nb_deps_externes",
-            "risque_breaking_changes",
-            "nb_conflits_versions",
-            "fan_in_fan_out",
-        ]
-    )
-
-    # Features team dynamics (5)
-    team_features: list[str] = Field(
-        default=[
             "experience_moyenne_reviewers",
             "vitesse_approbation",
             "nb_discussions_pr",
@@ -95,19 +73,42 @@ class FeatureConfig(BaseModel):
     )
 
     # Features business impact (4)
-    business_features: list[str] = Field(
+    business_impact_features: list[str] = Field(
         default=["estimation_trafic_affecte", "score_impact_revenus", "niveau_criticite_module", "difficulte_rollback"]
+    )
+
+    # Features historiques (6)
+    historical_features: list[str] = Field(
+        default=[
+            "age_fichier_jours",
+            "nb_bugs_historiques",
+            "frequence_rollbacks",
+            "nb_hotfixes",
+            "volatilite_fichier",
+            "profondeur_dependances"
+        ]
+    )
+
+    # Features temporelles (5)
+    temporal_features: list[str] = Field(
+        default=[
+            "nb_dependances_circulaires",
+            "nb_deps_externes",
+            "risque_breaking_changes",
+            "nb_conflits_versions",
+            "fan_in_fan_out"
+        ]
     )
 
     @property
     def all_features(self) -> list[str]:
         """Retourne toutes les features combinées."""
         return (
-            self.complexity_features
-            + self.git_features
-            + self.dependency_features
-            + self.team_features
-            + self.business_features
+            self.code_quality_features
+            + self.team_dynamics_features
+            + self.business_impact_features
+            + self.historical_features
+            + self.temporal_features
         )
 
 
@@ -138,7 +139,7 @@ class MLFlowConfig(BaseModel):
 
     # Tags par défaut
     default_tags: dict[str, str] = Field(
-        default={"project": "hyperion", "version": "3.0.0-dev", "team": "hyperion-dev"}
+        default={"project": "hyperion", "version": "3.0.0", "team": "hyperion-dev"}
     )
 
 
@@ -176,7 +177,7 @@ class MLConfig:
     def _setup_default_models(self):
         """Configure les modèles par défaut."""
         self.models = {
-            "risk_predictor_rf": ModelConfig(
+            "risk_predictor_random_forest": ModelConfig(
                 name="risk_predictor_random_forest",
                 type="RandomForest",
                 hyperparameters={
@@ -188,7 +189,7 @@ class MLConfig:
                     "random_state": 42,
                 },
             ),
-            "risk_predictor_xgb": ModelConfig(
+            "risk_predictor_xgboost": ModelConfig(
                 name="risk_predictor_xgboost",
                 type="XGBoost",
                 hyperparameters={
@@ -201,12 +202,12 @@ class MLConfig:
                 },
             ),
             "anomaly_detector": ModelConfig(
-                name="anomaly_isolation_forest",
+                name="anomaly_detector",
                 type="IsolationForest",
                 hyperparameters={"contamination": 0.1, "max_samples": 256, "random_state": 42, "n_jobs": -1},
             ),
             "bug_predictor": ModelConfig(
-                name="bug_predictor_xgboost",
+                name="bug_predictor",
                 type="XGBoost",
                 hyperparameters={
                     "n_estimators": 200,

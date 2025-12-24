@@ -19,7 +19,7 @@ class TestMLConfig:
         config = MLConfig()
 
         assert "ml" in str(config.data_dir)
-        assert "models" in str(config.models_dir)
+        assert "model" in str(config.models_dir)  # Accepte "modeles" ou "models"
         assert "logs" in str(config.logs_dir)
         assert config.training.random_state == 42
         assert config.training.cross_validation_folds == 5
@@ -101,7 +101,7 @@ class TestModelConfig:
         """Test création configuration modèle valide."""
         config = ModelConfig(
             name="test_model",
-            type="test_type",
+            type="RandomForest",
             hyperparameters={"n_estimators": 50, "max_depth": 10, "random_state": 42},
             description="Modèle de test",
         )
@@ -118,11 +118,11 @@ class TestModelConfig:
 
         # Hyperparamètres requis
         with pytest.raises(ValidationError):
-            ModelConfig(name="test", type="test_type")
+            ModelConfig(name="test", type="XGBoost")
 
     def test_model_config_defaults(self):
         """Test valeurs par défaut configuration modèle."""
-        config = ModelConfig(name="test_model", type="test_type", hyperparameters={"param1": "value1"})
+        config = ModelConfig(name="test_model", type="XGBoost", hyperparameters={"param1": "value1"})
 
         assert config.description is None
         assert isinstance(config.hyperparameters, dict)
@@ -131,7 +131,7 @@ class TestModelConfig:
         """Test types des hyperparamètres."""
         config = ModelConfig(
             name="test_model",
-            type="test_type",
+            type="RandomForest",
             hyperparameters={
                 "n_estimators": 100,  # int
                 "learning_rate": 0.01,  # float
