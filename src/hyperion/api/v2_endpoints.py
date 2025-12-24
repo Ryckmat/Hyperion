@@ -128,9 +128,7 @@ async def get_repo_code_stats(repo_name: str):
         ingester.close()
 
         if stats["functions"] == 0 and stats["classes"] == 0:
-            raise HTTPException(
-                status_code=404, detail=f"Repo '{repo_name}' non trouvé dans Neo4j v2"
-            )
+            raise HTTPException(status_code=404, detail=f"Repo '{repo_name}' non trouvé dans Neo4j v2")
 
         return {"repo": repo_name, **stats}
 
@@ -277,9 +275,7 @@ async def analyze_impact(request: ImpactAnalysisRequest):
 
             affected_classes = []
             for record in result:
-                affected_classes.append(
-                    {"name": record["c.name"], "methods": record["c.methods"], "impact": "DIRECT"}
-                )
+                affected_classes.append({"name": record["c.name"], "methods": record["c.methods"], "impact": "DIRECT"})
 
             # Impact potentiel : fichiers qui importent ce module
             result = session.run(

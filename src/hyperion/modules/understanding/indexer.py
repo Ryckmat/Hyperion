@@ -157,11 +157,7 @@ class CodeIndexer:
 
         for node in ast.walk(tree):
             if isinstance(node, ast.ClassDef):
-                methods = [
-                    n.name
-                    for n in node.body
-                    if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef))
-                ]
+                methods = [n.name for n in node.body if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef))]
                 classes.append(
                     {
                         "name": node.name,

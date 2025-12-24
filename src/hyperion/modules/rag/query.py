@@ -82,9 +82,7 @@ class RAGQueryEngine:
         # 2. Recherche dans Qdrant (API v1.7+)
         search_filter = None
         if repo_filter:
-            search_filter = Filter(
-                must=[FieldCondition(key="repo", match=MatchValue(value=repo_filter))]
-            )
+            search_filter = Filter(must=[FieldCondition(key="repo", match=MatchValue(value=repo_filter))])
 
         search_results = self.qdrant_client.query_points(
             collection_name=self.collection_name,
@@ -124,9 +122,7 @@ class RAGQueryEngine:
             "repo_filter": repo_filter,
         }
 
-    def chat(
-        self, question: str, repo: str | None = None, history: list[dict] | None = None
-    ) -> dict:
+    def chat(self, question: str, repo: str | None = None, history: list[dict] | None = None) -> dict:
         """
         Chat avec historique de conversation.
 
