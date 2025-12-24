@@ -1,1 +1,1 @@
-__version__ = "2.5.0-dev"  # Préparation v3.0 Enterprise Ready
+__version__ = "2.5.0"  # Enterprise Ready with ML Infrastructure
