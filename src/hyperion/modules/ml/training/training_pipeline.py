@@ -44,9 +44,10 @@ class TrainingPipeline:
     5. Sauvegarde avec versioning
     """
 
-    def __init__(self):
+    def __init__(self, model_registry_override=None):
         """Initialise le pipeline d'entraînement."""
         self.config = ml_config
+        self.model_registry = model_registry_override or model_registry
         self.trained_models = {}
         self.training_results = {}
 
@@ -156,7 +157,7 @@ class TrainingPipeline:
 
     def _train_random_forest(self, X_train, y_train, X_test, y_test) -> tuple[Any, dict]:
         """Entraîne le modèle Random Forest."""
-        config = self.config.get_model_config("risk_predictor_rf")
+        config = self.config.get_model_config("risk_predictor_random_forest")
 
         model = RandomForestClassifier(**config.hyperparameters)
 
@@ -186,7 +187,7 @@ class TrainingPipeline:
 
     def _train_xgboost(self, X_train, y_train, X_test, y_test) -> tuple[Any, dict]:
         """Entraîne le modèle XGBoost."""
-        config = self.config.get_model_config("risk_predictor_xgb")
+        config = self.config.get_model_config("risk_predictor_xgboost")
 
         model = XGBClassifier(**config.hyperparameters)
 
@@ -308,9 +309,9 @@ class TrainingPipeline:
                     best_model = {
                         "name": model_name,
                         "f1": f1_score,
-                        "accuracy": results["metrics"]["accuracy"],
-                        "precision": results["metrics"]["precision"],
-                        "recall": results["metrics"]["recall"],
+                        "accuracy": results["metrics"].get("accuracy", 0.0),
+                        "precision": results["metrics"].get("precision", 0.0),
+                        "recall": results["metrics"].get("recall", 0.0),
                     }
 
         return best_model
@@ -324,7 +325,6 @@ class TrainingPipeline:
 
                 # Métadonnées pour le registry
                 metadata = {
-                    "model_type": results.get("model_type", model_name),
                     "accuracy": results.get("metrics", {}).get("accuracy"),
                     "precision": results.get("metrics", {}).get("precision"),
                     "recall": results.get("metrics", {}).get("recall"),
@@ -341,7 +341,7 @@ class TrainingPipeline:
 
                 # Sauvegarde
                 try:
-                    version = model_registry.save_model(
+                    version = self.model_registry.save_model(
                         model=model,
                         name=f"risk_predictor_{model_name}",
                         model_type=results.get("model_type", model_name),
@@ -410,7 +410,7 @@ class TrainingPipeline:
                 **{f"metric_{k}": v for k, v in metrics.items() if isinstance(v, (int, float))},
             }
 
-            model_registry.save_model(
+            self.model_registry.save_model(
                 model=model, name="bug_predictor_xgboost", model_type="XGBoost", metadata=metadata
             )
 
@@ -421,14 +421,14 @@ class TrainingPipeline:
         """Valide tous les modèles entraînés."""
         print("🔍 Validation de tous les modèles...")
 
-        models_info = model_registry.list_models()
+        models_info = self.model_registry.list_models()
         validation_results = {}
 
         for model_info in models_info:
             if model_info["status"] == "trained":
                 try:
                     # Charger modèle
-                    model, metadata = model_registry.load_model(
+                    model, metadata = self.model_registry.load_model(
                         model_info["name"], model_info["version"], return_metadata=True
                     )
 

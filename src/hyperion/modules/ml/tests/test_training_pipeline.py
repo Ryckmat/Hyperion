@@ -215,18 +215,22 @@ class TestTrainingPipeline:
         assert "temporal_split" in results
         assert results["temporal_split"] is True
 
-    def test_validate_all_models_empty(self, pipeline):
+    def test_validate_all_models_empty(self, mock_ml_config):
         """Test validation modèles sans modèles."""
         # Mock model_registry vide
-        with patch("hyperion.modules.ml.infrastructure.model_registry.model_registry") as mock_registry:
-            mock_registry.list_models.return_value = []
+        mock_registry = MagicMock()
+        mock_registry.list_models.return_value = []
 
-            results = pipeline.validate_all_models()
+        # Pipeline avec mock registry
+        pipeline = TrainingPipeline(model_registry_override=mock_registry)
+        pipeline.config = mock_ml_config
 
-            assert isinstance(results, dict)
-            assert len(results) == 0
+        results = pipeline.validate_all_models()
 
-    def test_validate_all_models_with_models(self, pipeline):
+        assert isinstance(results, dict)
+        assert len(results) == 0
+
+    def test_validate_all_models_with_models(self, mock_ml_config):
         """Test validation avec modèles."""
         # Mock model_registry avec modèles
         mock_models = [
@@ -239,21 +243,32 @@ class TestTrainingPipeline:
         mock_metadata.f1_score = 0.93
         mock_metadata.training_samples = 1000
 
-        with patch("hyperion.modules.ml.infrastructure.model_registry.model_registry") as mock_registry:
-            mock_registry.list_models.return_value = mock_models
-            mock_registry.load_model.return_value = (MagicMock(), mock_metadata)
+        mock_registry = MagicMock()
+        mock_registry.list_models.return_value = mock_models
+        mock_registry.load_model.return_value = (MagicMock(), mock_metadata)
 
-            results = pipeline.validate_all_models()
+        # Pipeline avec mock registry
+        pipeline = TrainingPipeline(model_registry_override=mock_registry)
+        pipeline.config = mock_ml_config
 
-            assert len(results) == 2
-            for model_name in ["test_model_1", "test_model_2"]:
-                assert model_name in results
-                assert results[model_name]["loadable"] is True
-                assert results[model_name]["status"] == "validé"
+        results = pipeline.validate_all_models()
 
-    @patch("hyperion.modules.ml.infrastructure.model_registry.model_registry")
-    def test_save_trained_models(self, mock_registry, pipeline):
+        assert len(results) == 2
+        for model_name in ["test_model_1", "test_model_2"]:
+            assert model_name in results
+            assert results[model_name]["loadable"] is True
+            assert results[model_name]["status"] == "validé"
+
+    def test_save_trained_models(self, mock_ml_config):
         """Test sauvegarde modèles entraînés."""
+        # Mock registry
+        mock_registry = MagicMock()
+        mock_registry.save_model.return_value = "1.0.0"
+
+        # Pipeline avec mock registry
+        pipeline = TrainingPipeline(model_registry_override=mock_registry)
+        pipeline.config = mock_ml_config
+
         # Mock modèles
         mock_model = MagicMock()
         models = {"test_model": mock_model}
@@ -270,8 +285,6 @@ class TestTrainingPipeline:
             "feature_names": ["feature1", "feature2"],
             "training_samples": 1000,
         }
-
-        mock_registry.save_model.return_value = "1.0.0"
 
         # Appeler méthode
         pipeline._save_trained_models(models, training_results)
