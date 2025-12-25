@@ -67,9 +67,7 @@ class ImpactAnalyzer:
     def _extract_functions(self, tree: ast.AST) -> list[str]:
         """Extrait les noms de fonctions d'un AST."""
         # TODO: Implémenter extraction fonctions
-        return [
-            node.name for node in ast.walk(tree) if isinstance(node, ast.FunctionDef)
-        ]
+        return [node.name for node in ast.walk(tree) if isinstance(node, ast.FunctionDef)]
 
     def _extract_classes(self, tree: ast.AST) -> list[str]:
         """Extrait les noms de classes d'un AST."""

@@ -105,9 +105,7 @@ class TrainingPipeline:
 
         # Random Forest
         print("🌳 2. Entraînement Random Forest...")
-        rf_model, rf_results = self._train_random_forest(
-            X_train, y_train, X_test, y_test
-        )
+        rf_model, rf_results = self._train_random_forest(X_train, y_train, X_test, y_test)
         models_results["random_forest"] = rf_results
 
         # XGBoost
@@ -117,9 +115,7 @@ class TrainingPipeline:
 
         # Isolation Forest (pour détection anomalies)
         print("🎯 4. Entraînement Isolation Forest...")
-        iso_model, iso_results = self._train_isolation_forest(
-            X_train, y_train, X_test, y_test
-        )
+        iso_model, iso_results = self._train_isolation_forest(X_train, y_train, X_test, y_test)
         models_results["isolation_forest"] = iso_results
 
         # Meta-learner pour ensemble
@@ -163,9 +159,7 @@ class TrainingPipeline:
 
         return results
 
-    def _train_random_forest(
-        self, X_train, y_train, X_test, y_test
-    ) -> tuple[Any, dict]:
+    def _train_random_forest(self, X_train, y_train, X_test, y_test) -> tuple[Any, dict]:
         """Entraîne le modèle Random Forest."""
         config = self.config.get_model_config("risk_predictor_random_forest")
 
@@ -236,8 +230,8 @@ class TrainingPipeline:
         return model, results
 
     def _train_isolation_forest(
-        self, X_train, y_train, X_test, y_test
-    ) -> tuple[Any, dict]:  # noqa: ARG002
+        self, X_train, y_train, X_test, y_test  # noqa: ARG002
+    ) -> tuple[Any, dict]:
         """Entraîne l'Isolation Forest pour détection d'anomalies."""
         config = self.config.get_model_config("anomaly_detector")
 
@@ -309,23 +303,17 @@ class TrainingPipeline:
 
         return ensemble_model, results
 
-    def _calculate_metrics(
-        self, y_true, y_pred, y_proba=None
-    ) -> dict[str, float]:  # noqa: ARG002
+    def _calculate_metrics(self, y_true, y_pred, y_proba=None) -> dict[str, float]:  # noqa: ARG002
         """Calcule les métriques de performance."""
         metrics = {
             "accuracy": accuracy_score(y_true, y_pred),
-            "precision": precision_score(
-                y_true, y_pred, average="weighted", zero_division=0
-            ),
+            "precision": precision_score(y_true, y_pred, average="weighted", zero_division=0),
             "recall": recall_score(y_true, y_pred, average="weighted", zero_division=0),
             "f1": f1_score(y_true, y_pred, average="weighted", zero_division=0),
         }
 
         # Ajouter classification report
-        report = classification_report(
-            y_true, y_pred, output_dict=True, zero_division=0
-        )
+        report = classification_report(y_true, y_pred, output_dict=True, zero_division=0)
         metrics["classification_report"] = report
 
         return metrics
@@ -432,9 +420,7 @@ class TrainingPipeline:
         results = {
             "model_type": "BugPredictor",
             "metrics": metrics,
-            "feature_importance": dict(
-                zip(feature_cols, model.feature_importances_, strict=True)
-            ),
+            "feature_importance": dict(zip(feature_cols, model.feature_importances_, strict=True)),
             "temporal_split": True,
             "training_samples": len(X_train),
         }
@@ -444,11 +430,7 @@ class TrainingPipeline:
                 "model_type": "XGBoost",
                 "purpose": "bug_prediction",
                 "horizon_days": 30,
-                **{
-                    f"metric_{k}": v
-                    for k, v in metrics.items()
-                    if isinstance(v, (int, float))
-                },
+                **{f"metric_{k}": v for k, v in metrics.items() if isinstance(v, (int, float))},
             }
 
             self.model_registry.save_model(

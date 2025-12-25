@@ -49,17 +49,13 @@ class RAGQueryEngine:
         # Modèle embeddings avec fallback automatique
         print("📥 Chargement modèle embeddings...")
         try:
-            self.embedding_model = SentenceTransformer(
-                EMBEDDING_MODEL, device=EMBEDDING_DEVICE
-            )
+            self.embedding_model = SentenceTransformer(EMBEDDING_MODEL, device=EMBEDDING_DEVICE)
             print(f"✅ Embeddings prêts ({EMBEDDING_DEVICE})")
         except Exception as e:
             if EMBEDDING_DEVICE == "cuda":
                 print(f"⚠️ Erreur GPU embeddings: {e}")
                 print("🔄 Fallback automatique vers CPU...")
-                self.embedding_model = SentenceTransformer(
-                    EMBEDDING_MODEL, device="cpu"
-                )
+                self.embedding_model = SentenceTransformer(EMBEDDING_MODEL, device="cpu")
                 print("✅ Embeddings prêts (cpu - fallback)")
             else:
                 raise
@@ -75,9 +71,7 @@ class RAGQueryEngine:
         )
         print("✅ LLM prêt")
 
-    def query(
-        self, question: str, repo_filter: str | None = None, top_k: int = LLM_TOP_K
-    ) -> dict:
+    def query(self, question: str, repo_filter: str | None = None, top_k: int = LLM_TOP_K) -> dict:
         """
         Répond à une question via RAG (optimisé <3s).
 
@@ -110,9 +104,7 @@ class RAGQueryEngine:
             search_filter = None
             if repo_filter:
                 search_filter = Filter(
-                    must=[
-                        FieldCondition(key="repo", match=MatchValue(value=repo_filter))
-                    ]
+                    must=[FieldCondition(key="repo", match=MatchValue(value=repo_filter))]
                 )
 
             search_results = self.qdrant_client.query_points(
@@ -147,9 +139,7 @@ class RAGQueryEngine:
             context = "\n\n---\n\n".join(context_parts)
 
             # 4. Construire prompt (optimisé)
-            full_prompt = QUERY_PROMPT_TEMPLATE.format(
-                context=context, question=question
-            )
+            full_prompt = QUERY_PROMPT_TEMPLATE.format(context=context, question=question)
 
             # 5. Appeler LLM avec timeout
             answer = self.llm.invoke(full_prompt)

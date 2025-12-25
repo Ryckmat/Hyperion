@@ -178,9 +178,7 @@ class TestMLConfigIntegration:
 
         # Vérifier qu'il n'y a pas de doublons
         all_features = config.features.all_features
-        assert len(all_features) == len(
-            set(all_features)
-        ), "Pas de doublons dans les features"
+        assert len(all_features) == len(set(all_features)), "Pas de doublons dans les features"
 
     def test_model_configs_completeness(self):
         """Test complétude des configurations modèles."""

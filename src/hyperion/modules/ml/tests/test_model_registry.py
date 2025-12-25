@@ -139,9 +139,7 @@ class TestModelRegistry:
         assert model_info["training_samples"] == 1000
         assert model_info["tags"]["experiment"] == "test"
 
-    def test_save_model_explicit_version(
-        self, mock_model_registry, sample_sklearn_model
-    ):
+    def test_save_model_explicit_version(self, mock_model_registry, sample_sklearn_model):
         """Test sauvegarde avec version explicite."""
         registry = mock_model_registry
 
@@ -172,15 +170,9 @@ class TestModelRegistry:
         registry = mock_model_registry
 
         # Sauvegarder plusieurs versions
-        registry.save_model(
-            sample_sklearn_model, "test_latest", "RandomForest", version="1.0.0"
-        )
-        registry.save_model(
-            sample_sklearn_model, "test_latest", "RandomForest", version="1.1.0"
-        )
-        registry.save_model(
-            sample_sklearn_model, "test_latest", "RandomForest", version="2.0.0"
-        )
+        registry.save_model(sample_sklearn_model, "test_latest", "RandomForest", version="1.0.0")
+        registry.save_model(sample_sklearn_model, "test_latest", "RandomForest", version="1.1.0")
+        registry.save_model(sample_sklearn_model, "test_latest", "RandomForest", version="2.0.0")
 
         # Charger dernière version (sans spécifier)
         loaded_model = registry.load_model("test_latest")
@@ -197,9 +189,7 @@ class TestModelRegistry:
         )
 
         # Charger avec métadonnées
-        model, meta = registry.load_model(
-            "test_with_meta", version, return_metadata=True
-        )
+        model, meta = registry.load_model("test_with_meta", version, return_metadata=True)
 
         assert model is not None
         assert meta.accuracy == 0.95
@@ -278,9 +268,7 @@ class TestModelRegistry:
         """Test promotion modèle."""
         registry = mock_model_registry
 
-        version = registry.save_model(
-            sample_sklearn_model, "test_promote", "RandomForest"
-        )
+        version = registry.save_model(sample_sklearn_model, "test_promote", "RandomForest")
 
         # Promouvoir en production
         registry.promote_model("test_promote", version, "production")
@@ -294,9 +282,7 @@ class TestModelRegistry:
         """Test suppression modèle."""
         registry = mock_model_registry
 
-        version = registry.save_model(
-            sample_sklearn_model, "test_delete", "RandomForest"
-        )
+        version = registry.save_model(sample_sklearn_model, "test_delete", "RandomForest")
 
         # Vérifier existence
         model_file = registry.models_dir / f"test_delete_v{version}.pkl"
@@ -311,15 +297,11 @@ class TestModelRegistry:
         assert not model_file.exists()
         assert not metadata_file.exists()
 
-    def test_delete_model_without_confirm(
-        self, mock_model_registry, sample_sklearn_model
-    ):
+    def test_delete_model_without_confirm(self, mock_model_registry, sample_sklearn_model):
         """Test suppression sans confirmation."""
         registry = mock_model_registry
 
-        version = registry.save_model(
-            sample_sklearn_model, "test_no_confirm", "RandomForest"
-        )
+        version = registry.save_model(sample_sklearn_model, "test_no_confirm", "RandomForest")
 
         with pytest.raises(ValueError, match="confirm=True"):
             registry.delete_model("test_no_confirm", version)
@@ -340,27 +322,17 @@ class TestModelRegistry:
         v3 = registry.save_model(sample_sklearn_model, "test_versions", "RandomForest")
         assert v3 == "1.2.0"
 
-    def test_version_generation_with_packaging(
-        self, mock_model_registry, sample_sklearn_model
-    ):
+    def test_version_generation_with_packaging(self, mock_model_registry, sample_sklearn_model):
         """Test génération versions avec packaging."""
         registry = mock_model_registry
 
         # Versions dans le désordre
-        registry.save_model(
-            sample_sklearn_model, "test_packaging", "RandomForest", version="1.0.0"
-        )
-        registry.save_model(
-            sample_sklearn_model, "test_packaging", "RandomForest", version="2.0.0"
-        )
-        registry.save_model(
-            sample_sklearn_model, "test_packaging", "RandomForest", version="1.5.0"
-        )
+        registry.save_model(sample_sklearn_model, "test_packaging", "RandomForest", version="1.0.0")
+        registry.save_model(sample_sklearn_model, "test_packaging", "RandomForest", version="2.0.0")
+        registry.save_model(sample_sklearn_model, "test_packaging", "RandomForest", version="1.5.0")
 
         # Nouvelle version automatique
-        new_version = registry.save_model(
-            sample_sklearn_model, "test_packaging", "RandomForest"
-        )
+        new_version = registry.save_model(sample_sklearn_model, "test_packaging", "RandomForest")
 
         # Doit être supérieure à 2.0.0
         from packaging import version
@@ -427,9 +399,7 @@ class TestModelRegistryMLflow:
         # MLflow calls sont mockés, on vérifie juste que ça n'échoue pas
 
     @patch("mlflow.start_run")
-    def test_mlflow_error_handling(
-        self, mock_start_run, mock_model_registry, sample_sklearn_model
-    ):
+    def test_mlflow_error_handling(self, mock_start_run, mock_model_registry, sample_sklearn_model):
         """Test gestion erreurs MLflow."""
         registry = mock_model_registry
 
@@ -477,18 +447,14 @@ class TestModelRegistryIntegration:
         assert info["status"] == "production"
 
         # 6. Nouvelle version
-        v2 = registry.save_model(
-            sample_sklearn_model, "lifecycle_model", "RandomForest"
-        )
+        v2 = registry.save_model(sample_sklearn_model, "lifecycle_model", "RandomForest")
         assert v2 != version
 
         # 7. Charger dernière version
         latest_model = registry.load_model("lifecycle_model")  # Sans version
         assert latest_model is not None
 
-    def test_multiple_models_management(
-        self, mock_model_registry, sample_sklearn_model
-    ):
+    def test_multiple_models_management(self, mock_model_registry, sample_sklearn_model):
         """Test gestion plusieurs modèles."""
         registry = mock_model_registry
 
@@ -521,25 +487,19 @@ class TestModelRegistryIntegration:
         registry = mock_model_registry
 
         # Sauvegarder modèle valide
-        version = registry.save_model(
-            sample_sklearn_model, "error_test", "RandomForest"
-        )
+        version = registry.save_model(sample_sklearn_model, "error_test", "RandomForest")
 
         # Corrompre fichier métadonnées
         metadata_file = registry.metadata_dir / f"error_test_v{version}_metadata.json"
         metadata_file.write_text("invalid json content")
 
         # Charger avec métadonnées corrompues
-        model, metadata = registry.load_model(
-            "error_test", version, return_metadata=True
-        )
+        model, metadata = registry.load_model("error_test", version, return_metadata=True)
 
         assert model is not None  # Modèle doit être chargé
         # Métadonnées peuvent être par défaut ou None selon implémentation
 
-    def test_concurrent_access_simulation(
-        self, mock_model_registry, sample_sklearn_model
-    ):
+    def test_concurrent_access_simulation(self, mock_model_registry, sample_sklearn_model):
         """Test simulation accès concurrent."""
         registry = mock_model_registry
 

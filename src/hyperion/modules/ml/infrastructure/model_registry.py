@@ -141,9 +141,7 @@ class ModelRegistry:
             # Sauvegarder métadonnées
             metadata_dict = model_metadata.dict()
             # Convertir datetime en string pour JSON
-            if "created_at" in metadata_dict and isinstance(
-                metadata_dict["created_at"], datetime
-            ):
+            if "created_at" in metadata_dict and isinstance(metadata_dict["created_at"], datetime):
                 metadata_dict["created_at"] = metadata_dict["created_at"].isoformat()
 
             with open(metadata_path, "w", encoding="utf-8") as f:
@@ -242,9 +240,7 @@ class ModelRegistry:
 
                 # Convertir string datetime en datetime object si nécessaire
                 if "created_at" in metadata and isinstance(metadata["created_at"], str):
-                    metadata["created_at"] = datetime.fromisoformat(
-                        metadata["created_at"]
-                    )
+                    metadata["created_at"] = datetime.fromisoformat(metadata["created_at"])
 
                 # Vérifier existence fichier modèle
                 model_filename = f"{metadata['name']}_v{metadata['version']}.pkl"
@@ -347,9 +343,7 @@ class ModelRegistry:
 
         for metadata_file in self.metadata_dir.glob(f"{name}_v*_metadata.json"):
             try:
-                version_str = metadata_file.stem.split(f"{name}_v")[1].split(
-                    "_metadata"
-                )[0]
+                version_str = metadata_file.stem.split(f"{name}_v")[1].split("_metadata")[0]
                 existing_versions.append(version_str)
             except (IndexError, ValueError):
                 continue
@@ -378,9 +372,7 @@ class ModelRegistry:
 
         for metadata_file in self.metadata_dir.glob(f"{name}_v*_metadata.json"):
             try:
-                version_str = metadata_file.stem.split(f"{name}_v")[1].split(
-                    "_metadata"
-                )[0]
+                version_str = metadata_file.stem.split(f"{name}_v")[1].split("_metadata")[0]
                 versions.append(version_str)
             except (IndexError, ValueError):
                 continue

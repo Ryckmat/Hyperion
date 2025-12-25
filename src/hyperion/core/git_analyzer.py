@@ -109,8 +109,7 @@ class GitAnalyzer:
                 "contributors": len(contributors),
                 "recent_commits_90d": recent_commits,
                 "hotspots_top10": [
-                    {"path": path, "changes": changes}
-                    for path, changes in hotspots_top10
+                    {"path": path, "changes": changes} for path, changes in hotspots_top10
                 ],
                 "contributors_top10": contributors_top10,
                 "by_extension": by_extension[:10],
@@ -203,9 +202,7 @@ class GitAnalyzer:
 
         return email
 
-    def _calculate_hotspots(
-        self, numstat: list[tuple[int, int, str]]
-    ) -> list[tuple[str, int]]:
+    def _calculate_hotspots(self, numstat: list[tuple[int, int, str]]) -> list[tuple[str, int]]:
         """
         Calcule les hotspots (fichiers les plus modifiés) après filtrage.
 
@@ -354,9 +351,7 @@ class GitAnalyzer:
 
         # Moyenne changements par hotspot
         avg_changes_per_hotspot = (
-            round(sum(ch for _, ch in hotspots[:10]) / len(hotspots[:10]), 1)
-            if hotspots
-            else 0
+            round(sum(ch for _, ch in hotspots[:10]) / len(hotspots[:10]), 1) if hotspots else 0
         )
 
         # Ratios code/tests/docs
