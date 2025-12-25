@@ -105,7 +105,7 @@ class TestFeatureStore:
         """Test stockage avec métadonnées complètes."""
         store = mock_feature_store
 
-        feature_set_id = store.store_features(
+        store.store_features(
             features=sample_features,
             source_file="/test/file.py",
             repository="test_repo",
@@ -410,7 +410,7 @@ class TestFeatureStoreIntegration:
         store = mock_feature_store
 
         # 1. Stocker features
-        feature_set_id = store.store_features(
+        store.store_features(
             features=sample_features,
             source_file="/project/src/main.py",
             repository="hyperion",

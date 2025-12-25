@@ -198,6 +198,8 @@ class TrainingPipeline:
         config = self.config.get_model_config("risk_predictor_xgboost")
 
         model = XGBClassifier(**config.hyperparameters)
+        # Fix pour sauvegarde MLflow - définir le type d'estimateur
+        model._estimator_type = "classifier"
 
         # Entraînement
         model.fit(X_train, y_train)

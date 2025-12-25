@@ -191,10 +191,9 @@ class FeatureStore:
             metadata = FeatureMetadata(**metadata_dict)
 
             # Vérifier fraîcheur si demandé
-            if check_freshness:
-                if not self._is_fresh(metadata, source_file):
-                    print(f"📅 Features expirées pour {source_file}")
-                    return (None, None) if return_metadata else None
+            if check_freshness and not self._is_fresh(metadata, source_file):
+                print(f"📅 Features expirées pour {source_file}")
+                return (None, None) if return_metadata else None
 
             # Charger features
             with open(features_path, "rb") as f:
@@ -325,7 +324,7 @@ class FeatureStore:
         all_sets = self.list_feature_sets(include_expired=True)
         fresh_sets = self.list_feature_sets(include_expired=False)
 
-        repositories = set(fs["repository"] for fs in all_sets)
+        repositories = {fs["repository"] for fs in all_sets}
         total_cache_size = sum(fs.get("cache_size_mb", 0) for fs in all_sets)
 
         # Statistiques par repository
@@ -350,9 +349,7 @@ class FeatureStore:
             ),
         }
 
-    def search_features(
-        self, query: str, search_in: list[str] = ["source_file", "feature_names", "tags"]
-    ) -> list[dict[str, Any]]:
+    def search_features(self, query: str, search_in: list[str] = None) -> list[dict[str, Any]]:
         """
         Recherche des feature sets par query.
 
@@ -363,6 +360,8 @@ class FeatureStore:
         Returns:
             Feature sets correspondants
         """
+        if search_in is None:
+            search_in = ["source_file", "feature_names", "tags"]
         results = []
         all_sets = self.list_feature_sets(include_expired=True)
 

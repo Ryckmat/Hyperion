@@ -1,0 +1,17 @@
+{
+  "feature_set_id": "b393bd2e91744c01",
+  "source_file": "src/test.py",
+  "repository": "Hyperion-test",
+  "extracted_at": "2025-12-25T01:10:51.690278",
+  "feature_names": [
+    "complexity_score",
+    "bug_history_count",
+    "test_coverage"
+  ],
+  "n_features": 3,
+  "extraction_version": "3.0.0",
+  "content_hash": "87d5f63e594b5de5",
+  "source_hash": "unknown",
+  "tags": {},
+  "extraction_time_ms": null
+}

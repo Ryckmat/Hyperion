@@ -147,26 +147,70 @@ async def get_repo_code_stats(repo_name: str):
 
 @router.post("/understanding/search")
 async def search_code(request: CodeSearchRequest):
-    """Recherche sémantique dans le code (RAG + Neo4j)."""
+    """Recherche directe dans Neo4j par nom/pattern."""
     try:
-        # Utiliser l'engine RAG existant
-        from hyperion.modules.rag.query import RAGQueryEngine
+        ingester = Neo4jCodeIngester()
 
-        engine = RAGQueryEngine()
+        with ingester.driver.session(database=ingester.database) as session:
+            results = []
 
-        # Query RAG avec focus sur le code
-        question = f"Dans {request.repo}, trouve {request.query}"
-        if request.type:
-            question += f" (type: {request.type})"
+            # Recherche par type spécifique
+            if request.type == "function":
+                query = """
+                MATCH (f:Function {repo: $repo})
+                WHERE toLower(f.name) CONTAINS toLower($search)
+                   OR toLower(f.file) CONTAINS toLower($search)
+                   OR toLower(f.signature) CONTAINS toLower($search)
+                RETURN f.name as name, f.file as file, f.line_start as line,
+                       f.signature as signature, f.docstring as docstring, 'function' as type
+                LIMIT 10
+                """
+            elif request.type == "class":
+                query = """
+                MATCH (c:Class {repo: $repo})
+                WHERE toLower(c.name) CONTAINS toLower($search)
+                   OR toLower(c.file) CONTAINS toLower($search)
+                   OR toLower(c.docstring) CONTAINS toLower($search)
+                RETURN c.name as name, c.file as file, c.line_start as line,
+                       c.docstring as docstring, 'class' as type
+                LIMIT 10
+                """
+            else:
+                # Recherche mixte functions + classes
+                query = """
+                MATCH (n {repo: $repo})
+                WHERE (n:Function OR n:Class)
+                  AND (toLower(n.name) CONTAINS toLower($search)
+                       OR toLower(n.file) CONTAINS toLower($search))
+                RETURN n.name as name, n.file as file, n.line_start as line,
+                       coalesce(n.signature, '') as signature,
+                       coalesce(n.docstring, '') as docstring,
+                       CASE WHEN n:Function THEN 'function' ELSE 'class' END as type
+                LIMIT 20
+                """
 
-        result = engine.chat(question=question, repo=request.repo, history=None)
+            result = session.run(query, repo=request.repo, search=request.query)
+
+            for record in result:
+                results.append(
+                    {
+                        "name": record["name"],
+                        "file": record["file"],
+                        "line": record["line"],
+                        "signature": record.get("signature", ""),
+                        "docstring": record.get("docstring", ""),
+                        "type": record["type"],
+                    }
+                )
+
+        ingester.close()
 
         return {
             "query": request.query,
             "repo": request.repo,
-            "answer": result["answer"],
-            "sources": result["sources"],
-            "type": "semantic_search",
+            "type": request.type or "all",
+            "results": results,
+            "count": len(results),
         }
 
     except Exception as e:
@@ -462,3 +506,75 @@ async def health_check_v2():
     status["modules"] = ["code_understanding", "impact_analysis", "anomaly_detection", "neo4j_v2"]
 
     return status
+
+
+@router.get("/repos/{repo_name}/search")
+async def search_repo_code(repo_name: str, query: str, type: str = None, limit: int = 10):
+    """Recherche GET dans le code d'un repo."""
+    try:
+        ingester = Neo4jCodeIngester()
+
+        with ingester.driver.session(database=ingester.database) as session:
+            results = []
+
+            # Recherche par type spécifique
+            if type == "function":
+                cypher_query = """
+                MATCH (f:Function {repo: $repo})
+                WHERE toLower(f.name) CONTAINS toLower($search)
+                   OR toLower(f.file) CONTAINS toLower($search)
+                   OR toLower(f.signature) CONTAINS toLower($search)
+                RETURN f.name as name, f.file as file, f.line_start as line,
+                       f.signature as signature, f.docstring as docstring, 'function' as type
+                LIMIT $limit
+                """
+            elif type == "class":
+                cypher_query = """
+                MATCH (c:Class {repo: $repo})
+                WHERE toLower(c.name) CONTAINS toLower($search)
+                   OR toLower(c.file) CONTAINS toLower($search)
+                   OR toLower(c.docstring) CONTAINS toLower($search)
+                RETURN c.name as name, c.file as file, c.line_start as line,
+                       '' as signature, c.docstring as docstring, 'class' as type
+                LIMIT $limit
+                """
+            else:
+                # Recherche mixte functions + classes
+                cypher_query = """
+                MATCH (n {repo: $repo})
+                WHERE (n:Function OR n:Class)
+                  AND (toLower(n.name) CONTAINS toLower($search)
+                       OR toLower(n.file) CONTAINS toLower($search))
+                RETURN n.name as name, n.file as file, n.line_start as line,
+                       coalesce(n.signature, '') as signature,
+                       coalesce(n.docstring, '') as docstring,
+                       CASE WHEN n:Function THEN 'function' ELSE 'class' END as type
+                LIMIT $limit
+                """
+
+            result = session.run(cypher_query, repo=repo_name, search=query, limit=limit)
+
+            for record in result:
+                results.append(
+                    {
+                        "name": record["name"],
+                        "file": record["file"],
+                        "line": record["line"],
+                        "signature": record["signature"],
+                        "docstring": record["docstring"] or "",
+                        "type": record["type"],
+                    }
+                )
+
+        ingester.close()
+
+        return {
+            "query": query,
+            "repo": repo_name,
+            "type": type or "all",
+            "results": results,
+            "count": len(results),
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur recherche: {str(e)}") from e

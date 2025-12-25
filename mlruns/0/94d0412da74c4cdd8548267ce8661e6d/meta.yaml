@@ -1,0 +1,14 @@
+artifact_uri: file:///home/kortazo/Documents/Hyperion/mlruns/0/94d0412da74c4cdd8548267ce8661e6d/artifacts
+end_time: 1766622643529
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 94d0412da74c4cdd8548267ce8661e6d
+run_name: resilient-snake-944
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1766622643523
+status: 3
+tags: []
+user_id: kortazo

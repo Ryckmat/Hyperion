@@ -1,6 +1,6 @@
 """Query engine pour RAG."""
 
-from langchain_community.llms import Ollama
+from langchain_ollama import OllamaLLM
 from qdrant_client import QdrantClient
 from qdrant_client.models import FieldCondition, Filter, MatchValue
 from sentence_transformers import SentenceTransformer
@@ -10,6 +10,7 @@ from hyperion.modules.rag.config import (
     EMBEDDING_MODEL,
     LLM_MAX_TOKENS,
     LLM_TEMPERATURE,
+    LLM_TIMEOUT,
     LLM_TOP_K,
     OLLAMA_BASE_URL,
     OLLAMA_MODEL,
@@ -45,24 +46,34 @@ class RAGQueryEngine:
         self.qdrant_client = QdrantClient(host=qdrant_host, port=qdrant_port)
         self.collection_name = collection_name
 
-        # Modèle embeddings (même que ingestion)
+        # Modèle embeddings avec fallback automatique
         print("📥 Chargement modèle embeddings...")
-        self.embedding_model = SentenceTransformer(EMBEDDING_MODEL, device=EMBEDDING_DEVICE)
-        print(f"✅ Embeddings prêts ({EMBEDDING_DEVICE})")
+        try:
+            self.embedding_model = SentenceTransformer(EMBEDDING_MODEL, device=EMBEDDING_DEVICE)
+            print(f"✅ Embeddings prêts ({EMBEDDING_DEVICE})")
+        except Exception as e:
+            if EMBEDDING_DEVICE == "cuda":
+                print(f"⚠️ Erreur GPU embeddings: {e}")
+                print("🔄 Fallback automatique vers CPU...")
+                self.embedding_model = SentenceTransformer(EMBEDDING_MODEL, device="cpu")
+                print("✅ Embeddings prêts (cpu - fallback)")
+            else:
+                raise
 
-        # LLM Ollama
+        # LLM Ollama (optimisé)
         print(f"🤖 Connexion à Ollama ({ollama_model})...")
-        self.llm = Ollama(
+        self.llm = OllamaLLM(
             base_url=ollama_base_url,
             model=ollama_model,
             temperature=LLM_TEMPERATURE,
             num_predict=LLM_MAX_TOKENS,
+            timeout=LLM_TIMEOUT,  # Timeout pour éviter attentes longues
         )
         print("✅ LLM prêt")
 
     def query(self, question: str, repo_filter: str | None = None, top_k: int = LLM_TOP_K) -> dict:
         """
-        Répond à une question via RAG.
+        Répond à une question via RAG (optimisé <3s).
 
         Args:
             question: Question en langage naturel
@@ -73,56 +84,85 @@ class RAGQueryEngine:
             {
                 "answer": str,
                 "sources": List[Dict],
-                "question": str
+                "question": str,
+                "processing_time": float
             }
         """
-        # 1. Générer embedding de la question
-        question_embedding = self.embedding_model.encode(question, convert_to_numpy=True)
+        import time
 
-        # 2. Recherche dans Qdrant (API v1.7+)
-        search_filter = None
-        if repo_filter:
-            search_filter = Filter(
-                must=[FieldCondition(key="repo", match=MatchValue(value=repo_filter))]
+        start_time = time.time()
+
+        try:
+            # 1. Générer embedding de la question (optimisé)
+            question_embedding = self.embedding_model.encode(
+                question, convert_to_numpy=True, show_progress_bar=False  # Désactiver pour vitesse
             )
 
-        search_results = self.qdrant_client.query_points(
-            collection_name=self.collection_name,
-            query=question_embedding.tolist(),
-            limit=top_k,
-            query_filter=search_filter,
-        ).points
+            # 2. Recherche dans Qdrant (ultra-optimisé)
+            search_filter = None
+            if repo_filter:
+                search_filter = Filter(
+                    must=[FieldCondition(key="repo", match=MatchValue(value=repo_filter))]
+                )
 
-        # 3. Assembler contexte
-        context_parts = []
-        sources = []
+            search_results = self.qdrant_client.query_points(
+                collection_name=self.collection_name,
+                query=question_embedding.tolist(),
+                limit=min(top_k, 1),  # Un seul chunk pour vitesse maximum
+                query_filter=search_filter,
+                timeout=1,  # Timeout Qdrant ultra strict
+            ).points
 
-        for result in search_results:
-            payload = result.payload
-            context_parts.append(payload["text"])
-            sources.append(
-                {
-                    "repo": payload["repo"],
-                    "section": payload["section"],
-                    "score": result.score,
-                    "text": payload["text"][:200] + "...",  # Preview
-                }
-            )
+            # 3. Assembler contexte (optimisé, texte réduit)
+            context_parts = []
+            sources = []
 
-        context = "\n\n---\n\n".join(context_parts)
+            for result in search_results:
+                payload = result.payload
+                # Ultra-limitation pour vitesse maximale
+                text = payload["text"]
+                if len(text) > 200:  # Drastique réduction 400→200
+                    text = text[:200] + "..."
 
-        # 4. Construire prompt
-        full_prompt = QUERY_PROMPT_TEMPLATE.format(context=context, question=question)
+                context_parts.append(text)
+                sources.append(
+                    {
+                        "repo": payload["repo"],
+                        "section": payload["section"],
+                        "score": result.score,
+                        "text": text[:50] + "...",  # Preview ultra réduit 100→50
+                    }
+                )
 
-        # 5. Appeler LLM
-        answer = self.llm.invoke(full_prompt)
+            context = "\n\n---\n\n".join(context_parts)
 
-        return {
-            "answer": answer.strip(),
-            "sources": sources,
-            "question": question,
-            "repo_filter": repo_filter,
-        }
+            # 4. Construire prompt (optimisé)
+            full_prompt = QUERY_PROMPT_TEMPLATE.format(context=context, question=question)
+
+            # 5. Appeler LLM avec timeout
+            answer = self.llm.invoke(full_prompt)
+
+            processing_time = time.time() - start_time
+
+            return {
+                "answer": answer.strip(),
+                "sources": sources,
+                "question": question,
+                "repo_filter": repo_filter,
+                "processing_time": round(processing_time, 2),
+                "performance": "fast" if processing_time < 3.0 else "slow",
+            }
+
+        except Exception as e:
+            processing_time = time.time() - start_time
+            return {
+                "answer": f"Erreur lors du traitement de la question: {str(e)}",
+                "sources": [],
+                "question": question,
+                "repo_filter": repo_filter,
+                "processing_time": round(processing_time, 2),
+                "performance": "error",
+            }
 
     def chat(
         self, question: str, repo: str | None = None, history: list[dict] | None = None

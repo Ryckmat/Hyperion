@@ -1,0 +1,10 @@
+artifact_location: file:///home/kortazo/Documents/Hyperion/mlruns/0/models/m-95359f2a56d54ae0bd483c9cad861945/artifacts
+creation_timestamp: 1766622642222
+experiment_id: '0'
+last_updated_timestamp: 1766622643490
+model_id: m-95359f2a56d54ae0bd483c9cad861945
+model_type: null
+name: sklearn_model
+source_run_id: a93a2922c7234caaae5829dfbfb6b547
+status: 2
+status_message: null
