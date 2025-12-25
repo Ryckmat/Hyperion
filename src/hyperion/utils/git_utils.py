@@ -116,9 +116,7 @@ class GitRepo:
 
         # Essayer origin/HEAD
         try:
-            lines = self._run_git(
-                "symbolic-ref", "refs/remotes/origin/HEAD", check=False
-            )
+            lines = self._run_git("symbolic-ref", "refs/remotes/origin/HEAD", check=False)
             if lines:
                 return lines[0].rsplit("/", 1)[-1].strip()
         except Exception:
@@ -192,9 +190,7 @@ class GitRepo:
             match = re.match(r"(\d+)\s+(.+)\s+<(.+)>$", line)
             if match:
                 commits, name, email = match.groups()
-                contributors.append(
-                    {"name": name, "email": email, "commits": int(commits)}
-                )
+                contributors.append({"name": name, "email": email, "commits": int(commits)})
 
         return contributors
 
@@ -333,9 +329,7 @@ class GitRepo:
                 continue
 
             try:
-                content = license_path.read_text(encoding="utf-8", errors="ignore")[
-                    :2000
-                ].lower()
+                content = license_path.read_text(encoding="utf-8", errors="ignore")[:2000].lower()
 
                 # Patterns de détection
                 if "apache license" in content or "apache-2.0" in content:

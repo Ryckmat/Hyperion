@@ -26,9 +26,7 @@ class LearningPathGenerator:
         """
         self.repo_path = Path(repo_path)
 
-    def generate_path(
-        self, target_role: str, experience_level: str = "junior"
-    ) -> dict[str, Any]:
+    def generate_path(self, target_role: str, experience_level: str = "junior") -> dict[str, Any]:
         """
         Génère un parcours d'apprentissage.
 

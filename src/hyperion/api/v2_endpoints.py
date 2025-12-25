@@ -63,9 +63,7 @@ async def get_repo_functions(repo_name: str, limit: int = 50):
                         "file": record["file"],
                         "line": record["line"],
                         "signature": record["signature"],
-                        "docstring": (
-                            record["docstring"][:200] if record["docstring"] else ""
-                        ),
+                        "docstring": (record["docstring"][:200] if record["docstring"] else ""),
                         "is_method": record["is_method"],
                         "is_private": record["is_private"],
                     }
@@ -106,9 +104,7 @@ async def get_repo_classes(repo_name: str, limit: int = 30):
                         "name": record["name"],
                         "file": record["file"],
                         "line": record["line"],
-                        "docstring": (
-                            record["docstring"][:200] if record["docstring"] else ""
-                        ),
+                        "docstring": (record["docstring"][:200] if record["docstring"] else ""),
                         "methods": record["methods"] or [],
                         "bases": record["bases"] or [],
                         "is_private": record["is_private"],
@@ -218,9 +214,7 @@ async def search_code(request: CodeSearchRequest):
         }
 
     except Exception as e:
-        raise HTTPException(
-            status_code=500, detail=f"Erreur recherche: {str(e)}"
-        ) from e
+        raise HTTPException(status_code=500, detail=f"Erreur recherche: {str(e)}") from e
 
 
 @router.get("/understanding/{repo_name}/explore")
@@ -266,9 +260,7 @@ async def explore_codebase(repo_name: str, pattern: str = ""):
                         "name": record["f.name"],
                         "file": record["f.file"],
                         "signature": record["f.signature"],
-                        "docstring": (
-                            record["f.docstring"][:150] if record["f.docstring"] else ""
-                        ),
+                        "docstring": (record["f.docstring"][:150] if record["f.docstring"] else ""),
                     }
                 )
 
@@ -282,9 +274,7 @@ async def explore_codebase(repo_name: str, pattern: str = ""):
         }
 
     except Exception as e:
-        raise HTTPException(
-            status_code=500, detail=f"Erreur exploration: {str(e)}"
-        ) from e
+        raise HTTPException(status_code=500, detail=f"Erreur exploration: {str(e)}") from e
 
 
 # ============================================================================
@@ -375,9 +365,7 @@ async def analyze_impact(request: ImpactAnalysisRequest):
         }
 
     except Exception as e:
-        raise HTTPException(
-            status_code=500, detail=f"Erreur impact analysis: {str(e)}"
-        ) from e
+        raise HTTPException(status_code=500, detail=f"Erreur impact analysis: {str(e)}") from e
 
 
 # ============================================================================
@@ -482,9 +470,7 @@ async def scan_anomalies(request: AnomalyRequest):
         }
 
     except Exception as e:
-        raise HTTPException(
-            status_code=500, detail=f"Erreur anomaly detection: {str(e)}"
-        ) from e
+        raise HTTPException(status_code=500, detail=f"Erreur anomaly detection: {str(e)}") from e
 
 
 # ============================================================================
@@ -537,9 +523,7 @@ async def health_check_v2():
 
 
 @router.get("/repos/{repo_name}/search")
-async def search_repo_code(
-    repo_name: str, query: str, type: str = None, limit: int = 10
-):
+async def search_repo_code(repo_name: str, query: str, type: str = None, limit: int = 10):
     """Recherche GET dans le code d'un repo."""
     try:
         ingester = Neo4jCodeIngester()
@@ -582,9 +566,7 @@ async def search_repo_code(
                 LIMIT $limit
                 """
 
-            result = session.run(
-                cypher_query, repo=repo_name, search=query, limit=limit
-            )
+            result = session.run(cypher_query, repo=repo_name, search=query, limit=limit)
 
             for record in result:
                 results.append(
@@ -609,6 +591,4 @@ async def search_repo_code(
         }
 
     except Exception as e:
-        raise HTTPException(
-            status_code=500, detail=f"Erreur recherche: {str(e)}"
-        ) from e
+        raise HTTPException(status_code=500, detail=f"Erreur recherche: {str(e)}") from e

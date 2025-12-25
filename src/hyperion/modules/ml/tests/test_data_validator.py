@@ -97,9 +97,7 @@ class TestDataValidator:
     def test_validate_with_duplicates(self, validator, sample_training_data):
         """Test validation avec doublons."""
         # Ajouter des doublons
-        df_with_duplicates = pd.concat(
-            [sample_training_data, sample_training_data.iloc[:10]]
-        )
+        df_with_duplicates = pd.concat([sample_training_data, sample_training_data.iloc[:10]])
         result = validator.validate_dataframe(df_with_duplicates)
 
         assert result.duplicate_percentage > 0
@@ -198,9 +196,7 @@ class TestDataValidator:
 
     def test_validate_features_array(self, validator, sample_training_data):
         """Test validation array de features."""
-        feature_cols = [
-            col for col in sample_training_data.columns if col != "risque_reel"
-        ]
+        feature_cols = [col for col in sample_training_data.columns if col != "risque_reel"]
         X = sample_training_data[feature_cols].values
         feature_names = feature_cols
 
@@ -349,9 +345,7 @@ class TestDataValidatorIntegration:
             }
         )
 
-        df_clean, result = validator.validate_and_prepare_data(
-            df_raw, "target", fix_issues=True
-        )
+        df_clean, result = validator.validate_and_prepare_data(df_raw, "target", fix_issues=True)
 
         # Types doivent être corrigés
         assert pd.api.types.is_numeric_dtype(df_clean["nb_methodes"])

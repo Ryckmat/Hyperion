@@ -57,9 +57,7 @@ class ImpactReport:
         Returns:
             Rapport structuré
         """
-        recommendations = self._generate_recommendations(
-            risk_level, len(impacted_files)
-        )
+        recommendations = self._generate_recommendations(risk_level, len(impacted_files))
 
         report = ImpactReportData(
             file_path=file_path,
@@ -74,9 +72,7 @@ class ImpactReport:
         self.reports.append(report)
         return report
 
-    def _generate_recommendations(
-        self, risk_level: str, num_impacted: int
-    ) -> list[str]:
+    def _generate_recommendations(self, risk_level: str, num_impacted: int) -> list[str]:
         """Génère des recommandations basées sur le risque."""
         recommendations = []
 
@@ -97,9 +93,7 @@ class ImpactReport:
             recommendations.append("✅ Change safe, tests de base suffisants")
 
         if num_impacted > 10:
-            recommendations.append(
-                f"📊 {num_impacted} fichiers impactés - coordination nécessaire"
-            )
+            recommendations.append(f"📊 {num_impacted} fichiers impactés - coordination nécessaire")
 
         return recommendations
 
@@ -151,9 +145,7 @@ class ImpactReport:
 
         return md
 
-    def save_report(
-        self, report: ImpactReportData, output_path: Path, format: str = "json"
-    ):
+    def save_report(self, report: ImpactReportData, output_path: Path, format: str = "json"):
         """
         Sauvegarde le rapport sur disque.
 

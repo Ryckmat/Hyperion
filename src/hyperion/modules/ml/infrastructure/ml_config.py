@@ -15,9 +15,7 @@ class ModelConfig(BaseModel):
     """Configuration d'un modèle ML spécifique."""
 
     name: str = Field(..., description="Nom du modèle")
-    type: str = Field(
-        ..., description="Type: RandomForest, XGBoost, IsolationForest, etc."
-    )
+    type: str = Field(..., description="Type: RandomForest, XGBoost, IsolationForest, etc.")
     version: str = Field(default="1.0.0", description="Version du modèle")
     path: str | None = Field(default=None, description="Chemin du modèle sauvegardé")
     hyperparameters: dict[str, Any] = Field(..., description="Hyperparamètres")
@@ -123,12 +121,8 @@ class TrainingConfig(BaseModel):
     """Configuration d'entraînement ML."""
 
     test_size: float = Field(default=0.2, ge=0.1, le=0.5, description="Taille test set")
-    validation_size: float = Field(
-        default=0.2, ge=0.1, le=0.5, description="Taille validation set"
-    )
-    cross_validation_folds: int = Field(
-        default=5, ge=3, le=10, description="Nombre folds CV"
-    )
+    validation_size: float = Field(default=0.2, ge=0.1, le=0.5, description="Taille validation set")
+    cross_validation_folds: int = Field(default=5, ge=3, le=10, description="Nombre folds CV")
     random_state: int = Field(default=42, description="Seed aléatoire")
 
     # Critères d'arrêt
@@ -147,13 +141,9 @@ class TrainingConfig(BaseModel):
 class MLFlowConfig(BaseModel):
     """Configuration MLFlow pour tracking."""
 
-    tracking_uri: str = Field(
-        default="file:./mlruns", description="URI tracking MLFlow"
-    )
+    tracking_uri: str = Field(default="file:./mlruns", description="URI tracking MLFlow")
     experiment_name: str = Field(default="hyperion_ml_v3", description="Nom expérience")
-    artifact_location: str | None = Field(
-        default=None, description="Localisation artifacts"
-    )
+    artifact_location: str | None = Field(default=None, description="Localisation artifacts")
 
     # Tags par défaut
     default_tags: dict[str, str] = Field(
@@ -317,9 +307,9 @@ class MLConfig:
 
         # Vérifier dépendances Python
         try:
-            import lightgbm
-            import mlflow
-            import shap
+            import lightgbm  # noqa: F401
+            import mlflow  # noqa: F401
+            import shap  # noqa: F401
             import sklearn
             import xgboost
 

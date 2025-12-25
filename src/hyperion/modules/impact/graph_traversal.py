@@ -36,9 +36,7 @@ class GraphTraversal:
         self.password = password
         self.driver = None
 
-    def find_dependencies(
-        self, file_path: str, max_depth: int = 5
-    ) -> list[dict[str, Any]]:
+    def find_dependencies(self, file_path: str, max_depth: int = 5) -> list[dict[str, Any]]:
         """
         Trouve toutes les dépendances d'un fichier.
 
@@ -61,9 +59,7 @@ class GraphTraversal:
         # Placeholder pour résultats
         return []
 
-    def find_reverse_dependencies(
-        self, file_path: str
-    ) -> list[dict[str, Any]]:  # noqa: ARG002
+    def find_reverse_dependencies(self, file_path: str) -> list[dict[str, Any]]:  # noqa: ARG002
         """
         Trouve tous les fichiers qui dépendent de ce fichier.
 
@@ -118,14 +114,10 @@ class GraphTraversal:
 
         return {
             "file": file_path,
-            "direct_dependencies": len(
-                [d for d in dependencies if d.get("depth") == 1]
-            ),
+            "direct_dependencies": len([d for d in dependencies if d.get("depth") == 1]),
             "total_dependencies": len(dependencies),
             "files_depending_on_this": len(reverse_deps),
-            "max_dependency_depth": max(
-                [d.get("depth", 0) for d in dependencies], default=0
-            ),
+            "max_dependency_depth": max([d.get("depth", 0) for d in dependencies], default=0),
         }
 
     def close(self):

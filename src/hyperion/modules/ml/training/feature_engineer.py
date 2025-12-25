@@ -45,9 +45,7 @@ class FeatureEngineer:
             code_data = data["code_analysis"]
             features.update(
                 {
-                    "complexite_cyclomatique": code_data.get(
-                        "cyclomatic_complexity", 0
-                    ),
+                    "complexite_cyclomatique": code_data.get("cyclomatic_complexity", 0),
                     "nb_methodes": code_data.get("method_count", 0),
                     "nb_classes": code_data.get("class_count", 0),
                     "densite_commentaires": code_data.get("comment_ratio", 0.0),
@@ -61,12 +59,8 @@ class FeatureEngineer:
             features.update(
                 {
                     "nb_contributeurs_uniques": len(team_data.get("contributors", [])),
-                    "experience_moyenne_reviewers": team_data.get(
-                        "avg_reviewer_experience", 0
-                    ),
-                    "distribution_connaissance": team_data.get(
-                        "knowledge_distribution", 0
-                    ),
+                    "experience_moyenne_reviewers": team_data.get("avg_reviewer_experience", 0),
+                    "distribution_connaissance": team_data.get("knowledge_distribution", 0),
                 }
             )
 
@@ -194,10 +188,7 @@ class FeatureEngineer:
         interaction_features = {}
 
         # Interaction complexité x taille équipe
-        if (
-            "complexite_cyclomatique" in features
-            and "nb_contributeurs_uniques" in features
-        ):
+        if "complexite_cyclomatique" in features and "nb_contributeurs_uniques" in features:
             complexity = features["complexite_cyclomatique"]
             team_size = max(features["nb_contributeurs_uniques"], 1)
             interaction_features["complexite_par_contributeur"] = complexity / team_size
@@ -217,9 +208,7 @@ class FeatureEngineer:
         # Score risque composite
         risk_components = []
         if "complexite_cyclomatique" in features:
-            risk_components.append(
-                features["complexite_cyclomatique"] / 20
-            )  # Normaliser
+            risk_components.append(features["complexite_cyclomatique"] / 20)  # Normaliser
         if "nb_bugs_historiques" in features:
             risk_components.append(features["nb_bugs_historiques"] / 10)
         if "age_fichier_jours" in features:
@@ -263,9 +252,7 @@ class FeatureEngineer:
 
         return normalized
 
-    def handle_missing_features(
-        self, features: dict, target_features: list[str]
-    ) -> dict:
+    def handle_missing_features(self, features: dict, target_features: list[str]) -> dict:
         """
         Gère les features manquantes avec des valeurs par défaut.
 

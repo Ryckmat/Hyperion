@@ -126,8 +126,6 @@ class AnomalyDetector:
 
         severity_weights = {"low": 0.3, "medium": 0.6, "high": 0.9, "critical": 1.0}
 
-        total_score = sum(
-            severity_weights.get(a.get("severity", "low"), 0.5) for a in anomalies
-        )
+        total_score = sum(severity_weights.get(a.get("severity", "low"), 0.5) for a in anomalies)
 
         return min(total_score / len(anomalies), 1.0)
