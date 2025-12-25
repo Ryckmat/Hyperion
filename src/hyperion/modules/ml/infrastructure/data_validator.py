@@ -128,7 +128,9 @@ class DataValidator:
         Returns:
             Résultat de validation détaillé
         """
-        result = ValidationResult(is_valid=True, n_samples=len(df), n_features=len(df.columns))
+        result = ValidationResult(
+            is_valid=True, n_samples=len(df), n_features=len(df.columns)
+        )
 
         # Validation basique structure
         self._validate_structure(df, result)
@@ -151,7 +153,9 @@ class DataValidator:
 
         return result
 
-    def validate_features_array(self, X: np.ndarray, feature_names: list[str]) -> ValidationResult:
+    def validate_features_array(
+        self, X: np.ndarray, feature_names: list[str]
+    ) -> ValidationResult:
         """
         Valide un array de features.
 
@@ -171,7 +175,9 @@ class DataValidator:
 
         # Vérifier taille minimale
         if len(df) < 10:
-            result.errors.append(f"Dataset trop petit: {len(df)} échantillons (minimum 10)")
+            result.errors.append(
+                f"Dataset trop petit: {len(df)} échantillons (minimum 10)"
+            )
 
         if len(df.columns) == 0:
             result.errors.append("Aucune colonne dans le dataset")
@@ -185,7 +191,9 @@ class DataValidator:
         if duplicate_pct > 10:
             result.warnings.append(f"Beaucoup de duplicatas: {duplicate_pct:.1f}%")
         elif duplicate_pct > 0:
-            result.suggestions.append(f"Quelques duplicatas détectés: {duplicate_pct:.1f}%")
+            result.suggestions.append(
+                f"Quelques duplicatas détectés: {duplicate_pct:.1f}%"
+            )
 
     def _validate_features(self, df: pd.DataFrame, result: ValidationResult):
         """Valide les features attendues."""
@@ -236,7 +244,9 @@ class DataValidator:
         if missing_pct > 20:
             result.errors.append(f"Trop de valeurs manquantes: {missing_pct:.1f}%")
         elif missing_pct > 10:
-            result.warnings.append(f"Beaucoup de valeurs manquantes: {missing_pct:.1f}%")
+            result.warnings.append(
+                f"Beaucoup de valeurs manquantes: {missing_pct:.1f}%"
+            )
 
         # Validation types de données
         for column in df.columns:
@@ -246,7 +256,11 @@ class DataValidator:
                 result.feature_types[column] = str(df[column].dtype)
 
     def _validate_column_type(
-        self, series: pd.Series, column: str, expected_type: str, result: ValidationResult
+        self,
+        series: pd.Series,
+        column: str,
+        expected_type: str,
+        result: ValidationResult,
     ):
         """Valide le type d'une colonne."""
 
@@ -268,12 +282,11 @@ class DataValidator:
             if not pd.api.types.is_numeric_dtype(non_null_series):
                 result.warnings.append(f"Feature {column}: type attendu float")
 
-        elif expected_type == "temporal":
+        elif expected_type == "temporal" and (non_null_series < 0).any():
             # Vérifier que les valeurs sont positives pour âge en jours
-            if (non_null_series < 0).any():
-                result.errors.append(
-                    f"Feature {column}: valeurs négatives détectées (âge en jours)"
-                )
+            result.errors.append(
+                f"Feature {column}: valeurs négatives détectées (âge en jours)"
+            )
 
     def _validate_target(self, target: pd.Series, result: ValidationResult):
         """Valide la colonne target."""
@@ -288,7 +301,9 @@ class DataValidator:
         if len(unique_values) < 2:
             result.errors.append("Target: moins de 2 classes uniques")
         elif len(unique_values) > 10:
-            result.suggestions.append(f"Target: beaucoup de classes ({len(unique_values)})")
+            result.suggestions.append(
+                f"Target: beaucoup de classes ({len(unique_values)})"
+            )
 
         # Vérifier équilibrage classes
         if len(unique_values) <= 10:  # Classification
@@ -321,7 +336,9 @@ class DataValidator:
 
             if IQR > 0:
                 outlier_bounds = (Q1 - 3 * IQR, Q3 + 3 * IQR)
-                outliers = series[(series < outlier_bounds[0]) | (series > outlier_bounds[1])]
+                outliers = series[
+                    (series < outlier_bounds[0]) | (series > outlier_bounds[1])
+                ]
                 outlier_pct = (len(outliers) / len(series)) * 100
 
                 if outlier_pct > 5:
@@ -330,7 +347,10 @@ class DataValidator:
                     )
 
     def validate_and_prepare_data(
-        self, df: pd.DataFrame, target_column: str | None = None, fix_issues: bool = True
+        self,
+        df: pd.DataFrame,
+        target_column: str | None = None,
+        fix_issues: bool = True,
     ) -> tuple[pd.DataFrame, ValidationResult]:
         """
         Valide et prépare les données en corrigeant automatiquement certains problèmes.
@@ -385,7 +405,9 @@ class DataValidator:
                 inf_replacements += inf_mask.sum()
 
         if inf_replacements > 0:
-            fixes_applied.append(f"Remplacé {inf_replacements} valeurs infinies par NaN")
+            fixes_applied.append(
+                f"Remplacé {inf_replacements} valeurs infinies par NaN"
+            )
 
         # Ajouter corrections au résultat
         if fixes_applied:
@@ -394,7 +416,10 @@ class DataValidator:
         return df_clean, result
 
     def detect_data_drift(
-        self, reference_df: pd.DataFrame, current_df: pd.DataFrame, threshold: float = 0.1
+        self,
+        reference_df: pd.DataFrame,
+        current_df: pd.DataFrame,
+        threshold: float = 0.1,
     ) -> dict[str, Any]:
         """
         Détecte la dérive des données entre deux datasets.

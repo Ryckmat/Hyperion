@@ -44,13 +44,17 @@ class RAGIngester:
         # Modèle embeddings avec fallback automatique
         print("📥 Chargement modèle embeddings...")
         try:
-            self.embedding_model = SentenceTransformer(EMBEDDING_MODEL, device=EMBEDDING_DEVICE)
+            self.embedding_model = SentenceTransformer(
+                EMBEDDING_MODEL, device=EMBEDDING_DEVICE
+            )
             print(f"✅ Embeddings prêts ({EMBEDDING_DEVICE})")
         except Exception as e:
             if EMBEDDING_DEVICE == "cuda":
                 print(f"⚠️ Erreur GPU embeddings: {e}")
                 print("🔄 Fallback automatique vers CPU...")
-                self.embedding_model = SentenceTransformer(EMBEDDING_MODEL, device="cpu")
+                self.embedding_model = SentenceTransformer(
+                    EMBEDDING_MODEL, device="cpu"
+                )
                 print("✅ Embeddings prêts (cpu - fallback)")
             else:
                 raise
@@ -67,7 +71,9 @@ class RAGIngester:
             print(f"📦 Création collection : {self.collection_name}")
             self.qdrant_client.create_collection(
                 collection_name=self.collection_name,
-                vectors_config=VectorParams(size=EMBEDDING_DIM, distance=Distance.COSINE),
+                vectors_config=VectorParams(
+                    size=EMBEDDING_DIM, distance=Distance.COSINE
+                ),
             )
             print("✅ Collection créée")
         else:
@@ -174,7 +180,9 @@ class RAGIngester:
 
         return results
 
-    def _create_chunks(self, profile: dict, repo_name: str, code_data: dict = None) -> list[dict]:
+    def _create_chunks(
+        self, profile: dict, repo_name: str, code_data: dict = None
+    ) -> list[dict]:
         """Découpe le profil en chunks sémantiques avec informations complètes."""
         chunks = []
 
@@ -237,7 +245,9 @@ class RAGIngester:
         # 5. Extensions
         extensions = profile.get("git_summary", {}).get("by_extension", [])[:10]
         ext_text = self._format_extensions(extensions, repo_name)
-        chunks.append({"text": ext_text, "section": "extensions", "metadata": {"type": "tech"}})
+        chunks.append(
+            {"text": ext_text, "section": "extensions", "metadata": {"type": "tech"}}
+        )
 
         # 6. Code source (nouveau) - Si disponible
         if code_data:
@@ -290,9 +300,15 @@ class RAGIngester:
 
         # Informations sur les types de fichiers
         extensions = git.get("by_extension", [])
-        python_files = next((ext["files"] for ext in extensions if ext.get("ext") == ".py"), 0)
-        rst_files = next((ext["files"] for ext in extensions if ext.get("ext") == ".rst"), 0)
-        html_files = next((ext["files"] for ext in extensions if ext.get("ext") == ".html"), 0)
+        python_files = next(
+            (ext["files"] for ext in extensions if ext.get("ext") == ".py"), 0
+        )
+        rst_files = next(
+            (ext["files"] for ext in extensions if ext.get("ext") == ".rst"), 0
+        )
+        html_files = next(
+            (ext["files"] for ext in extensions if ext.get("ext") == ".html"), 0
+        )
 
         return f"""Repository: {profile.get('service')}
 Language: {repo_info.get('main_language')}
@@ -408,7 +424,9 @@ Quality Metrics:
 
         for func in functions:
             signature = func.get("signature", f"def {func['name']}()")
-            lines.append(f"\n- **{func['name']}** in {func['file']}:{func['line_start']}")
+            lines.append(
+                f"\n- **{func['name']}** in {func['file']}:{func['line_start']}"
+            )
             lines.append(f"  Signature: {signature}")
             if func.get("docstring"):
                 doc = (

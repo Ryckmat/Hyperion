@@ -138,7 +138,9 @@ def sample_sklearn_model():
     from sklearn.ensemble import RandomForestClassifier
 
     # Générer données d'entraînement simple
-    X, y = make_classification(n_samples=100, n_features=4, n_classes=2, random_state=42)
+    X, y = make_classification(
+        n_samples=100, n_features=4, n_classes=2, random_state=42
+    )
 
     # Entraîner modèle simple
     model = RandomForestClassifier(n_estimators=10, random_state=42)

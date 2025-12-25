@@ -49,13 +49,17 @@ class RAGQueryEngine:
         # Modèle embeddings avec fallback automatique
         print("📥 Chargement modèle embeddings...")
         try:
-            self.embedding_model = SentenceTransformer(EMBEDDING_MODEL, device=EMBEDDING_DEVICE)
+            self.embedding_model = SentenceTransformer(
+                EMBEDDING_MODEL, device=EMBEDDING_DEVICE
+            )
             print(f"✅ Embeddings prêts ({EMBEDDING_DEVICE})")
         except Exception as e:
             if EMBEDDING_DEVICE == "cuda":
                 print(f"⚠️ Erreur GPU embeddings: {e}")
                 print("🔄 Fallback automatique vers CPU...")
-                self.embedding_model = SentenceTransformer(EMBEDDING_MODEL, device="cpu")
+                self.embedding_model = SentenceTransformer(
+                    EMBEDDING_MODEL, device="cpu"
+                )
                 print("✅ Embeddings prêts (cpu - fallback)")
             else:
                 raise
@@ -71,7 +75,9 @@ class RAGQueryEngine:
         )
         print("✅ LLM prêt")
 
-    def query(self, question: str, repo_filter: str | None = None, top_k: int = LLM_TOP_K) -> dict:
+    def query(
+        self, question: str, repo_filter: str | None = None, top_k: int = LLM_TOP_K
+    ) -> dict:
         """
         Répond à une question via RAG (optimisé <3s).
 
@@ -95,14 +101,18 @@ class RAGQueryEngine:
         try:
             # 1. Générer embedding de la question (optimisé)
             question_embedding = self.embedding_model.encode(
-                question, convert_to_numpy=True, show_progress_bar=False  # Désactiver pour vitesse
+                question,
+                convert_to_numpy=True,
+                show_progress_bar=False,  # Désactiver pour vitesse
             )
 
             # 2. Recherche dans Qdrant (ultra-optimisé)
             search_filter = None
             if repo_filter:
                 search_filter = Filter(
-                    must=[FieldCondition(key="repo", match=MatchValue(value=repo_filter))]
+                    must=[
+                        FieldCondition(key="repo", match=MatchValue(value=repo_filter))
+                    ]
                 )
 
             search_results = self.qdrant_client.query_points(
@@ -110,7 +120,7 @@ class RAGQueryEngine:
                 query=question_embedding.tolist(),
                 limit=min(top_k, 1),  # Un seul chunk pour vitesse maximum
                 query_filter=search_filter,
-                timeout=1,  # Timeout Qdrant ultra strict
+                timeout=1,  # Timeout Qdrant strict
             ).points
 
             # 3. Assembler contexte (optimisé, texte réduit)
@@ -121,8 +131,8 @@ class RAGQueryEngine:
                 payload = result.payload
                 # Ultra-limitation pour vitesse maximale
                 text = payload["text"]
-                if len(text) > 200:  # Drastique réduction 400→200
-                    text = text[:200] + "..."
+                if len(text) > 100:  # Extrême réduction 200→100
+                    text = text[:100] + "..."
 
                 context_parts.append(text)
                 sources.append(
@@ -130,14 +140,16 @@ class RAGQueryEngine:
                         "repo": payload["repo"],
                         "section": payload["section"],
                         "score": result.score,
-                        "text": text[:50] + "...",  # Preview ultra réduit 100→50
+                        "text": text[:30] + "...",  # Preview ultra réduit 50→30
                     }
                 )
 
             context = "\n\n---\n\n".join(context_parts)
 
             # 4. Construire prompt (optimisé)
-            full_prompt = QUERY_PROMPT_TEMPLATE.format(context=context, question=question)
+            full_prompt = QUERY_PROMPT_TEMPLATE.format(
+                context=context, question=question
+            )
 
             # 5. Appeler LLM avec timeout
             answer = self.llm.invoke(full_prompt)

@@ -9,7 +9,10 @@ from datetime import datetime, timedelta
 
 import pytest
 
-from hyperion.modules.ml.infrastructure.feature_store import FeatureMetadata, FeatureStore
+from hyperion.modules.ml.infrastructure.feature_store import (
+    FeatureMetadata,
+    FeatureStore,
+)
 
 
 class TestFeatureMetadata:
@@ -89,14 +92,18 @@ class TestFeatureStore:
 
         # Stocker features
         feature_set_id = store.store_features(
-            features=sample_features, source_file="/test/file.py", repository="test_repo"
+            features=sample_features,
+            source_file="/test/file.py",
+            repository="test_repo",
         )
 
         assert feature_set_id is not None
         assert len(feature_set_id) > 0
 
         # Récupérer features
-        retrieved_features = store.get_features(source_file="/test/file.py", repository="test_repo")
+        retrieved_features = store.get_features(
+            source_file="/test/file.py", repository="test_repo"
+        )
 
         assert retrieved_features is not None
         assert retrieved_features == sample_features
@@ -128,17 +135,23 @@ class TestFeatureStore:
         """Test récupération features inexistantes."""
         store = mock_feature_store
 
-        features = store.get_features(source_file="/nonexistent/file.py", repository="test_repo")
+        features = store.get_features(
+            source_file="/nonexistent/file.py", repository="test_repo"
+        )
 
         assert features is None
 
-    def test_get_features_without_freshness_check(self, mock_feature_store, sample_features):
+    def test_get_features_without_freshness_check(
+        self, mock_feature_store, sample_features
+    ):
         """Test récupération sans vérification fraîcheur."""
         store = mock_feature_store
 
         # Stocker features
         store.store_features(
-            features=sample_features, source_file="/test/file.py", repository="test_repo"
+            features=sample_features,
+            source_file="/test/file.py",
+            repository="test_repo",
         )
 
         # Récupérer sans check fraîcheur
@@ -197,7 +210,9 @@ class TestFeatureStore:
         assert stats["expired_feature_sets"] == 0
         assert stats["unique_repositories"] == 0
 
-    def test_get_feature_statistics_with_data(self, mock_feature_store, sample_features):
+    def test_get_feature_statistics_with_data(
+        self, mock_feature_store, sample_features
+    ):
         """Test statistiques avec données."""
         store = mock_feature_store
 

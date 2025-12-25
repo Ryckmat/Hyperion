@@ -53,7 +53,11 @@ class TestMLEnvironment:
         temp_store.cache_dir = temp_store.store_dir / "cache"
 
         # Créer dossiers
-        for directory in [temp_store.store_dir, temp_store.metadata_dir, temp_store.cache_dir]:
+        for directory in [
+            temp_store.store_dir,
+            temp_store.metadata_dir,
+            temp_store.cache_dir,
+        ]:
             directory.mkdir(parents=True, exist_ok=True)
 
         # Test stockage et récupération
@@ -171,7 +175,11 @@ class TestMLEnvironmentIntegration:
         temp_store.metadata_dir = temp_store.store_dir / "metadata"
         temp_store.cache_dir = temp_store.store_dir / "cache"
 
-        for directory in [temp_store.store_dir, temp_store.metadata_dir, temp_store.cache_dir]:
+        for directory in [
+            temp_store.store_dir,
+            temp_store.metadata_dir,
+            temp_store.cache_dir,
+        ]:
             directory.mkdir(parents=True, exist_ok=True)
 
         features = {
@@ -199,7 +207,11 @@ class TestMLEnvironmentIntegration:
         # Vérifier qu'il y a au moins des modèles configurés
         try:
             # Tester avec des noms de modèles probables
-            possible_models = ["risk_predictor_random_forest", "bug_predictor", "anomaly_detector"]
+            possible_models = [
+                "risk_predictor_random_forest",
+                "bug_predictor",
+                "anomaly_detector",
+            ]
 
             found_models = 0
             for model_name in possible_models:
@@ -238,7 +250,10 @@ class TestMLEnvironmentIntegration:
 
         # Test ModelMetadata
         model_meta = ModelMetadata(
-            name="test_model", version="1.0.0", model_type="RandomForest", created_at=datetime.now()
+            name="test_model",
+            version="1.0.0",
+            model_type="RandomForest",
+            created_at=datetime.now(),
         )
 
         assert model_meta.name == "test_model"

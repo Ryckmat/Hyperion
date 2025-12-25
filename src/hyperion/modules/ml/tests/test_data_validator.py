@@ -8,7 +8,10 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from hyperion.modules.ml.infrastructure.data_validator import DataValidator, ValidationResult
+from hyperion.modules.ml.infrastructure.data_validator import (
+    DataValidator,
+    ValidationResult,
+)
 
 
 class TestValidationResult:
@@ -94,7 +97,9 @@ class TestDataValidator:
     def test_validate_with_duplicates(self, validator, sample_training_data):
         """Test validation avec doublons."""
         # Ajouter des doublons
-        df_with_duplicates = pd.concat([sample_training_data, sample_training_data.iloc[:10]])
+        df_with_duplicates = pd.concat(
+            [sample_training_data, sample_training_data.iloc[:10]]
+        )
         result = validator.validate_dataframe(df_with_duplicates)
 
         assert result.duplicate_percentage > 0
@@ -159,7 +164,18 @@ class TestDataValidator:
         """Test validation types incorrects."""
         df_wrong_types = pd.DataFrame(
             {
-                "nb_methodes": ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],  # Doit être int
+                "nb_methodes": [
+                    "a",
+                    "b",
+                    "c",
+                    "d",
+                    "e",
+                    "f",
+                    "g",
+                    "h",
+                    "i",
+                    "j",
+                ],  # Doit être int
                 "complexite_cyclomatique": [
                     "x",
                     "y",
@@ -182,7 +198,9 @@ class TestDataValidator:
 
     def test_validate_features_array(self, validator, sample_training_data):
         """Test validation array de features."""
-        feature_cols = [col for col in sample_training_data.columns if col != "risque_reel"]
+        feature_cols = [
+            col for col in sample_training_data.columns if col != "risque_reel"
+        ]
         X = sample_training_data[feature_cols].values
         feature_names = feature_cols
 
@@ -204,7 +222,18 @@ class TestDataValidator:
         df_problems = pd.DataFrame(
             {
                 "feature1": [1, 2, 3, 1, 2, 3, 4, 5, 6, 7],  # Doublons
-                "feature2": [1.0, 2.0, np.inf, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0],  # Inf
+                "feature2": [
+                    1.0,
+                    2.0,
+                    np.inf,
+                    4.0,
+                    5.0,
+                    6.0,
+                    7.0,
+                    8.0,
+                    9.0,
+                    10.0,
+                ],  # Inf
                 "target": [0, 1, 0, 0, 1, 0, 1, 0, 1, 0],
             }
         )
@@ -304,12 +333,25 @@ class TestDataValidatorIntegration:
                     "90",
                     "100",
                 ],  # Strings → int
-                "complexite_cyclomatique": [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0],
+                "complexite_cyclomatique": [
+                    1.0,
+                    2.0,
+                    3.0,
+                    4.0,
+                    5.0,
+                    6.0,
+                    7.0,
+                    8.0,
+                    9.0,
+                    10.0,
+                ],
                 "target": [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
             }
         )
 
-        df_clean, result = validator.validate_and_prepare_data(df_raw, "target", fix_issues=True)
+        df_clean, result = validator.validate_and_prepare_data(
+            df_raw, "target", fix_issues=True
+        )
 
         # Types doivent être corrigés
         assert pd.api.types.is_numeric_dtype(df_clean["nb_methodes"])
