@@ -1,0 +1,10 @@
+artifact_location: file:///home/kortazo/Documents/Hyperion/mlruns/0/models/m-3673c3f25f8d4dc0b5ba70199ce197e5/artifacts
+creation_timestamp: 1766623150667
+experiment_id: '0'
+last_updated_timestamp: 1766623151997
+model_id: m-3673c3f25f8d4dc0b5ba70199ce197e5
+model_type: null
+name: xgboost_model
+source_run_id: 428bec39b992463d84d018a8cd147b89
+status: 2
+status_message: null

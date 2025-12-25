@@ -205,18 +205,28 @@ print(f"Features disponibles : {len(stored_features)}")
 ### Entraînement de modèles
 
 ```python
+import pandas as pd
+import numpy as np
 from hyperion.modules.ml.training.training_pipeline import TrainingPipeline
+
+# Préparation données d'entraînement (exemple)
+np.random.seed(42)
+n_samples = 1000
+training_data = pd.DataFrame({
+    'complexity_score': np.random.rand(n_samples),
+    'lines_of_code': np.random.randint(10, 1000, n_samples),
+    'test_coverage': np.random.rand(n_samples),
+    'bug_history_count': np.random.randint(0, 10, n_samples),
+    'risque_reel': np.random.randint(0, 2, n_samples)  # Target
+})
 
 # Initialisation pipeline
 pipeline = TrainingPipeline()
 
-# Entraînement modèle de risque
-results = pipeline.train_risk_predictor()
-print(f"Précision du modèle : {results['metrics']['accuracy']:.2%}")
-
-# Sauvegarde automatique avec MLflow
-model_uri = results.get('model_uri')
-print(f"Modèle sauvé : {model_uri}")
+# Entraînement modèle de risque (avec données requises)
+results = pipeline.train_risk_predictor(training_data)
+print(f"Meilleur modèle : {results['best_model']}")
+print(f"F1 Score : {results['metrics']['f1_score']:.3f}")
 ```
 
 ### Prédiction de risques

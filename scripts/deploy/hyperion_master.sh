@@ -336,6 +336,7 @@ run_v1() {
 
   # Ingestion Neo4j
   echo "🔄 Ingestion Neo4j v1..."
+  [ -d "venv" ] && source venv/bin/activate 2>/dev/null || true
   if python3 -c "
 from hyperion.modules.integrations.neo4j_ingester import Neo4jIngester
 ing = Neo4jIngester()
@@ -359,6 +360,7 @@ run_v2() {
   info "Repo name: $repo_name"
 
   echo "🔄 Analyse structure code avec Neo4j v2..."
+  [ -d "venv" ] && source venv/bin/activate 2>/dev/null || true
   if python3 -c "
 from hyperion.modules.integrations.neo4j_code_ingester import Neo4jCodeIngester
 
@@ -393,6 +395,7 @@ run_rag() {
   info "Repository: $repo_name"
 
   echo "🔄 Génération embeddings..."
+  [ -d "venv" ] && source venv/bin/activate 2>/dev/null || true
   if python3 -c "
 from hyperion.modules.rag.ingestion import RAGIngester
 ingester = RAGIngester()
@@ -466,12 +469,23 @@ except:
     warn "API pas encore prête"
   fi
 
-  # Dashboard
-  cd frontend
-  nohup python3 -m http.server 3000 > ../logs/dashboard.log 2>&1 &
-  FRONTEND_PID=$!
-  cd ..
-  ok "Dashboard lancé (PID: $FRONTEND_PID)"
+  # Dashboard avec vérification
+  if [ -d "frontend" ] && [ -f "frontend/index.html" ]; then
+    cd frontend
+    nohup python3 -m http.server 3000 > ../logs/dashboard.log 2>&1 &
+    FRONTEND_PID=$!
+    cd ..
+
+    # Attente et vérification
+    sleep 3
+    if curl -s "http://localhost:3000" | head -1 | grep -q "DOCTYPE html"; then
+      ok "Dashboard lancé (PID: $FRONTEND_PID)"
+    else
+      warn "Dashboard lancé mais pas accessible (PID: $FRONTEND_PID)"
+    fi
+  else
+    warn "Frontend inexistant, dashboard non lancé"
+  fi
 }
 
 # Lancement Open WebUI
@@ -521,6 +535,7 @@ test_rag() {
   section "🧪 TEST CHAT RAG"
 
   echo "🔄 Test du moteur RAG..."
+  [ -d "venv" ] && source venv/bin/activate 2>/dev/null || true
   python3 -c "
 from hyperion.modules.rag.query import RAGQueryEngine
 try:

@@ -424,7 +424,13 @@ class ModelRegistry:
                 # Log modèle avec format natif si possible
                 try:
                     if hasattr(model, "fit"):  # Scikit-learn style
-                        mlflow.sklearn.log_model(model, "sklearn_model")
+                        # Gestion spéciale pour XGBoost
+                        if hasattr(model, "get_booster"):  # XGBoost
+
+                            mlflow.xgboost.log_model(model, "xgboost_model")
+                        else:
+                            # Modèles scikit-learn standards
+                            mlflow.sklearn.log_model(model, "sklearn_model")
                 except Exception:
                     pass  # Ignore si pas supporté
 

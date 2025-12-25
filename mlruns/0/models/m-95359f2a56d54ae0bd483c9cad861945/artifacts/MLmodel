@@ -1,0 +1,22 @@
+artifact_path: file:///home/kortazo/Documents/Hyperion/mlruns/0/models/m-95359f2a56d54ae0bd483c9cad861945/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.13.11
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+mlflow_version: 3.8.0
+model_id: m-95359f2a56d54ae0bd483c9cad861945
+model_size_bytes: 1945242
+model_uuid: m-95359f2a56d54ae0bd483c9cad861945
+prompts: null
+run_id: a93a2922c7234caaae5829dfbfb6b547
+utc_time_created: '2025-12-25 00:30:42.225405'

@@ -49,7 +49,7 @@ def helper(data: str) -> str:
 
 class DataProcessor:
     """Process data."""
-    
+
     def process(self, data):
         """Process method."""
         return helper(data)

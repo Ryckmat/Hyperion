@@ -41,10 +41,19 @@ class RAGIngester:
         self.qdrant_client = QdrantClient(host=qdrant_host, port=qdrant_port)
         self.collection_name = collection_name
 
-        # Modèle d'embeddings (GPU)
-        print(f"📥 Chargement modèle embeddings : {EMBEDDING_MODEL}")
-        self.embedding_model = SentenceTransformer(EMBEDDING_MODEL, device=EMBEDDING_DEVICE)
-        print(f"✅ Modèle chargé sur {EMBEDDING_DEVICE}")
+        # Modèle embeddings avec fallback automatique
+        print("📥 Chargement modèle embeddings...")
+        try:
+            self.embedding_model = SentenceTransformer(EMBEDDING_MODEL, device=EMBEDDING_DEVICE)
+            print(f"✅ Embeddings prêts ({EMBEDDING_DEVICE})")
+        except Exception as e:
+            if EMBEDDING_DEVICE == "cuda":
+                print(f"⚠️ Erreur GPU embeddings: {e}")
+                print("🔄 Fallback automatique vers CPU...")
+                self.embedding_model = SentenceTransformer(EMBEDDING_MODEL, device="cpu")
+                print("✅ Embeddings prêts (cpu - fallback)")
+            else:
+                raise
 
         # Créer collection si nécessaire
         self._ensure_collection()
@@ -166,16 +175,26 @@ class RAGIngester:
         return results
 
     def _create_chunks(self, profile: dict, repo_name: str, code_data: dict = None) -> list[dict]:
-        """Découpe le profil en chunks sémantiques."""
+        """Découpe le profil en chunks sémantiques avec informations complètes."""
         chunks = []
 
-        # 1. Overview
-        overview_text = self._format_overview(profile)
+        # 1. Overview complet
+        overview_text = self._format_overview_complete(profile)
         chunks.append(
             {
                 "text": overview_text,
                 "section": "overview",
                 "metadata": {"type": "summary"},
+            }
+        )
+
+        # 1b. Informations techniques détaillées
+        tech_details = self._format_tech_details(profile)
+        chunks.append(
+            {
+                "text": tech_details,
+                "section": "tech_details",
+                "metadata": {"type": "technical"},
             }
         )
 
@@ -262,6 +281,67 @@ class RAGIngester:
                 )
 
         return chunks
+
+    def _format_overview_complete(self, profile: dict) -> str:
+        """Formate l'overview complet avec toutes les informations critiques."""
+        git = profile.get("git_summary", {})
+        repo_info = profile.get("repositories", [{}])[0]
+        metrics = profile.get("metrics", {})
+
+        # Informations sur les types de fichiers
+        extensions = git.get("by_extension", [])
+        python_files = next((ext["files"] for ext in extensions if ext.get("ext") == ".py"), 0)
+        rst_files = next((ext["files"] for ext in extensions if ext.get("ext") == ".rst"), 0)
+        html_files = next((ext["files"] for ext in extensions if ext.get("ext") == ".html"), 0)
+
+        return f"""Repository: {profile.get('service')}
+Language: {repo_info.get('main_language')}
+License: {repo_info.get('license')}
+URL: {repo_info.get('url')}
+
+Stats Overview:
+- Total commits: {git.get('commits')}
+- Contributors: {git.get('contributors')}
+- First commit: {git.get('first_commit')}
+- Last commit: {git.get('last_commit')}
+- Recent activity (90 days): {git.get('recent_commits_90d')} commits
+- Evolution years: {metrics.get('evolution_years')}
+
+File Statistics:
+- Python files (.py): {python_files}
+- Documentation files (.rst): {rst_files}
+- HTML files (.html): {html_files}
+- Total file extensions: {len(extensions)}
+
+Average commits per year: {metrics.get('avg_commits_per_year')}
+"""
+
+    def _format_tech_details(self, profile: dict) -> str:
+        """Formate les détails techniques complets."""
+        repo_info = profile.get("repositories", [{}])[0]
+        tech = profile.get("tech", {})
+        git = profile.get("git_summary", {})
+
+        # Informations tech complètes
+        return f"""Repository: {profile.get('service')}
+Technical Information:
+
+Repository Details:
+- Main Language: {repo_info.get('main_language')}
+- License: {repo_info.get('license')}
+- Default Branch: {repo_info.get('default_branch')}
+- Stars: {repo_info.get('stars')}
+
+Technology Stack:
+- Runtime: {tech.get('runtime')}
+- Framework: {tech.get('framework')}
+- CI/CD: {tech.get('ci')}
+
+Repository Scale:
+- Total Commits: {git.get('commits')}
+- Total Contributors: {git.get('contributors')}
+- Active Period: {git.get('first_commit')} to {git.get('last_commit')}
+"""
 
     def _format_overview(self, profile: dict) -> str:
         """Formate l'overview du repo."""
