@@ -74,7 +74,12 @@ class FeatureConfig(BaseModel):
 
     # Features business impact (4)
     business_impact_features: list[str] = Field(
-        default=["estimation_trafic_affecte", "score_impact_revenus", "niveau_criticite_module", "difficulte_rollback"]
+        default=[
+            "estimation_trafic_affecte",
+            "score_impact_revenus",
+            "niveau_criticite_module",
+            "difficulte_rollback",
+        ]
     )
 
     # Features historiques (6)
@@ -85,7 +90,7 @@ class FeatureConfig(BaseModel):
             "frequence_rollbacks",
             "nb_hotfixes",
             "volatilite_fichier",
-            "profondeur_dependances"
+            "profondeur_dependances",
         ]
     )
 
@@ -96,7 +101,7 @@ class FeatureConfig(BaseModel):
             "nb_deps_externes",
             "risque_breaking_changes",
             "nb_conflits_versions",
-            "fan_in_fan_out"
+            "fan_in_fan_out",
         ]
     )
 
@@ -127,7 +132,9 @@ class TrainingConfig(BaseModel):
 
     # Métriques
     primary_metric: str = Field(default="accuracy", description="Métrique principale")
-    metrics: list[str] = Field(default=["accuracy", "precision", "recall", "f1"], description="Métriques à calculer")
+    metrics: list[str] = Field(
+        default=["accuracy", "precision", "recall", "f1"], description="Métriques à calculer"
+    )
 
 
 class MLFlowConfig(BaseModel):
@@ -204,7 +211,12 @@ class MLConfig:
             "anomaly_detector": ModelConfig(
                 name="anomaly_detector",
                 type="IsolationForest",
-                hyperparameters={"contamination": 0.1, "max_samples": 256, "random_state": 42, "n_jobs": -1},
+                hyperparameters={
+                    "contamination": 0.1,
+                    "max_samples": 256,
+                    "random_state": 42,
+                    "n_jobs": -1,
+                },
             ),
             "bug_predictor": ModelConfig(
                 name="bug_predictor",
@@ -278,7 +290,9 @@ class MLConfig:
     def validate_environment(self) -> dict[str, Any]:
         """Valide l'environnement ML."""
         validation_results = {
-            "directories_exist": all(d.exists() for d in [self.models_dir, self.data_dir, self.logs_dir]),
+            "directories_exist": all(
+                d.exists() for d in [self.models_dir, self.data_dir, self.logs_dir]
+            ),
             "features_count": self.total_features_count,
             "models_configured": len(self.models),
             "mlflow_tracking_uri": self.mlflow.tracking_uri,

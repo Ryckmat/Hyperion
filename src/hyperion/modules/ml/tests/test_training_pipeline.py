@@ -4,7 +4,7 @@ Tests pour le pipeline d'entraînement ML d'Hyperion.
 Teste l'orchestration complète d'entraînement des modèles.
 """
 
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 import numpy as np
 import pandas as pd
@@ -152,7 +152,9 @@ class TestTrainingPipeline:
 
         base_models = [rf, xgb]
 
-        ensemble_model, results = pipeline._train_meta_learner(base_models, X_train, y_train, X_test, y_test)
+        ensemble_model, results = pipeline._train_meta_learner(
+            base_models, X_train, y_train, X_test, y_test
+        )
 
         assert isinstance(ensemble_model, dict)
         assert "meta_learner" in ensemble_model
@@ -177,7 +179,7 @@ class TestTrainingPipeline:
         assert "classification_report" in metrics
 
         # Vérifier valeurs valides
-        for metric_name, value in metrics.items():
+        for _metric_name, value in metrics.items():
             if isinstance(value, (int, float)):
                 assert 0 <= value <= 1
 
@@ -308,7 +310,10 @@ class TestTrainingPipelineIntegration:
         pipeline.config.training.cross_validation_folds = 3
 
         results = pipeline.train_risk_predictor(
-            training_data=sample_training_data, target_column="risque_reel", test_size=0.2, save_models=False
+            training_data=sample_training_data,
+            target_column="risque_reel",
+            test_size=0.2,
+            save_models=False,
         )
 
         # Vérifier structure résultats
@@ -398,7 +403,10 @@ class TestTrainingPipelineIntegration:
 
         # Target inexistante
         good_data = pd.DataFrame(
-            {"feature1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "target_wrong": [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]}
+            {
+                "feature1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                "target_wrong": [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+            }
         )
 
         with pytest.raises(ValueError):
@@ -417,7 +425,9 @@ class TestTrainingPipelineIntegration:
 
                 for metric_name, value in metrics.items():
                     if isinstance(value, (int, float)) and metric_name != "classification_report":
-                        assert 0 <= value <= 1, f"Métrique {metric_name} invalide pour {model_name}: {value}"
+                        assert (
+                            0 <= value <= 1
+                        ), f"Métrique {metric_name} invalide pour {model_name}: {value}"
 
         # Vérifier meilleur modèle
         best_model = results["best_model"]

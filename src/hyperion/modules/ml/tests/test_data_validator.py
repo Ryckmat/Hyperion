@@ -42,7 +42,9 @@ class TestValidationResult:
 
     def test_validation_result_with_errors(self):
         """Test ValidationResult avec erreurs."""
-        result = ValidationResult(is_valid=False, errors=["Erreur 1", "Erreur 2"], warnings=["Attention 1"])
+        result = ValidationResult(
+            is_valid=False, errors=["Erreur 1", "Erreur 2"], warnings=["Attention 1"]
+        )
 
         assert len(result.errors) == 2
         assert len(result.warnings) == 1
@@ -101,7 +103,10 @@ class TestDataValidator:
     def test_validate_missing_features(self, validator):
         """Test validation avec features manquantes."""
         df_minimal = pd.DataFrame(
-            {"complexite_cyclomatique": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "target": [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]}
+            {
+                "complexite_cyclomatique": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                "target": [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+            }
         )
         result = validator.validate_dataframe(df_minimal)
 
@@ -155,7 +160,18 @@ class TestDataValidator:
         df_wrong_types = pd.DataFrame(
             {
                 "nb_methodes": ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],  # Doit être int
-                "complexite_cyclomatique": ["x", "y", "z", "w", "v", "u", "t", "s", "r", "q"],  # Doit être float
+                "complexite_cyclomatique": [
+                    "x",
+                    "y",
+                    "z",
+                    "w",
+                    "v",
+                    "u",
+                    "t",
+                    "s",
+                    "r",
+                    "q",
+                ],  # Doit être float
                 "target": [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
             }
         )
@@ -175,7 +191,9 @@ class TestDataValidator:
 
     def test_validate_and_prepare_data_no_fixes(self, validator, sample_training_data):
         """Test validation et préparation sans corrections."""
-        df_clean, result = validator.validate_and_prepare_data(sample_training_data, "risque_reel", fix_issues=False)
+        df_clean, result = validator.validate_and_prepare_data(
+            sample_training_data, "risque_reel", fix_issues=False
+        )
 
         # DataFrame ne doit pas être modifié
         pd.testing.assert_frame_equal(df_clean, sample_training_data)
@@ -191,7 +209,9 @@ class TestDataValidator:
             }
         )
 
-        df_clean, result = validator.validate_and_prepare_data(df_problems, "target", fix_issues=True)
+        df_clean, result = validator.validate_and_prepare_data(
+            df_problems, "target", fix_issues=True
+        )
 
         # Doublons doivent être supprimés
         assert len(df_clean) <= len(df_problems)
@@ -272,7 +292,18 @@ class TestDataValidatorIntegration:
         # Données nécessitant preprocessing
         df_raw = pd.DataFrame(
             {
-                "nb_methodes": ["10", "20", "30", "40", "50", "60", "70", "80", "90", "100"],  # Strings → int
+                "nb_methodes": [
+                    "10",
+                    "20",
+                    "30",
+                    "40",
+                    "50",
+                    "60",
+                    "70",
+                    "80",
+                    "90",
+                    "100",
+                ],  # Strings → int
                 "complexite_cyclomatique": [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0],
                 "target": [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
             }

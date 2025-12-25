@@ -92,7 +92,9 @@ class TestModelRegistry:
         """Test sauvegarde modèle de base."""
         registry = mock_model_registry
 
-        version = registry.save_model(model=sample_sklearn_model, name="test_rf", model_type="RandomForest")
+        version = registry.save_model(
+            model=sample_sklearn_model, name="test_rf", model_type="RandomForest"
+        )
 
         assert version == "1.0.0"  # Première version
 
@@ -119,7 +121,10 @@ class TestModelRegistry:
         }
 
         version = registry.save_model(
-            model=sample_sklearn_model, name="test_rf_full", model_type="RandomForest", metadata=metadata
+            model=sample_sklearn_model,
+            name="test_rf_full",
+            model_type="RandomForest",
+            metadata=metadata,
         )
 
         # Charger et vérifier métadonnées
@@ -133,7 +138,10 @@ class TestModelRegistry:
         registry = mock_model_registry
 
         version = registry.save_model(
-            model=sample_sklearn_model, name="test_rf_explicit", model_type="RandomForest", version="2.5.0"
+            model=sample_sklearn_model,
+            name="test_rf_explicit",
+            model_type="RandomForest",
+            version="2.5.0",
         )
 
         assert version == "2.5.0"
@@ -170,7 +178,9 @@ class TestModelRegistry:
 
         # Sauvegarder avec métadonnées
         metadata = {"accuracy": 0.95, "description": "Test model"}
-        version = registry.save_model(sample_sklearn_model, "test_with_meta", "RandomForest", metadata=metadata)
+        version = registry.save_model(
+            sample_sklearn_model, "test_with_meta", "RandomForest", metadata=metadata
+        )
 
         # Charger avec métadonnées
         model, meta = registry.load_model("test_with_meta", version, return_metadata=True)
@@ -221,7 +231,9 @@ class TestModelRegistry:
         registry = mock_model_registry
 
         metadata = {"accuracy": 0.95, "training_samples": 1000}
-        version = registry.save_model(sample_sklearn_model, "test_info", "RandomForest", metadata=metadata)
+        version = registry.save_model(
+            sample_sklearn_model, "test_info", "RandomForest", metadata=metadata
+        )
 
         info = registry.get_model_info("test_info", version)
 
@@ -235,8 +247,12 @@ class TestModelRegistry:
         """Test infos dernière version."""
         registry = mock_model_registry
 
-        registry.save_model(sample_sklearn_model, "test_latest_info", "RandomForest", version="1.0.0")
-        registry.save_model(sample_sklearn_model, "test_latest_info", "RandomForest", version="2.0.0")
+        registry.save_model(
+            sample_sklearn_model, "test_latest_info", "RandomForest", version="1.0.0"
+        )
+        registry.save_model(
+            sample_sklearn_model, "test_latest_info", "RandomForest", version="2.0.0"
+        )
 
         # Sans version = dernière
         info = registry.get_model_info("test_latest_info")
@@ -326,9 +342,15 @@ class TestModelRegistry:
         assert latest is None
 
         # Sauvegarder versions
-        registry.save_model(sample_sklearn_model, "test_latest_version", "RandomForest", version="1.0.0")
-        registry.save_model(sample_sklearn_model, "test_latest_version", "RandomForest", version="2.0.0")
-        registry.save_model(sample_sklearn_model, "test_latest_version", "RandomForest", version="1.5.0")
+        registry.save_model(
+            sample_sklearn_model, "test_latest_version", "RandomForest", version="1.0.0"
+        )
+        registry.save_model(
+            sample_sklearn_model, "test_latest_version", "RandomForest", version="2.0.0"
+        )
+        registry.save_model(
+            sample_sklearn_model, "test_latest_version", "RandomForest", version="1.5.0"
+        )
 
         latest = registry._get_latest_version("test_latest_version")
         assert latest == "2.0.0"
@@ -341,7 +363,9 @@ class TestModelRegistryMLflow:
         """Test sauvegarde sans MLflow."""
         registry = mock_model_registry
 
-        version = registry.save_model(sample_sklearn_model, "test_no_mlflow", "RandomForest", mlflow_logging=False)
+        version = registry.save_model(
+            sample_sklearn_model, "test_no_mlflow", "RandomForest", mlflow_logging=False
+        )
 
         assert version is not None
         # MLflow ne doit pas être appelé (déjà mocké dans conftest)
@@ -358,7 +382,11 @@ class TestModelRegistryMLflow:
         }
 
         version = registry.save_model(
-            sample_sklearn_model, "test_with_mlflow", "RandomForest", metadata=metadata, mlflow_logging=True
+            sample_sklearn_model,
+            "test_with_mlflow",
+            "RandomForest",
+            metadata=metadata,
+            mlflow_logging=True,
         )
 
         assert version is not None
@@ -373,7 +401,9 @@ class TestModelRegistryMLflow:
         mock_start_run.side_effect = Exception("MLflow error")
 
         # Sauvegarde doit réussir malgré erreur MLflow
-        version = registry.save_model(sample_sklearn_model, "test_mlflow_error", "RandomForest", mlflow_logging=True)
+        version = registry.save_model(
+            sample_sklearn_model, "test_mlflow_error", "RandomForest", mlflow_logging=True
+        )
 
         assert version is not None
 
@@ -387,7 +417,9 @@ class TestModelRegistryIntegration:
 
         # 1. Sauvegarder modèle
         metadata = {"accuracy": 0.95, "training_samples": 1000}
-        version = registry.save_model(sample_sklearn_model, "lifecycle_model", "RandomForest", metadata=metadata)
+        version = registry.save_model(
+            sample_sklearn_model, "lifecycle_model", "RandomForest", metadata=metadata
+        )
 
         # 2. Lister modèles
         models = registry.list_models()
@@ -465,7 +497,9 @@ class TestModelRegistryIntegration:
         # Sauvegarder plusieurs versions rapidement
         versions = []
         for i in range(5):
-            v = registry.save_model(sample_sklearn_model, "concurrent_test", "RandomForest", version=f"1.{i}.0")
+            v = registry.save_model(
+                sample_sklearn_model, "concurrent_test", "RandomForest", version=f"1.{i}.0"
+            )
             versions.append(v)
 
         assert len(versions) == 5

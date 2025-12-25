@@ -4,7 +4,6 @@ Tests pour la configuration ML d'Hyperion.
 Teste la classe MLConfig et la gestion des paramètres ML.
 """
 
-
 import pytest
 from pydantic import ValidationError
 
@@ -122,7 +121,9 @@ class TestModelConfig:
 
     def test_model_config_defaults(self):
         """Test valeurs par défaut configuration modèle."""
-        config = ModelConfig(name="test_model", type="XGBoost", hyperparameters={"param1": "value1"})
+        config = ModelConfig(
+            name="test_model", type="XGBoost", hyperparameters={"param1": "value1"}
+        )
 
         assert config.description is None
         assert isinstance(config.hyperparameters, dict)
@@ -194,7 +195,10 @@ class TestMLConfigIntegration:
             model_config = config.get_model_config(model_name)
             assert model_config.name == model_name
             assert len(model_config.hyperparameters) > 0
-            assert "random_state" in model_config.hyperparameters or "random_seed" in model_config.hyperparameters
+            assert (
+                "random_state" in model_config.hyperparameters
+                or "random_seed" in model_config.hyperparameters
+            )
 
     def test_config_serialization(self):
         """Test sérialisation de la configuration."""

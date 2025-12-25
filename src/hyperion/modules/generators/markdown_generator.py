@@ -95,7 +95,9 @@ class MarkdownGenerator:
 
         return docs
 
-    def generate_all(self, profiles_dir: str, output_base: str | None = None) -> dict[str, dict[str, str]]:
+    def generate_all(
+        self, profiles_dir: str, output_base: str | None = None
+    ) -> dict[str, dict[str, str]]:
         """
         Génère la documentation pour tous les profils d'un dossier.
 

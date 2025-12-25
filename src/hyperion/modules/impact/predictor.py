@@ -38,7 +38,9 @@ class RiskPredictor:
             "last_modified_days",
         ]
 
-    def extract_features(self, file_path: str, dependency_graph: dict[str, set[str]]) -> dict[str, Any]:
+    def extract_features(
+        self, file_path: str, dependency_graph: dict[str, set[str]]
+    ) -> dict[str, Any]:
         """
         Extrait les features pour prédiction ML.
 

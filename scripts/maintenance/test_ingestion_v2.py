@@ -23,7 +23,8 @@ def test_ingestion_small_repo():
     test_repo.mkdir(exist_ok=True)
 
     # Fichier 1: main.py
-    (test_repo / "main.py").write_text('''
+    (test_repo / "main.py").write_text(
+        '''
 """Module principal."""
 from utils import helper
 
@@ -34,10 +35,12 @@ def main():
 
 if __name__ == "__main__":
     main()
-''')
+'''
+    )
 
     # Fichier 2: utils.py
-    (test_repo / "utils.py").write_text('''
+    (test_repo / "utils.py").write_text(
+        '''
 """Utilities."""
 
 def helper(data: str) -> str:
@@ -50,11 +53,12 @@ class DataProcessor:
     def process(self, data):
         """Process method."""
         return helper(data)
-''')
+'''
+    )
 
     # Lancer ingestion
     print("🧪 Test ingestion v2 sur mini repo\n")
-    
+
     ingestion = GeneralizedIngestion(
         neo4j_uri="bolt://localhost:7687",
         neo4j_user="neo4j",
@@ -63,22 +67,23 @@ class DataProcessor:
 
     try:
         stats = ingestion.run(repo_path=test_repo)
-        
+
         print("\n✅ Test réussi !")
         print(f"   Fichiers analysés: {stats['code']}")
         print(f"   Nodes Neo4j: {stats['neo4j_nodes']}")
         print(f"   Relations Neo4j: {stats['neo4j_relations']}")
-        
+
         # Vérifications
-        assert stats['code'] == 2, "Devrait avoir 2 fichiers"
-        assert stats['neo4j_nodes'] > 0, "Devrait avoir des nodes"
-        assert stats['neo4j_relations'] > 0, "Devrait avoir des relations"
-        
+        assert stats["code"] == 2, "Devrait avoir 2 fichiers"
+        assert stats["neo4j_nodes"] > 0, "Devrait avoir des nodes"
+        assert stats["neo4j_relations"] > 0, "Devrait avoir des relations"
+
         print("\n🎉 Tous les tests passent !")
-        
+
     except Exception as e:
         print(f"\n❌ Erreur: {e}")
         import traceback
+
         traceback.print_exc()
         sys.exit(1)
     finally:
