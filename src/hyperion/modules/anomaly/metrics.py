@@ -43,8 +43,12 @@ class CodeMetrics:
             "cyclomatic_complexity": self._calculate_complexity(tree),
             "maintainability_index": self._calculate_maintainability(tree),
             "comment_ratio": self._calculate_comment_ratio(content),
-            "function_count": len([n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)]),
-            "class_count": len([n for n in ast.walk(tree) if isinstance(n, ast.ClassDef)]),
+            "function_count": len(
+                [n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)]
+            ),
+            "class_count": len(
+                [n for n in ast.walk(tree) if isinstance(n, ast.ClassDef)]
+            ),
         }
 
     def _count_loc(self, content: str) -> int:
@@ -147,8 +151,8 @@ class CodeMetrics:
             return 0.0
 
         # Score basé sur maintainability + complexité + commentaires
-        avg_maintainability = sum(m["maintainability_index"] for m in metrics_list) / len(
-            metrics_list
-        )
+        avg_maintainability = sum(
+            m["maintainability_index"] for m in metrics_list
+        ) / len(metrics_list)
 
         return min(avg_maintainability, 100.0)

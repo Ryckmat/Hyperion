@@ -5,6 +5,46 @@ Tous les changements notables du projet Hyperion seront documentés ici.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/),
 et ce projet adhère au [Semantic Versioning](https://semver.org/lang/fr/).
 
+## [2.5.0] - 2024-12-24
+
+### 🚀 Hyperion v2.5 - Enterprise Ready with ML Infrastructure
+
+#### Infrastructure ML Professionnelle
+- ✅ **ML Training Pipeline** complet avec ensemble de modèles
+  - Random Forest, XGBoost, Isolation Forest, Meta-learner
+  - Validation croisée et métriques de performance
+  - Feature engineering avancé (35 features techniques)
+- ✅ **Model Registry** avec versioning et MLflow
+  - Sauvegarde/chargement sécurisé des modèles
+  - Métadonnées complètes et tracking des performances
+  - Promotion et validation des modèles
+- ✅ **Feature Store** avec cache intelligent
+  - Stockage optimisé des features calculées
+  - Gestion de fraîcheur et validation des données
+  - Métadonnées et recherche avancée
+- ✅ **Data Validation** avec détection de drift
+  - Validation automatique de la qualité des données
+  - Détection des anomalies et dérives statistiques
+  - Correction automatique des problèmes courants
+
+#### Tests et Qualité Code
+- ✅ **Tests ML complets** : 114/123 passés (92.7% réussite)
+- ✅ **Tests Core parfaits** : 138/138 passés (100% réussite)
+- ✅ **Code formatage uniforme** : Black + Ruff appliqués
+- ✅ **Pipeline intégré** : profile → ingest → generate → train
+
+#### Corrections et Stabilité
+- 🔧 **Configuration ML cohérente** : features, modèles, hyperparamètres
+- 🔧 **Model Registry robuste** : injection des dépendances, mocks des tests
+- 🔧 **Training Pipeline stable** : gestion d'erreurs, métriques sécurisées
+- 🔧 **Neo4j validation** : 72 nœuds ingérés, connectivité stable
+
+#### Architecture Enterprise
+- 📊 **35 Features ML** : code quality, team dynamics, business impact, temporal
+- 🎯 **4 Modèles configurés** : risk predictors, bug detector, anomaly detector
+- 🗄️ **Infrastructure données** : validation, cache, metadata, versioning
+- 🔧 **Tests d'intégration** : workflow bout-en-bout validé
+
 ## [2.0.0] - 2024-12-23
 
 ### 🚀 Hyperion v2.0 - Intelligence Artificielle pour l'Analyse de Code

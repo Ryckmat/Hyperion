@@ -43,7 +43,9 @@ class Neo4jCodeIngester:
         """Ferme la connexion Neo4j."""
         self.driver.close()
 
-    def ingest_repo_code(self, repo_path: str | Path, repo_name: str = None) -> dict[str, int]:
+    def ingest_repo_code(
+        self, repo_path: str | Path, repo_name: str = None
+    ) -> dict[str, int]:
         """
         Ingère tout le code source dans Neo4j v2.
 
@@ -86,7 +88,9 @@ class Neo4jCodeIngester:
             stats["files"] = len(code_data["files"])
 
             # 3. Ingérer fonctions
-            session.execute_write(self._ingest_functions, repo_name, code_data["functions"])
+            session.execute_write(
+                self._ingest_functions, repo_name, code_data["functions"]
+            )
             stats["functions"] = len(code_data["functions"])
 
             # 4. Ingérer classes
@@ -95,7 +99,10 @@ class Neo4jCodeIngester:
 
             # 5. Créer relations File->Function/Class
             session.execute_write(
-                self._create_file_relations, repo_name, code_data["functions"], code_data["classes"]
+                self._create_file_relations,
+                repo_name,
+                code_data["functions"],
+                code_data["classes"],
             )
 
             # 6. Créer relations Class->Method
@@ -143,7 +150,9 @@ class Neo4jCodeIngester:
         """Ingère les fonctions."""
         # Préparer les données avec ID unique
         for func in functions:
-            func["id"] = f"{repo_name}:{func['file']}:{func['name']}:{func['line_start']}"
+            func["id"] = (
+                f"{repo_name}:{func['file']}:{func['name']}:{func['line_start']}"
+            )
 
         query = """
         UNWIND $functions AS func
@@ -211,7 +220,9 @@ class Neo4jCodeIngester:
         """
         tx.run(query_class, classes=classes, repo=repo_name)
 
-    def _create_class_method_relations(self, tx, repo_name: str, functions: list[dict]) -> int:
+    def _create_class_method_relations(
+        self, tx, repo_name: str, functions: list[dict]
+    ) -> int:
         """Crée les relations Class->Method."""
         query = """
         UNWIND $methods AS method

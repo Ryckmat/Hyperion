@@ -5,7 +5,7 @@ from hyperion.__version__ import __version__
 
 def test_version():
     """Test version Hyperion."""
-    assert __version__ == "2.0.0", f"Version is {__version__!r}"
+    assert __version__ == "2.5.0", f"Version is {__version__!r}"
 
 
 def test_project_structure(project_root):
