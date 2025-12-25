@@ -1,0 +1,22 @@
+artifact_path: file:///home/kortazo/Documents/Hyperion/mlruns/0/models/m-3673c3f25f8d4dc0b5ba70199ce197e5/artifacts
+flavors:
+  python_function:
+    data: model.ubj
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.xgboost
+    python_version: 3.13.11
+  xgboost:
+    code: null
+    data: model.ubj
+    model_class: xgboost.sklearn.XGBClassifier
+    model_format: ubj
+    xgb_version: 3.1.2
+mlflow_version: 3.8.0
+model_id: m-3673c3f25f8d4dc0b5ba70199ce197e5
+model_size_bytes: 116748
+model_uuid: m-3673c3f25f8d4dc0b5ba70199ce197e5
+prompts: null
+run_id: 428bec39b992463d84d018a8cd147b89
+utc_time_created: '2025-12-25 00:39:10.672569'

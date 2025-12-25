@@ -1,0 +1,14 @@
+artifact_uri: file:///home/kortazo/Documents/Hyperion/mlruns/0/c56e8cb0148a4dedbe0b8942ccb12c1f/artifacts
+end_time: 1766623150645
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c56e8cb0148a4dedbe0b8942ccb12c1f
+run_name: delightful-newt-307
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1766623148739
+status: 3
+tags: []
+user_id: kortazo

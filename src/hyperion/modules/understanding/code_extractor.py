@@ -25,7 +25,13 @@ class CodeExtractor:
         Returns:
             Dict avec sections: files, functions, classes, imports
         """
-        result = {"files": [], "functions": [], "classes": [], "imports": [], "docstrings": []}
+        result = {
+            "files": [],
+            "functions": [],
+            "classes": [],
+            "imports": [],
+            "docstrings": [],
+        }
 
         # Scanner tous les fichiers Python
         for py_file in self.repo_path.rglob("*.py"):
@@ -184,7 +190,12 @@ class CodeExtractor:
         """Extrait info d'un import."""
         if isinstance(node, ast.Import):
             modules = [alias.name for alias in node.names]
-            return {"type": "import", "modules": modules, "file": file_path, "line": node.lineno}
+            return {
+                "type": "import",
+                "modules": modules,
+                "file": file_path,
+                "line": node.lineno,
+            }
         elif isinstance(node, ast.ImportFrom):
             return {
                 "type": "from_import",

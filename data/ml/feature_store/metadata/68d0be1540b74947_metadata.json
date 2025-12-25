@@ -1,0 +1,24 @@
+{
+  "feature_set_id": "68d0be1540b74947",
+  "source_file": "src/hyperion/core/git_analyzer.py",
+  "repository": "Hyperion",
+  "extracted_at": "2025-12-25T01:11:34.437898",
+  "feature_names": [
+    "file_size_kb",
+    "complexity_cyclomatic",
+    "test_coverage_ratio",
+    "commit_frequency_7d",
+    "author_experience",
+    "bug_history_count",
+    "lines_of_code",
+    "comment_ratio",
+    "imports_count",
+    "functions_count"
+  ],
+  "n_features": 10,
+  "extraction_version": "3.0.0",
+  "content_hash": "807766a7f9889246",
+  "source_hash": "1fded52bc79a416838ba4087ca716768",
+  "tags": {},
+  "extraction_time_ms": null
+}

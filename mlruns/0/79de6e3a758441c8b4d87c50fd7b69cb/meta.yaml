@@ -1,0 +1,14 @@
+artifact_uri: file:///home/kortazo/Documents/Hyperion/mlruns/0/79de6e3a758441c8b4d87c50fd7b69cb/artifacts
+end_time: 1766623153314
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 79de6e3a758441c8b4d87c50fd7b69cb
+run_name: popular-hog-367
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1766623152018
+status: 3
+tags: []
+user_id: kortazo

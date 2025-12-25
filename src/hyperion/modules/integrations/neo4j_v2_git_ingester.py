@@ -95,9 +95,13 @@ class Neo4jV2GitIngester:
 
             # 4. Créer relations Directory->File
             directory_files = self._extract_directory_structure(repo_path)
-            session.execute_write(self._ingest_directory_relations, repo_name, directory_files)
+            session.execute_write(
+                self._ingest_directory_relations, repo_name, directory_files
+            )
             stats["directories"] = len(directory_files)
-            stats["directory_relations"] = sum(len(files) for files in directory_files.values())
+            stats["directory_relations"] = sum(
+                len(files) for files in directory_files.values()
+            )
 
         return stats
 
@@ -186,7 +190,9 @@ class Neo4jV2GitIngester:
 
         return commits_data
 
-    def _get_commit_files(self, repo_path: Path, commit_hash: str) -> list[dict[str, str]]:
+    def _get_commit_files(
+        self, repo_path: Path, commit_hash: str
+    ) -> list[dict[str, str]]:
         """Récupère les fichiers modifiés par un commit avec l'action (A/M/D)."""
         cmd = [
             "git",
@@ -255,7 +261,9 @@ class Neo4jV2GitIngester:
 
         return directory_files
 
-    def _ingest_contributors(self, tx, repo_name: str, contributors: list[dict[str, Any]]):
+    def _ingest_contributors(
+        self, tx, repo_name: str, contributors: list[dict[str, Any]]
+    ):
         """Ingère les contributeurs avec leurs stats."""
         tx.run(
             """

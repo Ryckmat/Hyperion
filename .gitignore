@@ -193,3 +193,9 @@ Thumbs.db
 
 # Qdrant data (si lancé en local sans Docker)
 /qdrant_storage/
+
+# ML models cache (optionnel selon stratégie)
+/data/models/cache/
+
+# Legacy directories
+/output/

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/kortazo/Documents/Hyperion/mlruns/0/a93a2922c7234caaae5829dfbfb6b547/artifacts
+end_time: 1766622643491
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a93a2922c7234caaae5829dfbfb6b547
+run_name: beautiful-bird-722
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1766622642214
+status: 3
+tags: []
+user_id: kortazo

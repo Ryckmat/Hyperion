@@ -17,8 +17,8 @@ class CapacityEstimator:
         self.model = None  # TODO: Charger modèle ML
 
     def estimate_effort(
-        self, ticket_description: str, files_to_modify: list[str]  # noqa: ARG002
-    ) -> dict[str, Any]:
+        self, ticket_description: str, files_to_modify: list[str]
+    ) -> dict[str, Any]:  # noqa: ARG002
         """
         Estime l'effort d'un ticket.
 
