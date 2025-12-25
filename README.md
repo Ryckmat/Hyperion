@@ -6,38 +6,42 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
-**Hyperion v2.5.0 Enterprise Ready** est une plateforme locale d'analyse et d'exploration de dépôts Git avec infrastructure ML complète, combinant :
+**Hyperion v2.5.0 Enterprise Ready** est une plateforme locale d'intelligence pour repositories Git avec infrastructure ML complète, combinant :
 
 * 📊 **Analyse Git avancée** (commits, hotspots, contributeurs, métriques)
 * 🤖 **Infrastructure ML Enterprise** (MLflow, Feature Store, Training Pipeline)
 * 🧠 **RAG (Retrieval Augmented Generation)** basé sur **Qdrant**
 * 🕸️ **Graphe de connaissance** optionnel via **Neo4j**
-* 🎯 **Prédiction de risques ML** (Random Forest + XGBoost + Isolation Forest)
+* 🎯 **Sélection intelligente de modèles** selon vos besoins de performance
 * 🔍 **Détection d'anomalies** et analyse d'impact intelligente
 * 🤖 **API OpenAI-compatible** (Chat Completions / Models)
 * 💬 **Interface conversationnelle** via **Open WebUI**
-* 🚀 **Script d'orchestration unifié** pour tout lancer / arrêter
+* 🚀 **Orchestration unifiée** avec configuration dynamique
 
-Hyperion est conçu comme un **socle de connaissance technique local**, orienté compréhension, audit et exploration de code à grande échelle.
+Hyperion est conçu comme un **socle de connaissance technique local**, orienté compréhension, audit et exploration de code à grande échelle, **prêt pour la production**.
 
 ---
 
 ## ✨ Fonctionnalités clés
 
-### 🤖 Infrastructure ML Enterprise (v2.5.0)
+### 🎯 Sélection intelligente de modèles (v2.5.0)
+
+* **4 profils d'usage** adaptés à vos besoins :
+  - 🏃‍♂️ **Performance Ultra-Rapide** (<3s) : llama3.2:1b
+  - ⚖️ **Équilibre Performance/Qualité** (5-10s) : llama3.1:8b
+  - 🧠 **Qualité Premium** (10-30s) : qwen2.5:14b
+  - 🚀 **Expert/Recherche** (30s+) : qwen2.5:32b
+* **Configuration dynamique** via l'orchestrateur
+* **Téléchargement automatique** des modèles
+* **Test de performance** intégré
+
+### 🤖 Infrastructure ML Enterprise
 
 * **MLflow Integration** : Tracking automatique et registry de modèles
 * **Feature Store** : 35+ features prêtes pour ML avec cache intelligent
 * **Training Pipeline** : Entraînement automatisé multi-modèles
 * **Data Validator** : Validation de données et détection de drift
 * **Model Registry** : Versioning et déploiement de modèles ML
-
-### 🎯 Modèles ML Opérationnels
-
-* **RiskPredictor** : Ensemble Random Forest + XGBoost pour prédiction de risques
-* **AnomalyDetector** : Isolation Forest pour détection d'anomalies code
-* **ImpactAnalyzer** : Analyse d'impact et propagation de changements
-* **BugPredictor** : Prédiction de bugs basée sur l'historique Git
 
 ### 🔍 Analyse Git
 
@@ -176,18 +180,30 @@ hyperion --version
 hyperion info
 ```
 
-### 3️⃣ Lancer Hyperion
+### 3️⃣ Lancer Hyperion avec sélection de modèle
 
 ```bash
-./scripts/deploy/hyperion_master.sh
+# Démarrage avec configuration de modèle
+./scripts/deploy/hyperion_master.sh --setup-model
+
+# Ou démarrage automatique
+./scripts/deploy/hyperion_master.sh --auto
 ```
 
 Le script te guide pour :
 
+* **configurer ton modèle LLM** selon tes besoins
 * vérifier les services
 * lancer le dashboard
 * lancer Open WebUI
 * choisir ce que tu veux activer
+
+### 4️⃣ Profils de modèles disponibles
+
+🏃‍♂️ **Ultra-Rapide** (option 1) : Réponses <3s - **llama3.2:1b**
+⚖️ **Équilibre** (option 2) : Performance/Qualité - **llama3.1:8b** *(recommandé)*
+🧠 **Premium** (option 3) : Analyses approfondies - **qwen2.5:14b**
+🚀 **Expert** (option 4) : Recherche & audits - **qwen2.5:32b**
 
 👉 **Ctrl+C** arrête proprement tous les services lancés.
 

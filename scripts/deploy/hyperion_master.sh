@@ -26,6 +26,7 @@ MODULES="all"
 SKIP_VERIFICATION=false
 LAUNCH_DASHBOARD=true
 LAUNCH_OPENWEBUI=true
+MODEL_SETUP=false
 
 # Couleurs avec détection
 if [ -t 1 ] && [ "${TERM:-}" != "dumb" ] && command -v tput >/dev/null 2>&1; then
@@ -91,6 +92,7 @@ OPTIONS:
   --skip-verification       Skip la vérification des services
   --no-dashboard           Ne pas lancer le dashboard
   --no-openwebui           Ne pas lancer Open WebUI
+  --setup-model            Configurer le modèle LLM avant démarrage
   --help                   Afficher cette aide
 
 EXEMPLES:
@@ -136,6 +138,10 @@ parse_args() {
         ;;
       --no-openwebui)
         LAUNCH_OPENWEBUI=false
+        shift
+        ;;
+      --setup-model)
+        MODEL_SETUP=true
         shift
         ;;
       --help|-h)
@@ -187,6 +193,149 @@ validate_modules() {
   done
 }
 
+# Configuration modèle LLM
+setup_model() {
+  if [ "$MODEL_SETUP" = false ]; then
+    return 0
+  fi
+
+  section "🎯 CONFIGURATION MODÈLE LLM"
+
+  # Vérifier Ollama
+  if ! command -v ollama &> /dev/null; then
+    fail "Ollama n'est pas installé. Installez-le d'abord:"
+    echo "   curl -fsSL https://ollama.ai/install.sh | sh"
+    exit 1
+  fi
+
+  if ! ollama list &> /dev/null; then
+    fail "Ollama ne répond pas. Démarrez le service:"
+    echo "   ollama serve"
+    exit 1
+  fi
+
+  echo "📊 Profils d'usage disponibles:"
+  echo ""
+  echo "1) 🏃‍♂️ Performance Ultra-Rapide (<3s)"
+  echo "   Modèle: llama3.2:1b (1.3GB)"
+  echo "   Usage: Exploration rapide, démonstrations"
+  echo ""
+  echo "2) ⚖️ Équilibre Performance/Qualité (5-10s)"
+  echo "   Modèle: llama3.1:8b (4.7GB)"
+  echo "   Usage: Développement quotidien, code reviews"
+  echo ""
+  echo "3) 🧠 Qualité Premium (10-30s)"
+  echo "   Modèle: qwen2.5:14b (8.7GB)"
+  echo "   Usage: Analyses approfondies, architecture"
+  echo ""
+  echo "4) 🚀 Expert/Recherche (30s+)"
+  echo "   Modèle: qwen2.5:32b (19GB)"
+  echo "   Usage: Audits, recherche, analyses complexes"
+  echo ""
+  echo "5) 📋 Afficher la configuration actuelle"
+  echo ""
+
+  read -p "Votre choix (1-5): " choice
+
+  case $choice in
+    1)
+      MODEL="llama3.2:1b"
+      TOKENS="128"
+      TEMP="0.0"
+      TIMEOUT="2"
+      DESCRIPTION="Performance Ultra-Rapide"
+      ;;
+    2)
+      MODEL="llama3.1:8b"
+      TOKENS="512"
+      TEMP="0.1"
+      TIMEOUT="10"
+      DESCRIPTION="Équilibre Performance/Qualité"
+      ;;
+    3)
+      MODEL="qwen2.5:14b"
+      TOKENS="1024"
+      TEMP="0.1"
+      TIMEOUT="30"
+      DESCRIPTION="Qualité Premium"
+      ;;
+    4)
+      MODEL="qwen2.5:32b"
+      TOKENS="2048"
+      TEMP="0.2"
+      TIMEOUT="60"
+      DESCRIPTION="Expert/Recherche"
+      ;;
+    5)
+      echo ""
+      echo "📋 Configuration actuelle:"
+      echo "========================="
+      if [ -f ".env" ]; then
+        echo "Modèle: $(grep 'OLLAMA_MODEL=' .env | cut -d'=' -f2 || echo "Non trouvé")"
+        echo "Max Tokens: $(grep 'LLM_MAX_TOKENS=' .env | cut -d'=' -f2 || echo "Non trouvé")"
+        echo "Température: $(grep 'LLM_TEMPERATURE=' .env | cut -d'=' -f2 || echo "Non trouvé")"
+        echo "Timeout: $(grep 'LLM_TIMEOUT=' .env | cut -d'=' -f2 || echo "Non trouvé")"
+      else
+        fail "Fichier .env non trouvé"
+      fi
+      return 0
+      ;;
+    *)
+      fail "Choix invalide"
+      exit 1
+      ;;
+  esac
+
+  echo ""
+  ok "Configuration sélectionnée: $DESCRIPTION"
+  info "Modèle: $MODEL"
+  echo ""
+
+  # Vérifier si le modèle est déjà téléchargé
+  if ollama list | grep -q "$MODEL"; then
+    ok "Modèle $MODEL déjà disponible"
+  else
+    info "Téléchargement du modèle $MODEL..."
+    warn "Cela peut prendre plusieurs minutes selon la taille..."
+
+    if ollama pull "$MODEL"; then
+      ok "Modèle $MODEL téléchargé avec succès"
+    else
+      fail "Échec du téléchargement du modèle $MODEL"
+      exit 1
+    fi
+  fi
+
+  # Créer backup de la configuration
+  if [ -f "src/hyperion/modules/rag/config.py" ]; then
+    cp "src/hyperion/modules/rag/config.py" "src/hyperion/modules/rag/config.py.backup.$(date +%Y%m%d_%H%M%S)"
+    info "Backup de la configuration créé"
+  fi
+
+  # Mettre à jour la configuration dans .env
+  info "Mise à jour de la configuration..."
+  ENV_FILE=".env"
+
+  # Créer backup du fichier .env
+  if [ -f "$ENV_FILE" ]; then
+    cp "$ENV_FILE" "$ENV_FILE.backup.$(date +%Y%m%d_%H%M%S)"
+  fi
+
+  # Utiliser sed pour mettre à jour le fichier .env
+  sed "s/OLLAMA_MODEL=.*/OLLAMA_MODEL=$MODEL/g" "$ENV_FILE" | \
+  sed "s/LLM_MAX_TOKENS=.*/LLM_MAX_TOKENS=$TOKENS/g" | \
+  sed "s/LLM_TEMPERATURE=.*/LLM_TEMPERATURE=$TEMP/g" > "$ENV_FILE.tmp"
+
+  mv "$ENV_FILE.tmp" "$ENV_FILE"
+
+  ok "Configuration mise à jour:"
+  echo "   - Modèle: $MODEL"
+  echo "   - Max Tokens: $TOKENS"
+  echo "   - Température: $TEMP"
+  echo "   - Timeout: $TIMEOUT secondes"
+  echo ""
+}
+
 # Mode interactif
 interactive_mode() {
   section "🎮 CONFIGURATION INTERACTIVE"
@@ -230,6 +379,13 @@ interactive_mode() {
   read -p "Lancer Open WebUI pour chat ? (o/n): " openwebui_choice
   if [[ "$openwebui_choice" =~ ^[Nn]$ ]]; then
     LAUNCH_OPENWEBUI=false
+  fi
+
+  # Configuration modèle
+  echo ""
+  read -p "Configurer le modèle LLM avant démarrage ? (o/n): " model_choice
+  if [[ "$model_choice" =~ ^[Oo]$ ]]; then
+    MODEL_SETUP=true
   fi
 }
 
@@ -298,10 +454,24 @@ verify_services() {
   fi
   ok "Ollama actif"
 
-  if ollama list | grep -q "qwen2.5:32b"; then
-    ok "Modèle qwen2.5:32b disponible"
+  # Vérifier le modèle configuré
+  CONFIGURED_MODEL=$(grep 'OLLAMA_MODEL=' .env | cut -d'=' -f2 2>/dev/null || echo "llama3.2:1b")
+  if ollama list | grep -q "$CONFIGURED_MODEL"; then
+    ok "Modèle $CONFIGURED_MODEL disponible"
   else
-    warn "Modèle qwen2.5:32b manquant (exécutez: ollama pull qwen2.5:32b)"
+    warn "Modèle $CONFIGURED_MODEL manquant"
+    if [ "$INTERACTIVE_MODE" = true ]; then
+      read -p "Télécharger automatiquement ? (o/n): " download_choice
+      if [[ "$download_choice" =~ ^[Oo]$ ]]; then
+        info "Téléchargement du modèle $CONFIGURED_MODEL..."
+        if ollama pull "$CONFIGURED_MODEL"; then
+          ok "Modèle téléchargé avec succès"
+        else
+          fail "Échec téléchargement"
+          exit 1
+        fi
+      fi
+    fi
   fi
 
   # Python
@@ -751,6 +921,7 @@ main() {
   fi
 
   # Exécution
+  setup_model
   verify_services
   run_modules
   test_rag

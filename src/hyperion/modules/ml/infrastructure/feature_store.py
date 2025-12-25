@@ -101,7 +101,9 @@ class FeatureStore:
         # Calculer hash du contenu
         content_hash = self._calculate_content_hash(features)
         source_hash = (
-            self._calculate_file_hash(source_file) if Path(source_file).exists() else "unknown"
+            self._calculate_file_hash(source_file)
+            if Path(source_file).exists()
+            else "unknown"
         )
 
         # Préparer métadonnées
@@ -134,7 +136,9 @@ class FeatureStore:
             if "extracted_at" in metadata_dict and isinstance(
                 metadata_dict["extracted_at"], datetime
             ):
-                metadata_dict["extracted_at"] = metadata_dict["extracted_at"].isoformat()
+                metadata_dict["extracted_at"] = metadata_dict[
+                    "extracted_at"
+                ].isoformat()
 
             with open(metadata_path, "w", encoding="utf-8") as f:
                 json.dump(metadata_dict, f, indent=2, ensure_ascii=False)
@@ -183,7 +187,9 @@ class FeatureStore:
                 metadata_dict = json.load(f)
 
             # Convertir string datetime en datetime object
-            if "extracted_at" in metadata_dict and isinstance(metadata_dict["extracted_at"], str):
+            if "extracted_at" in metadata_dict and isinstance(
+                metadata_dict["extracted_at"], str
+            ):
                 metadata_dict["extracted_at"] = datetime.fromisoformat(
                     metadata_dict["extracted_at"]
                 )
@@ -256,7 +262,9 @@ class FeatureStore:
                 # Taille du cache
                 features_path = self.cache_dir / f"{metadata.feature_set_id}.pkl"
                 if features_path.exists():
-                    info["cache_size_mb"] = round(features_path.stat().st_size / (1024 * 1024), 2)
+                    info["cache_size_mb"] = round(
+                        features_path.stat().st_size / (1024 * 1024), 2
+                    )
 
                 feature_sets.append(info)
 
@@ -333,7 +341,9 @@ class FeatureStore:
             repo_sets = [fs for fs in all_sets if fs["repository"] == repo]
             repo_stats[repo] = {
                 "total_feature_sets": len(repo_sets),
-                "fresh_feature_sets": len([fs for fs in repo_sets if fs.get("is_fresh", False)]),
+                "fresh_feature_sets": len(
+                    [fs for fs in repo_sets if fs.get("is_fresh", False)]
+                ),
                 "cache_size_mb": sum(fs.get("cache_size_mb", 0) for fs in repo_sets),
             }
 
@@ -349,7 +359,9 @@ class FeatureStore:
             ),
         }
 
-    def search_features(self, query: str, search_in: list[str] = None) -> list[dict[str, Any]]:
+    def search_features(
+        self, query: str, search_in: list[str] = None
+    ) -> list[dict[str, Any]]:
         """
         Recherche des feature sets par query.
 
@@ -372,15 +384,23 @@ class FeatureStore:
 
             # Rechercher dans les champs spécifiés
             for field in search_in:
-                if field == "source_file" and query_lower in feature_set["source_file"].lower():
+                if (
+                    field == "source_file"
+                    and query_lower in feature_set["source_file"].lower()
+                ):
                     match_found = True
                     break
                 elif field == "feature_names":
-                    if any(query_lower in fname.lower() for fname in feature_set["feature_names"]):
+                    if any(
+                        query_lower in fname.lower()
+                        for fname in feature_set["feature_names"]
+                    ):
                         match_found = True
                         break
                 elif field == "tags":
-                    tags_text = " ".join(f"{k}:{v}" for k, v in feature_set["tags"].items())
+                    tags_text = " ".join(
+                        f"{k}:{v}" for k, v in feature_set["tags"].items()
+                    )
                     if query_lower in tags_text.lower():
                         match_found = True
                         break

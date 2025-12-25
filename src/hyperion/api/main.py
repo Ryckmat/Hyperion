@@ -94,7 +94,13 @@ def read_root():
 @app.get("/api/health")
 def health_check():
     """Health check API + Neo4j + RAG optimisé."""
-    status = {"status": "healthy", "api": "ok", "neo4j": "unknown", "rag": "unknown", "details": {}}
+    status = {
+        "status": "healthy",
+        "api": "ok",
+        "neo4j": "unknown",
+        "rag": "unknown",
+        "details": {},
+    }
 
     # Test Neo4j (tolérant)
     if Neo4jIngester is None:
@@ -112,7 +118,9 @@ def health_check():
             status["neo4j"] = "ok"
         except Exception as e:
             status["neo4j"] = "warning: connection failed"
-            status["details"]["neo4j"] = f"Neo4j indisponible mais API fonctionnel: {str(e)[:50]}"
+            status["details"][
+                "neo4j"
+            ] = f"Neo4j indisponible mais API fonctionnel: {str(e)[:50]}"
 
     # Test RAG (optimisé)
     try:
@@ -129,7 +137,9 @@ def health_check():
     except Exception as e:
         # RAG échec ne dégrade pas le service complet
         status["rag"] = "warning: initialization failed"
-        status["details"]["rag"] = f"RAG indisponible mais API core fonctionnel: {str(e)[:50]}"
+        status["details"][
+            "rag"
+        ] = f"RAG indisponible mais API core fonctionnel: {str(e)[:50]}"
 
     # Status global: healthy sauf si API core échoue
     # Neo4j et RAG sont des features optionnelles
@@ -249,7 +259,9 @@ def get_neo4j_repo(repo_name: str):
         ingester.close()
 
         if not stats:
-            raise HTTPException(status_code=404, detail=f"Repo '{repo_name}' non trouvé dans Neo4j")
+            raise HTTPException(
+                status_code=404, detail=f"Repo '{repo_name}' non trouvé dans Neo4j"
+            )
 
         return stats
     except HTTPException:

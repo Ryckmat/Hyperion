@@ -46,7 +46,12 @@ class TestTrainingPipeline:
 
         # Vérifier modèles entraînés
         models_results = results["models_results"]
-        expected_models = ["random_forest", "xgboost", "isolation_forest", "meta_learner"]
+        expected_models = [
+            "random_forest",
+            "xgboost",
+            "isolation_forest",
+            "meta_learner",
+        ]
         for model_name in expected_models:
             assert model_name in models_results
 
@@ -71,7 +76,9 @@ class TestTrainingPipeline:
 
     def test_train_random_forest(self, pipeline, sample_training_data):
         """Test entraînement Random Forest spécifique."""
-        feature_cols = [col for col in sample_training_data.columns if col != "risque_reel"]
+        feature_cols = [
+            col for col in sample_training_data.columns if col != "risque_reel"
+        ]
         X = sample_training_data[feature_cols]
         y = sample_training_data["risque_reel"]
 
@@ -98,7 +105,9 @@ class TestTrainingPipeline:
 
     def test_train_xgboost(self, pipeline, sample_training_data):
         """Test entraînement XGBoost spécifique."""
-        feature_cols = [col for col in sample_training_data.columns if col != "risque_reel"]
+        feature_cols = [
+            col for col in sample_training_data.columns if col != "risque_reel"
+        ]
         X = sample_training_data[feature_cols]
         y = sample_training_data["risque_reel"]
 
@@ -115,7 +124,9 @@ class TestTrainingPipeline:
 
     def test_train_isolation_forest(self, pipeline, sample_training_data):
         """Test entraînement Isolation Forest."""
-        feature_cols = [col for col in sample_training_data.columns if col != "risque_reel"]
+        feature_cols = [
+            col for col in sample_training_data.columns if col != "risque_reel"
+        ]
         X = sample_training_data[feature_cols]
         y = sample_training_data["risque_reel"]
 
@@ -123,7 +134,9 @@ class TestTrainingPipeline:
         X_train, X_test = X.iloc[:split_idx], X.iloc[split_idx:]
         y_train, y_test = y.iloc[:split_idx], y.iloc[split_idx:]
 
-        model, results = pipeline._train_isolation_forest(X_train, y_train, X_test, y_test)
+        model, results = pipeline._train_isolation_forest(
+            X_train, y_train, X_test, y_test
+        )
 
         assert model is not None
         assert results["model_type"] == "IsolationForest"
@@ -133,7 +146,9 @@ class TestTrainingPipeline:
 
     def test_train_meta_learner(self, pipeline, sample_training_data):
         """Test entraînement meta-learner."""
-        feature_cols = [col for col in sample_training_data.columns if col != "risque_reel"]
+        feature_cols = [
+            col for col in sample_training_data.columns if col != "risque_reel"
+        ]
         X = sample_training_data[feature_cols]
         y = sample_training_data["risque_reel"]
 
@@ -207,7 +222,9 @@ class TestTrainingPipeline:
     def test_train_bug_predictor(self, pipeline, sample_bug_prediction_data):
         """Test entraînement BugPredictor."""
         results = pipeline.train_bug_predictor(
-            training_data=sample_bug_prediction_data, target_column="bug_dans_30j", save_model=False
+            training_data=sample_bug_prediction_data,
+            target_column="bug_dans_30j",
+            save_model=False,
         )
 
         assert isinstance(results, dict)
@@ -280,7 +297,12 @@ class TestTrainingPipeline:
             "models_results": {
                 "test_model": {
                     "model_type": "RandomForest",
-                    "metrics": {"accuracy": 0.95, "precision": 0.93, "recall": 0.97, "f1": 0.95},
+                    "metrics": {
+                        "accuracy": 0.95,
+                        "precision": 0.93,
+                        "recall": 0.97,
+                        "f1": 0.95,
+                    },
                     "hyperparameters": {"n_estimators": 100},
                 }
             },
@@ -325,11 +347,18 @@ class TestTrainingPipelineIntegration:
 
         # Vérifier que tous les modèles ont été entraînés
         models_results = results["models_results"]
-        expected_models = ["random_forest", "xgboost", "isolation_forest", "meta_learner"]
+        expected_models = [
+            "random_forest",
+            "xgboost",
+            "isolation_forest",
+            "meta_learner",
+        ]
 
         for model_name in expected_models:
             assert model_name in models_results
-            if model_name != "isolation_forest":  # Isolation Forest a structure différente
+            if (
+                model_name != "isolation_forest"
+            ):  # Isolation Forest a structure différente
                 assert "metrics" in models_results[model_name]
 
         # Vérifier meilleur modèle
@@ -351,7 +380,9 @@ class TestTrainingPipelineIntegration:
 
         # Doit réussir grâce à la préparation des données
         results = pipeline.train_risk_predictor(
-            training_data=problematic_data, target_column="risque_reel", save_models=False
+            training_data=problematic_data,
+            target_column="risque_reel",
+            save_models=False,
         )
 
         assert results is not None
@@ -365,12 +396,16 @@ class TestTrainingPipelineIntegration:
                 "feature1": np.random.randn(100),
                 "feature2": np.random.randn(100),
                 "feature3": np.random.randn(100),
-                "risque_reel": np.random.choice([0, 1], 100, p=[0.9, 0.1]),  # 90% classe 0
+                "risque_reel": np.random.choice(
+                    [0, 1], 100, p=[0.9, 0.1]
+                ),  # 90% classe 0
             }
         )
 
         results = pipeline.train_risk_predictor(
-            training_data=unbalanced_data, target_column="risque_reel", save_models=False
+            training_data=unbalanced_data,
+            target_column="risque_reel",
+            save_models=False,
         )
 
         assert results is not None
@@ -415,7 +450,9 @@ class TestTrainingPipelineIntegration:
     def test_performance_metrics_validity(self, pipeline, sample_training_data):
         """Test validité métriques de performance."""
         results = pipeline.train_risk_predictor(
-            training_data=sample_training_data, target_column="risque_reel", save_models=False
+            training_data=sample_training_data,
+            target_column="risque_reel",
+            save_models=False,
         )
 
         # Vérifier que toutes les métriques sont valides
@@ -424,7 +461,10 @@ class TestTrainingPipelineIntegration:
                 metrics = model_results["metrics"]
 
                 for metric_name, value in metrics.items():
-                    if isinstance(value, (int, float)) and metric_name != "classification_report":
+                    if (
+                        isinstance(value, (int, float))
+                        and metric_name != "classification_report"
+                    ):
                         assert (
                             0 <= value <= 1
                         ), f"Métrique {metric_name} invalide pour {model_name}: {value}"
