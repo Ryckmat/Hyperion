@@ -105,7 +105,9 @@ class RAGIngester:
         # Générer embeddings
         texts = [c["text"] for c in chunks]
         print("   • Génération embeddings...")
-        embeddings = self.embedding_model.encode(texts, batch_size=32, show_progress_bar=True, convert_to_numpy=True)
+        embeddings = self.embedding_model.encode(
+            texts, batch_size=32, show_progress_bar=True, convert_to_numpy=True
+        )
 
         # Créer points Qdrant
         points = []
@@ -329,7 +331,11 @@ Quality Metrics:
             lines.append(f"\n- **{func['name']}** in {func['file']}:{func['line_start']}")
             lines.append(f"  Signature: {signature}")
             if func.get("docstring"):
-                doc = func["docstring"][:200] + "..." if len(func["docstring"]) > 200 else func["docstring"]
+                doc = (
+                    func["docstring"][:200] + "..."
+                    if len(func["docstring"]) > 200
+                    else func["docstring"]
+                )
                 lines.append(f"  Documentation: {doc}")
             lines.append(f"  Type: {'Method' if func.get('is_method') else 'Function'}")
 
@@ -342,7 +348,11 @@ Quality Metrics:
         for cls in classes:
             lines.append(f"\n- **{cls['name']}** in {cls['file']}:{cls['line_start']}")
             if cls.get("docstring"):
-                doc = cls["docstring"][:200] + "..." if len(cls["docstring"]) > 200 else cls["docstring"]
+                doc = (
+                    cls["docstring"][:200] + "..."
+                    if len(cls["docstring"]) > 200
+                    else cls["docstring"]
+                )
                 lines.append(f"  Documentation: {doc}")
             if cls.get("methods"):
                 methods_str = ", ".join(cls["methods"][:5])  # Limiter à 5 méthodes
@@ -362,7 +372,9 @@ Quality Metrics:
             lines.append(f"  Size: {file_info['size_lines']} lines")
             if file_info.get("summary"):
                 summary = (
-                    file_info["summary"][:150] + "..." if len(file_info["summary"]) > 150 else file_info["summary"]
+                    file_info["summary"][:150] + "..."
+                    if len(file_info["summary"]) > 150
+                    else file_info["summary"]
                 )
                 lines.append(f"  Purpose: {summary}")
 
@@ -398,7 +410,9 @@ Quality Metrics:
 
         self.qdrant_client.delete(
             collection_name=self.collection_name,
-            points_selector=Filter(must=[FieldCondition(key="repo", match=MatchValue(value=repo_name))]),
+            points_selector=Filter(
+                must=[FieldCondition(key="repo", match=MatchValue(value=repo_name))]
+            ),
         )
         print(f"🧹 Repo {repo_name} supprimé de Qdrant")
 

@@ -105,9 +105,15 @@ class Neo4jV2GitIngester:
         """Crée les contraintes et index Neo4j v2 pour Git."""
         constraints = [
             "CREATE CONSTRAINT commit_hash IF NOT EXISTS FOR (c:Commit) REQUIRE c.hash IS UNIQUE",
-            ("CREATE CONSTRAINT contributor_v2_id IF NOT EXISTS " "FOR (cont:Contributor) REQUIRE cont.id IS UNIQUE"),
+            (
+                "CREATE CONSTRAINT contributor_v2_id IF NOT EXISTS "
+                "FOR (cont:Contributor) REQUIRE cont.id IS UNIQUE"
+            ),
             "CREATE CONSTRAINT file_v2_path IF NOT EXISTS FOR (f:File) REQUIRE f.path IS UNIQUE",
-            ("CREATE CONSTRAINT directory_v2_path IF NOT EXISTS " "FOR (d:Directory) REQUIRE d.path IS UNIQUE"),
+            (
+                "CREATE CONSTRAINT directory_v2_path IF NOT EXISTS "
+                "FOR (d:Directory) REQUIRE d.path IS UNIQUE"
+            ),
             "CREATE INDEX commit_date IF NOT EXISTS FOR (c:Commit) ON (c.date)",
             "CREATE INDEX contributor_email IF NOT EXISTS FOR (cont:Contributor) ON (cont.email)",
         ]
@@ -326,7 +332,9 @@ class Neo4jV2GitIngester:
                 action=file_info["action"],
             )
 
-    def _ingest_directory_relations(self, tx, repo_name: str, directory_files: dict[str, list[str]]):
+    def _ingest_directory_relations(
+        self, tx, repo_name: str, directory_files: dict[str, list[str]]
+    ):
         """Ingère les relations Directory -> File."""
         for directory, files in directory_files.items():
             # Créer le directory

@@ -137,10 +137,14 @@ class TestFeatureStore:
         store = mock_feature_store
 
         # Stocker features
-        store.store_features(features=sample_features, source_file="/test/file.py", repository="test_repo")
+        store.store_features(
+            features=sample_features, source_file="/test/file.py", repository="test_repo"
+        )
 
         # Récupérer sans check fraîcheur
-        features = store.get_features(source_file="/test/file.py", repository="test_repo", check_freshness=False)
+        features = store.get_features(
+            source_file="/test/file.py", repository="test_repo", check_freshness=False
+        )
 
         assert features == sample_features
 
@@ -251,11 +255,17 @@ class TestFeatureStore:
         store = mock_feature_store
 
         store.store_features(
-            sample_features, "/file1.py", "repo1", tags={"version": "1.0", "environment": "production"}
+            sample_features,
+            "/file1.py",
+            "repo1",
+            tags={"version": "1.0", "environment": "production"},
         )
 
         store.store_features(
-            sample_features, "/file2.py", "repo1", tags={"version": "2.0", "environment": "development"}
+            sample_features,
+            "/file2.py",
+            "repo1",
+            tags={"version": "2.0", "environment": "development"},
         )
 
         # Rechercher par tag
@@ -417,7 +427,9 @@ class TestFeatureStoreIntegration:
         assert len(search_results) == 1
 
         # 4. Récupérer avec métadonnées
-        features, metadata = store.get_features("/project/src/main.py", "hyperion", return_metadata=True)
+        features, metadata = store.get_features(
+            "/project/src/main.py", "hyperion", return_metadata=True
+        )
         assert features == sample_features
         assert metadata.tags["branch"] == "main"
 
@@ -433,7 +445,9 @@ class TestFeatureStoreIntegration:
         # Stocker pour différents repos
         repos = ["repo1", "repo2", "repo3"]
         for i, repo in enumerate(repos):
-            store.store_features(sample_features, f"/project{i}/file.py", repo, tags={"index": str(i)})
+            store.store_features(
+                sample_features, f"/project{i}/file.py", repo, tags={"index": str(i)}
+            )
 
         # Vérifier séparation par repo
         for repo in repos:
@@ -452,7 +466,9 @@ class TestFeatureStoreIntegration:
 
         # Features invalides
         with pytest.raises(Exception):
-            store.store_features(features=None, source_file="/file.py", repository="repo")  # Invalide
+            store.store_features(
+                features=None, source_file="/file.py", repository="repo"
+            )  # Invalide
 
         # Récupération avec paramètres invalides
         features = store.get_features("", "")

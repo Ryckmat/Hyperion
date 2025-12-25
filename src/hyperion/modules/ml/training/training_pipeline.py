@@ -120,7 +120,9 @@ class TrainingPipeline:
 
         # Meta-learner pour ensemble
         print("🎭 5. Entraînement Meta-learner...")
-        meta_model, meta_results = self._train_meta_learner([rf_model, xgb_model], X_train, y_train, X_test, y_test)
+        meta_model, meta_results = self._train_meta_learner(
+            [rf_model, xgb_model], X_train, y_train, X_test, y_test
+        )
         models_results["meta_learner"] = meta_results
 
         # 5. Résultats globaux
@@ -151,7 +153,9 @@ class TrainingPipeline:
             )
 
         print(f"✅ Entraînement terminé en {training_time:.1f}s")
-        print(f"   🎯 Meilleur modèle: {results['best_model']['name']} ({results['best_model']['f1']:.3f} F1)")
+        print(
+            f"   🎯 Meilleur modèle: {results['best_model']['name']} ({results['best_model']['f1']:.3f} F1)"
+        )
 
         return results
 
@@ -172,7 +176,9 @@ class TrainingPipeline:
         metrics = self._calculate_metrics(y_test, y_pred, y_proba)
 
         # Cross-validation
-        cv_scores = cross_val_score(model, X_train, y_train, cv=self.config.training.cross_validation_folds)
+        cv_scores = cross_val_score(
+            model, X_train, y_train, cv=self.config.training.cross_validation_folds
+        )
 
         results = {
             "model_type": "RandomForest",
@@ -180,7 +186,9 @@ class TrainingPipeline:
             "metrics": metrics,
             "cv_score_mean": cv_scores.mean(),
             "cv_score_std": cv_scores.std(),
-            "feature_importance": dict(zip(X_train.columns, model.feature_importances_)),
+            "feature_importance": dict(
+                zip(X_train.columns, model.feature_importances_, strict=True)
+            ),
         }
 
         return model, results
@@ -202,7 +210,9 @@ class TrainingPipeline:
         metrics = self._calculate_metrics(y_test, y_pred, y_proba)
 
         # Cross-validation
-        cv_scores = cross_val_score(model, X_train, y_train, cv=self.config.training.cross_validation_folds)
+        cv_scores = cross_val_score(
+            model, X_train, y_train, cv=self.config.training.cross_validation_folds
+        )
 
         results = {
             "model_type": "XGBoost",
@@ -210,12 +220,16 @@ class TrainingPipeline:
             "metrics": metrics,
             "cv_score_mean": cv_scores.mean(),
             "cv_score_std": cv_scores.std(),
-            "feature_importance": dict(zip(X_train.columns, model.feature_importances_)),
+            "feature_importance": dict(
+                zip(X_train.columns, model.feature_importances_, strict=True)
+            ),
         }
 
         return model, results
 
-    def _train_isolation_forest(self, X_train, y_train, X_test, y_test) -> tuple[Any, dict]:
+    def _train_isolation_forest(
+        self, X_train, y_train, X_test, y_test
+    ) -> tuple[Any, dict]:  # noqa: ARG002
         """Entraîne l'Isolation Forest pour détection d'anomalies."""
         config = self.config.get_model_config("anomaly_detector")
 
@@ -240,7 +254,9 @@ class TrainingPipeline:
 
         return model, results
 
-    def _train_meta_learner(self, base_models: list[Any], X_train, y_train, X_test, y_test) -> tuple[Any, dict]:
+    def _train_meta_learner(
+        self, base_models: list[Any], X_train, y_train, X_test, y_test
+    ) -> tuple[Any, dict]:
         """Entraîne le meta-learner pour ensemble."""
 
         # Générer prédictions des modèles de base
@@ -259,7 +275,9 @@ class TrainingPipeline:
         X_test_meta = np.column_stack(test_meta_features)
 
         # Meta-learner (Logistic Regression simple)
-        meta_model = LogisticRegression(random_state=self.config.training.random_state, max_iter=1000)
+        meta_model = LogisticRegression(
+            random_state=self.config.training.random_state, max_iter=1000
+        )
 
         # Entraînement
         meta_model.fit(X_train_meta, y_train)
@@ -283,7 +301,7 @@ class TrainingPipeline:
 
         return ensemble_model, results
 
-    def _calculate_metrics(self, y_true, y_pred, y_proba=None) -> dict[str, float]:
+    def _calculate_metrics(self, y_true, y_pred, y_proba=None) -> dict[str, float]:  # noqa: ARG002
         """Calcule les métriques de performance."""
         metrics = {
             "accuracy": accuracy_score(y_true, y_pred),
@@ -353,7 +371,10 @@ class TrainingPipeline:
                     print(f"   ⚠️ Erreur sauvegarde {model_name}: {e}")
 
     def train_bug_predictor(
-        self, training_data: pd.DataFrame, target_column: str = "bug_dans_30j", save_model: bool = True
+        self,
+        training_data: pd.DataFrame,
+        target_column: str = "bug_dans_30j",
+        save_model: bool = True,
     ) -> dict[str, Any]:
         """
         Entraîne le prédicteur de bugs.
@@ -397,7 +418,7 @@ class TrainingPipeline:
         results = {
             "model_type": "BugPredictor",
             "metrics": metrics,
-            "feature_importance": dict(zip(feature_cols, model.feature_importances_)),
+            "feature_importance": dict(zip(feature_cols, model.feature_importances_, strict=True)),
             "temporal_split": True,
             "training_samples": len(X_train),
         }
@@ -443,7 +464,11 @@ class TrainingPipeline:
                     }
 
                 except Exception as e:
-                    validation_results[model_info["name"]] = {"loadable": False, "error": str(e), "status": "erreur"}
+                    validation_results[model_info["name"]] = {
+                        "loadable": False,
+                        "error": str(e),
+                        "status": "erreur",
+                    }
 
         print(f"✅ Validation terminée: {len(validation_results)} modèles vérifiés")
         return validation_results

@@ -125,7 +125,9 @@ class CodeMetrics:
         metrics_list = [self.calculate_metrics(f) for f in python_files[:10]]  # Sample
 
         avg_complexity = (
-            sum(m["cyclomatic_complexity"] for m in metrics_list) / len(metrics_list) if metrics_list else 0
+            sum(m["cyclomatic_complexity"] for m in metrics_list) / len(metrics_list)
+            if metrics_list
+            else 0
         )
 
         return {
@@ -133,7 +135,9 @@ class CodeMetrics:
             "total_files": len(python_files),
             "analyzed_files": len(metrics_list),
             "average_complexity": avg_complexity,
-            "files_with_high_complexity": len([m for m in metrics_list if m["cyclomatic_complexity"] > 15]),
+            "files_with_high_complexity": len(
+                [m for m in metrics_list if m["cyclomatic_complexity"] > 15]
+            ),
             "quality_score": self._calculate_quality_score(metrics_list),
         }
 
@@ -143,6 +147,8 @@ class CodeMetrics:
             return 0.0
 
         # Score basé sur maintainability + complexité + commentaires
-        avg_maintainability = sum(m["maintainability_index"] for m in metrics_list) / len(metrics_list)
+        avg_maintainability = sum(m["maintainability_index"] for m in metrics_list) / len(
+            metrics_list
+        )
 
         return min(avg_maintainability, 100.0)

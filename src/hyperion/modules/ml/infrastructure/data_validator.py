@@ -115,7 +115,9 @@ class DataValidator:
 
         return types
 
-    def validate_dataframe(self, df: pd.DataFrame, target_column: str | None = None) -> ValidationResult:
+    def validate_dataframe(
+        self, df: pd.DataFrame, target_column: str | None = None
+    ) -> ValidationResult:
         """
         Valide un DataFrame complet.
 
@@ -214,7 +216,9 @@ class DataValidator:
                 result.feature_coverage[feature] = non_null_pct
 
                 if non_null_pct < 50:
-                    result.errors.append(f"Feature {feature}: trop de valeurs manquantes ({100-non_null_pct:.1f}%)")
+                    result.errors.append(
+                        f"Feature {feature}: trop de valeurs manquantes ({100-non_null_pct:.1f}%)"
+                    )
                 elif non_null_pct < 80:
                     result.warnings.append(
                         f"Feature {feature}: beaucoup de valeurs manquantes ({100-non_null_pct:.1f}%)"
@@ -241,7 +245,9 @@ class DataValidator:
                 self._validate_column_type(df[column], column, expected_type, result)
                 result.feature_types[column] = str(df[column].dtype)
 
-    def _validate_column_type(self, series: pd.Series, column: str, expected_type: str, result: ValidationResult):
+    def _validate_column_type(
+        self, series: pd.Series, column: str, expected_type: str, result: ValidationResult
+    ):
         """Valide le type d'une colonne."""
 
         # Ignorer valeurs manquantes pour validation type
@@ -265,7 +271,9 @@ class DataValidator:
         elif expected_type == "temporal":
             # Vérifier que les valeurs sont positives pour âge en jours
             if (non_null_series < 0).any():
-                result.errors.append(f"Feature {column}: valeurs négatives détectées (âge en jours)")
+                result.errors.append(
+                    f"Feature {column}: valeurs négatives détectées (âge en jours)"
+                )
 
     def _validate_target(self, target: pd.Series, result: ValidationResult):
         """Valide la colonne target."""
@@ -288,7 +296,9 @@ class DataValidator:
             min_class_pct = (value_counts.min() / len(target)) * 100
 
             if min_class_pct < 5:
-                result.warnings.append(f"Classes déséquilibrées: classe minoritaire {min_class_pct:.1f}%")
+                result.warnings.append(
+                    f"Classes déséquilibrées: classe minoritaire {min_class_pct:.1f}%"
+                )
 
     def _validate_distributions(self, df: pd.DataFrame, result: ValidationResult):
         """Valide les distributions des features."""
@@ -315,7 +325,9 @@ class DataValidator:
                 outlier_pct = (len(outliers) / len(series)) * 100
 
                 if outlier_pct > 5:
-                    result.warnings.append(f"Feature {col}: beaucoup d'outliers ({outlier_pct:.1f}%)")
+                    result.warnings.append(
+                        f"Feature {col}: beaucoup d'outliers ({outlier_pct:.1f}%)"
+                    )
 
     def validate_and_prepare_data(
         self, df: pd.DataFrame, target_column: str | None = None, fix_issues: bool = True
@@ -395,7 +407,12 @@ class DataValidator:
         Returns:
             Rapport de dérive détaillé
         """
-        drift_report = {"has_drift": False, "drifted_features": [], "drift_scores": {}, "summary": ""}
+        drift_report = {
+            "has_drift": False,
+            "drifted_features": [],
+            "drift_scores": {},
+            "summary": "",
+        }
 
         common_features = set(reference_df.columns) & set(current_df.columns)
 
@@ -422,7 +439,9 @@ class DataValidator:
         drift_report["has_drift"] = len(drift_report["drifted_features"]) > 0
 
         if drift_report["has_drift"]:
-            drift_report["summary"] = f"Dérive détectée sur {len(drift_report['drifted_features'])} features"
+            drift_report["summary"] = (
+                f"Dérive détectée sur {len(drift_report['drifted_features'])} features"
+            )
         else:
             drift_report["summary"] = "Aucune dérive significative détectée"
 

@@ -65,7 +65,9 @@ class TestMLEnvironment:
 
         assert feature_set_id is not None
 
-        retrieved_features = temp_store.get_features(source_file="/test/file.py", repository="test_repo")
+        retrieved_features = temp_store.get_features(
+            source_file="/test/file.py", repository="test_repo"
+        )
 
         assert retrieved_features == test_features
 
@@ -87,7 +89,10 @@ class TestMLEnvironment:
 
         # Test sauvegarde
         version = temp_registry.save_model(
-            model=model, name="test_model", model_type="RandomForest", mlflow_logging=False  # Désactiver pour test
+            model=model,
+            name="test_model",
+            model_type="RandomForest",
+            mlflow_logging=False,  # Désactiver pour test
         )
 
         assert version is not None
@@ -105,10 +110,13 @@ class TestMLEnvironment:
             import mlflow
             import numpy as np
             import pandas as pd
-            import sklearn
-            import xgboost
+            import sklearn  # noqa: F401
+            import xgboost  # noqa: F401
 
-            assert True
+            # Vérifier que les imports fonctionnent
+            assert np is not None
+            assert pd is not None
+            assert mlflow is not None
         except ImportError as e:
             pytest.fail(f"Dépendance ML manquante: {e}")
 
@@ -150,7 +158,9 @@ class TestMLEnvironmentIntegration:
         )
 
         # 2. Valider données
-        df_clean, validation_result = data_validator.validate_and_prepare_data(data, "risque_reel", fix_issues=True)
+        df_clean, validation_result = data_validator.validate_and_prepare_data(
+            data, "risque_reel", fix_issues=True
+        )
 
         assert validation_result is not None
         assert len(df_clean) > 0
@@ -169,7 +179,9 @@ class TestMLEnvironmentIntegration:
             "nb_methodes": df_clean["nb_methodes"].mean(),
         }
 
-        feature_set_id = temp_store.store_features(features, "/integration/test.py", "integration_repo")
+        feature_set_id = temp_store.store_features(
+            features, "/integration/test.py", "integration_repo"
+        )
 
         # 4. Récupérer features
         retrieved = temp_store.get_features("/integration/test.py", "integration_repo")
@@ -195,7 +207,7 @@ class TestMLEnvironmentIntegration:
                     config_model = ml_config.get_model_config(model_name)
                     if config_model is not None:
                         found_models += 1
-                except:
+                except Exception:
                     pass
 
             assert found_models > 0, "Aucun modèle configuré trouvé"

@@ -100,7 +100,9 @@ class FeatureStore:
 
         # Calculer hash du contenu
         content_hash = self._calculate_content_hash(features)
-        source_hash = self._calculate_file_hash(source_file) if Path(source_file).exists() else "unknown"
+        source_hash = (
+            self._calculate_file_hash(source_file) if Path(source_file).exists() else "unknown"
+        )
 
         # Préparer métadonnées
         if feature_names is None:
@@ -129,7 +131,9 @@ class FeatureStore:
             metadata_path = self.metadata_dir / f"{feature_set_id}_metadata.json"
             metadata_dict = metadata.dict()
             # Convertir datetime en string pour JSON
-            if "extracted_at" in metadata_dict and isinstance(metadata_dict["extracted_at"], datetime):
+            if "extracted_at" in metadata_dict and isinstance(
+                metadata_dict["extracted_at"], datetime
+            ):
                 metadata_dict["extracted_at"] = metadata_dict["extracted_at"].isoformat()
 
             with open(metadata_path, "w", encoding="utf-8") as f:
@@ -145,7 +149,11 @@ class FeatureStore:
             raise
 
     def get_features(
-        self, source_file: str, repository: str, check_freshness: bool = True, return_metadata: bool = False
+        self,
+        source_file: str,
+        repository: str,
+        check_freshness: bool = True,
+        return_metadata: bool = False,
     ) -> dict[str, Any] | None | tuple[dict[str, Any] | None, FeatureMetadata | None]:
         """
         Récupère des features stockées.
@@ -176,7 +184,9 @@ class FeatureStore:
 
             # Convertir string datetime en datetime object
             if "extracted_at" in metadata_dict and isinstance(metadata_dict["extracted_at"], str):
-                metadata_dict["extracted_at"] = datetime.fromisoformat(metadata_dict["extracted_at"])
+                metadata_dict["extracted_at"] = datetime.fromisoformat(
+                    metadata_dict["extracted_at"]
+                )
 
             metadata = FeatureMetadata(**metadata_dict)
 
@@ -222,8 +232,12 @@ class FeatureStore:
                     metadata_dict = json.load(f)
 
                 # Convertir string datetime en datetime object
-                if "extracted_at" in metadata_dict and isinstance(metadata_dict["extracted_at"], str):
-                    metadata_dict["extracted_at"] = datetime.fromisoformat(metadata_dict["extracted_at"])
+                if "extracted_at" in metadata_dict and isinstance(
+                    metadata_dict["extracted_at"], str
+                ):
+                    metadata_dict["extracted_at"] = datetime.fromisoformat(
+                        metadata_dict["extracted_at"]
+                    )
 
                 metadata = FeatureMetadata(**metadata_dict)
 
@@ -270,8 +284,12 @@ class FeatureStore:
                     metadata_dict = json.load(f)
 
                 # Convertir string datetime en datetime object
-                if "extracted_at" in metadata_dict and isinstance(metadata_dict["extracted_at"], str):
-                    metadata_dict["extracted_at"] = datetime.fromisoformat(metadata_dict["extracted_at"])
+                if "extracted_at" in metadata_dict and isinstance(
+                    metadata_dict["extracted_at"], str
+                ):
+                    metadata_dict["extracted_at"] = datetime.fromisoformat(
+                        metadata_dict["extracted_at"]
+                    )
 
                 metadata = FeatureMetadata(**metadata_dict)
 
@@ -327,7 +345,9 @@ class FeatureStore:
             "total_cache_size_mb": total_cache_size,
             "unique_repositories": len(repositories),
             "repository_stats": repo_stats,
-            "most_recent_extraction": max(fs["extracted_at"] for fs in all_sets) if all_sets else None,
+            "most_recent_extraction": (
+                max(fs["extracted_at"] for fs in all_sets) if all_sets else None
+            ),
         }
 
     def search_features(

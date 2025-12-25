@@ -14,6 +14,7 @@ Version: 2.0.0
 """
 
 import argparse
+import contextlib
 import json
 import sys
 from pathlib import Path
@@ -49,7 +50,14 @@ class GeneralizedIngestion:
         self.qdrant_port = qdrant_port
         self.neo4j_uri = neo4j_uri
         self.neo4j_password = neo4j_password
-        self.stats = {"git": 0, "docs": 0, "tickets": 0, "code": 0, "neo4j_nodes": 0, "neo4j_relations": 0}
+        self.stats = {
+            "git": 0,
+            "docs": 0,
+            "tickets": 0,
+            "code": 0,
+            "neo4j_nodes": 0,
+            "neo4j_relations": 0,
+        }
 
         # Connexion Neo4j
         try:
@@ -76,10 +84,8 @@ class GeneralizedIngestion:
 
         with self.neo4j_driver.session() as session:
             for constraint in constraints:
-                try:
+                with contextlib.suppress(Exception):
                     session.run(constraint)
-                except Exception:
-                    pass  # Contrainte existe déjà
 
     def ingest_git_repository(self, repo_path: Path) -> int:
         """
@@ -115,9 +121,7 @@ class GeneralizedIngestion:
                 count = git_stats["commits"]
                 self.stats["git"] = count
                 self.stats["neo4j_nodes"] += (
-                    git_stats["commits"]
-                    + git_stats["contributors"]
-                    + git_stats["directories"]
+                    git_stats["commits"] + git_stats["contributors"] + git_stats["directories"]
                 )
                 self.stats["neo4j_relations"] += (
                     git_stats["commit_relations"]
@@ -345,7 +349,7 @@ class GeneralizedIngestion:
         if tickets_api:
             self.ingest_tickets(tickets_api["url"], tickets_api["token"])
 
-        print(f"\n✅ Ingestion terminée")
+        print("\n✅ Ingestion terminée")
         print(f"📊 Stats: {json.dumps(self.stats, indent=2)}")
 
         return self.stats

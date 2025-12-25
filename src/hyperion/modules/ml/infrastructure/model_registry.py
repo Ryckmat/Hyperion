@@ -79,7 +79,8 @@ class ModelRegistry:
             experiment = mlflow.get_experiment_by_name(ml_config.mlflow.experiment_name)
             if experiment is None:
                 experiment_id = mlflow.create_experiment(
-                    ml_config.mlflow.experiment_name, artifact_location=ml_config.mlflow.artifact_location
+                    ml_config.mlflow.experiment_name,
+                    artifact_location=ml_config.mlflow.artifact_location,
                 )
                 print(f"✅ Expérience MLFlow créée: {experiment_id}")
             else:
@@ -116,7 +117,11 @@ class ModelRegistry:
 
         # Préparer métadonnées
         model_metadata = ModelMetadata(
-            name=name, version=version, model_type=model_type, created_at=datetime.now(), **(metadata or {})
+            name=name,
+            version=version,
+            model_type=model_type,
+            created_at=datetime.now(),
+            **(metadata or {}),
         )
 
         # Chemins de sauvegarde
@@ -199,8 +204,12 @@ class ModelRegistry:
                         metadata_dict = json.load(f)
 
                     # Convertir string datetime en datetime object
-                    if "created_at" in metadata_dict and isinstance(metadata_dict["created_at"], str):
-                        metadata_dict["created_at"] = datetime.fromisoformat(metadata_dict["created_at"])
+                    if "created_at" in metadata_dict and isinstance(
+                        metadata_dict["created_at"], str
+                    ):
+                        metadata_dict["created_at"] = datetime.fromisoformat(
+                            metadata_dict["created_at"]
+                        )
 
                     metadata = ModelMetadata(**metadata_dict)
                 else:
@@ -235,7 +244,9 @@ class ModelRegistry:
                 model_path = self.models_dir / model_filename
                 metadata["file_exists"] = model_path.exists()
                 metadata["file_size_mb"] = (
-                    round(model_path.stat().st_size / (1024 * 1024), 2) if model_path.exists() else 0
+                    round(model_path.stat().st_size / (1024 * 1024), 2)
+                    if model_path.exists()
+                    else 0
                 )
 
                 models_info.append(metadata)
@@ -294,8 +305,8 @@ class ModelRegistry:
         metadata["promoted_at"] = datetime.now().isoformat()
 
         # Convertir datetime en string pour JSON
-        if 'created_at' in metadata and isinstance(metadata['created_at'], datetime):
-            metadata['created_at'] = metadata['created_at'].isoformat()
+        if "created_at" in metadata and isinstance(metadata["created_at"], datetime):
+            metadata["created_at"] = metadata["created_at"].isoformat()
 
         # Sauvegarder
         with open(metadata_path, "w", encoding="utf-8") as f:

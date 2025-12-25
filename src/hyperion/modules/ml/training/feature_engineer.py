@@ -77,7 +77,9 @@ class FeatureEngineer:
 
         return features
 
-    def engineer_temporal_features(self, data: dict, reference_date: datetime | None = None) -> dict:
+    def engineer_temporal_features(
+        self, data: dict, reference_date: datetime | None = None
+    ) -> dict:
         """
         Génère des features temporelles.
 
@@ -109,10 +111,18 @@ class FeatureEngineer:
         if "recent_commits" in data:
             recent_commits = data["recent_commits"]
             features["commits_30j"] = len(
-                [c for c in recent_commits if (reference_date - pd.to_datetime(c["date"])).days <= 30]
+                [
+                    c
+                    for c in recent_commits
+                    if (reference_date - pd.to_datetime(c["date"])).days <= 30
+                ]
             )
             features["commits_7j"] = len(
-                [c for c in recent_commits if (reference_date - pd.to_datetime(c["date"])).days <= 7]
+                [
+                    c
+                    for c in recent_commits
+                    if (reference_date - pd.to_datetime(c["date"])).days <= 7
+                ]
             )
 
         return features
@@ -285,15 +295,13 @@ class FeatureEngineer:
         # Ajouter features manquantes
         for feature_name in target_features:
             if feature_name not in complete_features:
-                if feature_name in default_values:
-                    complete_features[feature_name] = default_values[feature_name]
-                else:
-                    # Valeur par défaut générique
-                    complete_features[feature_name] = 0.0
+                complete_features[feature_name] = default_values.get(feature_name, 0.0)
 
         return complete_features
 
-    def engineer_full_feature_set(self, raw_data: dict, target_features: list[str] | None = None) -> dict:
+    def engineer_full_feature_set(
+        self, raw_data: dict, target_features: list[str] | None = None
+    ) -> dict:
         """
         Pipeline complet de feature engineering.
 

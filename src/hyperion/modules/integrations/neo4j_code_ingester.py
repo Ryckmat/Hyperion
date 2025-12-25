@@ -94,7 +94,9 @@ class Neo4jCodeIngester:
             stats["classes"] = len(code_data["classes"])
 
             # 5. Créer relations File->Function/Class
-            session.execute_write(self._create_file_relations, repo_name, code_data["functions"], code_data["classes"])
+            session.execute_write(
+                self._create_file_relations, repo_name, code_data["functions"], code_data["classes"]
+            )
 
             # 6. Créer relations Class->Method
             stats["methods"] = session.execute_write(
@@ -186,7 +188,9 @@ class Neo4jCodeIngester:
 
         tx.run(query, classes=classes, repo=repo_name)
 
-    def _create_file_relations(self, tx, repo_name: str, functions: list[dict], classes: list[dict]) -> None:
+    def _create_file_relations(
+        self, tx, repo_name: str, functions: list[dict], classes: list[dict]
+    ) -> None:
         """Crée les relations File->Function et File->Class."""
 
         # File->Function
