@@ -1,1 +1,1 @@
-__version__ = "2.5.0"  # Enterprise Ready with ML Infrastructure
+__version__ = "2.7.0"  # Enterprise Ready with ML Infrastructure

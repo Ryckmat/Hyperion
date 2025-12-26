@@ -168,10 +168,10 @@ export TAGS_REGEX="^release-\d+\.\d+$"
 
 ## 📚 Prochaines étapes
 
-- [Architecture](architecture.md) : Architecture détaillée du projet
-- [CLI Reference](cli_reference.md) : Référence complète des commandes
-- [YAML Schema](yaml_schema.md) : Format profile.yaml
-- [Neo4j Model](neo4j_model.md) : Modèle de graphe
+- [Architecture](../architecture/system-overview.md) : Architecture détaillée du projet
+- [CLI Reference](../reference/cli-reference.md) : Référence complète des commandes
+- [Configuration](../user-guide/configuration.md) : Configuration et format YAML
+- [Neo4j Integration](../advanced/neo4j-integration.md) : Modèle de graphe
 
 ## 🐛 Troubleshooting
 

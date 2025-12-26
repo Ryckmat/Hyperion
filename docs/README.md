@@ -1,17 +1,29 @@
 # 📚 Documentation Hyperion v2.7
+<<<<<<< HEAD
 
 ![Hyperion](https://img.shields.io/badge/Hyperion-v2.7-blue.svg)
 ![Docker](https://img.shields.io/badge/Docker-Ready-green.svg)
 ![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)
+=======
+>>>>>>> 559cf74 ( doc: Ajout d'une documentation)
 
-## 🚀 Vue d'ensemble
+**Hyperion v2.7.0 Enterprise Ready** - Plateforme d'intelligence locale pour repositories Git avec infrastructure ML complète
 
-Hyperion est une plateforme d'intelligence locale pour repositories Git qui utilise l'IA pour analyser, comprendre et interagir avec votre code.
+---
 
+<<<<<<< HEAD
 **Version actuelle : Hyperion v2.7 - Enterprise Ready with Docker Orchestration**
+=======
+## 🚀 Navigation Rapide
+>>>>>>> 559cf74 ( doc: Ajout d'une documentation)
 
-## 📖 Guides principaux
+### 📚 **Pour Apprendre et Utiliser** → [Documentation Cours](cours/)
+- Formation complète à Hyperion
+- Guides pas-à-pas en français
+- Exemples pratiques et workflows
+- **Idéal pour** : nouveaux utilisateurs, formation, usage quotidien
 
+<<<<<<< HEAD
 ### 🚀 Démarrage rapide
 
 #### Option 1: Docker (Recommandé)
@@ -41,126 +53,181 @@ hyperion --help
 - **[Getting Started](guides/getting_started.md)** - Installation et premier usage
 - **[Configuration RAG](guides/RAG_SETUP.md)** - Configuration du système de recherche
 - **[Déploiement Docker](deployment/README.md)** - Guide complet Docker/Compose
+=======
+### 🔧 **Pour Développer et Administrer** → [Documentation Technique](technique/)
+- Documentation technique complète
+- Référence API et CLI
+- Architecture et déploiement
+- **Idéal pour** : développeurs, administrateurs, contributeurs
+>>>>>>> 559cf74 ( doc: Ajout d'une documentation)
 
-### 🎯 Sélection de modèles
-- **[Guide de sélection des modèles](MODEL_SELECTION_GUIDE.md)** - Choisir le bon modèle LLM selon vos besoins
+---
 
-### 🏗️ Architecture
-- **[Architecture générale](ARCHITECTURE.md)** - Vue d'ensemble du système
-- **[Architecture détaillée](architecture/architecture.md)** - Composants techniques
+## 📖 **DOCUMENTATION COURS** - *Apprendre Hyperion*
 
-### 📊 Analyses et rapports
-- **[Analyse de structure](STRUCTURE_ANALYSIS.md)** - Analyse complète du projet
-- **[Santé du projet](PROJECT_HEALTH_SUMMARY.md)** - État de santé et métriques
-- **[Plan de nettoyage](CLEANUP_PLAN.md)** - Optimisations et améliorations
+La section **cours/** contient tout ce qu'il faut savoir pour maîtriser Hyperion :
 
-### 🔧 Développement
-- **[Contributing](CONTRIBUTING.md)** - Guide de contribution
-- **[Changelog](../CHANGELOG.md)** - Historique des versions
+### 📋 **Programme Complet (10 Chapitres)**
 
-### ⚙️ API v2
-- **[Code Understanding](v2/code_understanding.md)** - API d'analyse de code
-- **[Impact Analysis](v2/impact_analysis.md)** - Analyse d'impact des changements
+| Chapitre | Titre | Description | Niveau |
+|----------|-------|-------------|--------|
+| **01** | [Introduction](cours/01-introduction.md) | Qu'est-ce que Hyperion et ses capacités | 🟢 Débutant |
+| **02** | [Installation](cours/02-installation.md) | Setup complet et vérification | 🟢 Débutant |
+| **03** | [Premier Usage](cours/03-premier-usage.md) | Premier profiling et résultats | 🟢 Débutant |
+| **04** | [CLI Essentials](cours/04-cli-essentials.md) | Maîtriser les commandes de base | 🟡 Intermédiaire |
+| **05** | [API Basics](cours/05-api-basics.md) | Utiliser l'API REST et OpenAI | 🟡 Intermédiaire |
+| **06** | [RAG et Chat](cours/06-rag-chat.md) | Interroger ses repos avec l'IA | 🟡 Intermédiaire |
+| **07** | [Infrastructure ML](cours/07-infrastructure-ml.md) | Comprendre les modèles et prédictions | 🟡 Intermédiaire |
+| **08** | [Workflows](cours/08-workflows.md) | Workflows avancés et automatisation | 🔴 Avancé |
+| **09** | [Troubleshooting](cours/09-troubleshooting.md) | Résoudre les problèmes courants | 🔴 Avancé |
+| **10** | [Usage Avancé](cours/10-advanced-usage.md) | Fonctionnalités expertes | 🔴 Avancé |
 
-## 🎮 Usage rapide
+### 🎯 **Parcours Recommandés**
 
-```bash
-# Démarrage complet avec sélection de modèle
-./scripts/deploy/hyperion_master.sh --setup-model
+**🚀 Utilisateur Rapide** : Chapitres 01 → 02 → 03 → 06
+**💼 Utilisateur Professionnel** : Chapitres 01 → 02 → 03 → 04 → 05 → 08
+**🎓 Formation Complète** : Tous les chapitres dans l'ordre
 
-# Mode automatique
-./scripts/deploy/hyperion_master.sh --auto
+---
 
-# Aide complète
-./scripts/deploy/hyperion_master.sh --help
+## 🔧 **DOCUMENTATION TECHNIQUE** - *Développer avec Hyperion*
+
+La section **technique/** contient la documentation technique complète :
+
+### 🗂️ **Structure Technique**
+
+```
+technique/
+├── 🚀 getting-started/          # Démarrage technique
+├── 👥 user-guide/               # Guides utilisateur détaillés
+│   ├── cli/                     # Interface ligne de commande
+│   └── api/                     # API REST complète
+├── 🏗️ architecture/             # Architecture système
+├── 🤖 ml-platform/              # Plateforme Machine Learning
+├── 🔬 advanced/                 # Fonctionnalités avancées
+├── 🛠️ development/              # Développement et contribution
+├── 📊 reference/                # Référence complète
+└── 📋 legacy/                   # Documents historiques
 ```
 
-## 🌟 Nouveautés v2.5
+### 📚 **Sections Principales**
 
-### Sélection intelligente de modèles
-- **4 profils d'usage** adaptés à vos besoins :
-  - 🏃‍♂️ **Performance Ultra-Rapide** (<3s) : llama3.2:1b
-  - ⚖️ **Équilibre Performance/Qualité** (5-10s) : llama3.1:8b
-  - 🧠 **Qualité Premium** (10-30s) : qwen2.5:14b
-  - 🚀 **Expert/Recherche** (30s+) : qwen2.5:32b
+#### 🚀 [Getting Started](technique/getting-started/)
+- Installation technique
+- Configuration avancée
+- Premiers pas développeur
 
-### Infrastructure ML complète
-- Training Pipeline avec ensemble de modèles
-- Model Registry avec versioning MLflow
-- Feature Store intelligent avec cache
-- Data Validation avec détection de drift
+#### 👥 [User Guide](technique/user-guide/)
+- **[CLI](technique/user-guide/cli/)** : Commandes complètes (profile, generate, ingest, export, info)
+- **[API](technique/user-guide/api/)** : API Core + OpenAI Compatible + Code Intelligence v2
+- **[Configuration](technique/user-guide/configuration.md)** : Variables d'environnement et YAML
 
-### Architecture données robuste
-- 35 Features ML configurées et validées
-- 4 Modèles prêts pour production
-- Neo4j intégré et stable (72 nœuds)
-- Pipeline bout-en-bout fonctionnel
+#### 🏗️ [Architecture](technique/architecture/)
+- Vue d'ensemble système
+- Infrastructure ML
+- Flux de données
+- Déploiement
 
-## 📊 Métriques de qualité
+#### 🤖 [ML Platform](technique/ml-platform/)
+- Feature Store (35+ features)
+- Training Pipeline (4 modèles + ensemble)
+- Model Registry (MLflow)
+- Data Validation
 
-- **Tests Core** : 138/138 passés (100%)
-- **Tests ML** : 114/123 passés (92.7%)
-- **Lancement master** : 7/7 fonctionnels
-- **Code formaté** : Black/Ruff
+#### 🔬 [Advanced](technique/advanced/)
+- Code Intelligence v2
+- Impact Analysis
+- Anomaly Detection
+- Neo4j Integration
 
-## 🎯 Profils d'usage recommandés
+#### 🛠️ [Development](technique/development/)
+- Guide de contribution
+- Structure du projet
+- Tests et qualité
+- Feuille de route
 
-### 🏢 Entreprise/Production
-- **Standard** : llama3.1:8b (équilibre optimal)
-- **Mission critique** : qwen2.5:14b (qualité premium)
+#### 📊 [Reference](technique/reference/)
+- Référence API complète
+- Référence CLI complète
+- Configuration complète
+- Troubleshooting technique
 
-### 👨‍💻 Développement/Debug
-- **Exploration rapide** : llama3.2:1b
-- **Analyse approfondie** : llama3.1:8b
+---
 
-### 🎓 Recherche/Formation
-- **Études de cas** : qwen2.5:14b
-- **Publications scientifiques** : qwen2.5:32b
+## 🎯 **Choisir sa Documentation**
 
-## 🛠️ Configuration dynamique
+### 🆕 **Vous découvrez Hyperion ?**
+👉 **Commencez par** : [Documentation Cours](cours/) - Chapitre 01
 
-```bash
-# Configuration interactive du modèle
-./scripts/deploy/hyperion_master.sh --setup-model
+### 💼 **Vous voulez utiliser Hyperion au quotidien ?**
+👉 **Suivez** : [Parcours Professionnel](cours/) - Chapitres 01-05 + 08
 
-# Configuration automatique
-echo "1" | ./scripts/deploy/hyperion_master.sh --setup-model --auto
-```
+### 🔧 **Vous développez ou administrez Hyperion ?**
+👉 **Consultez** : [Documentation Technique](technique/)
 
-## 📱 Services disponibles
+### 🤖 **Vous travaillez avec l'infrastructure ML ?**
+👉 **Explorez** : [ML Platform](technique/ml-platform/)
 
-- **API Hyperion v2** : http://localhost:8000
-- **Dashboard React** : http://localhost:3000
-- **Open WebUI** : http://localhost:3001
-- **Neo4j Browser** : http://localhost:7474
-- **Qdrant** : http://localhost:6333
+### 🚀 **Vous voulez contribuer au projet ?**
+👉 **Lisez** : [Development Guide](technique/development/)
 
-## 🧪 Tests disponibles
+---
 
-```bash
-# Health check API
-curl http://localhost:8000/api/v2/health
+## 📊 **État de la Documentation v2.7**
 
-# Functions endpoint
-curl http://localhost:8000/api/v2/repos/{repo}/functions
+### ✅ **Documentation Complète**
+- **📚 Cours** : 10 chapitres en français pour tous niveaux
+- **🔧 Technique** : 7 sections pour développeurs/administrateurs
+- **📝 Référence** : API, CLI, configuration complète
+- **🗃️ Organisation** : Structure claire et navigation intuitive
 
-# Chat RAG
-curl -X POST http://localhost:8000/api/chat \
-  -d '{"question":"test","repo":"repo_name"}'
-```
+### 🎯 **Métriques v2.7.0**
+- **Guides** : 10 chapitres cours + 7 sections techniques
+- **Coverage** : 100% des fonctionnalités documentées
+- **Langues** : Documentation en français
+- **Formats** : Markdown avec navigation GitHub
+- **Maintenance** : Documentation synchronisée avec le code
 
-## 🚨 Support
+### 🔗 **Liens Rapides**
 
-Pour toute question ou problème :
-1. Consultez la documentation appropriée
-2. Vérifiez les logs dans `logs/`
-3. Utilisez les scripts de diagnostic dans `scripts/`
+| Service | URL | Description |
+|---------|-----|-------------|
+| **API Hyperion** | http://localhost:8000 | API REST + Swagger docs |
+| **Dashboard** | http://localhost:3000 | Interface visualisation |
+| **Open WebUI** | http://localhost:3001 | Chat conversationnel |
+| **Neo4j Browser** | http://localhost:7474 | Graphe de code |
+| **MLflow UI** | http://localhost:5000 | ML tracking |
 
-## 🏷️ Historique des versions
+---
 
-- **v2.5.0** - Enterprise Ready : Infrastructure ML, sélection intelligente de modèles
-- **v2.4.x** - Optimisations RAG et performance
-- **v2.3.x** - API v2 et analyse de code avancée
-- **v2.2.x** - Intégration Neo4j et graphe de connaissance
-- **v2.1.x** - Dashboard React et interface utilisateur
-- **v2.0.x** - Refactoring majeur et architecture moderne
+## 🆘 **Support et Aide**
+
+### 💬 **Questions ?**
+1. **Utilisateurs** → Consultez [Cours - Troubleshooting](cours/09-troubleshooting.md)
+2. **Développeurs** → Consultez [Technique - Reference](technique/reference/troubleshooting.md)
+3. **Contributors** → Lisez [Development Guide](technique/development/contributing.md)
+
+### 🐛 **Bugs ou Problèmes ?**
+- Vérifiez les logs dans `logs/`
+- Utilisez `hyperion info` pour diagnostic
+- Consultez le troubleshooting approprié
+
+### 📧 **Feedback Documentation**
+Pour améliorer cette documentation, n'hésitez pas à :
+- Signaler les sections peu claires
+- Proposer des exemples supplémentaires
+- Suggérer de nouveaux chapitres
+
+---
+
+## 🏷️ **Historique et Versions**
+
+- **v2.7.0** - Documentation complète restructurée (Cours + Technique)
+- **v2.6.x** - Ajout Code Intelligence et Impact Analysis
+- **v2.5.0** - Infrastructure ML Enterprise Ready
+
+**Voir** : [CHANGELOG.md](CHANGELOG.md) pour l'historique détaillé
+
+---
+
+*Documentation mise à jour le 26 décembre 2024 pour Hyperion v2.7.0*

@@ -6,7 +6,7 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
-**Hyperion v2.5.0 Enterprise Ready** est une plateforme locale d'intelligence pour repositories Git avec infrastructure ML complète, combinant :
+**Hyperion v2.7.0 Enterprise Ready** est une plateforme locale d'intelligence pour repositories Git avec infrastructure ML complète, combinant :
 
 * 📊 **Analyse Git avancée** (commits, hotspots, contributeurs, métriques)
 * 🤖 **Infrastructure ML Enterprise** (MLflow, Feature Store, Training Pipeline)
@@ -24,7 +24,7 @@ Hyperion est conçu comme un **socle de connaissance technique local**, orienté
 
 ## ✨ Fonctionnalités clés
 
-### 🎯 Sélection intelligente de modèles (v2.5.0)
+### 🎯 Sélection intelligente de modèles (v2.7.0)
 
 * **4 profils d'usage** adaptés à vos besoins :
   - 🏃‍♂️ **Performance Ultra-Rapide** (<3s) : llama3.2:1b
@@ -37,11 +37,19 @@ Hyperion est conçu comme un **socle de connaissance technique local**, orienté
 
 ### 🤖 Infrastructure ML Enterprise
 
-* **MLflow Integration** : Tracking automatique et registry de modèles
-* **Feature Store** : 35+ features prêtes pour ML avec cache intelligent
-* **Training Pipeline** : Entraînement automatisé multi-modèles
-* **Data Validator** : Validation de données et détection de drift
-* **Model Registry** : Versioning et déploiement de modèles ML
+* **MLflow Integration** : Tracking automatique et registry de modèles avec versioning sémantique
+* **Feature Store** : 35+ features ingénieurées (code quality, team dynamics, business impact, temporal) avec cache intelligent TTL
+* **Training Pipeline** : Entraînement automatisé de 4 modèles (RandomForest, XGBoost, IsolationForest, Meta-learner)
+* **Data Validator** : Validation structure, qualité, distributions avec détection de data drift
+* **Model Registry** : Cycle de vie complet (trained → validated → production → deprecated)
+
+### 🔮 Modèles ML opérationnels
+
+* **RiskPredictor** : Prédiction de risques avec ensemble Random Forest + XGBoost
+* **AnomalyDetector** : Détection d'anomalies avec Isolation Forest (contamination 10%)
+* **BugPredictor** : Prédiction de bugs sur horizon 30 jours basée sur historique Git
+* **ImpactAnalyzer** : Analyse de propagation des changements dans le graphe de code
+* **Meta-learner** : Ensemble voting avec LogisticRegression pour agrégation
 
 ### 🔍 Analyse Git
 
@@ -64,19 +72,27 @@ Hyperion est conçu comme un **socle de connaissance technique local**, orienté
 * Requêtes avancées Neo4j
 * Complément du RAG (pas obligatoire)
 
-### 🤖 API OpenAI-compatible
+### 🤖 API REST complète
 
-Hyperion expose une API compatible OpenAI :
+Hyperion expose une API REST riche avec 3 couches :
 
-* `/v1/models`
-* `/v1/chat/completions`
+**Core API (v1)** :
+* `/api/health` - Health check complet (API, Neo4j, RAG)
+* `/api/repos` - Gestion repositories analysés
+* `/api/chat` - Chat RAG avec sources et métadonnées
 
-👉 utilisable par :
+**OpenAI-compatible** :
+* `/v1/models` - Liste modèles disponibles
+* `/v1/chat/completions` - Chat completions standard OpenAI
 
-* Open WebUI
-* outils RAG
-* scripts internes
-* clients OpenAI existants
+**API v2 (Code Intelligence)** :
+* `/api/v2/repos/{repo}/functions` - Extraction fonctions Python (AST)
+* `/api/v2/repos/{repo}/classes` - Extraction classes et méthodes
+* `/api/v2/understanding/search` - Recherche sémantique dans le code
+* `/api/v2/impact/analyze` - Analyse d'impact des changements
+* `/api/v2/anomaly/scan` - Détection anomalies code (complexity, size, duplicates)
+
+👉 Compatible avec Open WebUI, outils RAG et clients OpenAI existants
 
 ### 💬 Open WebUI
 
@@ -277,31 +293,48 @@ curl http://localhost:8000/v1/chat/completions \
 
 ### Endpoints disponibles
 
-* `GET /` - Info API
-* `GET /api/health` - Health check
-* `GET /api/repos` - Liste des repos analysés
-* `GET /api/repos/{repo_name}` - Détails d'un repo
-* `POST /api/chat` - Chat RAG
-* `GET /v1/models` - Liste modèles OpenAI-compatible
-* `POST /v1/chat/completions` - Chat OpenAI-compatible
+**Core API** :
+* `GET /` - Info API générale
+* `GET /api/health` - Health check (API, Neo4j, RAG, détails)
+* `GET /api/repos` - Liste tous repos analysés + métadonnées
+* `GET /api/repos/{repo}/contributors` - Top contributeurs avec stats
+* `GET /api/repos/{repo}/hotspots` - Top fichiers modifiés (hotspots)
+* `POST /api/chat` - Chat RAG avec sources et processing time
 
-Documentation complète : [http://localhost:8000/docs](http://localhost:8000/docs)
+**OpenAI Compatible** :
+* `GET /v1/models` - Liste modèles (hyperion-rag)
+* `POST /v1/chat/completions` - Chat completions avec sources incluses
+
+**API v2 (Neo4j Code Intelligence)** :
+* `GET /api/v2/health` - Health check moteurs v2
+* `GET /api/v2/repos/{repo}/functions` - Fonctions Python (limit=50)
+* `GET /api/v2/repos/{repo}/classes` - Classes Python (limit=30)
+* `POST /api/v2/understanding/search` - Recherche code (function/class/all)
+* `POST /api/v2/impact/analyze` - Analyse impact changements (profondeur configurable)
+* `POST /api/v2/anomaly/scan` - Scan anomalies (complexity, size, duplicates)
+
+Documentation Swagger interactive : [http://localhost:8000/docs](http://localhost:8000/docs)
 
 ---
 
 ## 🧪 État du projet
 
-* ✅ **v2.5.0 Enterprise Ready** - Infrastructure ML complète
-* ✅ **138 tests passent** à 100% (Core + ML + API)
-* ✅ **Infrastructure ML opérationnelle** (MLflow, Feature Store, Training Pipeline)
-* ✅ **4 modèles ML prêts** (RiskPredictor, AnomalyDetector, ImpactAnalyzer, BugPredictor)
-* ✅ **35+ features ML configurées** et validées
-* ✅ RAG opérationnel avec sources
-* ✅ API OpenAI-compatible testée
-* ✅ Open WebUI intégré
-* ✅ **Code formaté Black/Ruff** - Standards entreprise
-* 🚧 En évolution continue vers v3.0
-* ❌ Pas encore industrialisé (K8s, CI/CD, auth)
+* ✅ **v2.7.0 Enterprise Ready** - Infrastructure ML complète + API v2
+* ✅ **138 tests passent** à 100% (Core + ML + API + Integration)
+* ✅ **Infrastructure ML opérationnelle** :
+  - MLflow tracking et model registry
+  - Feature Store avec 35+ features ingénieurées
+  - Training Pipeline automatisé (4 modèles + ensemble)
+  - Data Validator avec drift detection
+* ✅ **5 modèles ML prêts** : RiskPredictor (RF+XGBoost), AnomalyDetector, BugPredictor, ImpactAnalyzer, Meta-learner
+* ✅ **API v2 Code Intelligence** : fonctions/classes extraction, impact analysis, anomaly detection
+* ✅ **RAG opérationnel** avec sources, metadata et processing time
+* ✅ **API OpenAI-compatible** testée avec Open WebUI
+* ✅ **Neo4j integration** : 3 ingesteurs (Git, Code AST, v2 Git)
+* ✅ **CLI complète** : profile, generate, ingest, export (stub), info
+* ✅ **Code formaté Black/Ruff** - Standards entreprise (100% conformité)
+* 🚧 En évolution continue vers industrialisation
+* ⏳ **À venir** : Containerisation Docker complète, authentification, déploiement cloud
 
 Hyperion est un **socle expérimental sérieux**, pensé pour évoluer vers :
 
