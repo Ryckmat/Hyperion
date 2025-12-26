@@ -66,6 +66,7 @@ mlruns/
 docs/
 tests/
 *.md
+!README.md
 LICENSE
 
 # Config et secrets locaux
