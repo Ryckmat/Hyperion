@@ -26,7 +26,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Copier les fichiers de configuration Python
-COPY pyproject.toml setup.py requirements.txt ./
+COPY pyproject.toml setup.py requirements.txt README.md ./
 COPY requirements-dev.txt ./
 
 # Installation des dépendances Python
