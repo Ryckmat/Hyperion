@@ -1,16 +1,46 @@
-# 📚 Documentation Hyperion v2.5
+# 📚 Documentation Hyperion v2.7
+
+![Hyperion](https://img.shields.io/badge/Hyperion-v2.7-blue.svg)
+![Docker](https://img.shields.io/badge/Docker-Ready-green.svg)
+![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)
 
 ## 🚀 Vue d'ensemble
 
 Hyperion est une plateforme d'intelligence locale pour repositories Git qui utilise l'IA pour analyser, comprendre et interagir avec votre code.
 
-**Version actuelle : Hyperion v2.5 Enterprise Ready - Production Complete**
+**Version actuelle : Hyperion v2.7 - Enterprise Ready with Docker Orchestration**
 
 ## 📖 Guides principaux
 
 ### 🚀 Démarrage rapide
+
+#### Option 1: Docker (Recommandé)
+```bash
+# Lancer avec Docker
+./scripts/docker/hyperion-docker.sh --action up --profile core
+
+# Accéder à l'interface
+open http://localhost:8000
+```
+
+#### Option 2: Orchestrateur Master
+```bash
+# Mode automatique
+./scripts/deploy/hyperion_master.sh --auto
+
+# Configuration interactive
+./scripts/deploy/hyperion_master.sh --setup-model
+```
+
+#### Option 3: Installation Locale
+```bash
+pip install -e .
+hyperion --help
+```
+
 - **[Getting Started](guides/getting_started.md)** - Installation et premier usage
 - **[Configuration RAG](guides/RAG_SETUP.md)** - Configuration du système de recherche
+- **[Déploiement Docker](deployment/README.md)** - Guide complet Docker/Compose
 
 ### 🎯 Sélection de modèles
 - **[Guide de sélection des modèles](MODEL_SELECTION_GUIDE.md)** - Choisir le bon modèle LLM selon vos besoins
