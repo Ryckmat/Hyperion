@@ -1,4 +1,4 @@
-"""API REST Hyperion - Backend FastAPI."""
+"""API REST Hyperion - Backend FastAPI avec monitoring qualité v2.8."""
 
 import yaml
 from fastapi import FastAPI, HTTPException
@@ -12,6 +12,14 @@ try:
     from hyperion.modules.integrations.neo4j_ingester import Neo4jIngester
 except ModuleNotFoundError:
     Neo4jIngester = None
+
+# Import système de monitoring qualité v2.8
+try:
+    from hyperion.modules.rag.monitoring.quality_metrics import QualityMetricsTracker
+    QUALITY_MONITORING_AVAILABLE = True
+except ImportError as e:
+    print(f"⚠️ Monitoring qualité non disponible: {e}")
+    QUALITY_MONITORING_AVAILABLE = False
 
 
 # ============================================================================
@@ -50,10 +58,11 @@ app.add_middleware(
 
 
 # ============================================================================
-# RAG Global (lazy loading)
+# RAG & Quality Monitoring Global (lazy loading)
 # ============================================================================
 
 _query_engine = None
+_quality_tracker = None
 
 
 def get_query_engine():
@@ -64,6 +73,14 @@ def get_query_engine():
 
         _query_engine = RAGQueryEngine()
     return _query_engine
+
+
+def get_quality_tracker():
+    """Get or create quality metrics tracker."""
+    global _quality_tracker
+    if _quality_tracker is None and QUALITY_MONITORING_AVAILABLE:
+        _quality_tracker = QualityMetricsTracker()
+    return _quality_tracker
 
 
 # ============================================================================
@@ -78,7 +95,7 @@ def read_root():
         "name": "Hyperion API",
         "version": __version__,
         "status": "running",
-        "features": ["repos", "neo4j", "rag"],
+        "features": ["repos", "neo4j", "rag", "quality_monitoring"],
         "endpoints": {
             "docs": "/docs",
             "repos": "/api/repos",
@@ -87,6 +104,11 @@ def read_root():
             # endpoints OpenAI-compat (pour Open WebUI sans Pipe)
             "openai_models": "/v1/models",
             "openai_chat": "/v1/chat/completions",
+            # endpoints Quality Monitoring v2.8
+            "quality_metrics": "/api/quality/metrics",
+            "quality_trends": "/api/quality/trends",
+            "quality_alerts": "/api/quality/alerts",
+            "quality_stats": "/api/quality/stats",
         },
     }
 
@@ -272,13 +294,21 @@ def get_neo4j_repo(repo_name: str):
 @app.post("/api/chat")
 def chat(request: ChatRequest):
     """
-    Chat RAG avec les repos.
+    Chat RAG avec les repos et monitoring qualité v2.8.
 
     Body:
         {
             "question": "Qui est le contributeur principal ?",
             "repo": "requests",  // optionnel
             "history": []        // optionnel
+        }
+
+    Response:
+        {
+            "answer": "...",
+            "sources": [...],
+            "processing_time": 1.23,
+            "quality": {...}  // si validation activée
         }
     """
     try:
@@ -289,6 +319,46 @@ def chat(request: ChatRequest):
             repo=request.repo,
             history=request.history,
         )
+
+        # Track métriques qualité si validation activée et disponible
+        if "quality" in result:
+            quality_tracker = get_quality_tracker()
+            if quality_tracker:
+                try:
+                    # Construire résultat de validation pour tracking
+                    validation_result = {
+                        "confidence": result["quality"]["confidence"],
+                        "quality_grade": result["quality"]["grade"],
+                        "action": result["quality"]["action"],
+                        "should_flag": result["quality"]["should_flag"],
+                        "hallucination_analysis": {
+                            "is_hallucination": result["quality"]["hallucination_detected"],
+                            "severity": result["quality"]["hallucination_severity"]
+                        },
+                        "confidence_factors": {
+                            "primary_weakness": "unknown"  # Non disponible dans API response simplifiée
+                        },
+                        "validation_metadata": {
+                            "validation_time": result["quality"]["validation_time"],
+                            "num_sources": len(result["sources"]),
+                            "avg_source_score": sum(s["score"] for s in result["sources"]) / len(result["sources"]) if result["sources"] else 0.0,
+                            "answer_length": len(result["answer"]),
+                            "question_length": len(request.question),
+                            "validator_version": "2.8.0"
+                        },
+                        "answer_modified": result["quality"].get("answer_modified", False)
+                    }
+
+                    quality_tracker.track_response(
+                        validation_result=validation_result,
+                        processing_time=result["processing_time"],
+                        question=request.question,
+                        repo=request.repo
+                    )
+
+                except Exception as tracking_error:
+                    # Ne pas faire échouer la requête si tracking échoue
+                    print(f"⚠️ Erreur tracking qualité: {tracking_error}")
 
         return result
 
@@ -305,6 +375,133 @@ from hyperion.api.v2_endpoints import router as v2_router  # noqa: E402
 
 app.include_router(openai_router)
 app.include_router(v2_router)
+
+
+# ============================================================================
+# Quality Monitoring Endpoints v2.8
+# ============================================================================
+
+
+@app.get("/api/quality/metrics")
+def get_quality_metrics(hours: int = 24, repo: str = None):
+    """
+    Obtenir métriques qualité des réponses sur une période.
+
+    Args:
+        hours: Période en heures (défaut 24h)
+        repo: Filtrer sur un repository (optionnel)
+
+    Returns:
+        Métriques agrégées (acceptance rate, confidence, etc.)
+    """
+    try:
+        quality_tracker = get_quality_tracker()
+        if not quality_tracker:
+            raise HTTPException(
+                status_code=503,
+                detail="Monitoring qualité non disponible"
+            )
+
+        # Valider paramètres
+        if hours <= 0 or hours > 7*24:  # Max 7 jours
+            raise HTTPException(
+                status_code=400,
+                detail="Période doit être entre 1h et 168h (7 jours)"
+            )
+
+        metrics = quality_tracker.get_metrics_summary(hours=hours, repo=repo)
+        return metrics
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+
+
+@app.get("/api/quality/trends")
+def get_quality_trends(days: int = 7, repo: str = None):
+    """
+    Obtenir tendances qualité pour graphiques.
+
+    Args:
+        days: Nombre de jours (défaut 7, max 30)
+        repo: Repository à filtrer (optionnel)
+
+    Returns:
+        Liste de points de données par jour
+    """
+    try:
+        quality_tracker = get_quality_tracker()
+        if not quality_tracker:
+            raise HTTPException(
+                status_code=503,
+                detail="Monitoring qualité non disponible"
+            )
+
+        # Valider paramètres
+        if days <= 0 or days > 30:
+            raise HTTPException(
+                status_code=400,
+                detail="Période doit être entre 1 et 30 jours"
+            )
+
+        trends = quality_tracker.get_trend_data(days=days, repo=repo)
+        return {"trends": trends, "period_days": days, "repository": repo or "all"}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+
+
+@app.get("/api/quality/alerts")
+def get_quality_alerts(resolved: bool = False):
+    """
+    Obtenir alertes qualité actives ou résolues.
+
+    Args:
+        resolved: Inclure alertes résolues (défaut False)
+
+    Returns:
+        Liste d'alertes avec détails
+    """
+    try:
+        quality_tracker = get_quality_tracker()
+        if not quality_tracker:
+            raise HTTPException(
+                status_code=503,
+                detail="Monitoring qualité non disponible"
+            )
+
+        alerts = quality_tracker.get_quality_alerts(resolved=resolved)
+        return {
+            "alerts": alerts,
+            "total": len(alerts),
+            "resolved": resolved,
+            "timestamp": "2024-12-28T00:00:00"  # API timestamp
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+
+
+@app.get("/api/quality/stats")
+def get_quality_database_stats():
+    """
+    Obtenir statistiques de la base de données qualité.
+
+    Returns:
+        Informations sur la base de données (taille, records, etc.)
+    """
+    try:
+        quality_tracker = get_quality_tracker()
+        if not quality_tracker:
+            raise HTTPException(
+                status_code=503,
+                detail="Monitoring qualité non disponible"
+            )
+
+        stats = quality_tracker.get_database_stats()
+        return stats
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 
 # ============================================================================
