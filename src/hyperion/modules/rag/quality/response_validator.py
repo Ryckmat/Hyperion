@@ -161,7 +161,8 @@ class ResponseValidator:
             if self.hallucination_strict_mode and validation_result["action"] == "reject":
                 logger.warning(f"STRICT MODE: Réponse rejetée - {validation_result['quality_grade']} - {hallucination_result['severity']}")
 
-            return validation_result
+            # 8. Nettoyage des types pour sérialisation JSON
+            return sanitize_for_json(validation_result)
 
         except Exception as e:
             logger.error(f"Erreur validation réponse: {e}")
@@ -427,3 +428,25 @@ class ResponseValidator:
             "session_start": datetime.now()
         }
         logger.info("Statistiques de session réinitialisées")
+
+
+def sanitize_for_json(obj):
+    """
+    Nettoie les types numpy/pandas pour la sérialisation JSON
+    """
+    import numpy as np
+
+    if isinstance(obj, dict):
+        return {k: sanitize_for_json(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [sanitize_for_json(item) for item in obj]
+    elif isinstance(obj, np.bool_):
+        return bool(obj)
+    elif isinstance(obj, (np.integer, np.int32, np.int64)):
+        return int(obj)
+    elif isinstance(obj, (np.floating, np.float32, np.float64)):
+        return float(obj)
+    elif hasattr(obj, '__dict__'):  # Dataclass ou object
+        return {k: sanitize_for_json(v) for k, v in obj.__dict__.items()}
+    else:
+        return obj
