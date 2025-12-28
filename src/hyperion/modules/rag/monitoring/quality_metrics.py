@@ -5,13 +5,10 @@ Ce module collecte, stocke et agrège les métriques de qualité
 des réponses pour monitoring et amélioration continue.
 """
 
-from typing import Dict, List, Optional
-import sqlite3
-import json
 import logging
+import sqlite3
 from datetime import datetime, timedelta
 from pathlib import Path
-from collections import defaultdict
 
 logger = logging.getLogger(__name__)
 
@@ -51,7 +48,8 @@ class QualityMetricsTracker:
                 cursor = conn.cursor()
 
                 # Table principale des métriques
-                cursor.execute("""
+                cursor.execute(
+                    """
                     CREATE TABLE IF NOT EXISTS response_quality (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -83,26 +81,34 @@ class QualityMetricsTracker:
                         validator_version TEXT,
                         answer_modified BOOLEAN DEFAULT FALSE
                     )
-                """)
+                """
+                )
 
                 # Index pour performances
-                cursor.execute("""
+                cursor.execute(
+                    """
                     CREATE INDEX IF NOT EXISTS idx_timestamp
                     ON response_quality(timestamp)
-                """)
+                """
+                )
 
-                cursor.execute("""
+                cursor.execute(
+                    """
                     CREATE INDEX IF NOT EXISTS idx_repo_timestamp
                     ON response_quality(repo_filter, timestamp)
-                """)
+                """
+                )
 
-                cursor.execute("""
+                cursor.execute(
+                    """
                     CREATE INDEX IF NOT EXISTS idx_action_timestamp
                     ON response_quality(action, timestamp)
-                """)
+                """
+                )
 
                 # Table alertes qualité
-                cursor.execute("""
+                cursor.execute(
+                    """
                     CREATE TABLE IF NOT EXISTS quality_alerts (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -114,7 +120,8 @@ class QualityMetricsTracker:
                         resolved BOOLEAN DEFAULT FALSE,
                         resolved_at DATETIME
                     )
-                """)
+                """
+                )
 
                 conn.commit()
                 logger.debug("Schéma base de données initialisé")
@@ -123,8 +130,14 @@ class QualityMetricsTracker:
             logger.error(f"Erreur initialisation base données: {e}")
             raise
 
-    def track_response(self, validation_result: Dict, processing_time: float,
-                      question: str, repo: str = None, **kwargs):
+    def track_response(
+        self,
+        validation_result: dict,
+        processing_time: float,
+        question: str,
+        repo: str = None,
+        **_kwargs,
+    ):
         """
         Enregistrer métriques d'une réponse validée
 
@@ -161,7 +174,7 @@ class QualityMetricsTracker:
                 "question_length": validation_meta.get("question_length", 0),
                 "primary_weakness": validation_result["confidence_factors"]["primary_weakness"],
                 "validator_version": validation_meta.get("validator_version", "unknown"),
-                "answer_modified": validation_result.get("answer_modified", False)
+                "answer_modified": validation_result.get("answer_modified", False),
             }
 
             # Insérer en base
@@ -171,10 +184,13 @@ class QualityMetricsTracker:
                 placeholders = ", ".join(["?" for _ in metrics_data.values()])
                 columns = ", ".join(metrics_data.keys())
 
-                cursor.execute(f"""
+                cursor.execute(
+                    f"""
                     INSERT INTO response_quality ({columns})
                     VALUES ({placeholders})
-                """, list(metrics_data.values()))
+                """,
+                    list(metrics_data.values()),
+                )
 
                 conn.commit()
 
@@ -189,7 +205,7 @@ class QualityMetricsTracker:
         except Exception as e:
             logger.error(f"Erreur tracking métriques: {e}")
 
-    def get_metrics_summary(self, hours: int = 24, repo: str = None) -> Dict:
+    def get_metrics_summary(self, hours: int = 24, repo: str = None) -> dict:
         """
         Obtenir résumé des métriques sur une période
 
@@ -220,7 +236,8 @@ class QualityMetricsTracker:
                     params.append(repo)
 
                 # Métriques principales
-                cursor.execute(f"""
+                cursor.execute(
+                    f"""
                     SELECT
                         COUNT(*) as total_responses,
                         AVG(confidence) as avg_confidence,
@@ -234,49 +251,70 @@ class QualityMetricsTracker:
                         AVG(semantic_consistency) as avg_semantic_consistency
                     FROM response_quality
                     {where_clause}
-                """, params)
+                """,
+                    params,
+                )
 
                 main_metrics = cursor.fetchone()
 
                 # Distribution par grade qualité
-                cursor.execute(f"""
+                cursor.execute(
+                    f"""
                     SELECT quality_grade, COUNT(*)
                     FROM response_quality
                     {where_clause}
                     GROUP BY quality_grade
                     ORDER BY COUNT(*) DESC
-                """, params)
+                """,
+                    params,
+                )
 
                 quality_distribution = dict(cursor.fetchall())
 
                 # Distribution par sévérité hallucinations
-                cursor.execute(f"""
+                cursor.execute(
+                    f"""
                     SELECT hallucination_severity, COUNT(*)
                     FROM response_quality
                     {where_clause}
                     GROUP BY hallucination_severity
                     ORDER BY COUNT(*) DESC
-                """, params)
+                """,
+                    params,
+                )
 
                 hallucination_distribution = dict(cursor.fetchall())
 
                 # Top faiblesses
-                cursor.execute(f"""
+                cursor.execute(
+                    f"""
                     SELECT primary_weakness, COUNT(*) as count
                     FROM response_quality
                     {where_clause}
                     GROUP BY primary_weakness
                     ORDER BY count DESC
                     LIMIT 5
-                """, params)
+                """,
+                    params,
+                )
 
                 top_weaknesses = [
-                    {"weakness": row[0], "count": row[1]}
-                    for row in cursor.fetchall()
+                    {"weakness": row[0], "count": row[1]} for row in cursor.fetchall()
                 ]
 
             # Calculer ratios et métriques dérivées
-            total, avg_conf, accepted, flagged, rejected, halluc, modified, avg_time, avg_val_time, avg_sem = main_metrics
+            (
+                total,
+                avg_conf,
+                accepted,
+                flagged,
+                rejected,
+                halluc,
+                modified,
+                avg_time,
+                avg_val_time,
+                avg_sem,
+            ) = main_metrics
 
             summary = {
                 "period_hours": hours,
@@ -294,7 +332,7 @@ class QualityMetricsTracker:
                 "quality_distribution": quality_distribution,
                 "hallucination_distribution": hallucination_distribution,
                 "top_weaknesses": top_weaknesses,
-                "generated_at": datetime.now().isoformat()
+                "generated_at": datetime.now().isoformat(),
             }
 
             # Cache résultat
@@ -306,7 +344,7 @@ class QualityMetricsTracker:
             logger.error(f"Erreur calcul métriques summary: {e}")
             return self._get_empty_summary(hours, repo)
 
-    def get_trend_data(self, days: int = 7, repo: str = None) -> List[Dict]:
+    def get_trend_data(self, days: int = 7, repo: str = None) -> list[dict]:
         """
         Obtenir données de tendance pour graphiques
 
@@ -330,7 +368,8 @@ class QualityMetricsTracker:
                     where_clause += " AND repo_filter = ?"
                     params.append(repo)
 
-                cursor.execute(f"""
+                cursor.execute(
+                    f"""
                     SELECT
                         DATE(timestamp) as date,
                         COUNT(*) as total_responses,
@@ -343,7 +382,9 @@ class QualityMetricsTracker:
                     {where_clause}
                     GROUP BY DATE(timestamp)
                     ORDER BY date
-                """, params)
+                """,
+                    params,
+                )
 
                 trend_data = [
                     {
@@ -353,7 +394,7 @@ class QualityMetricsTracker:
                         "acceptance_rate": round(row[3], 1),
                         "hallucination_rate": round(row[4], 1),
                         "avg_processing_time": round(row[5], 2),
-                        "avg_semantic_consistency": round(row[6], 3)
+                        "avg_semantic_consistency": round(row[6], 3),
                     }
                     for row in cursor.fetchall()
                 ]
@@ -364,7 +405,7 @@ class QualityMetricsTracker:
             logger.error(f"Erreur calcul trends: {e}")
             return []
 
-    def get_quality_alerts(self, resolved: bool = False) -> List[Dict]:
+    def get_quality_alerts(self, resolved: bool = False) -> list[dict]:
         """
         Obtenir alertes qualité actives ou résolues
 
@@ -381,7 +422,8 @@ class QualityMetricsTracker:
                 where_clause = "WHERE resolved = ?" if not resolved else ""
                 params = [False] if not resolved else []
 
-                cursor.execute(f"""
+                cursor.execute(
+                    f"""
                     SELECT
                         id, timestamp, alert_type, severity, message,
                         threshold_value, actual_value, resolved, resolved_at
@@ -389,7 +431,9 @@ class QualityMetricsTracker:
                     {where_clause}
                     ORDER BY timestamp DESC
                     LIMIT 50
-                """, params)
+                """,
+                    params,
+                )
 
                 alerts = [
                     {
@@ -401,7 +445,7 @@ class QualityMetricsTracker:
                         "threshold_value": row[5],
                         "actual_value": row[6],
                         "resolved": bool(row[7]),
-                        "resolved_at": row[8]
+                        "resolved_at": row[8],
                     }
                     for row in cursor.fetchall()
                 ]
@@ -412,7 +456,7 @@ class QualityMetricsTracker:
             logger.error(f"Erreur récupération alertes: {e}")
             return []
 
-    def _check_quality_alerts(self, metrics_data: Dict):
+    def _check_quality_alerts(self, _metrics_data: dict):
         """
         Vérifier conditions d'alerte basées sur nouvelles métriques
 
@@ -427,43 +471,54 @@ class QualityMetricsTracker:
 
             # Alerte taux hallucination élevé
             if recent_metrics["hallucination_rate"] > 25 and recent_metrics["total_responses"] >= 5:
-                alerts_to_create.append({
-                    "alert_type": "HIGH_HALLUCINATION_RATE",
-                    "severity": "HIGH",
-                    "message": f"Taux d'hallucination élevé: {recent_metrics['hallucination_rate']:.1f}% (>25%)",
-                    "threshold_value": 25.0,
-                    "actual_value": recent_metrics["hallucination_rate"]
-                })
+                alerts_to_create.append(
+                    {
+                        "alert_type": "HIGH_HALLUCINATION_RATE",
+                        "severity": "HIGH",
+                        "message": f"Taux d'hallucination élevé: {recent_metrics['hallucination_rate']:.1f}% (>25%)",
+                        "threshold_value": 25.0,
+                        "actual_value": recent_metrics["hallucination_rate"],
+                    }
+                )
 
             # Alerte taux rejet élevé
             if recent_metrics["rejection_rate"] > 15 and recent_metrics["total_responses"] >= 5:
-                alerts_to_create.append({
-                    "alert_type": "HIGH_REJECTION_RATE",
-                    "severity": "MEDIUM",
-                    "message": f"Taux de rejet élevé: {recent_metrics['rejection_rate']:.1f}% (>15%)",
-                    "threshold_value": 15.0,
-                    "actual_value": recent_metrics["rejection_rate"]
-                })
+                alerts_to_create.append(
+                    {
+                        "alert_type": "HIGH_REJECTION_RATE",
+                        "severity": "MEDIUM",
+                        "message": f"Taux de rejet élevé: {recent_metrics['rejection_rate']:.1f}% (>15%)",
+                        "threshold_value": 15.0,
+                        "actual_value": recent_metrics["rejection_rate"],
+                    }
+                )
 
             # Alerte confiance faible
             if recent_metrics["avg_confidence"] < 0.6 and recent_metrics["total_responses"] >= 5:
-                alerts_to_create.append({
-                    "alert_type": "LOW_CONFIDENCE",
-                    "severity": "MEDIUM",
-                    "message": f"Confiance moyenne faible: {recent_metrics['avg_confidence']:.2f} (<0.6)",
-                    "threshold_value": 0.6,
-                    "actual_value": recent_metrics["avg_confidence"]
-                })
+                alerts_to_create.append(
+                    {
+                        "alert_type": "LOW_CONFIDENCE",
+                        "severity": "MEDIUM",
+                        "message": f"Confiance moyenne faible: {recent_metrics['avg_confidence']:.2f} (<0.6)",
+                        "threshold_value": 0.6,
+                        "actual_value": recent_metrics["avg_confidence"],
+                    }
+                )
 
             # Alerte validation lente
-            if recent_metrics["avg_validation_time"] > 1.0 and recent_metrics["total_responses"] >= 3:
-                alerts_to_create.append({
-                    "alert_type": "SLOW_VALIDATION",
-                    "severity": "LOW",
-                    "message": f"Validation lente: {recent_metrics['avg_validation_time']:.2f}s (>1.0s)",
-                    "threshold_value": 1.0,
-                    "actual_value": recent_metrics["avg_validation_time"]
-                })
+            if (
+                recent_metrics["avg_validation_time"] > 1.0
+                and recent_metrics["total_responses"] >= 3
+            ):
+                alerts_to_create.append(
+                    {
+                        "alert_type": "SLOW_VALIDATION",
+                        "severity": "LOW",
+                        "message": f"Validation lente: {recent_metrics['avg_validation_time']:.2f}s (>1.0s)",
+                        "threshold_value": 1.0,
+                        "actual_value": recent_metrics["avg_validation_time"],
+                    }
+                )
 
             # Créer alertes en base
             if alerts_to_create:
@@ -472,7 +527,7 @@ class QualityMetricsTracker:
         except Exception as e:
             logger.error(f"Erreur vérification alertes: {e}")
 
-    def _create_alerts(self, alerts: List[Dict]):
+    def _create_alerts(self, alerts: list[dict]):
         """Créer alertes en base de données"""
         try:
             with sqlite3.connect(self.db_path) as conn:
@@ -480,25 +535,31 @@ class QualityMetricsTracker:
 
                 for alert in alerts:
                     # Vérifier si alerte similaire existe déjà (dernière heure)
-                    recent_alert = cursor.execute("""
+                    recent_alert = cursor.execute(
+                        """
                         SELECT id FROM quality_alerts
                         WHERE alert_type = ?
                         AND timestamp > datetime('now', '-1 hour')
                         AND resolved = FALSE
-                    """, (alert["alert_type"],)).fetchone()
+                    """,
+                        (alert["alert_type"],),
+                    ).fetchone()
 
                     if not recent_alert:  # Pas d'alerte récente similaire
-                        cursor.execute("""
+                        cursor.execute(
+                            """
                             INSERT INTO quality_alerts
                             (alert_type, severity, message, threshold_value, actual_value)
                             VALUES (?, ?, ?, ?, ?)
-                        """, (
-                            alert["alert_type"],
-                            alert["severity"],
-                            alert["message"],
-                            alert["threshold_value"],
-                            alert["actual_value"]
-                        ))
+                        """,
+                            (
+                                alert["alert_type"],
+                                alert["severity"],
+                                alert["message"],
+                                alert["threshold_value"],
+                                alert["actual_value"],
+                            ),
+                        )
 
                         logger.warning(f"Alerte créée: {alert['alert_type']} - {alert['message']}")
 
@@ -514,9 +575,9 @@ class QualityMetricsTracker:
 
         return (datetime.now() - self._cache_timestamp).total_seconds() < self._cache_ttl_seconds
 
-    def _cache_result(self, key: str, result: Dict):
+    def _cache_result(self, key: str, result: dict):
         """Mettre en cache un résultat"""
-        if not hasattr(self, '_metrics_cache'):
+        if not hasattr(self, "_metrics_cache"):
             self._metrics_cache = {}
 
         self._metrics_cache[key] = result
@@ -527,7 +588,7 @@ class QualityMetricsTracker:
         self._metrics_cache = {}
         self._cache_timestamp = None
 
-    def _get_empty_summary(self, hours: int, repo: str) -> Dict:
+    def _get_empty_summary(self, hours: int, repo: str) -> dict:
         """Résumé vide en cas d'erreur"""
         return {
             "period_hours": hours,
@@ -546,10 +607,10 @@ class QualityMetricsTracker:
             "hallucination_distribution": {},
             "top_weaknesses": [],
             "generated_at": datetime.now().isoformat(),
-            "error": "Erreur calcul métriques"
+            "error": "Erreur calcul métriques",
         }
 
-    def get_database_stats(self) -> Dict:
+    def get_database_stats(self) -> dict:
         """Obtenir statistiques base de données"""
         try:
             with sqlite3.connect(self.db_path) as conn:
@@ -560,10 +621,12 @@ class QualityMetricsTracker:
                 total_records = cursor.fetchone()[0]
 
                 # Plus ancien/récent
-                cursor.execute("""
+                cursor.execute(
+                    """
                     SELECT MIN(timestamp), MAX(timestamp)
                     FROM response_quality
-                """)
+                """
+                )
                 oldest, newest = cursor.fetchone()
 
                 # Taille fichier
@@ -574,8 +637,8 @@ class QualityMetricsTracker:
                     "oldest_record": oldest,
                     "newest_record": newest,
                     "database_size_bytes": file_size,
-                    "database_size_mb": round(file_size / (1024*1024), 2),
-                    "database_path": str(self.db_path)
+                    "database_size_mb": round(file_size / (1024 * 1024), 2),
+                    "database_path": str(self.db_path),
                 }
 
         except Exception as e:

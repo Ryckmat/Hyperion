@@ -8,9 +8,9 @@ Ce module calcule un score de confiance global en combinant plusieurs facteurs :
 - Complétude de la réponse
 """
 
-from typing import Dict, List, Optional
 import logging
 import re
+
 import numpy as np
 
 logger = logging.getLogger(__name__)
@@ -28,10 +28,10 @@ class ConfidenceScorer:
         """Initialiser le scorer avec poids par défaut"""
         # Poids des différents facteurs (doivent sommer à 1.0)
         self.weights = {
-            "hallucination": 0.4,        # Le plus critique
-            "source_quality": 0.25,      # Qualité des sources récupérées
-            "semantic_relevance": 0.2,   # Pertinence sémantique question-réponse
-            "response_completeness": 0.15 # Complétude et structure de la réponse
+            "hallucination": 0.4,  # Le plus critique
+            "source_quality": 0.25,  # Qualité des sources récupérées
+            "semantic_relevance": 0.2,  # Pertinence sémantique question-réponse
+            "response_completeness": 0.15,  # Complétude et structure de la réponse
         }
 
         # Seuils de qualité
@@ -40,15 +40,17 @@ class ConfidenceScorer:
             "good": 0.8,
             "fair": 0.7,
             "poor": 0.5,
-            "unacceptable": 0.0
+            "unacceptable": 0.0,
         }
 
-    def compute_confidence(self,
-                          hallucination_result: Dict,
-                          source_scores: List[float],
-                          question: str,
-                          answer: str,
-                          processing_metadata: Optional[Dict] = None) -> Dict:
+    def compute_confidence(
+        self,
+        hallucination_result: dict,
+        source_scores: list[float],
+        question: str,
+        answer: str,
+        processing_metadata: dict | None = None,
+    ) -> dict:
         """
         Calculer score de confiance final en combinant tous les facteurs
 
@@ -77,10 +79,10 @@ class ConfidenceScorer:
 
             # 5. Score final pondéré
             final_confidence = (
-                self.weights["hallucination"] * hallucination_score +
-                self.weights["source_quality"] * source_quality_score +
-                self.weights["semantic_relevance"] * relevance_score +
-                self.weights["response_completeness"] * completeness_score
+                self.weights["hallucination"] * hallucination_score
+                + self.weights["source_quality"] * source_quality_score
+                + self.weights["semantic_relevance"] * relevance_score
+                + self.weights["response_completeness"] * completeness_score
             )
 
             # 6. Ajustements contextuels
@@ -101,31 +103,35 @@ class ConfidenceScorer:
                     "hallucination": round(hallucination_score, 3),
                     "source_quality": round(source_quality_score, 3),
                     "semantic_relevance": round(relevance_score, 3),
-                    "response_completeness": round(completeness_score, 3)
+                    "response_completeness": round(completeness_score, 3),
                 },
                 "confidence_factors": {
                     "primary_weakness": self._identify_primary_weakness(
-                        hallucination_score, source_quality_score,
-                        relevance_score, completeness_score
+                        hallucination_score,
+                        source_quality_score,
+                        relevance_score,
+                        completeness_score,
                     ),
                     "strengths": self._identify_strengths(
-                        hallucination_score, source_quality_score,
-                        relevance_score, completeness_score
-                    )
+                        hallucination_score,
+                        source_quality_score,
+                        relevance_score,
+                        completeness_score,
+                    ),
                 },
                 "metadata": {
                     "scorer_version": "2.8.0",
                     "weights_used": self.weights.copy(),
                     "num_sources": len(source_scores),
-                    "processing_metadata": processing_metadata or {}
-                }
+                    "processing_metadata": processing_metadata or {},
+                },
             }
 
         except Exception as e:
             logger.error(f"Erreur calcul confidence: {e}")
             return self._get_error_fallback_score(str(e))
 
-    def _calculate_source_quality(self, source_scores: List[float]) -> float:
+    def _calculate_source_quality(self, source_scores: list[float]) -> float:
         """
         Calculer score qualité des sources basé sur scores de similarité
 
@@ -177,11 +183,26 @@ class ConfidenceScorer:
         answer = answer.strip()
 
         # 1. Analyse mots-clés communs
-        question_words = set(re.findall(r'\w+', question.lower()))
-        answer_words = set(re.findall(r'\w+', answer.lower()))
+        question_words = set(re.findall(r"\w+", question.lower()))
+        answer_words = set(re.findall(r"\w+", answer.lower()))
 
         # Retirer stopwords basiques
-        stopwords = {'le', 'la', 'les', 'un', 'une', 'des', 'de', 'et', 'ou', 'the', 'a', 'an', 'and', 'or'}
+        stopwords = {
+            "le",
+            "la",
+            "les",
+            "un",
+            "une",
+            "des",
+            "de",
+            "et",
+            "ou",
+            "the",
+            "a",
+            "an",
+            "and",
+            "or",
+        }
         question_words -= stopwords
         answer_words -= stopwords
 
@@ -196,7 +217,7 @@ class ConfidenceScorer:
 
         if length_ratio < 0.3:  # Réponse très courte
             length_score = 0.4
-        elif length_ratio > 8:   # Réponse très longue
+        elif length_ratio > 8:  # Réponse très longue
             length_score = 0.6
         elif 0.8 <= length_ratio <= 4:  # Longueur appropriée
             length_score = 1.0
@@ -207,15 +228,11 @@ class ConfidenceScorer:
         directness_score = self._assess_directness(question, answer)
 
         # Score final pondéré
-        relevance_score = (
-            0.5 * keyword_overlap +
-            0.3 * length_score +
-            0.2 * directness_score
-        )
+        relevance_score = 0.5 * keyword_overlap + 0.3 * length_score + 0.2 * directness_score
 
         return max(0.0, min(1.0, relevance_score))
 
-    def _calculate_response_completeness(self, answer: str, question: str) -> float:
+    def _calculate_response_completeness(self, answer: str, _question: str) -> float:
         """
         Évaluer complétude et structure de la réponse
 
@@ -245,10 +262,10 @@ class ConfidenceScorer:
 
         # Score final
         completeness = (
-            0.4 * length_score +
-            0.3 * structure_score +
-            0.3 * informativeness_score +
-            citation_bonus
+            0.4 * length_score
+            + 0.3 * structure_score
+            + 0.3 * informativeness_score
+            + citation_bonus
         )
 
         return max(0.0, min(1.0, completeness))
@@ -257,15 +274,15 @@ class ConfidenceScorer:
         """Évaluer si la réponse répond directement à la question"""
         # Patterns de questions spécifiques
         question_patterns = {
-            r'\bcombien\b|\bhow many\b|\bhow much\b': 'quantitative',
-            r'\bquoi\b|\bque\b|\bwhat\b': 'descriptive',
-            r'\bcomment\b|\bhow\b': 'procedural',
-            r'\bpourquoi\b|\bwhy\b': 'causal',
-            r'\boù\b|\bwhere\b': 'locative',
-            r'\bquand\b|\bwhen\b': 'temporal'
+            r"\bcombien\b|\bhow many\b|\bhow much\b": "quantitative",
+            r"\bquoi\b|\bque\b|\bwhat\b": "descriptive",
+            r"\bcomment\b|\bhow\b": "procedural",
+            r"\bpourquoi\b|\bwhy\b": "causal",
+            r"\boù\b|\bwhere\b": "locative",
+            r"\bquand\b|\bwhen\b": "temporal",
         }
 
-        question_type = 'general'
+        question_type = "general"
         for pattern, qtype in question_patterns.items():
             if re.search(pattern, question.lower()):
                 question_type = qtype
@@ -273,12 +290,12 @@ class ConfidenceScorer:
 
         # Vérifier si la réponse contient des éléments appropriés
         directness_indicators = {
-            'quantitative': [r'\b\d+\b', r'\bfichiers?\b', r'\blignes?\b'],
-            'descriptive': [r'\best\b', r'\butilise\b', r'\bcontient\b'],
-            'procedural': [r'\bpour\b', r'\bavec\b', r'\ben utilisant\b'],
-            'causal': [r'\bcar\b', r'\bparce que\b', r'\bgrâce à\b'],
-            'locative': [r'\bdans\b', r'\bsous\b', r'\brépertoire\b'],
-            'temporal': [r'\bquand\b', r'\blors\b', r'\bpendant\b']
+            "quantitative": [r"\b\d+\b", r"\bfichiers?\b", r"\blignes?\b"],
+            "descriptive": [r"\best\b", r"\butilise\b", r"\bcontient\b"],
+            "procedural": [r"\bpour\b", r"\bavec\b", r"\ben utilisant\b"],
+            "causal": [r"\bcar\b", r"\bparce que\b", r"\bgrâce à\b"],
+            "locative": [r"\bdans\b", r"\bsous\b", r"\brépertoire\b"],
+            "temporal": [r"\bquand\b", r"\blors\b", r"\bpendant\b"],
         }
 
         if question_type in directness_indicators:
@@ -306,10 +323,10 @@ class ConfidenceScorer:
     def _assess_response_structure(self, answer: str) -> float:
         """Évaluer structure grammaticale de la réponse"""
         # Vérifications basiques de structure
-        has_punctuation = bool(re.search(r'[.!?]', answer))
+        has_punctuation = bool(re.search(r"[.!?]", answer))
         has_capital_start = answer[0].isupper() if answer else False
         not_all_caps = answer != answer.upper()
-        proper_spacing = not bool(re.search(r'\w{50,}', answer))  # Pas de mots trop longs
+        proper_spacing = not bool(re.search(r"\w{50,}", answer))  # Pas de mots trop longs
 
         structure_elements = [has_punctuation, has_capital_start, not_all_caps, proper_spacing]
         return sum(structure_elements) / len(structure_elements)
@@ -318,20 +335,20 @@ class ConfidenceScorer:
         """Évaluer caractère informatif vs vague de la réponse"""
         # Patterns de réponses vagues à pénaliser
         vague_patterns = [
-            r'\bje ne sais pas\b',
-            r'\bpas d\'information\b',
-            r'\bimpossible de dire\b',
-            r'\bdifficile à déterminer\b',
-            r'\bvariable\b',
-            r'\bdépend\b.*\bdépend\b'  # "ça dépend" répété
+            r"\bje ne sais pas\b",
+            r"\bpas d\'information\b",
+            r"\bimpossible de dire\b",
+            r"\bdifficile à déterminer\b",
+            r"\bvariable\b",
+            r"\bdépend\b.*\bdépend\b",  # "ça dépend" répété
         ]
 
         # Patterns informatifs à valoriser
         informative_patterns = [
-            r'\b\d+\b',  # Chiffres spécifiques
-            r'\bfichier\b|\blignes?\b|\bfonctions?\b',  # Éléments techniques spécifiques
-            r'\bprincipal\b|\bmajeur\b|\bprincipal\b',  # Qualificatifs précis
-            r'\banalyse\b|\bcode\b|\brepository\b'  # Vocabulaire technique approprié
+            r"\b\d+\b",  # Chiffres spécifiques
+            r"\bfichier\b|\blignes?\b|\bfonctions?\b",  # Éléments techniques spécifiques
+            r"\bprincipal\b|\bmajeur\b|\bprincipal\b",  # Qualificatifs précis
+            r"\banalyse\b|\bcode\b|\brepository\b",  # Vocabulaire technique approprié
         ]
 
         answer_lower = answer.lower()
@@ -341,7 +358,9 @@ class ConfidenceScorer:
         vague_penalty = min(0.5, vague_count * 0.2)
 
         # Bonus pour contenu informatif
-        informative_count = sum(1 for pattern in informative_patterns if re.search(pattern, answer_lower))
+        informative_count = sum(
+            1 for pattern in informative_patterns if re.search(pattern, answer_lower)
+        )
         informative_bonus = min(0.4, informative_count * 0.1)
 
         base_score = 0.6
@@ -350,19 +369,22 @@ class ConfidenceScorer:
     def _has_source_references(self, answer: str) -> bool:
         """Vérifier si la réponse fait référence aux sources"""
         source_refs = [
-            r'\bselon\b.*\banalyse\b',
-            r'\bd\'après\b.*\bcode\b',
-            r'\bdans le repository\b',
-            r'\bbasé sur\b',
-            r'\bd\'après les données\b'
+            r"\bselon\b.*\banalyse\b",
+            r"\bd\'après\b.*\bcode\b",
+            r"\bdans le repository\b",
+            r"\bbasé sur\b",
+            r"\bd\'après les données\b",
         ]
 
         return any(re.search(pattern, answer.lower()) for pattern in source_refs)
 
-    def _apply_contextual_adjustments(self, base_confidence: float,
-                                    hallucination_result: Dict,
-                                    source_scores: List[float],
-                                    answer: str) -> float:
+    def _apply_contextual_adjustments(
+        self,
+        base_confidence: float,
+        hallucination_result: dict,
+        source_scores: list[float],
+        answer: str,
+    ) -> float:
         """Appliquer ajustements contextuels au score de confiance"""
         adjusted = base_confidence
 
@@ -380,20 +402,22 @@ class ConfidenceScorer:
 
         return max(0.0, min(1.0, adjusted))
 
-    def _identify_primary_weakness(self, hall_score: float, source_score: float,
-                                  rel_score: float, comp_score: float) -> str:
+    def _identify_primary_weakness(
+        self, hall_score: float, source_score: float, rel_score: float, comp_score: float
+    ) -> str:
         """Identifier la faiblesse principale pour recommandations ciblées"""
         scores = {
             "hallucination": hall_score,
             "source_quality": source_score,
             "semantic_relevance": rel_score,
-            "response_completeness": comp_score
+            "response_completeness": comp_score,
         }
 
         return min(scores.items(), key=lambda x: x[1])[0]
 
-    def _identify_strengths(self, hall_score: float, source_score: float,
-                           rel_score: float, comp_score: float) -> List[str]:
+    def _identify_strengths(
+        self, hall_score: float, source_score: float, rel_score: float, comp_score: float
+    ) -> list[str]:
         """Identifier les points forts de la réponse"""
         strengths = []
 
@@ -410,12 +434,14 @@ class ConfidenceScorer:
 
     def _get_quality_grade(self, confidence: float) -> str:
         """Convertir score numérique en grade lisible"""
-        for grade, threshold in sorted(self.quality_thresholds.items(), key=lambda x: x[1], reverse=True):
+        for grade, threshold in sorted(
+            self.quality_thresholds.items(), key=lambda x: x[1], reverse=True
+        ):
             if confidence >= threshold:
                 return grade.upper()
         return "UNACCEPTABLE"
 
-    def _determine_action(self, confidence: float, hallucination_result: Dict) -> str:
+    def _determine_action(self, confidence: float, hallucination_result: dict) -> str:
         """Déterminer l'action recommandée basée sur le score et l'analyse"""
         # Rejet immédiat si hallucination critique
         if hallucination_result.get("severity") == "CRITICAL":
@@ -429,7 +455,7 @@ class ConfidenceScorer:
         else:
             return "accept"
 
-    def _get_error_fallback_score(self, error_msg: str) -> Dict:
+    def _get_error_fallback_score(self, error_msg: str) -> dict:
         """Score de fallback en cas d'erreur de calcul"""
         return {
             "final_confidence": 0.5,
@@ -440,15 +466,8 @@ class ConfidenceScorer:
                 "hallucination": 0.5,
                 "source_quality": 0.5,
                 "semantic_relevance": 0.5,
-                "response_completeness": 0.5
+                "response_completeness": 0.5,
             },
-            "confidence_factors": {
-                "primary_weakness": "calculation_error",
-                "strengths": []
-            },
-            "metadata": {
-                "scorer_version": "2.8.0",
-                "error": error_msg,
-                "fallback": True
-            }
+            "confidence_factors": {"primary_weakness": "calculation_error", "strengths": []},
+            "metadata": {"scorer_version": "2.8.0", "error": error_msg, "fallback": True},
         }

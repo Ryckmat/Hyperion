@@ -16,6 +16,7 @@ except ModuleNotFoundError:
 # Import système de monitoring qualité v2.8
 try:
     from hyperion.modules.rag.monitoring.quality_metrics import QualityMetricsTracker
+
     QUALITY_MONITORING_AVAILABLE = True
 except ImportError as e:
     print(f"⚠️ Monitoring qualité non disponible: {e}")
@@ -333,7 +334,7 @@ def chat(request: ChatRequest):
                         "should_flag": result["quality"]["should_flag"],
                         "hallucination_analysis": {
                             "is_hallucination": result["quality"]["hallucination_detected"],
-                            "severity": result["quality"]["hallucination_severity"]
+                            "severity": result["quality"]["hallucination_severity"],
                         },
                         "confidence_factors": {
                             "primary_weakness": "unknown"  # Non disponible dans API response simplifiée
@@ -341,19 +342,23 @@ def chat(request: ChatRequest):
                         "validation_metadata": {
                             "validation_time": result["quality"]["validation_time"],
                             "num_sources": len(result["sources"]),
-                            "avg_source_score": sum(s["score"] for s in result["sources"]) / len(result["sources"]) if result["sources"] else 0.0,
+                            "avg_source_score": (
+                                sum(s["score"] for s in result["sources"]) / len(result["sources"])
+                                if result["sources"]
+                                else 0.0
+                            ),
                             "answer_length": len(result["answer"]),
                             "question_length": len(request.question),
-                            "validator_version": "2.8.0"
+                            "validator_version": "2.8.0",
                         },
-                        "answer_modified": result["quality"].get("answer_modified", False)
+                        "answer_modified": result["quality"].get("answer_modified", False),
                     }
 
                     quality_tracker.track_response(
                         validation_result=validation_result,
                         processing_time=result["processing_time"],
                         question=request.question,
-                        repo=request.repo
+                        repo=request.repo,
                     )
 
                 except Exception as tracking_error:
@@ -397,16 +402,12 @@ def get_quality_metrics(hours: int = 24, repo: str = None):
     try:
         quality_tracker = get_quality_tracker()
         if not quality_tracker:
-            raise HTTPException(
-                status_code=503,
-                detail="Monitoring qualité non disponible"
-            )
+            raise HTTPException(status_code=503, detail="Monitoring qualité non disponible")
 
         # Valider paramètres
-        if hours <= 0 or hours > 7*24:  # Max 7 jours
+        if hours <= 0 or hours > 7 * 24:  # Max 7 jours
             raise HTTPException(
-                status_code=400,
-                detail="Période doit être entre 1h et 168h (7 jours)"
+                status_code=400, detail="Période doit être entre 1h et 168h (7 jours)"
             )
 
         metrics = quality_tracker.get_metrics_summary(hours=hours, repo=repo)
@@ -431,17 +432,11 @@ def get_quality_trends(days: int = 7, repo: str = None):
     try:
         quality_tracker = get_quality_tracker()
         if not quality_tracker:
-            raise HTTPException(
-                status_code=503,
-                detail="Monitoring qualité non disponible"
-            )
+            raise HTTPException(status_code=503, detail="Monitoring qualité non disponible")
 
         # Valider paramètres
         if days <= 0 or days > 30:
-            raise HTTPException(
-                status_code=400,
-                detail="Période doit être entre 1 et 30 jours"
-            )
+            raise HTTPException(status_code=400, detail="Période doit être entre 1 et 30 jours")
 
         trends = quality_tracker.get_trend_data(days=days, repo=repo)
         return {"trends": trends, "period_days": days, "repository": repo or "all"}
@@ -464,17 +459,14 @@ def get_quality_alerts(resolved: bool = False):
     try:
         quality_tracker = get_quality_tracker()
         if not quality_tracker:
-            raise HTTPException(
-                status_code=503,
-                detail="Monitoring qualité non disponible"
-            )
+            raise HTTPException(status_code=503, detail="Monitoring qualité non disponible")
 
         alerts = quality_tracker.get_quality_alerts(resolved=resolved)
         return {
             "alerts": alerts,
             "total": len(alerts),
             "resolved": resolved,
-            "timestamp": "2024-12-28T00:00:00"  # API timestamp
+            "timestamp": "2024-12-28T00:00:00",  # API timestamp
         }
 
     except Exception as e:
@@ -492,10 +484,7 @@ def get_quality_database_stats():
     try:
         quality_tracker = get_quality_tracker()
         if not quality_tracker:
-            raise HTTPException(
-                status_code=503,
-                detail="Monitoring qualité non disponible"
-            )
+            raise HTTPException(status_code=503, detail="Monitoring qualité non disponible")
 
         stats = quality_tracker.get_database_stats()
         return stats
