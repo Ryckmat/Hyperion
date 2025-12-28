@@ -11,14 +11,10 @@ Composants:
 - QualityMetrics: Tracking et métriques qualité
 """
 
-from .hallucination_detector import HallucinationDetector
 from .confidence_scorer import ConfidenceScorer
+from .hallucination_detector import HallucinationDetector
 from .response_validator import ResponseValidator
 
-__all__ = [
-    'HallucinationDetector',
-    'ConfidenceScorer',
-    'ResponseValidator'
-]
+__all__ = ["HallucinationDetector", "ConfidenceScorer", "ResponseValidator"]
 
 __version__ = "2.8.0"

@@ -2,6 +2,7 @@
 
 import os
 import time
+
 from langchain_ollama import OllamaLLM
 from qdrant_client import QdrantClient
 from qdrant_client.models import FieldCondition, Filter, MatchValue
@@ -25,6 +26,7 @@ from hyperion.modules.rag.config import (
 # Import du système de validation qualité v2.8
 try:
     from hyperion.modules.rag.quality.response_validator import ResponseValidator
+
     VALIDATION_AVAILABLE = True
 except ImportError as e:
     print(f"⚠️ Validation qualité non disponible: {e}")
@@ -192,7 +194,7 @@ class RAGQueryEngine:
                         question=question,
                         context_chunks=full_context_chunks,
                         source_scores=source_scores,
-                        processing_time=processing_time
+                        processing_time=processing_time,
                     )
 
                     # Traitement selon mode validation
@@ -223,11 +225,15 @@ class RAGQueryEngine:
                     "grade": validation_result["quality_grade"],
                     "action": validation_result["action"],
                     "should_flag": validation_result["should_flag"],
-                    "hallucination_detected": validation_result["hallucination_analysis"]["is_hallucination"],
-                    "hallucination_severity": validation_result["hallucination_analysis"]["severity"],
+                    "hallucination_detected": validation_result["hallucination_analysis"][
+                        "is_hallucination"
+                    ],
+                    "hallucination_severity": validation_result["hallucination_analysis"][
+                        "severity"
+                    ],
                     "recommendations": validation_result["recommendations"][:3],  # Limiter pour API
                     "validation_time": validation_result["validation_metadata"]["validation_time"],
-                    "answer_modified": validation_result.get("answer_modified", False)
+                    "answer_modified": validation_result.get("answer_modified", False),
                 }
 
             return response

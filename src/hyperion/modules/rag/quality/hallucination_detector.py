@@ -9,23 +9,24 @@ en analysant plusieurs dimensions :
 - Détails inventés (chiffres, dates)
 """
 
-from typing import Dict, List, Tuple, Optional
-import re
 import logging
+import re
 from dataclasses import dataclass, field
+
 from sentence_transformers import util
-import numpy as np
 
 logger = logging.getLogger(__name__)
+
 
 @dataclass
 class HallucinationFlags:
     """Flags détectés lors de l'analyse d'hallucinations"""
-    suspicious_patterns: List[str] = field(default_factory=list)
+
+    suspicious_patterns: list[str] = field(default_factory=list)
     novel_content_ratio: float = 0.0
-    factual_inconsistencies: List[str] = field(default_factory=list)
-    confidence_markers: List[str] = field(default_factory=list)
-    invented_details: List[str] = field(default_factory=list)
+    factual_inconsistencies: list[str] = field(default_factory=list)
+    confidence_markers: list[str] = field(default_factory=list)
+    invented_details: list[str] = field(default_factory=list)
     semantic_mismatch: bool = False
 
 
@@ -59,7 +60,6 @@ class HallucinationDetector:
             r"en général",
             r"il est possible que",
             r"dans ma compréhension",
-
             # Anglais - Artificial certainty
             r"based on my training",
             r"i think that",
@@ -68,29 +68,108 @@ class HallucinationDetector:
             r"might be",
             r"in my understanding",
             r"from what i know",
-            r"as far as i know"
+            r"as far as i know",
         ]
 
         # Stopwords français/anglais pour analyse contenu novel
         self.stopwords = {
             # Français
-            'le', 'la', 'les', 'un', 'une', 'des', 'de', 'du', 'et', 'ou',
-            'mais', 'donc', 'car', 'ni', 'se', 'ce', 'il', 'elle', 'on',
-            'nous', 'vous', 'ils', 'elles', 'je', 'tu', 'mon', 'ton',
-            'son', 'ma', 'ta', 'sa', 'mes', 'tes', 'ses', 'notre',
-            'votre', 'leur', 'dans', 'sur', 'avec', 'pour', 'par',
-            'sans', 'sous', 'vers', 'chez', 'entre', 'contre', 'depuis',
-            'pendant', 'selon', 'après', 'avant', 'jusque',
-
+            "le",
+            "la",
+            "les",
+            "un",
+            "une",
+            "des",
+            "de",
+            "du",
+            "et",
+            "ou",
+            "mais",
+            "donc",
+            "car",
+            "ni",
+            "se",
+            "ce",
+            "il",
+            "elle",
+            "on",
+            "nous",
+            "vous",
+            "ils",
+            "elles",
+            "je",
+            "tu",
+            "mon",
+            "ton",
+            "son",
+            "ma",
+            "ta",
+            "sa",
+            "mes",
+            "tes",
+            "ses",
+            "notre",
+            "votre",
+            "leur",
+            "dans",
+            "sur",
+            "avec",
+            "pour",
+            "par",
+            "sans",
+            "sous",
+            "vers",
+            "chez",
+            "entre",
+            "contre",
+            "depuis",
+            "pendant",
+            "selon",
+            "après",
+            "avant",
+            "jusque",
             # Anglais
-            'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at',
-            'to', 'for', 'of', 'with', 'by', 'from', 'this', 'that',
-            'these', 'those', 'is', 'are', 'was', 'were', 'be', 'been',
-            'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would',
-            'could', 'should', 'may', 'might', 'can', 'must'
+            "the",
+            "a",
+            "an",
+            "and",
+            "or",
+            "but",
+            "in",
+            "at",
+            "to",
+            "for",
+            "of",
+            "with",
+            "by",
+            "from",
+            "this",
+            "that",
+            "these",
+            "those",
+            "is",
+            "are",
+            "was",
+            "were",
+            "be",
+            "been",
+            "have",
+            "has",
+            "had",
+            "do",
+            "does",
+            "did",
+            "will",
+            "would",
+            "could",
+            "should",
+            "may",
+            "might",
+            "can",
+            "must",
         }
 
-    def detect(self, answer: str, context_chunks: List[str], question: str) -> Dict:
+    def detect(self, answer: str, context_chunks: list[str], question: str) -> dict:  # noqa: ARG002
         """
         Analyser hallucinations potentielles dans une réponse
 
@@ -108,7 +187,7 @@ class HallucinationDetector:
                 "confidence": 0.0,
                 "severity": "CRITICAL",
                 "flags": HallucinationFlags(),
-                "recommendations": ["Réponse vide détectée"]
+                "recommendations": ["Réponse vide détectée"],
             }
 
         try:
@@ -156,8 +235,8 @@ class HallucinationDetector:
                 "analysis_metadata": {
                     "detector_version": "2.8.0",
                     "context_chunks_analyzed": len(context_chunks),
-                    "answer_length": len(answer)
-                }
+                    "answer_length": len(answer),
+                },
             }
 
         except Exception as e:
@@ -168,10 +247,10 @@ class HallucinationDetector:
                 "severity": "UNKNOWN",
                 "flags": HallucinationFlags(),
                 "recommendations": ["Erreur analyse - validation manuelle recommandée"],
-                "error": str(e)
+                "error": str(e),
             }
 
-    def _detect_suspicious_patterns(self, text: str) -> List[str]:
+    def _detect_suspicious_patterns(self, text: str) -> list[str]:
         """Détecter patterns de langage suspects"""
         found = []
         text_lower = text.lower()
@@ -182,7 +261,7 @@ class HallucinationDetector:
 
         return found
 
-    def _analyze_novel_content(self, answer: str, context_chunks: List[str]) -> float:
+    def _analyze_novel_content(self, answer: str, context_chunks: list[str]) -> float:
         """
         Calculer le ratio de contenu non présent dans les sources
 
@@ -193,11 +272,11 @@ class HallucinationDetector:
             return 1.0
 
         # Extraire mots significatifs de la réponse
-        answer_words = set(re.findall(r'\w+', answer.lower()))
+        answer_words = set(re.findall(r"\w+", answer.lower()))
 
         # Extraire mots du contexte combiné
         context_text = " ".join(context_chunks).lower()
-        context_words = set(re.findall(r'\w+', context_text))
+        context_words = set(re.findall(r"\w+", context_text))
 
         # Retirer stopwords
         significant_answer_words = answer_words - self.stopwords
@@ -210,10 +289,12 @@ class HallucinationDetector:
         novel_words = significant_answer_words - significant_context_words
         novel_ratio = len(novel_words) / len(significant_answer_words)
 
-        logger.debug(f"Novel content analysis: {len(novel_words)}/{len(significant_answer_words)} = {novel_ratio:.3f}")
+        logger.debug(
+            f"Novel content analysis: {len(novel_words)}/{len(significant_answer_words)} = {novel_ratio:.3f}"
+        )
         return novel_ratio
 
-    def _check_semantic_consistency(self, answer: str, context_chunks: List[str]) -> float:
+    def _check_semantic_consistency(self, answer: str, context_chunks: list[str]) -> float:
         """
         Vérifier cohérence sémantique avec embedding similarity
 
@@ -241,22 +322,28 @@ class HallucinationDetector:
             logger.warning(f"Erreur calcul similarité sémantique: {e}")
             return 0.5  # Score neutre en cas d'erreur
 
-    def _detect_invented_details(self, answer: str, context_chunks: List[str]) -> List[str]:
+    def _detect_invented_details(self, answer: str, context_chunks: list[str]) -> list[str]:
         """Détecter chiffres/dates/détails spécifiques non présents dans contexte"""
         invented = []
 
         # Extraire patterns spécifiques de la réponse
-        answer_numbers = set(re.findall(r'\b\d+\b', answer))
-        answer_dates = set(re.findall(r'\b\d{4}-\d{2}-\d{2}\b|\b\d{2}/\d{2}/\d{4}\b', answer))
-        answer_emails = set(re.findall(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', answer))
-        answer_urls = set(re.findall(r'https?://[^\s]+', answer))
+        answer_numbers = set(re.findall(r"\b\d+\b", answer))
+        answer_dates = set(re.findall(r"\b\d{4}-\d{2}-\d{2}\b|\b\d{2}/\d{2}/\d{4}\b", answer))
+        answer_emails = set(
+            re.findall(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b", answer)
+        )
+        answer_urls = set(re.findall(r"https?://[^\s]+", answer))
 
         # Extraire du contexte combiné
         context_text = " ".join(context_chunks)
-        context_numbers = set(re.findall(r'\b\d+\b', context_text))
-        context_dates = set(re.findall(r'\b\d{4}-\d{2}-\d{2}\b|\b\d{2}/\d{2}/\d{4}\b', context_text))
-        context_emails = set(re.findall(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', context_text))
-        context_urls = set(re.findall(r'https?://[^\s]+', context_text))
+        context_numbers = set(re.findall(r"\b\d+\b", context_text))
+        context_dates = set(
+            re.findall(r"\b\d{4}-\d{2}-\d{2}\b|\b\d{2}/\d{2}/\d{4}\b", context_text)
+        )
+        context_emails = set(
+            re.findall(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b", context_text)
+        )
+        context_urls = set(re.findall(r"https?://[^\s]+", context_text))
 
         # Identifier détails inventés
         invented_numbers = answer_numbers - context_numbers
@@ -277,7 +364,7 @@ class HallucinationDetector:
 
         return invented
 
-    def _check_length_consistency(self, answer: str, context_chunks: List[str]) -> Optional[str]:
+    def _check_length_consistency(self, answer: str, context_chunks: list[str]) -> str | None:
         """Vérifier cohérence de longueur réponse vs contexte"""
         if not context_chunks:
             return None
@@ -305,7 +392,7 @@ class HallucinationDetector:
             r"basé sur les sources",
             r"selon les données",
             r"based on the code",
-            r"according to the analysis"
+            r"according to the analysis",
         ]
 
         score = 0.0
@@ -330,7 +417,7 @@ class HallucinationDetector:
         else:
             return "MINIMAL"
 
-    def _get_recommendations(self, confidence: float, flags: HallucinationFlags) -> List[str]:
+    def _get_recommendations(self, confidence: float, flags: HallucinationFlags) -> list[str]:
         """Générer recommandations d'amélioration basées sur l'analyse"""
         recommendations = []
 
@@ -344,7 +431,9 @@ class HallucinationDetector:
             recommendations.append("Vérifier pertinence des sources sélectionnées")
 
         if flags.suspicious_patterns:
-            recommendations.append("Ajuster prompt système pour éviter marqueurs de certitude artificielle")
+            recommendations.append(
+                "Ajuster prompt système pour éviter marqueurs de certitude artificielle"
+            )
 
         if flags.invented_details:
             recommendations.append("Renforcer instructions de fidélité aux sources")

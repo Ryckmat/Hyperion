@@ -8,6 +8,6 @@ Composants:
 
 from .quality_metrics import QualityMetricsTracker
 
-__all__ = ['QualityMetricsTracker']
+__all__ = ["QualityMetricsTracker"]
 
 __version__ = "2.8.0"
