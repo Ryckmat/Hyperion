@@ -150,7 +150,7 @@ class ConfidenceScorer:
         high_quality_bonus = 0.1 if max_score > 0.8 else 0.0
 
         # Pénalité si tous les scores < 0.5 (sources peu pertinentes)
-        low_quality_penalty = 0.2 if np.all(scores_array < 0.5) else 0.0
+        low_quality_penalty = 0.2 if bool(np.all(scores_array < 0.5)) else 0.0
 
         # Bonus diversité si plusieurs sources de bonne qualité
         diversity_bonus = 0.05 if len([s for s in source_scores if s > 0.6]) > 1 else 0.0
@@ -371,11 +371,11 @@ class ConfidenceScorer:
             adjusted *= 0.5
 
         # Bonus si sources multiples de haute qualité
-        if len(source_scores) > 1 and np.mean(source_scores) > 0.7:
+        if len(source_scores) > 1 and float(np.mean(source_scores)) > 0.7:
             adjusted += 0.05
 
         # Pénalité si réponse très courte et sources de qualité
-        if len(answer) < 20 and source_scores and np.max(source_scores) > 0.8:
+        if len(answer) < 20 and source_scores and float(np.max(source_scores)) > 0.8:
             adjusted -= 0.1
 
         return max(0.0, min(1.0, adjusted))
