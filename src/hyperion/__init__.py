@@ -1,5 +1,12 @@
-"""Hyperion - Git Repository Profiler & Knowledge Graph."""
+"""
+Hyperion v3.0 - AI-Native Enterprise Platform
 
-__version__ = "2.7.0"
+Plateforme d'analyse de code et RAG enterprise avec architecture distribuée.
+"""
+
+from .__version__ import __version__
+
 __author__ = "Matthieu Ryckman"
 __email__ = "contact@ryckmat.dev"
+
+__all__ = ["__version__"]
