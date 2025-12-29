@@ -272,4 +272,4 @@ Cette documentation technique complète la **[Documentation Cours](../cours/)** 
 
 ---
 
-*Documentation technique mise à jour pour Hyperion v2.7.0 - Décembre 2024*
+*Documentation technique mise à jour pour Hyperion v2.7.0*

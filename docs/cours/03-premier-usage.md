@@ -563,4 +563,4 @@ En attendant le prochain chapitre :
 
 ---
 
-*Cours Hyperion v2.7.0 - Chapitre 03 - Décembre 2024*
+*Cours Hyperion v2.7.0 - Chapitre 03*

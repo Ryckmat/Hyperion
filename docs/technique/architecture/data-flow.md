@@ -403,4 +403,4 @@ hyperion profile --enable-profiling
 
 ---
 
-*Documentation flux de données mise à jour pour Hyperion v2.7.0 - Décembre 2024*
+*Documentation flux de données mise à jour pour Hyperion v2.7.0*

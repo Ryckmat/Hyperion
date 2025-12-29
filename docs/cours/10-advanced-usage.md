@@ -986,4 +986,4 @@ Avec Hyperion, vous pouvez obtenir :
 
 ---
 
-*Cours Hyperion v2.7.0 - Chapitre 10 Final - Décembre 2024*
+*Cours Hyperion v2.7.0 - Chapitre 10 Final*

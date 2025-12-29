@@ -250,4 +250,4 @@ Cette formation peut être améliorée ! N'hésitez pas à signaler :
 
 ---
 
-*Formation mise à jour pour Hyperion v2.7.0 - Décembre 2024*
+*Formation mise à jour pour Hyperion v2.7.0*

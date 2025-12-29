@@ -564,4 +564,4 @@ Si vous voulez optimiser votre installation :
 
 ---
 
-*Cours Hyperion v2.7.0 - Chapitre 02 - Décembre 2024*
+*Cours Hyperion v2.7.0 - Chapitre 02*

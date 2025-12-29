@@ -1,8 +1,7 @@
 # 🤖 Infrastructure ML Hyperion v2.7
 
-**Version**: 2.7.0
-**Date**: Décembre 2024
-**Auteur**: Matthieu Ryckman
+**Version**: v2.7.0
+**Platform**: Machine Learning Infrastructure
 
 ---
 

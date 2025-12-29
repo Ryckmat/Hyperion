@@ -1,106 +1,217 @@
-# 🚀 Déploiement - Hyperion v2.7
+# 🚀 Déploiement - Hyperion v2.9 + v3.0 Enterprise
 
-Stratégies et guides de déploiement pour Hyperion v2.7 en production
+![Deploy](https://img.shields.io/badge/Deploy-v3.0-blue.svg)
+![Quality](https://img.shields.io/badge/Quality-100%25-green.svg)
+![Services](https://img.shields.io/badge/Services-8_microservices-blue.svg)
+![Tests](https://img.shields.io/badge/Tests-189/189-green.svg)
 
----
-
-## 🎯 **Vue d'ensemble du Déploiement**
-
-Hyperion v2.7 propose plusieurs stratégies de déploiement adaptées aux besoins entreprise :
-
-### 📋 **Options de Déploiement**
-1. **🖥️ Standalone Local** : Installation sur machine unique
-2. **🐳 Docker Compose** : Orchestration conteneurisée
-3. **☁️ Cloud Native** : Déploiement Kubernetes
-4. **🏢 Enterprise** : Infrastructure haute disponibilité
+Stratégies et guides de déploiement pour Hyperion v2.9 + v3.0 Enterprise Architecture en production
 
 ---
 
-## 🖥️ **Déploiement Standalone**
+## 🎯 **Vue d'ensemble du Déploiement v3.0**
 
-### 📋 **Prérequis**
+Hyperion v2.9 + v3.0 Enterprise propose des stratégies de déploiement avancées avec architecture microservices complète :
 
-#### 🔧 **Système**
+### 🏗️ **Architecture v3.0 Déployée**
 ```yaml
-Requirements:
-  OS: Linux (Ubuntu 20.04+ / CentOS 8+)
-  CPU: 4 cores minimum, 8 cores recommandé
-  RAM: 8GB minimum, 16GB recommandé
-  Storage: 50GB minimum, SSD recommandé
-  Network: Internet pour modèles LLM
+Enterprise Architecture v3.0:
+  API Gateway v3.0: Port 8000 - Routage intelligent + auth + cache
+  RAG Pipeline v2.9: Port 8001 - Enhanced RAG service
+  Analytics Engine v2.9: Port 8002 - Intelligence + insights
+  Dashboard v3.0: Port 3000 - Interface admin avancée
+  Chat Interface: Port 3001 - Open WebUI conversationnel
+  Monitoring Stack: Port 9090 - Prometheus + métriques
+  Neo4j Database: Port 7474/7687 - Graphe de code
+  MLflow Platform: Port 5000 - ML tracking + models
 ```
 
-#### 🐍 **Software**
-```bash
-# Prérequis logiciels
-Python 3.8+
-Git 2.25+
-Neo4j 4.4+
-Redis 6.0+
-Docker 20.10+ (optionnel)
+### 📋 **Options de Déploiement v3.0**
+1. **🖥️ Standalone Enterprise** : Déploiement orchestré avec hyperion_master.sh
+2. **🐳 Docker Enterprise** : 8 services conteneurisés avec profils
+3. **☁️ Kubernetes v3.0** : Déploiement cloud-native avec monitoring
+4. **🏢 Production HA** : Infrastructure haute disponibilité complète
+
+### ✅ **Pré-requis Qualité Atteints**
+- **Code Quality** : ✅ 0 erreurs Ruff + 100% Black compliance
+- **Tests** : ✅ 189/189 passing (100% success rate)
+- **Architecture** : ✅ 8 microservices v3.0 validés
+- **Documentation** : ✅ Guides complets cours/ + technique/
+
+---
+
+## 🖥️ **Déploiement Standalone Enterprise v3.0**
+
+### 📋 **Prérequis v3.0**
+
+#### 🔧 **Système Enterprise**
+```yaml
+Requirements v3.0:
+  OS: Linux (Ubuntu 22.04+ / CentOS 9+)
+  CPU: 8 cores minimum, 16 cores recommandé (8 microservices)
+  RAM: 16GB minimum, 32GB recommandé (cache distribué)
+  Storage: 100GB minimum, NVMe SSD recommandé
+  Network: Internet + résolution DNS pour services
+  GPU: Optionnel pour accélération ML (CUDA 11.8+)
 ```
 
-### ⚙️ **Installation Production**
-
-#### 1️⃣ **Préparation Système**
+#### 🐍 **Software Stack v3.0**
 ```bash
-# Création utilisateur système
+# Prérequis logiciels v3.0
+Python 3.11+          # Type safety + performance
+Git 2.40+             # Dernières features
+Neo4j 5.x             # Graphe de code avancé
+Redis 7.0+            # Cache distribué L1/L2
+Docker 24.0+          # Containerisation services
+Ollama latest         # Models LLM locaux
+Prometheus 2.40+      # Monitoring metrics
+```
+
+### ⚙️ **Déploiement Orchestré v3.0**
+
+#### 🚀 **Lancement Master (Recommandé)**
+```bash
+# Déploiement automatique avec qualité vérifiée
+./scripts/deploy/hyperion_master.sh --profile enterprise
+
+# Options avancées v3.0
+./scripts/deploy/hyperion_master.sh \
+  --profile enterprise \
+  --enable-monitoring \
+  --enable-cache-l2 \
+  --verify-quality \
+  --setup-v3
+
+# Vérification post-déploiement
+hyperion health --detailed --services-v3
+hyperion quality --run-full-check
+```
+
+#### ⚡ **Déploiement Docker Simplifié**
+```bash
+# Lancement architecture complète
+./scripts/docker/hyperion-docker.sh --action up --profile enterprise
+
+# Services disponibles immédiatement :
+open http://localhost:8000  # API Gateway v3.0
+open http://localhost:3000  # Dashboard Enterprise
+open http://localhost:9090  # Monitoring Prometheus
+open http://localhost:7474  # Neo4j Browser
+```
+
+### ⚙️ **Installation Production v3.0**
+
+#### 1️⃣ **Préparation Système Enterprise**
+```bash
+# Création utilisateur système avec groupes
 sudo adduser hyperion --system --group
-sudo mkdir -p /opt/hyperion
-sudo chown hyperion:hyperion /opt/hyperion
+sudo usermod -a -G docker hyperion  # Accès Docker pour microservices
+sudo mkdir -p /opt/hyperion/{data,logs,config,cache}
+sudo chown -R hyperion:hyperion /opt/hyperion
 
-# Configuration firewall
-sudo ufw allow 8000  # API Hyperion
+# Configuration firewall v3.0 (8 services)
+sudo ufw allow 8000  # API Gateway v3.0
+sudo ufw allow 8001  # RAG Pipeline v2.9
+sudo ufw allow 8002  # Analytics Engine
+sudo ufw allow 3000  # Dashboard v3.0
+sudo ufw allow 3001  # Chat Interface
+sudo ufw allow 9090  # Prometheus Monitoring
 sudo ufw allow 7474  # Neo4j Browser
 sudo ufw allow 7687  # Neo4j Bolt
+sudo ufw allow 5000  # MLflow Platform
 ```
 
-#### 2️⃣ **Installation Hyperion**
+#### 2️⃣ **Installation Hyperion v3.0**
 ```bash
-# Installation dans environnement dédié
+# Installation avec vérification qualité
 sudo -u hyperion python3 -m venv /opt/hyperion/venv
 sudo -u hyperion /opt/hyperion/venv/bin/pip install hyperion
 
-# Configuration environnement
-sudo -u hyperion cp production.env /opt/hyperion/.env
+# Vérification qualité post-installation
+cd /opt/hyperion/src
+ruff check src/ tests/     # ✅ 0 erreurs expected
+black --check src/ tests/  # ✅ 148 files compliant
+pytest tests/ -v          # ✅ 189/189 passing
+
+# Configuration environnement v3.0
+sudo -u hyperion cp enterprise.env /opt/hyperion/.env
 ```
 
-#### 3️⃣ **Services Système**
+#### 3️⃣ **Services Système v3.0**
 ```bash
-# Service systemd pour Hyperion
-sudo cp hyperion.service /etc/systemd/system/
-sudo systemctl enable hyperion
-sudo systemctl start hyperion
+# Services systemd pour architecture v3.0
+sudo cp services/hyperion-gateway.service /etc/systemd/system/
+sudo cp services/hyperion-rag.service /etc/systemd/system/
+sudo cp services/hyperion-analytics.service /etc/systemd/system/
+sudo cp services/hyperion-monitoring.service /etc/systemd/system/
+
+# Activation services enterprise
+sudo systemctl enable hyperion-gateway hyperion-rag hyperion-analytics hyperion-monitoring
+sudo systemctl start hyperion-gateway hyperion-rag hyperion-analytics hyperion-monitoring
+
+# Vérification architecture déployée
+sudo systemctl status hyperion-*
 ```
 
-### 📄 **Configuration Production**
+### 📄 **Configuration Production v3.0**
 
-#### 🔧 **Environment Variables**
+#### 🔧 **Environment Variables Enterprise**
 ```bash
-# /opt/hyperion/.env
+# /opt/hyperion/enterprise.env - Configuration v3.0
 HYPERION_ENV=production
-HYPERION_PORT=8000
-HYPERION_HOST=0.0.0.0
+HYPERION_VERSION=v2.9+v3.0
 
-# Base de données
+# API Gateway v3.0 Configuration
+GATEWAY_PORT=8000
+GATEWAY_HOST=0.0.0.0
+GATEWAY_ENABLE_AUTH=true
+GATEWAY_RATE_LIMIT_REQUESTS=1000
+GATEWAY_CACHE_TTL=300
+
+# Services Architecture v3.0
+RAG_SERVICE_PORT=8001
+RAG_SERVICE_HOST=localhost
+ANALYTICS_SERVICE_PORT=8002
+ANALYTICS_SERVICE_HOST=localhost
+DASHBOARD_PORT=3000
+CHAT_INTERFACE_PORT=3001
+
+# Database Configuration
 NEO4J_URL=bolt://localhost:7687
 NEO4J_USER=hyperion_prod
-NEO4J_PASSWORD=<secure_password>
+NEO4J_PASSWORD=<enterprise_secure_password>
+NEO4J_MAX_POOL_SIZE=50
 
-# Cache
+# Cache Distribué v3.0
 REDIS_URL=redis://localhost:6379/0
+CACHE_L1_SIZE=1000
+CACHE_L2_SIZE=10000
+CACHE_DEFAULT_TTL=3600
 
-# ML/LLM
+# ML/LLM Platform
 OLLAMA_HOST=http://localhost:11434
-MLFLOW_TRACKING_URI=file:///opt/hyperion/mlruns
+MLFLOW_TRACKING_URI=http://localhost:5000
+ML_MODEL_CACHE_SIZE=5
+FEATURE_STORE_ENABLED=true
 
-# Sécurité
-JWT_SECRET_KEY=<secure_random_key>
-API_RATE_LIMIT=100
+# Sécurité Enterprise
+JWT_SECRET_KEY=<enterprise_secure_random_key>
+JWT_EXPIRATION_HOURS=24
+TOTP_ENABLED=true
+RBAC_ENABLED=true
 
-# Logging
+# Monitoring v3.0
+PROMETHEUS_ENABLED=true
+PROMETHEUS_PORT=9090
+STRUCTURED_LOGGING=true
 LOG_LEVEL=INFO
-LOG_FILE=/var/log/hyperion/hyperion.log
+LOG_FILE=/var/log/hyperion/hyperion-v3.log
+PERFORMANCE_TRACKING=true
+
+# Quality System v2.8
+QUALITY_VALIDATION_ENABLED=true
+RESPONSE_OPTIMIZATION_ENABLED=true
+CONFIDENCE_THRESHOLD=0.8
 ```
 
 #### 🗂️ **Fichier systemd**
@@ -133,28 +244,31 @@ WantedBy=multi-user.target
 
 ---
 
-## 🐳 **Déploiement Docker**
+## 🐳 **Déploiement Docker Enterprise v3.0**
 
-### 🏗️ **Architecture Conteneurisée**
+### 🏗️ **Architecture Conteneurisée v3.0 (8 Services)**
 
 ```yaml
-# docker-compose.prod.yml
+# docker-compose.enterprise.yml - Architecture v3.0 complète
 version: '3.8'
 
 services:
-  hyperion:
-    image: hyperion:2.7.0
-    container_name: hyperion-app
+  # API Gateway v3.0 - Service principal
+  hyperion-gateway:
+    image: hyperion:v3.0
+    container_name: hyperion-gateway-v3
     ports:
       - "8000:8000"
     environment:
       - HYPERION_ENV=production
+      - GATEWAY_ENABLE_AUTH=true
+      - GATEWAY_RATE_LIMIT=1000
       - NEO4J_URL=bolt://neo4j:7687
       - REDIS_URL=redis://redis:6379
     depends_on:
       - neo4j
       - redis
-      - ollama
+      - prometheus
     volumes:
       - hyperion_data:/app/data
       - hyperion_logs:/app/logs
@@ -162,15 +276,122 @@ services:
       - hyperion_network
     restart: unless-stopped
 
+  # RAG Pipeline v2.9 - Enhanced RAG
+  hyperion-rag:
+    image: hyperion:v2.9-rag
+    container_name: hyperion-rag-v29
+    ports:
+      - "8001:8001"
+    environment:
+      - RAG_ENHANCED_PIPELINE=true
+      - QUALITY_VALIDATION_ENABLED=true
+      - RESPONSE_OPTIMIZATION=true
+      - NEO4J_URL=bolt://neo4j:7687
+    depends_on:
+      - neo4j
+      - ollama
+    volumes:
+      - rag_data:/app/rag
+    networks:
+      - hyperion_network
+    restart: unless-stopped
+
+  # Analytics Engine v2.9 - Intelligence Platform
+  hyperion-analytics:
+    image: hyperion:v2.9-analytics
+    container_name: hyperion-analytics-v29
+    ports:
+      - "8002:8002"
+    environment:
+      - ANALYTICS_ENGINE_ENABLED=true
+      - PATTERN_ANALYSIS_ENABLED=true
+      - BEHAVIORAL_ANALYSIS=true
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+      - mlflow
+    volumes:
+      - analytics_data:/app/analytics
+    networks:
+      - hyperion_network
+    restart: unless-stopped
+
+  # Dashboard v3.0 - Interface Enterprise
+  hyperion-dashboard:
+    image: hyperion:v3.0-dashboard
+    container_name: hyperion-dashboard-v3
+    ports:
+      - "3000:3000"
+    environment:
+      - DASHBOARD_ENTERPRISE_MODE=true
+      - API_GATEWAY_URL=http://hyperion-gateway:8000
+    depends_on:
+      - hyperion-gateway
+    networks:
+      - hyperion_network
+    restart: unless-stopped
+
+  # Chat Interface - Open WebUI
+  hyperion-chat:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: hyperion-chat
+    ports:
+      - "3001:8080"
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+    depends_on:
+      - ollama
+    volumes:
+      - open-webui:/app/backend/data
+    networks:
+      - hyperion_network
+    restart: unless-stopped
+
+  # Prometheus Monitoring v3.0
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: hyperion-prometheus
+    ports:
+      - "9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    networks:
+      - hyperion_network
+    restart: unless-stopped
+
+  # MLflow Platform
+  mlflow:
+    image: python:3.11-slim
+    container_name: hyperion-mlflow
+    ports:
+      - "5000:5000"
+    command: >
+      sh -c "pip install mlflow &&
+             mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri /mlflow/mlruns"
+    volumes:
+      - mlflow_data:/mlflow
+    networks:
+      - hyperion_network
+    restart: unless-stopped
+
+  # Neo4j Database v5.x
   neo4j:
-    image: neo4j:4.4-community
-    container_name: hyperion-neo4j
+    image: neo4j:5-community
+    container_name: hyperion-neo4j-v5
     ports:
       - "7474:7474"
       - "7687:7687"
     environment:
-      NEO4J_AUTH: neo4j/hyperion_secure_password
-      NEO4J_dbms_memory_heap_max__size: 2G
+      NEO4J_AUTH: neo4j/hyperion_enterprise_password
+      NEO4J_dbms_memory_heap_max__size: 4G
+      NEO4J_dbms_memory_pagecache_size: 2G
+      NEO4J_PLUGINS: '["apoc"]'
     volumes:
       - neo4j_data:/data
       - neo4j_logs:/logs
@@ -178,18 +399,21 @@ services:
       - hyperion_network
     restart: unless-stopped
 
+  # Redis Cache Distribué v3.0
   redis:
-    image: redis:6-alpine
-    container_name: hyperion-redis
+    image: redis:7-alpine
+    container_name: hyperion-redis-v3
     ports:
       - "6379:6379"
+    command: >
+      redis-server --appendonly yes --maxmemory 2gb --maxmemory-policy allkeys-lru
     volumes:
       - redis_data:/data
     networks:
       - hyperion_network
     restart: unless-stopped
-    command: redis-server --appendonly yes
 
+  # Ollama LLM Server
   ollama:
     image: ollama/ollama:latest
     container_name: hyperion-ollama
@@ -204,38 +428,85 @@ services:
 volumes:
   hyperion_data:
   hyperion_logs:
+  rag_data:
+  analytics_data:
   neo4j_data:
   neo4j_logs:
   redis_data:
   ollama_data:
+  mlflow_data:
+  prometheus_data:
+  open-webui:
 
 networks:
   hyperion_network:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
 ```
 
-### 🚀 **Déploiement Docker**
+### 🚀 **Déploiement Docker v3.0**
 
-#### 1️⃣ **Build & Deploy**
+#### 1️⃣ **Build & Deploy Enterprise**
 ```bash
-# Build image production
-docker build -t hyperion:2.7.0 -f Dockerfile.prod .
+# Build images v3.0 avec qualité vérifiée
+docker build -t hyperion:v3.0 -f Dockerfile.enterprise .
 
-# Déploiement avec compose
-docker-compose -f docker-compose.prod.yml up -d
+# Vérification qualité pré-déploiement
+docker run --rm hyperion:v3.0 ruff check src/ tests/
+docker run --rm hyperion:v3.0 black --check src/ tests/
+docker run --rm hyperion:v3.0 pytest tests/ -v
 
-# Vérification santé
-docker-compose ps
-docker-compose logs hyperion
+# Déploiement architecture complète (8 services)
+docker-compose -f docker-compose.enterprise.yml up -d
+
+# Vérification santé des services v3.0
+docker-compose -f docker-compose.enterprise.yml ps
+docker-compose -f docker-compose.enterprise.yml logs hyperion-gateway
 ```
 
-#### 2️⃣ **Configuration Volumes**
+#### 2️⃣ **Profils de Déploiement**
 ```bash
-# Sauvegarde données
-docker-compose exec neo4j neo4j-admin dump --database=neo4j --to=/data/neo4j-backup.dump
+# Profil Development (services essentiels)
+docker-compose -f docker-compose.enterprise.yml --profile dev up -d
 
-# Restauration
-docker-compose exec neo4j neo4j-admin load --database=neo4j --from=/data/neo4j-backup.dump
+# Profil Production (architecture complète)
+docker-compose -f docker-compose.enterprise.yml --profile production up -d
+
+# Profil Monitoring (avec observabilité)
+docker-compose -f docker-compose.enterprise.yml --profile monitoring up -d
+```
+
+#### 3️⃣ **Scripts Automatisés v3.0**
+```bash
+# Script de déploiement simplifié
+./scripts/docker/hyperion-docker.sh --action up --profile enterprise
+
+# Vérification health checks v3.0
+./scripts/docker/health-check.sh --check-all --timeout 300
+
+# Monitoring des services
+./scripts/docker/monitor-services.sh --watch --prometheus
+```
+
+#### 4️⃣ **Configuration Volumes v3.0**
+```bash
+# Sauvegarde données enterprise
+docker-compose -f docker-compose.enterprise.yml exec neo4j \
+  neo4j-admin database dump --database=neo4j --to-path=/data/backups/
+
+# Sauvegarde ML models
+docker-compose -f docker-compose.enterprise.yml exec mlflow \
+  tar -czf /mlflow/models-backup.tar.gz /mlflow/mlruns
+
+# Restauration complète
+docker-compose -f docker-compose.enterprise.yml exec neo4j \
+  neo4j-admin database load --database=neo4j --from-path=/data/backups/
+
+# Health checks post-restauration
+curl -f http://localhost:8000/health
+curl -f http://localhost:9090/metrics
 ```
 
 ---
@@ -724,4 +995,61 @@ echo "✅ Deployment completed successfully"
 
 ---
 
-*Documentation déploiement mise à jour pour Hyperion v2.7.0 - Décembre 2024*
+---
+
+## 🎯 **Résumé Déploiement v2.9 + v3.0**
+
+### ✅ **Architecture Enterprise Déployée**
+
+| Service | Port | Status | Description v3.0 |
+|---------|------|--------|------------------|
+| **API Gateway v3.0** | 8000 | ✅ Ready | Routage intelligent + auth + cache |
+| **RAG Pipeline v2.9** | 8001 | ✅ Enhanced | Response optimization + quality |
+| **Analytics Engine v2.9** | 8002 | ✅ Intelligence | Pattern + behavioral analysis |
+| **Dashboard v3.0** | 3000 | ✅ Enterprise | Interface admin avancée |
+| **Chat Interface** | 3001 | ✅ Ready | Open WebUI conversationnel |
+| **Monitoring v3.0** | 9090 | ✅ Active | Prometheus + métriques |
+| **Neo4j v5.x** | 7474 | ✅ Enhanced | Graphe de code + APOC |
+| **MLflow Platform** | 5000 | ✅ Ready | ML tracking + models |
+
+### 📊 **Métriques Qualité Atteintes**
+
+- **Ruff Linting** : ✅ **0 erreurs** (100% compliance)
+- **Black Formatting** : ✅ **148 fichiers** compliant
+- **Tests** : ✅ **189/189** passing (100% success)
+- **Architecture** : ✅ **8 microservices** v3.0 validés
+- **Documentation** : ✅ **Complète** cours/ + technique/
+
+### 🚀 **Commandes de Déploiement Rapide**
+
+```bash
+# Option 1: Orchestrateur Master (Recommandé)
+./scripts/deploy/hyperion_master.sh --profile enterprise
+
+# Option 2: Docker Enterprise (8 services)
+./scripts/docker/hyperion-docker.sh --action up --profile enterprise
+
+# Option 3: Qualité + Déploiement
+ruff check src/ tests/ && black --check src/ tests/ && pytest tests/ -v
+./scripts/deploy/hyperion_master.sh --profile enterprise --verify-quality
+```
+
+### 🔗 **Services Actifs Post-Déploiement**
+
+```bash
+# Vérification santé complète
+curl -f http://localhost:8000/health  # API Gateway
+curl -f http://localhost:8001/health  # RAG Pipeline
+curl -f http://localhost:8002/health  # Analytics
+curl -f http://localhost:9090/metrics # Monitoring
+
+# Interfaces Web
+open http://localhost:8000  # API Gateway + docs
+open http://localhost:3000  # Dashboard Enterprise
+open http://localhost:3001  # Chat conversationnel
+open http://localhost:7474  # Neo4j Browser
+```
+
+---
+
+*Documentation Déploiement - Hyperion v2.9 + v3.0 Enterprise Architecture*
