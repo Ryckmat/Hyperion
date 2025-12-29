@@ -692,4 +692,4 @@ Au prochain chapitre :
 
 ---
 
-*Cours Hyperion v2.7.0 - Chapitre 05 - Décembre 2024*
+*Cours Hyperion v2.7.0 - Chapitre 05*

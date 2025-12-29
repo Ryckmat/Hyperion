@@ -1,9 +1,8 @@
 # 📥 Guide Ingestion Généralisée
 
-**Auteur** : Ryckman Matthieu  
-**Projet** : Hyperion (projet personnel)  
-**Version** : 2.0.0  
 **Script** : `scripts/maintenance/ingest_generalized.py`
+**Version** : v2.0.0
+**Component** : Neo4j Data Ingestion
 
 ---
 

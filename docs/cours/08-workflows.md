@@ -1126,4 +1126,4 @@ Au prochain chapitre, vous apprendrez à :
 
 ---
 
-*Cours Hyperion v2.7.0 - Chapitre 08 - Décembre 2024*
+*Cours Hyperion v2.7.0 - Chapitre 08*

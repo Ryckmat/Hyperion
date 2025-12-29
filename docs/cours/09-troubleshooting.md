@@ -889,4 +889,4 @@ Le dernier chapitre vous révélera :
 
 ---
 
-*Cours Hyperion v2.7.0 - Chapitre 09 - Décembre 2024*
+*Cours Hyperion v2.7.0 - Chapitre 09*

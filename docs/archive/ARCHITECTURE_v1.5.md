@@ -1,7 +1,7 @@
 # 🏗️ Architecture Hyperion v2.7
 
 **Version**: 2.7.0
-**Date**: Décembre 2024
+**Date**: 
 **Auteur**: Matthieu Ryckman
 
 ---
@@ -573,6 +573,6 @@ Voir la [Documentation Legacy](../legacy/) pour les détails des versions préc�
 
 ---
 
-**Dernière mise à jour** : 22 Décembre 2024
+**Dernière mise à jour** : 22 
 **Auteur** : Matthieu Ryckman
 **Version** : 1.5.0

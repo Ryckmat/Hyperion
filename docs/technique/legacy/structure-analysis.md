@@ -505,7 +505,7 @@ scripts/
 # Maintainers
 
 ## Roles
-- **Lead**: Matthieu Ryckman (contact@ryckmat.dev)
+- **Lead**: Project Maintainer
 - **ML Pipeline**: [À compléter]
 - **RAG/Vector Store**: [À compléter]
 - **API/Integration**: [À compléter]

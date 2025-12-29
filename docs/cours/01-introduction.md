@@ -379,4 +379,4 @@ Dans le prochain chapitre, vous allez installer Hyperion sur votre machine et fa
 
 ---
 
-*Cours Hyperion v2.7.0 - Chapitre 01 - Décembre 2024*
+*Cours Hyperion v2.7.0 - Chapitre 01*

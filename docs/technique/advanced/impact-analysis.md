@@ -1,9 +1,8 @@
 # 🎯 Impact Analysis Engine
 
-**Auteur** : Ryckman Matthieu  
-**Projet** : Hyperion (projet personnel)  
-**Version** : 2.0.0  
 **Module** : `hyperion.modules.impact`
+**Version** : v2.0.0
+**Component** : Impact Analysis Engine
 
 ---
 

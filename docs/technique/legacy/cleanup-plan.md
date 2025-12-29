@@ -364,7 +364,7 @@ open htmlcov/index.html
 ## Current Maintainers
 
 ### Lead
-- **Matthieu Ryckman** (contact@ryckmat.dev)
+- **Project Maintainer**
   - Project lead, architecture decisions
   - Code reviews for all PRs
   - Release management

@@ -1,9 +1,8 @@
 # 🧠 Code Understanding Engine
 
-**Auteur** : Ryckman Matthieu  
-**Projet** : Hyperion (projet personnel)  
-**Version** : 2.0.0  
 **Module** : `hyperion.modules.understanding`
+**Version** : v2.0.0
+**Component** : Code Understanding Engine
 
 ---
 
