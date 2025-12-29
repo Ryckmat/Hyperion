@@ -29,29 +29,51 @@
 
 ## 🚀 Démarrage rapide
 
-### Installation
+### 1. Installation
 ```bash
 git clone <repository>
 cd Hyperion
 pip install -e .
 ```
 
-### Lancement
+### 2. Vérification
 ```bash
-# Option 1: Orchestrateur master
-./scripts/deploy/hyperion_master.sh --profile enterprise
-
-# Option 2: Docker (8 services)
-./scripts/docker/hyperion-docker.sh --action up --profile enterprise
+# Vérifier l'installation
+hyperion --version
+hyperion info
 ```
 
-### Services
-Une fois lancé, les services sont disponibles :
-* **API Gateway** : http://localhost:8000
-* **Dashboard** : http://localhost:3000
-* **Chat Interface** : http://localhost:3001
-* **Monitoring** : http://localhost:9090
+### 3. Lancement des services
+```bash
+# Option 1: Orchestrateur master (recommandé)
+./scripts/deploy/hyperion_master.sh --profile enterprise
+
+# Option 2: Docker enterprise (8 services)
+./scripts/docker/hyperion-docker.sh --action up --profile enterprise
+
+# Option 3: Développement rapide
+./scripts/deploy/hyperion_master.sh --auto
+```
+
+### 4. Accès aux interfaces
+Une fois les services démarrés :
+* **API Gateway + docs** : http://localhost:8000
+* **Dashboard enterprise** : http://localhost:3000
+* **Chat interface** : http://localhost:3001
+* **Monitoring Prometheus** : http://localhost:9090
 * **Neo4j Browser** : http://localhost:7474
+* **MLflow Platform** : http://localhost:5000
+
+### 5. Premier usage
+```bash
+# Analyser un repository
+hyperion profile /path/to/your/repo
+
+# Utiliser le chat via API
+curl -X POST http://localhost:8000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"question": "Analyse ce repository", "repo": "your-repo"}'
+```
 
 ## 📋 Utilisation
 
@@ -100,37 +122,39 @@ curl -X POST http://localhost:8000/api/v2/anomaly/scan \
   -d '{"repo": "requests", "types": ["complexity", "size"]}'
 ```
 
-## 🏗️ Architecture
+## 🏗️ Architecture du Repository
 
 ```
 Hyperion/
 ├── src/hyperion/              # Code source principal
-│   ├── api/                   # API Gateway v3.0
+│   ├── api/                   # API Gateway v3.0 + endpoints REST
 │   ├── cli/                   # Interface ligne de commande
-│   ├── core/                  # Analyseur Git
+│   ├── core/                  # Analyseur Git principal
 │   ├── modules/               # Modules métier v3.0
-│   │   ├── analytics/         # Moteur d'intelligence v2.9
-│   │   ├── cache/             # Cache distribué v3.0
-│   │   ├── gateway/           # API Gateway v3.0
-│   │   ├── ml/                # Infrastructure ML v2.9
-│   │   ├── monitoring/        # Monitoring v3.0
-│   │   ├── rag/               # Pipeline RAG v2.9
-│   │   └── security/          # Sécurité v3.0
-│   └── utils/                 # Utilitaires
+│   │   ├── analytics/v2_9/    # Analytics Engine + intelligence comportementale
+│   │   ├── cache/v3_0/        # Cache distribué L1/L2 + invalidation tags
+│   │   ├── gateway/v3_0/      # API Gateway + routage + auth + rate limiting
+│   │   ├── ml/v2_9/           # Infrastructure ML + ensemble models
+│   │   ├── monitoring/        # Monitoring v3.0 + Prometheus + structured logs
+│   │   ├── rag/               # Pipeline RAG classique
+│   │   │   ├── v2_9/          # Enhanced RAG + response optimization
+│   │   │   ├── monitoring/    # Quality metrics tracking
+│   │   │   └── quality/       # Système validation qualité v2.8
+│   │   └── security/v3_0/     # Sécurité JWT + TOTP + RBAC
+│   └── utils/                 # Utilitaires + helpers
 ├── docs/                      # Documentation complète
-├── scripts/                   # Scripts déploiement
-├── tests/                     # Tests (189/189 passing)
-└── frontend/                  # Dashboard React
+│   ├── cours/                 # 📚 Formation complète (10 chapitres français)
+│   └── technique/             # Documentation technique + architecture v3.0
+├── scripts/                   # Scripts orchestration + déploiement
+│   ├── deploy/                # hyperion_master.sh + orchestrateurs
+│   ├── docker/                # Containerisation enterprise (8 services)
+│   └── dev/                   # Outils développement
+├── tests/                     # Tests complets (architecture + validation + intégration)
+├── frontend/                  # Dashboard React enterprise
+└── data/                      # Données + profils Git + index RAG
 ```
 
-## 📊 Qualité & Fonctionnalités v2.9 + v3.0
-
-### Code Quality Enterprise
-* **Tests** : 189/189 passing (100%) - de 75+ erreurs Ruff à 0 erreurs
-* **Linting** : 0 erreurs Ruff (100% compliance)
-* **Formatage** : 148 fichiers Black compliant
-* **Type safety** : 95%+ annotations
-* **Exception chaining** : enterprise-grade error handling
+## 📊 Fonctionnalités Avancées v2.9 + v3.0
 
 ### Quality System v2.8
 * **Détection d'hallucinations** : patterns suspects, contenu inventé, cohérence sémantique
@@ -138,24 +162,40 @@ Hyperion/
 * **Validation automatique** : actions accept/flag/reject selon seuils configurables
 * **Monitoring qualité** : métriques temps réel, alertes, recommandations
 
-### Architecture v3.0 Validée
-* **8 microservices** : tous validés et documentés
-* **API Gateway v3.0** : auth, rate limiting, cache, routage intelligent
-* **Enhanced RAG v2.9** : pipeline optimisé avec quality validation
-* **Monitoring complet** : Prometheus, structured logging, performance tracking
+### Enhanced RAG v2.9
+* **Response optimization** : amélioration automatique clarté, concision, cohérence
+* **Context compression** : compression intelligente des contextes longs
+* **Quality validation** : intégration du système de validation dans le pipeline
+* **Semantic reranking** : reclassement sémantique des résultats
+
+### Architecture Enterprise v3.0
+* **8 microservices** : Gateway, RAG, Analytics, Dashboard, Chat, Monitoring, Neo4j, MLflow
+* **API Gateway v3.0** : auth JWT/TOTP, rate limiting, cache distribué, routage intelligent
+* **Cache distribué** : L1/L2 avec invalidation par tags et TTL intelligent
+* **Monitoring complet** : Prometheus, structured logging, performance tracking, alertes
 
 ## 📚 Documentation
 
 Documentation complète disponible dans `docs/` :
-* **Cours** : guides utilisateur complets (français)
-* **Technique** : architecture, déploiement, API, qualité code
-* **Référence** : CLI, API endpoints, exemples
 
-Points d'entrée :
-* [Guide utilisateur](docs/cours/) - formation complète
-* [Architecture v3.0](docs/technique/architecture/v3-enterprise-architecture.md)
-* [Déploiement](docs/technique/architecture/deployment.md)
-* [API Reference](docs/technique/reference/api-reference.md)
+### 🎓 Formation et Apprentissage
+* **[Section Cours](docs/cours/)** : **Formation complète en 10 chapitres (français)**
+  - Introduction, installation, premier usage
+  - CLI essentials, API basics, RAG et chat
+  - Infrastructure ML, workflows avancés
+  - Troubleshooting et usage expert
+  - **Idéal pour s'initier et maîtriser Hyperion**
+
+### 🔧 Documentation Technique
+* **[Architecture v3.0](docs/technique/architecture/v3-enterprise-architecture.md)** - architecture complète 8 microservices
+* **[Déploiement](docs/technique/architecture/deployment.md)** - guides orchestrateur + Docker enterprise
+* **[API Reference](docs/technique/reference/api-reference.md)** - endpoints complets + exemples
+* **[Code Quality](docs/technique/development/code-quality.md)** - standards enterprise
+
+### 📖 Parcours Recommandés
+* **🚀 Débutant** : [Section Cours](docs/cours/) chapitres 1-3 puis usage via interfaces web
+* **💼 Utilisateur** : Formation complète [Section Cours](docs/cours/) + guides API
+* **🔧 Administrateur** : Documentation technique + déploiement + monitoring
 
 ## 🔧 Prérequis
 
@@ -166,23 +206,18 @@ Points d'entrée :
 
 ## 🌟 Statut Actuel v2.9 + v3.0
 
-### ✅ Fonctionnalités Majeures Implémentées
-* **Quality System v2.8** - détection d'hallucinations, confidence scoring, validation automatique
-* **Enhanced RAG v2.9** - pipeline optimisé avec response optimization
-* **Architecture v3.0 Enterprise** - 8 microservices avec API Gateway intelligent
-* **Sécurité v3.0** - JWT, TOTP, RBAC, API authentication complète
-* **Monitoring v3.0** - Prometheus, structured logging, performance tracking
-* **Cache distribué v3.0** - L1/L2 avec invalidation par tags
-
-### ✅ Qualité Enterprise Atteinte
-* **Code qualité** - 0 erreurs Ruff (était 75+ erreurs), 148 fichiers Black compliant
-* **Tests** - 189/189 passing (100% success rate)
-* **Type safety** - 95%+ annotations avec exception chaining
-* **Documentation** - guides complets, architecture v3.0, API référence
-* **Déploiement** - orchestrateur master + Docker enterprise (8 services)
+### ✅ Fonctionnalités Implémentées
+* **Quality System v2.8** - détection d'hallucinations + confidence scoring + validation automatique
+* **Enhanced RAG v2.9** - pipeline optimisé + response optimization + context compression
+* **Architecture v3.0 Enterprise** - 8 microservices + API Gateway + monitoring complet
+* **Sécurité v3.0** - JWT + TOTP + RBAC + API authentication
+* **Cache distribué v3.0** - L1/L2 + invalidation par tags + TTL intelligent
+* **Analytics Engine v2.9** - intelligence comportementale + pattern analysis
 
 ### 🎯 Production Ready
-* **Architecture scalable** - microservices avec monitoring complet
-* **Quality validation** - système de validation qualité temps réel
-* **Enterprise security** - authentification et autorisation complètes
-* **Deployment automation** - scripts orchestrés pour mise en production
+* **Architecture scalable** - microservices avec load balancing et health checks
+* **Quality validation** - système de validation qualité temps réel intégré
+* **Enterprise security** - authentification multi-facteur et gestion des rôles
+* **Deployment automation** - orchestrateur master + Docker enterprise
+* **Documentation complète** - formation 10 chapitres + guides techniques
+* **Monitoring avancé** - Prometheus + structured logging + alertes
