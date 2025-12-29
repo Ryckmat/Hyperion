@@ -62,13 +62,29 @@ dev = [
     "pre-commit>=3.5.0",
 ]
 
+monitoring = [
+    "psutil>=5.9.0",
+]
+
+security = [
+    "cryptography>=41.0.0",
+]
+
+ml = [
+    "mlflow>=2.8.0",
+    "scikit-learn>=1.3.0",
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "joblib>=1.3.0",
+]
+
 docs = [
     "mkdocs>=1.5.0",
     "mkdocs-material>=9.5.0",
 ]
 
 all = [
-    "hyperion[dev,docs]",
+    "hyperion[dev,docs,monitoring,security,ml]",
 ]
 
 [project.urls]
