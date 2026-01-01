@@ -1,5 +1,5 @@
 # ============================================================================
-# Docker Compose pour Hyperion v2.7 - Stack complète
+# Docker Compose pour Hyperion v3.0 - Stack complète
 # ============================================================================
 
 version: '3.8'

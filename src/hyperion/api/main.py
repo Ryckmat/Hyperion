@@ -6,7 +6,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from hyperion.__version__ import __version__
-from hyperion.config import DATA_DIR
+from hyperion.modules.monitoring.logging.json_logger import get_logger
+from hyperion.modules.monitoring.middleware import setup_monitoring_middleware
+from hyperion.settings import settings
+
+# For backward compatibility
+DATA_DIR = settings.data_dir
 
 try:
     from hyperion.modules.integrations.neo4j_ingester import Neo4jIngester
@@ -48,6 +53,9 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
+# Configuration des middlewares de monitoring
+setup_monitoring_middleware(app)
+
 # CORS (pour React)
 app.add_middleware(
     CORSMiddleware,
@@ -56,6 +64,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Logger pour l'API
+logger = get_logger("hyperion.api")
 
 
 # ============================================================================

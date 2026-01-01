@@ -1,0 +1,168 @@
+name: core-evaluation
+version: "1.0.0"
+description: Suite d'évaluation de base pour Hyperion RAG
+author: Hyperion Team
+created: 2026-01-01
+
+# Configuration des métriques d'évaluation
+metrics:
+  - name: latency_ms
+    description: Temps de réponse en millisecondes
+    threshold: 5000
+    critical_threshold: 10000
+
+  - name: confidence_score
+    description: Score de confiance de la réponse (0-1)
+    threshold: 0.7
+    critical_threshold: 0.5
+
+  - name: source_coverage
+    description: Pourcentage de sources utilisées
+    threshold: 0.6
+    critical_threshold: 0.3
+
+  - name: hallucination_rate
+    description: Taux d'hallucination détecté (0-1)
+    threshold: 0.2
+    critical_threshold: 0.5
+
+  - name: relevance_score
+    description: Pertinence de la réponse (0-1)
+    threshold: 0.7
+    critical_threshold: 0.5
+
+# Tests de base pour validation du RAG
+tests:
+  - id: basic_commit_count
+    name: "Comptage de commits basique"
+    question: "Combien de commits dans le repository Hyperion?"
+    expected_type: numeric
+    expected_pattern: "\\d+"
+    min_confidence: 0.8
+    max_latency_ms: 3000
+    tags: ["basic", "git", "numeric"]
+    source_required: true
+
+  - id: contributor_list
+    name: "Liste des contributeurs"
+    question: "Qui sont les contributeurs principaux du projet?"
+    expected_type: list
+    expected_contains: ["contributor", "author", "developer"]
+    min_confidence: 0.7
+    max_latency_ms: 4000
+    tags: ["basic", "git", "people"]
+    source_required: true
+
+  - id: architecture_overview
+    name: "Vue d'ensemble architecture"
+    question: "Décris l'architecture du projet Hyperion"
+    expected_type: text
+    min_length: 100
+    max_length: 1000
+    expected_contains: ["architecture", "module", "service"]
+    min_confidence: 0.6
+    max_latency_ms: 8000
+    tags: ["complex", "architecture"]
+    hallucination_check: true
+
+  - id: technology_stack
+    name: "Stack technologique"
+    question: "Quelles sont les technologies utilisées dans Hyperion?"
+    expected_type: list
+    expected_contains: ["Python", "FastAPI", "Neo4j"]
+    min_confidence: 0.8
+    max_latency_ms: 5000
+    tags: ["technical", "stack"]
+    source_required: true
+
+  - id: recent_changes
+    name: "Changements récents"
+    question: "Quels sont les changements récents dans le projet?"
+    expected_type: text
+    min_length: 50
+    min_confidence: 0.6
+    max_latency_ms: 6000
+    tags: ["git", "recent", "changes"]
+    source_required: true
+
+  - id: code_quality_metrics
+    name: "Métriques de qualité"
+    question: "Quelles sont les métriques de qualité du code?"
+    expected_type: text
+    expected_contains: ["test", "coverage", "quality"]
+    min_confidence: 0.7
+    max_latency_ms: 4000
+    tags: ["quality", "metrics"]
+    source_required: true
+
+  - id: documentation_status
+    name: "État de la documentation"
+    question: "Comment est documenté le projet Hyperion?"
+    expected_type: text
+    min_length: 80
+    expected_contains: ["documentation", "docs", "README"]
+    min_confidence: 0.6
+    max_latency_ms: 5000
+    tags: ["documentation", "status"]
+
+  - id: api_endpoints
+    name: "Endpoints API disponibles"
+    question: "Quels sont les endpoints API disponibles?"
+    expected_type: list
+    expected_contains: ["api", "endpoint", "route"]
+    min_confidence: 0.7
+    max_latency_ms: 4000
+    tags: ["api", "endpoints"]
+    source_required: true
+
+  - id: dependencies_analysis
+    name: "Analyse des dépendances"
+    question: "Quelles sont les principales dépendances du projet?"
+    expected_type: list
+    expected_contains: ["dependency", "package", "library"]
+    min_confidence: 0.8
+    max_latency_ms: 5000
+    tags: ["dependencies", "packages"]
+    source_required: true
+
+  - id: error_handling
+    name: "Gestion d'erreurs"
+    question: "Comment sont gérées les erreurs dans Hyperion?"
+    expected_type: text
+    min_length: 60
+    expected_contains: ["error", "exception", "handling"]
+    min_confidence: 0.6
+    max_latency_ms: 6000
+    tags: ["error", "handling"]
+
+# Configuration pour tests d'hallucination
+hallucination_tests:
+  - id: hallucination_fake_feature
+    question: "Hyperion a-t-il une fonctionnalité de time travel?"
+    expected_response: "negative"
+    description: "Test de détection d'hallucination sur fonctionnalité inexistante"
+
+  - id: hallucination_wrong_tech
+    question: "Hyperion est-il développé en Java?"
+    expected_response: "negative"
+    description: "Test de détection d'information incorrecte"
+
+  - id: hallucination_fake_author
+    question: "Hyperion a-t-il été créé par Linus Torvalds?"
+    expected_response: "negative"
+    description: "Test de détection d'attribution incorrecte"
+
+# Paramètres d'exécution
+execution:
+  timeout_seconds: 30
+  retry_count: 2
+  parallel_execution: false
+  save_responses: true
+  detailed_logging: true
+
+# Critères de réussite globaux
+success_criteria:
+  min_pass_rate: 0.8
+  max_avg_latency_ms: 5000
+  max_hallucination_rate: 0.1
+  min_avg_confidence: 0.7

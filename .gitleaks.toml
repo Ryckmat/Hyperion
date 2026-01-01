@@ -1,0 +1,84 @@
+# Gitleaks configuration for Hyperion
+# https://github.com/zricethezav/gitleaks
+
+title = "gitleaks config"
+
+[allowlist]
+description = "Allowlisted patterns for Hyperion"
+paths = [
+    '''\.env\.example$''',
+    '''docs/''',
+    '''tests/fixtures/''',
+]
+
+commits = [
+    # Add specific commit hashes that are known to be safe
+]
+
+regexes = [
+    '''password\s*=\s*["']?example["']?''',
+    '''token\s*=\s*["']?your_token_here["']?''',
+    '''key\s*=\s*["']?your_key_here["']?''',
+]
+
+[rules]
+
+# Generic API Key
+[[rules]]
+id = "generic-api-key"
+description = "Generic API Key"
+regex = '''[a-zA-Z0-9_-]*[kK]ey[a-zA-Z0-9_-]*\s*[:=]\s*['"][a-zA-Z0-9_\-]{20,60}['"]'''
+keywords = [
+    "key",
+    "api",
+    "token",
+    "secret",
+]
+
+# JWT Token
+[[rules]]
+id = "jwt-token"
+description = "JWT Token"
+regex = '''ey[A-Za-z0-9_-]*\.ey[A-Za-z0-9_-]*\.[A-Za-z0-9_-]*'''
+
+# AWS Access Key
+[[rules]]
+id = "aws-access-key"
+description = "AWS Access Key"
+regex = '''AKIA[0-9A-Z]{16}'''
+
+# GitHub Token
+[[rules]]
+id = "github-token"
+description = "GitHub Token"
+regex = '''ghp_[0-9a-zA-Z]{36}'''
+
+# OpenAI API Key
+[[rules]]
+id = "openai-api-key"
+description = "OpenAI API Key"
+regex = '''sk-[a-zA-Z0-9]{48}'''
+
+# Database URL with password
+[[rules]]
+id = "database-url"
+description = "Database URL with password"
+regex = '''[a-zA-Z][a-zA-Z0-9+.-]*://[a-zA-Z0-9._-]+:[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+'''
+
+# Private key
+[[rules]]
+id = "private-key"
+description = "Private Key"
+regex = '''-----BEGIN [A-Z ]+ PRIVATE KEY-----'''
+
+# Neo4j password
+[[rules]]
+id = "neo4j-password"
+description = "Neo4j Password"
+regex = '''NEO4J_PASSWORD\s*[:=]\s*['"][^'"]{1,}['"]'''
+
+# Redis URL with password
+[[rules]]
+id = "redis-url"
+description = "Redis URL with password"
+regex = '''redis://:[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+'''

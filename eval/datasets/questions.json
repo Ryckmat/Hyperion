@@ -1,0 +1,174 @@
+{
+  "dataset_name": "hyperion_rag_questions",
+  "version": "1.0.0",
+  "description": "Questions de référence pour l'évaluation du RAG Hyperion",
+  "created": "2026-01-01",
+  "categories": {
+    "basic": "Questions simples avec réponses factuelles",
+    "complex": "Questions nécessitant une analyse approfondie",
+    "technical": "Questions techniques spécialisées",
+    "edge_cases": "Cas limites et questions piège"
+  },
+  "questions": [
+    {
+      "id": "q001",
+      "category": "basic",
+      "question": "Quelle est la version actuelle d'Hyperion?",
+      "expected_answer": "3.0.0",
+      "difficulty": 1,
+      "topics": ["version", "release"]
+    },
+    {
+      "id": "q002",
+      "category": "basic",
+      "question": "Quel est le langage principal d'Hyperion?",
+      "expected_answer": "Python",
+      "difficulty": 1,
+      "topics": ["language", "technology"]
+    },
+    {
+      "id": "q003",
+      "category": "technical",
+      "question": "Comment Hyperion utilise-t-il Neo4j?",
+      "expected_answer": "Pour créer un graphe de connaissances des repositories Git",
+      "difficulty": 3,
+      "topics": ["neo4j", "graph", "architecture"]
+    },
+    {
+      "id": "q004",
+      "category": "complex",
+      "question": "Explique l'architecture microservices d'Hyperion v3.0",
+      "expected_answer": "Architecture avec 8 microservices incluant API Gateway, cache distribué, sécurité JWT/RBAC",
+      "difficulty": 4,
+      "topics": ["architecture", "microservices", "enterprise"]
+    },
+    {
+      "id": "q005",
+      "category": "basic",
+      "question": "Quels sont les services Docker requis?",
+      "expected_answer": "Qdrant, Ollama, Hyperion-API sont les services core",
+      "difficulty": 2,
+      "topics": ["docker", "services", "deployment"]
+    },
+    {
+      "id": "q006",
+      "category": "technical",
+      "question": "Comment fonctionne le système de qualité RAG v2.8?",
+      "expected_answer": "Détection d'hallucinations, scoring de confiance, validation des sources",
+      "difficulty": 4,
+      "topics": ["rag", "quality", "hallucination"]
+    },
+    {
+      "id": "q007",
+      "category": "basic",
+      "question": "Quel est le port par défaut de l'API?",
+      "expected_answer": "8000",
+      "difficulty": 1,
+      "topics": ["api", "configuration", "port"]
+    },
+    {
+      "id": "q008",
+      "category": "complex",
+      "question": "Comment Hyperion analyse-t-il les repositories Git?",
+      "expected_answer": "Analyse des commits, contributeurs, hotspots, métriques qualité, détection CI/CD et licence",
+      "difficulty": 3,
+      "topics": ["git", "analysis", "profiling"]
+    },
+    {
+      "id": "q009",
+      "category": "technical",
+      "question": "Quels modèles ML sont utilisés dans Hyperion?",
+      "expected_answer": "RiskPredictor, AnomalyDetector, BugPredictor, ImpactAnalyzer, Meta-learner ensemble",
+      "difficulty": 4,
+      "topics": ["ml", "models", "prediction"]
+    },
+    {
+      "id": "q010",
+      "category": "edge_cases",
+      "question": "Hyperion peut-il analyser des repositories en Cobol?",
+      "expected_answer": "Hyperion peut analyser tout repository Git, mais l'analyse sémantique est optimisée pour Python",
+      "difficulty": 3,
+      "topics": ["language", "support", "limitations"]
+    },
+    {
+      "id": "q011",
+      "category": "basic",
+      "question": "Comment installer Hyperion?",
+      "expected_answer": "pip install -e .[all] puis docker compose up",
+      "difficulty": 2,
+      "topics": ["installation", "setup", "docker"]
+    },
+    {
+      "id": "q012",
+      "category": "technical",
+      "question": "Comment sont gérés les embeddings dans Hyperion?",
+      "expected_answer": "BAAI/bge-large-en-v1.5 stocké dans Qdrant avec 1024 dimensions",
+      "difficulty": 3,
+      "topics": ["embeddings", "qdrant", "rag"]
+    },
+    {
+      "id": "q013",
+      "category": "complex",
+      "question": "Décris le système de cache distribué v3.0",
+      "expected_answer": "Architecture L1/L2 avec invalidation par tags, TTL configurable et analytics",
+      "difficulty": 4,
+      "topics": ["cache", "distributed", "performance"]
+    },
+    {
+      "id": "q014",
+      "category": "basic",
+      "question": "Quels sont les formats de sortie supportés?",
+      "expected_answer": "YAML pour profils, Markdown pour documentation, JSON pour API",
+      "difficulty": 2,
+      "topics": ["formats", "output", "generation"]
+    },
+    {
+      "id": "q015",
+      "category": "edge_cases",
+      "question": "Hyperion fonctionne-t-il avec GitHub Enterprise?",
+      "expected_answer": "Oui, Hyperion analyse tout repository Git local ou remote accessible",
+      "difficulty": 2,
+      "topics": ["github", "enterprise", "compatibility"]
+    },
+    {
+      "id": "q016",
+      "category": "technical",
+      "question": "Comment sont calculés les scores de confiance?",
+      "expected_answer": "Pondération: 40% hallucination, 25% sources, 20% pertinence, 15% complétude",
+      "difficulty": 4,
+      "topics": ["confidence", "scoring", "quality"]
+    },
+    {
+      "id": "q017",
+      "category": "complex",
+      "question": "Explique le système d'authentification v3.0",
+      "expected_answer": "JWT avec refresh tokens, TOTP 2FA, RBAC granulaire, session management",
+      "difficulty": 4,
+      "topics": ["auth", "security", "jwt", "rbac"]
+    },
+    {
+      "id": "q018",
+      "category": "basic",
+      "question": "Quel modèle LLM par défaut?",
+      "expected_answer": "qwen2.5:32b via Ollama",
+      "difficulty": 2,
+      "topics": ["llm", "ollama", "model"]
+    },
+    {
+      "id": "q019",
+      "category": "technical",
+      "question": "Comment fonctionne l'analyse d'impact?",
+      "expected_answer": "Prédiction des effets de changements avec évaluation de risque LOW/MEDIUM/HIGH",
+      "difficulty": 3,
+      "topics": ["impact", "analysis", "prediction"]
+    },
+    {
+      "id": "q020",
+      "category": "edge_cases",
+      "question": "Hyperion peut-il traiter des repositories de 1TB?",
+      "expected_answer": "Hyperion est optimisé pour des repositories de taille normale, mais peut traiter de gros repos avec configuration appropriée",
+      "difficulty": 3,
+      "topics": ["performance", "scalability", "limits"]
+    }
+  ]
+}

@@ -1,121 +1,65 @@
-"""Configuration centralisée Hyperion."""
+"""
+Configuration centralisée Hyperion - Module de compatibilité.
 
-import os
-from pathlib import Path
+DEPRECATED: Ce module est maintenu pour compatibilité.
+Utilisez src/hyperion/settings.py pour les nouvelles configurations.
+"""
 
-import yaml
-from dotenv import load_dotenv
+import warnings
 
-# ============================================================================
-# Chemins projet
-# ============================================================================
+# Import from new settings module
+from .settings import (
+    # Performance compatibilité
+    settings,
+)
 
-# src/hyperion/config.py -> src/hyperion/ -> src/ -> Hyperion/
-PROJECT_ROOT = Path(__file__).parent.parent.parent
+# Backward compatibility exports
+DATA_DIR = settings.data_dir
+OUTPUT_DIR = settings.output_dir
+CONFIG_DIR = settings.config_dir
 
-# Charger le .env à la racine du projet
-ENV_PATH = PROJECT_ROOT / ".env"
-load_dotenv(ENV_PATH, override=True)
+# Neo4j compatibility
+NEO4J_URI = settings.neo4j_uri
+NEO4J_USER = settings.neo4j_user
+NEO4J_PASSWORD = settings.neo4j_password
+NEO4J_DATABASE = settings.neo4j_database
 
-CONFIG_DIR = PROJECT_ROOT / "config"
-TEMPLATES_DIR = PROJECT_ROOT / "templates"
-DATA_DIR = PROJECT_ROOT / "data"
-OUTPUT_DIR = PROJECT_ROOT / "docs" / "generated"
+# RAG compatibility
+QDRANT_HOST = settings.qdrant_host
+QDRANT_PORT = settings.qdrant_port
+QDRANT_COLLECTION = settings.qdrant_collection
 
-# Créer les dossiers s'ils n'existent pas
-for directory in [DATA_DIR, OUTPUT_DIR, CONFIG_DIR]:
-    directory.mkdir(parents=True, exist_ok=True)
+# LLM compatibility
+OLLAMA_BASE_URL = settings.ollama_base_url
+OLLAMA_MODEL = settings.ollama_model
+LLM_TEMPERATURE = settings.llm_temperature
+LLM_MAX_TOKENS = settings.llm_max_tokens
 
-# ============================================================================
-# Git
-# ============================================================================
+# Git compatibility
+DEFAULT_MAIN_CANDIDATES = settings.git_main_candidates
+DEFAULT_TAGS_REGEX = settings.git_tags_regex
 
-DEFAULT_MAIN_CANDIDATES = ["main", "master", "trunk", "develop"]
-DEFAULT_TAGS_REGEX = r"^v?\d+\.\d+\.\d+$"
+# Filters compatibility
+FILTERS = settings.load_filters()
 
-# ============================================================================
-# Neo4j
-# ============================================================================
+# Additional compatibility exports
+PROJECT_ROOT = settings.project_root
+TEMPLATES_DIR = settings.templates_dir
 
-NEO4J_URI = os.getenv("NEO4J_URI", "bolt://localhost:7687")
-NEO4J_USER = os.getenv("NEO4J_USER", "neo4j")
-NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "")
-NEO4J_DATABASE = os.getenv("NEO4J_DATABASE", "neo4j")
-
-# ============================================================================
-# Batch sizes (performance)
-# ============================================================================
-
-BATCH_SIZE_COMMITS = int(os.getenv("BATCH_SIZE_COMMITS", "500"))
-BATCH_SIZE_FILES = int(os.getenv("BATCH_SIZE_FILES", "2000"))
-
-# ============================================================================
-# Filtres
-# ============================================================================
-
-
-def load_filters() -> dict:
-    """Charge les filtres depuis config/filters.yaml."""
-    filters_path = CONFIG_DIR / "filters.yaml"
-    if filters_path.exists():
-        return yaml.safe_load(filters_path.read_text())
-
-    # Filtres par défaut si le fichier n'existe pas
-    return {
-        "ignore_extensions": [
-            ".pem",
-            ".crt",
-            ".cer",
-            ".der",
-            ".ai",
-            ".psd",
-            ".png",
-            ".jpg",
-            ".jpeg",
-            ".gif",
-            ".svg",
-            ".ico",
-            ".pdf",
-            ".lock",
-            ".min.js",
-            ".map",
-            ".ttf",
-            ".otf",
-            ".woff",
-            ".woff2",
-            ".gz",
-            ".zip",
-            ".7z",
-            ".tar",
-            ".bz2",
-            ".exe",
-            ".dll",
-            ".so",
-            ".dylib",
-        ],
-        "ignore_prefixes": [
-            "requests/packages/",
-            "ext/",
-            "docs/_build/",
-            "docs/_static/",
-            "docs/_themes/",
-            ".git/",
-            ".github/",
-            ".gitlab/",
-            "node_modules/",
-            "vendor/",
-            "site-packages/",
-            "dist-packages/",
-        ],
-        "ignore_files": [
-            "HISTORY.rst",
-            "HISTORY.md",
-            "CHANGELOG",
-            "CHANGELOG.md",
-            "README",
-            "README.md",
-        ],
-    }
+# Avertissement de dépréciation
+warnings.warn(
+    "hyperion.config module is deprecated. Use hyperion.settings instead.",
+    DeprecationWarning,
+    stacklevel=2,
+)
 
 
-FILTERS = load_filters()
+# Function de compatibilité
+def load_filters():
+    """DEPRECATED: Utilise settings.load_filters() à la place."""
+    warnings.warn(
+        "load_filters() is deprecated. Use settings.load_filters() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+    return settings.load_filters()
