@@ -46,10 +46,10 @@ def test_cli_imports():
     assert hasattr(main, "cli")
 
 
-def test_config_imports():
-    """Test imports config."""
-    from hyperion import config
+def test_settings_imports():
+    """Test imports settings."""
+    from hyperion import settings
 
-    assert hasattr(config, "PROJECT_ROOT")
-    assert hasattr(config, "FILTERS")
-    assert hasattr(config, "NEO4J_URI")
+    assert hasattr(settings, "PROJECT_ROOT")
+    assert hasattr(settings, "FILTERS")
+    assert hasattr(settings, "NEO4J_URI")

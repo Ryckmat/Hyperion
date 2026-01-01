@@ -4,7 +4,7 @@ import re
 from collections import Counter
 from pathlib import Path
 
-from hyperion.config import FILTERS
+from hyperion.settings import FILTERS
 from hyperion.utils.git_utils import GitRepo
 
 

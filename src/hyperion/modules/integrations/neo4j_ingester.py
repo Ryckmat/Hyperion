@@ -6,7 +6,7 @@ from pathlib import Path
 import yaml
 from neo4j import GraphDatabase
 
-from hyperion.config import (
+from hyperion.settings import (
     NEO4J_DATABASE,
     NEO4J_PASSWORD,
     NEO4J_URI,

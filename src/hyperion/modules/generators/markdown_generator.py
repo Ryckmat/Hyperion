@@ -5,7 +5,7 @@ from pathlib import Path
 import yaml
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from hyperion.config import OUTPUT_DIR, TEMPLATES_DIR
+from hyperion.settings import OUTPUT_DIR, TEMPLATES_DIR
 
 
 class MarkdownGenerator:

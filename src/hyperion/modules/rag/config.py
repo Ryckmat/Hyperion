@@ -2,7 +2,7 @@
 
 import os
 
-from hyperion.config import DATA_DIR
+from hyperion.settings import DATA_DIR
 
 # ============================================================================
 # Qdrant Configuration

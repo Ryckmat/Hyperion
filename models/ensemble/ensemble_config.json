@@ -23,7 +23,7 @@
       "model_path": "models/ensemble/test_model.joblib",
       "weight": 1.0,
       "is_trained": true,
-      "last_trained": "2026-01-01T11:29:47.624014",
+      "last_trained": "2026-01-01T19:57:02.958652",
       "hyperparameters": {
         "n_estimators": 100
       },
@@ -31,13 +31,13 @@
       "version": "1.0",
       "description": "",
       "metrics": {
-        "accuracy": 0.5,
-        "precision": 0.5989010989010989,
-        "recall": 0.5,
-        "f1_score": 0.5,
-        "roc_auc": 0.5494505494505495,
-        "training_time": 0.1557788848876953,
-        "inference_time": 0.00028725862503051756,
+        "accuracy": 0.55,
+        "precision": 0.5406593406593407,
+        "recall": 0.55,
+        "f1_score": 0.5439999999999999,
+        "roc_auc": 0.546875,
+        "training_time": 0.10802888870239258,
+        "inference_time": 0.0001273632049560547,
         "model_size_mb": 0.0
       }
     }

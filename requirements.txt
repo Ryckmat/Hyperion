@@ -1,4 +1,4 @@
-# Production dependencies for Hyperion v1.5
+# Production dependencies for Hyperion v3.0
 # For development dependencies, see requirements-dev.txt
 
 # Core
