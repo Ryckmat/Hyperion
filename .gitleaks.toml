@@ -21,8 +21,7 @@ regexes = [
     '''key\s*=\s*["']?your_key_here["']?''',
 ]
 
-[rules]
-
+# Règles de détection de secrets
 # Generic API Key
 [[rules]]
 id = "generic-api-key"
