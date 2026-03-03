@@ -1,0 +1,13 @@
+"""Génération de docstrings v3.2."""
+
+from .generator import DocstringGenerator
+from .styles import STYLES, DocstringTemplate, GOOGLE_STYLE, NUMPY_STYLE, SPHINX_STYLE
+
+__all__ = [
+    "DocstringGenerator",
+    "STYLES",
+    "DocstringTemplate",
+    "GOOGLE_STYLE",
+    "NUMPY_STYLE",
+    "SPHINX_STYLE",
+]

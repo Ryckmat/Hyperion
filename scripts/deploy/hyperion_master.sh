@@ -489,6 +489,8 @@ run_v1() {
   info "Repository: $REPO_PATH"
   info "Profil cible: $profile_path"
 
+  [ -d "venv" ] && source venv/bin/activate 2>/dev/null || true
+
   # Génération profil
   echo "🔄 Génération profil Git..."
   if hyperion profile "$REPO_PATH" --output data/repositories; then
