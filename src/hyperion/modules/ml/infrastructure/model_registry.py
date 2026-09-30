@@ -199,21 +199,26 @@ class ModelRegistry:
 
             # Charger métadonnées si demandées
             if return_metadata:
+                metadata: ModelMetadata | None = None
                 if metadata_path.exists():
-                    with open(metadata_path, encoding="utf-8") as f:
-                        metadata_dict = json.load(f)
+                    try:
+                        with open(metadata_path, encoding="utf-8") as f:
+                            metadata_dict = json.load(f)
 
-                    # Convertir string datetime en datetime object
-                    if "created_at" in metadata_dict and isinstance(
-                        metadata_dict["created_at"], str
-                    ):
-                        metadata_dict["created_at"] = datetime.fromisoformat(
-                            metadata_dict["created_at"]
-                        )
+                        # Convertir string datetime en datetime object
+                        if "created_at" in metadata_dict and isinstance(
+                            metadata_dict["created_at"], str
+                        ):
+                            metadata_dict["created_at"] = datetime.fromisoformat(
+                                metadata_dict["created_at"]
+                            )
 
-                    metadata = ModelMetadata(**metadata_dict)
-                else:
-                    # Métadonnées basiques si fichier manquant
+                        metadata = ModelMetadata(**metadata_dict)
+                    except (json.JSONDecodeError, ValueError, TypeError) as e:
+                        print(f"⚠️  Métadonnées illisibles pour {name} v{version}: {e}")
+
+                if metadata is None:
+                    # Métadonnées basiques si fichier manquant ou illisible
                     metadata = ModelMetadata(
                         name=name,
                         version=version,
@@ -247,7 +252,7 @@ class ModelRegistry:
                 model_path = self.models_dir / model_filename
                 metadata["file_exists"] = model_path.exists()
                 metadata["file_size_mb"] = (
-                    round(model_path.stat().st_size / (1024 * 1024), 2)
+                    round(model_path.stat().st_size / (1024 * 1024), 4)
                     if model_path.exists()
                     else 0
                 )
@@ -284,7 +289,7 @@ class ModelRegistry:
         info["file_exists"] = model_path.exists()
         if model_path.exists():
             stat = model_path.stat()
-            info["file_size_mb"] = round(stat.st_size / (1024 * 1024), 2)
+            info["file_size_mb"] = round(stat.st_size / (1024 * 1024), 4)
             info["file_modified"] = datetime.fromtimestamp(stat.st_mtime).isoformat()
 
         return info

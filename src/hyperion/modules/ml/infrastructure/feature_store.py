@@ -95,6 +95,9 @@ class FeatureStore:
         Returns:
             ID unique du feature set stocké
         """
+        if not isinstance(features, dict):
+            raise TypeError(f"features doit être un dict, reçu {type(features).__name__}")
+
         # Générer ID unique basé sur fichier + repository
         feature_set_id = self._generate_feature_set_id(source_file, repository)
 

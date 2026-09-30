@@ -14,15 +14,16 @@ from sklearn.ensemble import RandomForestClassifier
 from hyperion.modules.ml.training.training_pipeline import TrainingPipeline
 
 
+@pytest.fixture
+def pipeline(mock_ml_config):
+    """Pipeline avec configuration mock."""
+    pipeline = TrainingPipeline()
+    pipeline.config = mock_ml_config
+    return pipeline
+
+
 class TestTrainingPipeline:
     """Tests pour le pipeline d'entraînement principal."""
-
-    @pytest.fixture
-    def pipeline(self, mock_ml_config):
-        """Pipeline avec configuration mock."""
-        pipeline = TrainingPipeline()
-        pipeline.config = mock_ml_config
-        return pipeline
 
     def test_pipeline_initialization(self, pipeline):
         """Test initialisation pipeline."""

@@ -54,13 +54,14 @@ class TestValidationResult:
         assert result.is_valid is False
 
 
+@pytest.fixture
+def validator():
+    """Fixture validateur par défaut."""
+    return DataValidator()
+
+
 class TestDataValidator:
     """Tests pour le validateur de données principal."""
-
-    @pytest.fixture
-    def validator(self):
-        """Fixture validateur par défaut."""
-        return DataValidator()
 
     def test_validator_initialization(self, validator):
         """Test initialisation du validateur."""
