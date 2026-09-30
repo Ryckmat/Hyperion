@@ -79,7 +79,7 @@ class PerformanceMonitor:
     def __init__(self, window_size: int = 50):
         self.window_size = window_size
         self.metrics_history: list[TrainingMetrics] = []
-        self.performance_trend = None
+        self.performance_trend: str | None = None
 
     def record_metrics(self, metrics: TrainingMetrics):
         """Enregistre de nouvelles métriques"""
@@ -150,7 +150,7 @@ class PerformanceMonitor:
 class AdaptiveTrainer:
     """Entraîneur adaptatif pour modèles ML"""
 
-    def __init__(self, config: TrainingConfig = None):
+    def __init__(self, config: TrainingConfig | None = None):
         self.config = config or TrainingConfig()
         self.performance_monitor = PerformanceMonitor()
         self.adaptation_history: list[AdaptationDecision] = []
@@ -336,7 +336,7 @@ class AdaptiveTrainer:
 
     def _decide_adaptation(self, reason: str) -> AdaptationDecision:
         """Décide quelle adaptation appliquer"""
-        adaptations = {
+        adaptations: dict[str, dict[str, Any]] = {
             "performance_plateau": {
                 "action": "increase_learning_rate",
                 "parameters": {"multiplier": 1.5},

@@ -113,11 +113,11 @@ class TestModelConfig:
         """Test validation configuration modèle."""
         # Name et type requis
         with pytest.raises(ValidationError):
-            ModelConfig(hyperparameters={})
+            ModelConfig(hyperparameters={})  # type: ignore[call-arg]
 
         # Hyperparamètres requis
         with pytest.raises(ValidationError):
-            ModelConfig(name="test", type="XGBoost")
+            ModelConfig(name="test", type="XGBoost")  # type: ignore[call-arg]
 
     def test_model_config_defaults(self):
         """Test valeurs par défaut configuration modèle."""

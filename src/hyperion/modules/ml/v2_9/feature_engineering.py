@@ -24,7 +24,7 @@ class FeatureConfig:
 class FeatureEngineer:
     """Ingénieur des features"""
 
-    def __init__(self, config: FeatureConfig = None):
+    def __init__(self, config: FeatureConfig | None = None):
         self.config = config or FeatureConfig()
 
     def transform_features(self, X: np.ndarray) -> np.ndarray:
@@ -51,7 +51,7 @@ class FeatureEngineer:
 class AdvancedFeatureEngineer(FeatureEngineer):
     """Ingénieur de features avancé pour ML enterprise"""
 
-    def __init__(self, config: FeatureConfig = None):
+    def __init__(self, config: FeatureConfig | None = None):
         super().__init__(config)
         self.feature_cache: dict[str, Any] = {}
         self.feature_importance: dict[str, float] = {}
@@ -94,7 +94,7 @@ class AdvancedFeatureEngineer(FeatureEngineer):
             return np.hstack(interactions)
         return np.zeros((n_samples, 1))
 
-    def select_features(self, X: np.ndarray, y: np.ndarray = None) -> np.ndarray:
+    def select_features(self, X: np.ndarray, y: np.ndarray | None = None) -> np.ndarray:
         """Sélection de features basée sur l'importance"""
         if y is None:
             # Sélection sans supervision - variance
@@ -111,9 +111,9 @@ class AdvancedFeatureEngineer(FeatureEngineer):
                 corr = 0
             correlations.append(corr)
 
-        correlations = np.array(correlations)
-        threshold = np.percentile(correlations, 70)  # Top 30%
-        selected_indices = correlations > threshold
+        correlation_scores = np.array(correlations)
+        threshold = np.percentile(correlation_scores, 70)  # Top 30%
+        selected_indices = correlation_scores > threshold
 
         return X[:, selected_indices]
 

@@ -56,7 +56,7 @@ class OptimizationResult:
 class ModelOptimizer:
     """Optimiseur de modèles ML"""
 
-    def __init__(self, config: OptimizationConfig = None):
+    def __init__(self, config: OptimizationConfig | None = None):
         self.config = config or OptimizationConfig()
         self.optimization_history: list[OptimizationResult] = []
 
@@ -353,6 +353,9 @@ class ModelOptimizer:
                 continue
 
             if param_space.parameter_type == "continuous":
+                if param_space.min_value is None or param_space.max_value is None:
+                    # Sans bornes, on conserve la valeur courante
+                    continue
                 current_value = params[param_name]
                 # Ajouter du bruit gaussien
                 noise_scale = (param_space.max_value - param_space.min_value) * 0.1
@@ -398,8 +401,9 @@ class ModelOptimizer:
 
             elif param_space.parameter_type == "discrete":
                 if param_space.min_value is not None and param_space.max_value is not None:
-                    values = list(range(int(param_space.min_value), int(param_space.max_value) + 1))
-                    param_grids[param_name] = values
+                    param_grids[param_name] = list(
+                        range(int(param_space.min_value), int(param_space.max_value) + 1)
+                    )
                 else:
                     param_grids[param_name] = [param_space.default_value]
 
