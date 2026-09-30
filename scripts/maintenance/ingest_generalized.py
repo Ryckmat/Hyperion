@@ -60,6 +60,7 @@ class GeneralizedIngestion:
         }
 
         # Connexion Neo4j
+        self.neo4j_driver = None
         try:
             self.neo4j_driver = GraphDatabase.driver(neo4j_uri, auth=(neo4j_user, neo4j_password))
             self.neo4j_driver.verify_connectivity()
@@ -67,6 +68,8 @@ class GeneralizedIngestion:
             self._setup_neo4j_constraints()
         except Exception as e:
             print(f"⚠️  Neo4j non disponible: {e}")
+            if self.neo4j_driver is not None:
+                self.neo4j_driver.close()
             self.neo4j_driver = None
 
     def _setup_neo4j_constraints(self):

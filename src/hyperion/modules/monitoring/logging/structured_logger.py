@@ -110,7 +110,9 @@ class StructuredLogger:
     def _setup_handlers(self, file_path: str | None):
         """Configurer les handlers de logging"""
 
-        # Éviter les handlers dupliqués
+        # Éviter les handlers dupliqués (fermés pour libérer les fichiers de log)
+        for handler in self._logger.handlers:
+            handler.close()
         self._logger.handlers.clear()
 
         # Formatter JSON structuré

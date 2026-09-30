@@ -37,11 +37,22 @@ class Neo4jCodeIngester:
         self.database = database
 
         self.driver = GraphDatabase.driver(self.uri, auth=(self.user, self.password))
-        self.driver.verify_connectivity()
+        try:
+            self.driver.verify_connectivity()
+        except Exception:
+            # Ne pas laisser le driver ouvert si la connexion échoue
+            self.driver.close()
+            raise
 
     def close(self):
         """Ferme la connexion Neo4j."""
         self.driver.close()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc_info):
+        self.close()
 
     def ingest_repo_code(
         self, repo_path: str | Path, repo_name: str | None = None

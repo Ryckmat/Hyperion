@@ -51,11 +51,22 @@ class Neo4jIngester:
         self.database = database or NEO4J_DATABASE
 
         self.driver = GraphDatabase.driver(self.uri, auth=(self.user, self.password))
-        self.driver.verify_connectivity()
+        try:
+            self.driver.verify_connectivity()
+        except Exception:
+            # Ne pas laisser le driver ouvert si la connexion échoue
+            self.driver.close()
+            raise
 
     def close(self):
         """Ferme la connexion Neo4j."""
         self.driver.close()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc_info):
+        self.close()
 
     def ingest_profile(self, profile_path: str) -> dict:
         """
