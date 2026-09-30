@@ -2,6 +2,7 @@
 
 import os
 import time
+from typing import Any
 
 from langchain_ollama import OllamaLLM
 from qdrant_client import QdrantClient
@@ -90,7 +91,9 @@ class RAGQueryEngine:
         if self.enable_validation and VALIDATION_AVAILABLE:
             print("🔍 Initialisation validation qualité v2.8...")
             try:
-                self.response_validator = ResponseValidator(self.embedding_model)
+                self.response_validator: ResponseValidator | None = ResponseValidator(
+                    self.embedding_model
+                )
                 print("✅ Validation qualité prête")
             except Exception as e:
                 print(f"⚠️ Erreur init validation: {e}")
@@ -154,6 +157,8 @@ class RAGQueryEngine:
 
             for result in search_results:
                 payload = result.payload
+                if payload is None:
+                    continue
 
                 # Texte complet pour validation qualité
                 full_text = payload["text"]
@@ -209,7 +214,7 @@ class RAGQueryEngine:
                     # Continue sans validation en cas d'erreur
 
             # 7. Construire réponse finale
-            response = {
+            response: dict[str, Any] = {
                 "answer": answer,
                 "sources": sources,
                 "question": question,

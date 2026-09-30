@@ -365,7 +365,7 @@ class EnhancedRAGPipeline:
             return chunks
 
         compressed_chunks = []
-        total_tokens = 0
+        total_tokens: float = 0
         max_tokens = self.config.max_tokens // 2  # Réserver de l'espace pour la réponse
 
         for chunk in chunks:

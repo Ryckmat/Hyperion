@@ -9,6 +9,7 @@ import logging
 import sqlite3
 from datetime import datetime, timedelta
 from pathlib import Path
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +34,7 @@ class QualityMetricsTracker:
 
         # Cache en mémoire pour performances
         self._metrics_cache: dict[str, dict] = {}
-        self._cache_timestamp = None
+        self._cache_timestamp: datetime | None = None
         self._cache_ttl_seconds = 30  # Cache 30 secondes
 
         # Initialiser base de données
@@ -125,7 +126,7 @@ class QualityMetricsTracker:
         validation_result: dict,
         processing_time: float,
         question: str,
-        repo: str = None,
+        repo: str | None = None,
         **_kwargs,
     ):
         """
@@ -195,7 +196,7 @@ class QualityMetricsTracker:
         except Exception as e:
             logger.error(f"Erreur tracking métriques: {e}")
 
-    def get_metrics_summary(self, hours: int = 24, repo: str = None) -> dict:
+    def get_metrics_summary(self, hours: int = 24, repo: str | None = None) -> dict:
         """
         Obtenir résumé des métriques sur une période
 
@@ -220,7 +221,7 @@ class QualityMetricsTracker:
 
                 # Construire clause WHERE
                 where_clause = "WHERE timestamp > ?"
-                params = [since]
+                params: list[Any] = [since]
 
                 if repo:
                     where_clause += " AND repo_filter = ?"
@@ -335,7 +336,7 @@ class QualityMetricsTracker:
             logger.error(f"Erreur calcul métriques summary: {e}")
             return self._get_empty_summary(hours, repo)
 
-    def get_trend_data(self, days: int = 7, repo: str = None) -> list[dict]:
+    def get_trend_data(self, days: int = 7, repo: str | None = None) -> list[dict]:
         """
         Obtenir données de tendance pour graphiques
 
@@ -353,7 +354,7 @@ class QualityMetricsTracker:
                 cursor = conn.cursor()
 
                 where_clause = "WHERE timestamp > ?"
-                params = [since]
+                params: list[Any] = [since]
 
                 if repo:
                     where_clause += " AND repo_filter = ?"
@@ -579,7 +580,7 @@ class QualityMetricsTracker:
         self._metrics_cache = {}
         self._cache_timestamp = None
 
-    def _get_empty_summary(self, hours: int, repo: str) -> dict:
+    def _get_empty_summary(self, hours: int, repo: str | None) -> dict:
         """Résumé vide en cas d'erreur"""
         return {
             "period_hours": hours,

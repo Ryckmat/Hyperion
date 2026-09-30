@@ -174,7 +174,9 @@ class RAGIngester:
 
         return results
 
-    def _create_chunks(self, profile: dict, repo_name: str, code_data: dict = None) -> list[dict]:
+    def _create_chunks(
+        self, profile: dict, repo_name: str, code_data: dict | None = None
+    ) -> list[dict]:
         """Découpe le profil en chunks sémantiques avec informations complètes."""
         chunks = []
 
@@ -460,7 +462,7 @@ Quality Metrics:
 
         return "\n".join(lines)
 
-    def _get_repo_path(self, repo_name: str) -> Path:
+    def _get_repo_path(self, repo_name: str) -> Path | None:
         """Trouve le chemin du code source du repo."""
         # 1. Essayer dans le dossier parent de data
         possible_paths = [
