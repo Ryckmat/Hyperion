@@ -6,7 +6,7 @@ Génère automatiquement:
 - Diagrammes Mermaid (classes, dépendances)
 """
 
-from .config import DocumentationConfig, DocstringStyle, DiagramType
+from .config import DiagramType, DocstringStyle, DocumentationConfig
 from .doc_generator import DocumentationOrchestrator, GenerationResult
 
 __all__ = [

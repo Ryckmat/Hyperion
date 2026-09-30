@@ -1,8 +1,8 @@
 """Génération de diagrammes Mermaid v3.2."""
 
-from .mermaid_base import MermaidGenerator, MermaidNode, MermaidEdge
 from .class_diagram import ClassDiagramGenerator
 from .dependency_graph import DependencyGraphGenerator
+from .mermaid_base import MermaidEdge, MermaidGenerator, MermaidNode
 
 __all__ = [
     "MermaidGenerator",

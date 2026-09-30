@@ -15,8 +15,7 @@ from hyperion.modules.understanding.indexer import CodeIndexer
 def sample_file(tmp_path):
     """Crée un fichier Python d'exemple."""
     file_path = tmp_path / "sample.py"
-    file_path.write_text(
-        '''"""Module docstring."""
+    file_path.write_text('''"""Module docstring."""
 
 def example_function(arg1: str) -> str:
     """Function docstring."""
@@ -28,8 +27,7 @@ class ExampleClass:
 
     def method(self):
         pass
-'''
-    )
+''')
     return file_path
 
 
