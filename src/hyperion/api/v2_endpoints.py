@@ -39,9 +39,10 @@ class AnomalyRequest(BaseModel):
 async def get_repo_functions(repo_name: str, limit: int = 50):
     """Liste les fonctions d'un repo avec Neo4j v2."""
     try:
-        ingester = Neo4jCodeIngester()
-
-        with ingester.driver.session(database=ingester.database) as session:
+        with (
+            Neo4jCodeIngester() as ingester,
+            ingester.driver.session(database=ingester.database) as session,
+        ):
             result = session.run(
                 """
                 MATCH (f:Function {repo: $repo})
@@ -69,8 +70,6 @@ async def get_repo_functions(repo_name: str, limit: int = 50):
                     }
                 )
 
-        ingester.close()
-
         return {"repo": repo_name, "functions": functions, "count": len(functions)}
 
     except Exception as e:
@@ -81,9 +80,10 @@ async def get_repo_functions(repo_name: str, limit: int = 50):
 async def get_repo_classes(repo_name: str, limit: int = 30):
     """Liste les classes d'un repo avec Neo4j v2."""
     try:
-        ingester = Neo4jCodeIngester()
-
-        with ingester.driver.session(database=ingester.database) as session:
+        with (
+            Neo4jCodeIngester() as ingester,
+            ingester.driver.session(database=ingester.database) as session,
+        ):
             result = session.run(
                 """
                 MATCH (c:Class {repo: $repo})
@@ -111,8 +111,6 @@ async def get_repo_classes(repo_name: str, limit: int = 30):
                     }
                 )
 
-        ingester.close()
-
         return {"repo": repo_name, "classes": classes, "count": len(classes)}
 
     except Exception as e:
@@ -123,9 +121,8 @@ async def get_repo_classes(repo_name: str, limit: int = 30):
 async def get_repo_code_stats(repo_name: str):
     """Statistiques code d'un repo (Neo4j v2)."""
     try:
-        ingester = Neo4jCodeIngester()
-        stats = ingester.get_repo_stats(repo_name)
-        ingester.close()
+        with Neo4jCodeIngester() as ingester:
+            stats = ingester.get_repo_stats(repo_name)
 
         if stats["functions"] == 0 and stats["classes"] == 0:
             raise HTTPException(
@@ -149,9 +146,10 @@ async def get_repo_code_stats(repo_name: str):
 async def search_code(request: CodeSearchRequest):
     """Recherche directe dans Neo4j par nom/pattern."""
     try:
-        ingester = Neo4jCodeIngester()
-
-        with ingester.driver.session(database=ingester.database) as session:
+        with (
+            Neo4jCodeIngester() as ingester,
+            ingester.driver.session(database=ingester.database) as session,
+        ):
             results = []
 
             # Recherche par type spécifique
@@ -203,8 +201,6 @@ async def search_code(request: CodeSearchRequest):
                     }
                 )
 
-        ingester.close()
-
         return {
             "query": request.query,
             "repo": request.repo,
@@ -221,9 +217,10 @@ async def search_code(request: CodeSearchRequest):
 async def explore_codebase(repo_name: str, pattern: str = ""):
     """Exploration guidée du codebase."""
     try:
-        ingester = Neo4jCodeIngester()
-
-        with ingester.driver.session(database=ingester.database) as session:
+        with (
+            Neo4jCodeIngester() as ingester,
+            ingester.driver.session(database=ingester.database) as session,
+        ):
             # Exploration adaptée au pattern
             if "session" in pattern.lower():
                 query = """
@@ -264,8 +261,6 @@ async def explore_codebase(repo_name: str, pattern: str = ""):
                     }
                 )
 
-        ingester.close()
-
         return {
             "repo": repo_name,
             "pattern": pattern,
@@ -286,9 +281,10 @@ async def explore_codebase(repo_name: str, pattern: str = ""):
 async def analyze_impact(request: ImpactAnalysisRequest):
     """Analyse d'impact des modifications (version simplifiée)."""
     try:
-        ingester = Neo4jCodeIngester()
-
-        with ingester.driver.session(database=ingester.database) as session:
+        with (
+            Neo4jCodeIngester() as ingester,
+            ingester.driver.session(database=ingester.database) as session,
+        ):
             # Trouver les fonctions dans le fichier modifié
             result = session.run(
                 """
@@ -351,8 +347,6 @@ async def analyze_impact(request: ImpactAnalysisRequest):
                     }
                 )
 
-        ingester.close()
-
         return {
             "repo": request.repo,
             "modified_file": request.file,
@@ -382,46 +376,68 @@ async def scan_anomalies(request: AnomalyRequest):
     )
 
     try:
-        ingester = Neo4jCodeIngester()
+        with Neo4jCodeIngester() as ingester:
 
-        anomalies = []
+            anomalies = []
 
-        with ingester.driver.session(database=ingester.database) as session:
-            # Anomalie : Fonctions avec beaucoup d'arguments
-            if "complexity" in scan_types:
-                result = session.run(
-                    """
-                    MATCH (f:Function {repo: $repo})
-                    WHERE size(f.args) > 5
-                    RETURN f.name, f.file, f.signature, size(f.args) as arg_count
-                    ORDER BY arg_count DESC
-                    LIMIT 10
-                """,
-                    repo=request.repo,
-                )
-
-                for record in result:
-                    anomalies.append(
-                        {
-                            "type": "high_complexity",
-                            "severity": "MEDIUM",
-                            "function": record["f.name"],
-                            "file": record["f.file"],
-                            "signature": record["f.signature"],
-                            "metric": f"{record['arg_count']} arguments",
-                            "suggestion": "Consider breaking into smaller functions",
-                        }
+            with ingester.driver.session(database=ingester.database) as session:
+                # Anomalie : Fonctions avec beaucoup d'arguments
+                if "complexity" in scan_types:
+                    result = session.run(
+                        """
+                        MATCH (f:Function {repo: $repo})
+                        WHERE size(f.args) > 5
+                        RETURN f.name, f.file, f.signature, size(f.args) as arg_count
+                        ORDER BY arg_count DESC
+                        LIMIT 10
+                    """,
+                        repo=request.repo,
                     )
 
-            # Anomalie : Fichiers avec beaucoup de fonctions
-            if "size" in scan_types:
+                    for record in result:
+                        anomalies.append(
+                            {
+                                "type": "high_complexity",
+                                "severity": "MEDIUM",
+                                "function": record["f.name"],
+                                "file": record["f.file"],
+                                "signature": record["f.signature"],
+                                "metric": f"{record['arg_count']} arguments",
+                                "suggestion": "Consider breaking into smaller functions",
+                            }
+                        )
+
+                # Anomalie : Fichiers avec beaucoup de fonctions
+                if "size" in scan_types:
+                    result = session.run(
+                        """
+                        MATCH (file:File {repo: $repo})-[:CONTAINS]->(f:Function)
+                        WITH file, count(f) as function_count
+                        WHERE function_count > 15
+                        RETURN file.path, function_count
+                        ORDER BY function_count DESC
+                        LIMIT 5
+                    """,
+                        repo=request.repo,
+                    )
+
+                    for record in result:
+                        anomalies.append(
+                            {
+                                "type": "large_file",
+                                "severity": "LOW",
+                                "file": record["file.path"],
+                                "metric": f"{record['function_count']} functions",
+                                "suggestion": "Consider splitting into multiple modules",
+                            }
+                        )
+
+                # Anomalie : Classes sans docstring
                 result = session.run(
                     """
-                    MATCH (file:File {repo: $repo})-[:CONTAINS]->(f:Function)
-                    WITH file, count(f) as function_count
-                    WHERE function_count > 15
-                    RETURN file.path, function_count
-                    ORDER BY function_count DESC
+                    MATCH (c:Class {repo: $repo})
+                    WHERE c.docstring IS NULL OR c.docstring = ""
+                    RETURN c.name, c.file
                     LIMIT 5
                 """,
                     repo=request.repo,
@@ -430,37 +446,13 @@ async def scan_anomalies(request: AnomalyRequest):
                 for record in result:
                     anomalies.append(
                         {
-                            "type": "large_file",
+                            "type": "missing_documentation",
                             "severity": "LOW",
-                            "file": record["file.path"],
-                            "metric": f"{record['function_count']} functions",
-                            "suggestion": "Consider splitting into multiple modules",
+                            "class": record["c.name"],
+                            "file": record["c.file"],
+                            "suggestion": "Add class docstring",
                         }
                     )
-
-            # Anomalie : Classes sans docstring
-            result = session.run(
-                """
-                MATCH (c:Class {repo: $repo})
-                WHERE c.docstring IS NULL OR c.docstring = ""
-                RETURN c.name, c.file
-                LIMIT 5
-            """,
-                repo=request.repo,
-            )
-
-            for record in result:
-                anomalies.append(
-                    {
-                        "type": "missing_documentation",
-                        "severity": "LOW",
-                        "class": record["c.name"],
-                        "file": record["c.file"],
-                        "suggestion": "Add class docstring",
-                    }
-                )
-
-        ingester.close()
 
         return {
             "repo": request.repo,
@@ -495,9 +487,8 @@ async def health_check_v2():
 
     # Test Neo4j Code
     try:
-        ingester = Neo4jCodeIngester()
-        stats = ingester.get_repo_stats("requests")
-        ingester.close()
+        with Neo4jCodeIngester() as ingester:
+            stats = ingester.get_repo_stats("requests")
         if stats["functions"] > 0:
             status["neo4j_code"] = f"ok ({stats['functions']} functions)"
         else:
@@ -531,9 +522,10 @@ async def health_check_v2():
 async def search_repo_code(repo_name: str, query: str, type: str | None = None, limit: int = 10):
     """Recherche GET dans le code d'un repo."""
     try:
-        ingester = Neo4jCodeIngester()
-
-        with ingester.driver.session(database=ingester.database) as session:
+        with (
+            Neo4jCodeIngester() as ingester,
+            ingester.driver.session(database=ingester.database) as session,
+        ):
             results = []
 
             # Recherche par type spécifique
@@ -584,8 +576,6 @@ async def search_repo_code(repo_name: str, query: str, type: str | None = None, 
                         "type": record["type"],
                     }
                 )
-
-        ingester.close()
 
         return {
             "query": query,

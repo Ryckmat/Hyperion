@@ -145,12 +145,10 @@ def health_check():
     else:
         try:
             # Test rapide avec timeout
-            ingester = Neo4jIngester()
             # Test simple sans verify_connectivity (plus rapide)
-            with ingester.driver.session() as session:
+            with Neo4jIngester() as ingester, ingester.driver.session() as session:
                 result = session.run("RETURN 1 as test")
                 result.single()
-            ingester.close()
             status["neo4j"] = "ok"
         except Exception as e:
             status["neo4j"] = "warning: connection failed"
@@ -286,9 +284,8 @@ def get_metrics(repo_name: str):
 def get_neo4j_repo(repo_name: str):
     """Stats Neo4j d'un repo."""
     try:
-        ingester = Neo4jIngester()
-        stats = ingester.get_repo_stats(repo_name)
-        ingester.close()
+        with Neo4jIngester() as ingester:
+            stats = ingester.get_repo_stats(repo_name)
 
         if not stats:
             raise HTTPException(status_code=404, detail=f"Repo '{repo_name}' non trouvé dans Neo4j")
