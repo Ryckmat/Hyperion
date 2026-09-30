@@ -9,8 +9,8 @@ from __future__ import annotations
 from pathlib import Path
 
 import yaml
-from pydantic import Field, validator
-from pydantic_settings import BaseSettings
+from pydantic import Field, field_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -151,7 +151,8 @@ class Settings(BaseSettings):
         description="Origines CORS autorisées",
     )
 
-    @validator("log_level")
+    @field_validator("log_level")
+    @classmethod
     def validate_log_level(cls, v):
         """Valide le niveau de logging."""
         valid_levels = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
@@ -159,7 +160,8 @@ class Settings(BaseSettings):
             raise ValueError(f"log_level doit être l'un de: {valid_levels}")
         return v.upper()
 
-    @validator("embedding_device")
+    @field_validator("embedding_device")
+    @classmethod
     def validate_device(cls, v):
         """Valide le device pour les embeddings."""
         valid_devices = ["cuda", "cpu", "mps"]
@@ -236,13 +238,12 @@ class Settings(BaseSettings):
         for directory in [self.data_dir, self.output_dir, self.config_dir]:
             directory.mkdir(parents=True, exist_ok=True)
 
-    class Config:
-        """Configuration Pydantic."""
-
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-        case_sensitive = False
-        extra = "allow"  # Permet les champs extra pour compatibilité
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=False,
+        extra="allow",  # Permet les champs extra pour compatibilité
+    )
 
 
 # ============================================================================
