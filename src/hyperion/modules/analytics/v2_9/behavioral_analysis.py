@@ -86,7 +86,7 @@ class BehavioralAnalyzer:
     def __init__(
         self,
         baseline_period_hours: int = 24,
-        anomaly_threshold: float = 0.8,
+        anomaly_threshold: float = 0.7,
         max_user_profiles: int = 10000,
     ):
 
