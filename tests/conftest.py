@@ -145,16 +145,18 @@ def qdrant_test_client():
 @pytest.fixture(scope="session")
 def neo4j_test_driver():
     """Driver Neo4j pour tests (optionnel)."""
-    try:
-        from neo4j import GraphDatabase
+    from neo4j import GraphDatabase
 
-        driver = GraphDatabase.driver("bolt://localhost:7688", auth=("neo4j", "testpassword"))
+    driver = GraphDatabase.driver("bolt://localhost:7688", auth=("neo4j", "testpassword"))
+    try:
         # Vérifier disponibilité
         with driver.session() as session:
             session.run("RETURN 1")
-        return driver
     except Exception:
+        driver.close()
         pytest.skip("Neo4j test non disponible")
+    yield driver
+    driver.close()
 
 
 # Markers personnalisés
