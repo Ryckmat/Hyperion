@@ -233,7 +233,7 @@ class DataValidator:
         # Valeurs manquantes globales
         total_missing = df.isna().sum().sum()
         total_values = df.shape[0] * df.shape[1]
-        missing_pct = (total_missing / total_values) * 100
+        missing_pct = (total_missing / total_values) * 100 if total_values else 0.0
         result.missing_percentage = missing_pct
 
         if missing_pct > 20:
