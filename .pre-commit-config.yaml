@@ -41,6 +41,10 @@ repos:
         additional_dependencies:
           - types-PyYAML
           - types-requests
+          - types-psutil
+          - types-networkx
+          - types-qrcode
+          - pandas-stubs
         args: ['--ignore-missing-imports']
         exclude: '^(tests/|scripts/)'
 
