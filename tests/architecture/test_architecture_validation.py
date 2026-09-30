@@ -7,11 +7,13 @@ Test sans dépendances externes pour validation de l'architecture
 import sys
 from pathlib import Path
 
+import pytest
+
 # Ajouter le chemin vers les modules Hyperion
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 
-def test_file_structure():
+def check_file_structure():
     """Test de la structure des fichiers"""
     print("📁 Test de structure des fichiers...")
 
@@ -57,7 +59,7 @@ def test_file_structure():
     return True
 
 
-def test_version_consistency():
+def check_version_consistency():
     """Test de cohérence des versions"""
     print("\n📋 Test de cohérence des versions...")
 
@@ -82,7 +84,7 @@ def test_version_consistency():
         return False
 
 
-def test_code_quality():
+def check_code_quality():
     """Test de qualité du code"""
     print("\n🔍 Test de qualité du code...")
 
@@ -131,7 +133,7 @@ def test_code_quality():
         return False
 
 
-def test_architectural_patterns():
+def check_architectural_patterns():
     """Test des patterns architecturaux"""
     print("\n🏗️  Test des patterns architecturaux...")
 
@@ -212,7 +214,7 @@ def test_architectural_patterns():
         return False
 
 
-def test_module_completeness():
+def check_module_completeness():
     """Test de complétude des modules"""
     print("\n📦 Test de complétude des modules...")
 
@@ -265,11 +267,11 @@ def main():
     print("=" * 60)
 
     tests = [
-        ("Structure Fichiers", test_file_structure),
-        ("Cohérence Versions", test_version_consistency),
-        ("Qualité Code", test_code_quality),
-        ("Patterns Architecturaux", test_architectural_patterns),
-        ("Complétude Modules", test_module_completeness),
+        ("Structure Fichiers", check_file_structure),
+        ("Cohérence Versions", check_version_consistency),
+        ("Qualité Code", check_code_quality),
+        ("Patterns Architecturaux", check_architectural_patterns),
+        ("Complétude Modules", check_module_completeness),
     ]
 
     results = {}
@@ -315,6 +317,22 @@ def main():
         print("   Révision nécessaire avant déploiement")
 
     return success_rate >= 75
+
+
+@pytest.mark.parametrize(
+    "check",
+    [
+        check_file_structure,
+        check_version_consistency,
+        check_code_quality,
+        check_architectural_patterns,
+        check_module_completeness,
+    ],
+    ids=lambda check: check.__name__,
+)
+def test_architecture(check):
+    """Chaque vérification d'architecture doit réussir (main() garde le mode script)."""
+    assert check()
 
 
 if __name__ == "__main__":

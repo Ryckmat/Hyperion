@@ -215,7 +215,7 @@ class MLConfig:
                 type="IsolationForest",
                 hyperparameters={
                     "contamination": 0.1,
-                    "max_samples": 256,
+                    "max_samples": "auto",  # min(256, n_samples)
                     "random_state": 42,
                     "n_jobs": -1,
                 },
