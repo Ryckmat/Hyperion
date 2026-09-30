@@ -130,7 +130,7 @@ class TrainingPipeline:
 
         results: dict[str, Any] = {
             "training_time_seconds": training_time,
-            "validation_result": validation_result.dict(),
+            "validation_result": validation_result.model_dump(),
             "models_results": models_results,
             "best_model": self._find_best_model(models_results),
             "ensemble_performance": meta_results,

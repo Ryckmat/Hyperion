@@ -15,7 +15,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from .ml_config import ml_config
 
@@ -39,8 +39,7 @@ class FeatureMetadata(BaseModel):
     tags: dict[str, str] = {}
     extraction_time_ms: float | None = None
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
 class FeatureStore:
@@ -132,7 +131,7 @@ class FeatureStore:
 
             # Sauvegarder métadonnées
             metadata_path = self.metadata_dir / f"{feature_set_id}_metadata.json"
-            metadata_dict = metadata.dict()
+            metadata_dict = metadata.model_dump()
             # Convertir datetime en string pour JSON
             if "extracted_at" in metadata_dict and isinstance(
                 metadata_dict["extracted_at"], datetime
@@ -252,7 +251,7 @@ class FeatureStore:
                     continue
 
                 # Ajouter informations supplémentaires
-                info = metadata.dict()
+                info = metadata.model_dump()
                 info["is_fresh"] = self._is_fresh(metadata, metadata.source_file)
 
                 # Taille du cache

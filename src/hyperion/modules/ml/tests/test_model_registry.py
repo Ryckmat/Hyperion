@@ -74,13 +74,13 @@ class TestModelMetadata:
         )
 
         # Test conversion dict
-        metadata_dict = metadata.dict()
+        metadata_dict = metadata.model_dump()
         assert "name" in metadata_dict
         assert "version" in metadata_dict
         assert "created_at" in metadata_dict
 
         # Test JSON serialization
-        json_str = metadata.json()
+        json_str = metadata.model_dump_json()
         assert isinstance(json_str, str)
 
 

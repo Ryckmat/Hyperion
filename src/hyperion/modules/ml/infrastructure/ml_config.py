@@ -8,7 +8,7 @@ Utilise des patterns professionnels avec validation Pydantic.
 from pathlib import Path
 from typing import Any
 
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 
 
 class ModelConfig(BaseModel):
@@ -21,7 +21,8 @@ class ModelConfig(BaseModel):
     hyperparameters: dict[str, Any] = Field(..., description="Hyperparamètres")
     description: str | None = Field(default=None, description="Description du modèle")
 
-    @validator("type")
+    @field_validator("type")
+    @classmethod
     def validate_model_type(cls, v):
         allowed_types = [
             "RandomForest",
@@ -272,10 +273,10 @@ class MLConfig:
         import yaml
 
         config_dict = {
-            "features": self.features.dict(),
-            "training": self.training.dict(),
-            "mlflow": self.mlflow.dict(),
-            "models": {k: v.dict() for k, v in self.models.items()},
+            "features": self.features.model_dump(),
+            "training": self.training.model_dump(),
+            "mlflow": self.mlflow.model_dump(),
+            "models": {k: v.model_dump() for k, v in self.models.items()},
         }
 
         with open(output_path, "w", encoding="utf-8") as f:

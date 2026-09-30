@@ -15,7 +15,7 @@ from typing import Any
 
 import joblib
 import mlflow
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from .ml_config import ml_config
 
@@ -48,8 +48,7 @@ class ModelMetadata(BaseModel):
     tags: dict[str, str] = {}
     description: str | None = None
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
 class ModelRegistry:
@@ -139,7 +138,7 @@ class ModelRegistry:
                 joblib.dump(model, model_path, compress=3)
 
             # Sauvegarder métadonnées
-            metadata_dict = model_metadata.dict()
+            metadata_dict = model_metadata.model_dump()
             # Convertir datetime en string pour JSON
             if "created_at" in metadata_dict and isinstance(metadata_dict["created_at"], datetime):
                 metadata_dict["created_at"] = metadata_dict["created_at"].isoformat()
