@@ -208,7 +208,9 @@ class BehavioralAnalyzer:
 
         # Connexion depuis nouvelle IP
         if action.ip_address and len(profile.ip_addresses) > 1:
-            known_ips = {a.ip_address for a in self.user_actions[user_id][:-1] if a.ip_address}
+            known_ips = {
+                a.ip_address for a in list(self.user_actions[user_id])[:-1] if a.ip_address
+            }
             if action.ip_address not in known_ips:
                 return BehaviorPattern(
                     pattern_id=f"new_ip_{user_id}_{int(time.time())}",
@@ -487,6 +489,8 @@ class BehavioralAnalyzer:
             risk_score = self._calculate_risk_score(user_id)
             if risk_score >= risk_threshold:
                 summary = self.get_user_behavior_summary(user_id)
+                if summary is None:
+                    continue
                 summary["risk_score"] = risk_score
                 high_risk_users.append(summary)
 
@@ -506,7 +510,7 @@ class BehavioralAnalyzer:
             p for p in self.detected_patterns if p.last_occurrence > time.time() - 86400
         ]
 
-        pattern_counts = defaultdict(int)
+        pattern_counts: defaultdict[BehaviorType, int] = defaultdict(int)
         for pattern in recent_patterns:
             pattern_counts[pattern.behavior_type] += 1
 

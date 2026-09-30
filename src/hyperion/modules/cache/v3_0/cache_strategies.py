@@ -25,8 +25,8 @@ class CacheStrategy(ABC):
 
     def __init__(self, max_size: int = 1000):
         self.max_size = max_size
-        self.access_times = {}
-        self.access_counts = {}
+        self.access_times: dict[str, float] = {}
+        self.access_counts: dict[str, int] = {}
 
     @abstractmethod
     def should_evict(self, current_size: int) -> bool:
@@ -84,7 +84,7 @@ class TTLStrategy(CacheStrategy):
     def __init__(self, max_size: int = 1000, default_ttl: int = 3600):
         super().__init__(max_size)
         self.default_ttl = default_ttl
-        self.expiry_times = {}
+        self.expiry_times: dict[str, float] = {}
 
     def should_evict(self, current_size: int) -> bool:
         # Éviction proactive des éléments expirés

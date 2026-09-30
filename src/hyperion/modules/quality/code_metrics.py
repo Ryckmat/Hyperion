@@ -156,7 +156,7 @@ class CodeMetricsAnalyzer:
             Rapports de qualité par fichier
         """
         directory = Path(directory)
-        reports = {}
+        reports: dict[str, CodeQualityReport] = {}
 
         if not directory.exists():
             self.logger.error(f"Répertoire non trouvé : {directory}")
@@ -464,7 +464,7 @@ class CodeMetricsAnalyzer:
         summary["average_quality_score"] = sum(quality_scores) / len(quality_scores)
 
         # Aggregation des issues
-        all_issues = {}
+        all_issues: dict[str, int] = {}
         for report in reports.values():
             for issue_type, count in report.issues_count.items():
                 all_issues[issue_type] = all_issues.get(issue_type, 0) + count

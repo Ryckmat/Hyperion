@@ -55,7 +55,7 @@ class FeatureStore:
     - Métadonnées complètes
     """
 
-    def __init__(self, ttl_hours: int = 24):
+    def __init__(self, ttl_hours: float = 24):
         """
         Initialise le feature store.
 
@@ -197,7 +197,7 @@ class FeatureStore:
 
             # Charger features
             with open(features_path, "rb") as f:
-                features = pickle.load(f)
+                features: dict[str, Any] = pickle.load(f)
 
             print(f"✅ Features récupérées du cache: {feature_set_id}")
 
@@ -348,7 +348,9 @@ class FeatureStore:
             ),
         }
 
-    def search_features(self, query: str, search_in: list[str] = None) -> list[dict[str, Any]]:
+    def search_features(
+        self, query: str, search_in: list[str] | None = None
+    ) -> list[dict[str, Any]]:
         """
         Recherche des feature sets par query.
 

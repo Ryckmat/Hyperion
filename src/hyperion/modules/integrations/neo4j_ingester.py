@@ -127,7 +127,8 @@ class Neo4jIngester:
             raise FileNotFoundError(f"Profil introuvable : {profile_path}")
 
         with open(path, encoding="utf-8") as f:
-            return yaml.safe_load(f)
+            profile: dict = yaml.safe_load(f)
+            return profile
 
     def _setup_constraints(self, tx):
         """Crée les contraintes et index Neo4j."""

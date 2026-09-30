@@ -184,7 +184,7 @@ class CodeIndexer:
 
     def _extract_imports(self, tree: ast.AST) -> list[str]:
         """Extrait tous les imports."""
-        imports = []
+        imports: list[str] = []
         for node in ast.walk(tree):
             if isinstance(node, ast.Import):
                 imports.extend(alias.name for alias in node.names)

@@ -414,7 +414,7 @@ class DataValidator:
         Returns:
             Rapport de dérive détaillé
         """
-        drift_report = {
+        drift_report: dict[str, Any] = {
             "has_drift": False,
             "drifted_features": [],
             "drift_scores": {},

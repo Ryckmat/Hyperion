@@ -79,7 +79,7 @@ class PerformanceMonitor:
     def __init__(self, window_size: int = 50):
         self.window_size = window_size
         self.metrics_history: list[TrainingMetrics] = []
-        self.performance_trend = None
+        self.performance_trend: str | None = None
 
     def record_metrics(self, metrics: TrainingMetrics):
         """Enregistre de nouvelles métriques"""
@@ -144,19 +144,19 @@ class PerformanceMonitor:
             return False
 
         recent_loss = [m.loss for m in self.metrics_history[-10:]]
-        return np.mean(recent_loss) > np.mean([m.loss for m in self.metrics_history[-30:-20]])
+        return bool(np.mean(recent_loss) > np.mean([m.loss for m in self.metrics_history[-30:-20]]))
 
 
 class AdaptiveTrainer:
     """Entraîneur adaptatif pour modèles ML"""
 
-    def __init__(self, config: TrainingConfig = None):
+    def __init__(self, config: TrainingConfig | None = None):
         self.config = config or TrainingConfig()
         self.performance_monitor = PerformanceMonitor()
         self.adaptation_history: list[AdaptationDecision] = []
         self.current_phase = LearningPhase.EXPLORATION
         self.learning_rate = 0.001
-        self.model_ensemble = {}
+        self.model_ensemble: dict[str, Any] = {}
         self.training_active = False
 
     async def train_adaptive(
@@ -336,7 +336,7 @@ class AdaptiveTrainer:
 
     def _decide_adaptation(self, reason: str) -> AdaptationDecision:
         """Décide quelle adaptation appliquer"""
-        adaptations = {
+        adaptations: dict[str, dict[str, Any]] = {
             "performance_plateau": {
                 "action": "increase_learning_rate",
                 "parameters": {"multiplier": 1.5},

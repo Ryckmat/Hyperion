@@ -68,7 +68,7 @@ class UnderstandingQueryEngine:
         """Calcule la confiance de la réponse."""
         if not results:
             return 0.0
-        return min(results[0]["score"], 1.0)
+        return float(min(results[0]["score"], 1.0))
 
     def find_implementation(self, feature_name: str) -> list[str]:
         """

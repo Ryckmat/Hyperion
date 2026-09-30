@@ -128,7 +128,7 @@ class TrainingPipeline:
         # 5. Résultats globaux
         training_time = time.time() - start_time
 
-        results = {
+        results: dict[str, Any] = {
             "training_time_seconds": training_time,
             "validation_result": validation_result.dict(),
             "models_results": models_results,

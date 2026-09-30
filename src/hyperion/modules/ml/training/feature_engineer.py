@@ -361,7 +361,8 @@ class FeatureEngineer:
             features = self.engineer_full_feature_set(raw_data)
             engineered_features.append(features)
 
-        return pd.DataFrame(engineered_features)
+        features_df: pd.DataFrame = pd.DataFrame(engineered_features)
+        return features_df
 
 
 # Instance globale du feature engineer

@@ -145,7 +145,8 @@ class MarkdownGenerator:
             raise FileNotFoundError(f"Profil introuvable : {profile_path}")
 
         with open(path, encoding="utf-8") as f:
-            return yaml.safe_load(f)
+            profile: dict = yaml.safe_load(f)
+            return profile
 
     def list_templates(self) -> list[str]:
         """Liste les templates Markdown disponibles."""

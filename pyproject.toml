@@ -60,6 +60,11 @@ dev = [
     "black>=23.0.0",
     "ruff>=0.1.0",
     "mypy>=1.7.0",
+    "types-PyYAML",
+    "types-psutil",
+    "types-networkx",
+    "types-qrcode",
+    "pandas-stubs",
     "pre-commit>=3.5.0",
     "radon>=5.1.0",
     "pylint>=3.0.0",
@@ -194,6 +199,16 @@ module = [
     "langchain.*",
     "sentence_transformers.*",
     "neo4j.*",
+    "sklearn.*",
+    "xgboost.*",
+    "lightgbm.*",
+    "joblib.*",
+    "scipy.*",
+    "shap.*",
+    "prometheus_client.*",
+    "pyotp.*",
+    "bcrypt.*",
+    "nvidia_ml_py3.*",
 ]
 ignore_missing_imports = true
 

@@ -39,7 +39,7 @@ class MetricConfig:
 
     port: int = 8090
     enable_default_metrics: bool = True
-    custom_labels: dict[str, str] = None
+    custom_labels: dict[str, str] | None = None
 
 
 class PrometheusExporter:
@@ -318,7 +318,7 @@ class PrometheusExporter:
         try:
             samples = counter.collect()[0].samples
             if samples:
-                return samples[-1].value / window_seconds
+                return float(samples[-1].value / window_seconds)
         except (IndexError, AttributeError):
             pass
         return 0.0
@@ -331,7 +331,7 @@ class PrometheusExporter:
             count_sample = next((s for s in samples if s.name.endswith("_count")), None)
 
             if sum_sample and count_sample and count_sample.value > 0:
-                return sum_sample.value / count_sample.value
+                return float(sum_sample.value / count_sample.value)
         except (IndexError, AttributeError):
             pass
         return 0.0

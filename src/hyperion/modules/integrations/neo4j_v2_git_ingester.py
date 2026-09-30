@@ -239,7 +239,7 @@ class Neo4jV2GitIngester:
         except subprocess.CalledProcessError:
             return {}
 
-        directory_files = {}
+        directory_files: dict[str, list[str]] = {}
         for file_path in result.stdout.strip().split("\n"):
             if not file_path:
                 continue

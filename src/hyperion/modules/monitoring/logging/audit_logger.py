@@ -428,7 +428,7 @@ class AuditLogger:
         entries = self.search_audit_logs(start_time=start_time, end_time=end_time, limit=10000)
 
         # Statistiques
-        stats = {
+        stats: dict[str, Any] = {
             "period": f"{start_time.isoformat()} to {end_time.isoformat()}",
             "total_entries": len(entries),
             "actions_summary": {},

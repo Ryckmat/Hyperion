@@ -2,6 +2,7 @@
 
 import ast
 from pathlib import Path
+from typing import Any
 
 
 class CodeExtractor:
@@ -25,7 +26,7 @@ class CodeExtractor:
         Returns:
             Dict avec sections: files, functions, classes, imports
         """
-        result = {
+        result: dict[str, list[Any]] = {
             "files": [],
             "functions": [],
             "classes": [],
@@ -101,7 +102,12 @@ class CodeExtractor:
 
     def _parse_ast(self, file_path: Path) -> dict:
         """Parse AST et extrait fonctions/classes."""
-        result = {"functions": [], "classes": [], "imports": [], "docstrings": []}
+        result: dict[str, list[Any]] = {
+            "functions": [],
+            "classes": [],
+            "imports": [],
+            "docstrings": [],
+        }
 
         try:
             with open(file_path, encoding="utf-8") as f:

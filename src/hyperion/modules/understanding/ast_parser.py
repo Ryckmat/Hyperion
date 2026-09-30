@@ -587,7 +587,7 @@ class PythonASTParser:
             Dictionnaire des analyses par fichier
         """
         directory = Path(directory)
-        results = {}
+        results: dict[str, FileAnalysis] = {}
 
         if not directory.exists():
             self.logger.error(f"Répertoire non trouvé : {directory}")

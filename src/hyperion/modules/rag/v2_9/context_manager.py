@@ -353,7 +353,7 @@ class ContextManager:
         """Obtenir des améliorations contextuelles pour le prompt"""
 
         context = self.get_or_create_context(session_id, user_id)
-        enhancements = {}
+        enhancements: dict[str, Any] = {}
 
         # Contexte conversationnel
         if context.conversation_history:
@@ -524,9 +524,9 @@ class ContextManager:
             "successful_styles": dict(self.global_patterns["successful_styles"]),
         }
 
-    def _get_most_common_topics(self) -> list[str]:
+    def _get_most_common_topics(self) -> list[tuple[str, int]]:
         """Obtenir les topics les plus communs"""
-        topic_counts = {}
+        topic_counts: dict[str, int] = {}
 
         for context in self.active_contexts.values():
             for topic in context.active_topics:

@@ -8,10 +8,10 @@ from __future__ import annotations
 
 import time
 import uuid
-from collections.abc import Callable
 
 from fastapi import FastAPI, Request, Response
-from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
+from starlette.types import ASGIApp
 
 from hyperion.modules.monitoring.logging.json_logger import (
     get_logger,
@@ -33,11 +33,11 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
     - Headers de monitoring
     """
 
-    def __init__(self, app: FastAPI, logger_name: str = "hyperion.api"):
+    def __init__(self, app: ASGIApp, logger_name: str = "hyperion.api"):
         super().__init__(app)
         self.logger = get_logger(logger_name)
 
-    async def dispatch(self, request: Request, call_next: Callable) -> Response:
+    async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
         """Traite chaque requête avec logging et métriques."""
         # Générer ou récupérer les IDs
         request_id = request.headers.get("X-Request-ID", str(uuid.uuid4()))
@@ -147,7 +147,7 @@ class MetricsMiddleware(BaseHTTPMiddleware):
     - Taille des réponses
     """
 
-    def __init__(self, app: FastAPI):
+    def __init__(self, app: ASGIApp):
         super().__init__(app)
         self.metrics_enabled = settings.enable_metrics
         self._setup_metrics()
@@ -188,7 +188,7 @@ class MetricsMiddleware(BaseHTTPMiddleware):
             self.metrics_enabled = False
             get_logger().warning("Prometheus client non disponible, métriques désactivées")
 
-    async def dispatch(self, request: Request, call_next: Callable) -> Response:
+    async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
         """Collecte les métriques pour chaque requête."""
         if not self.metrics_enabled:
             return await call_next(request)
@@ -245,7 +245,7 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
     - Referrer-Policy
     """
 
-    async def dispatch(self, request: Request, call_next: Callable) -> Response:
+    async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
         """Ajoute les headers de sécurité à chaque réponse."""
         response = await call_next(request)
 

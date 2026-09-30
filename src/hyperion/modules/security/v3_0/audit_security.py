@@ -174,7 +174,7 @@ class SecurityAuditor:
 
     def scan_vulnerabilities(self, target_path: str) -> list[SecurityVulnerability]:
         """Scan des vulnérabilités dans le code"""
-        vulnerabilities = []
+        vulnerabilities: list[SecurityVulnerability] = []
         target = Path(target_path)
 
         try:
@@ -236,7 +236,7 @@ class SecurityAuditor:
         self, framework: str, system_config: dict[str, Any]
     ) -> list[ComplianceCheck]:
         """Vérification de conformité pour un framework donné"""
-        compliance_checks = []
+        compliance_checks: list[ComplianceCheck] = []
 
         if framework not in self.compliance_frameworks:
             logger.warning(f"Framework de conformité non supporté: {framework}")

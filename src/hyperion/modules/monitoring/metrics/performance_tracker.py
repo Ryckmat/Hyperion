@@ -79,7 +79,7 @@ class PerformanceTracker:
 
         # Monitoring système
         self._system_monitor_active = False
-        self._system_monitor_thread = None
+        self._system_monitor_thread: threading.Thread | None = None
 
         if enable_system_monitoring:
             self.start_system_monitoring()
@@ -198,7 +198,7 @@ class PerformanceTracker:
 
             self._record_metrics(metrics)
 
-    def track_function(self, operation: str = None, track_args: bool = False):
+    def track_function(self, operation: str | None = None, track_args: bool = False):
         """Décorateur pour tracker automatiquement les fonctions"""
 
         def decorator(func):
@@ -206,7 +206,7 @@ class PerformanceTracker:
 
             @functools.wraps(func)
             def wrapper(*args, **kwargs):
-                metadata = {}
+                metadata: dict[str, Any] = {}
                 if track_args:
                     metadata["args_count"] = len(args)
                     metadata["kwargs_keys"] = list(kwargs.keys())
@@ -310,7 +310,7 @@ class PerformanceTracker:
         for m in recent_metrics:
             operations[m.operation].append(m)
 
-        summary = {
+        summary: dict[str, Any] = {
             "window_seconds": window_seconds,
             "total_operations": len(recent_metrics),
             "operations": {},

@@ -119,7 +119,7 @@ class HealthMonitor:
         # Threading
         self._lock = threading.Lock()
         self._running = False
-        self._monitor_thread = None
+        self._monitor_thread: threading.Thread | None = None
         self._executor = ThreadPoolExecutor(max_workers=10)
 
         # Callbacks
@@ -414,7 +414,7 @@ class HealthMonitor:
         current_time = time.time()
 
         # Calculer le statut par composant
-        component_health = {}
+        component_health: dict[ComponentType, HealthStatus] = {}
         check_details = {}
 
         with self._lock:

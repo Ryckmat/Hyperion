@@ -107,7 +107,7 @@ class EnsembleModelManager:
         }
 
         # Métriques ensemble
-        self.ensemble_metrics = {
+        self.ensemble_metrics: dict[str, Any] = {
             "total_predictions": 0,
             "avg_accuracy": 0.0,
             "avg_confidence": 0.0,
@@ -467,8 +467,8 @@ class EnsembleModelManager:
     ) -> tuple[Any, float]:
         """Vote pondéré par poids et performance"""
 
-        weighted_predictions = {}
-        total_weight = 0
+        weighted_predictions: dict[int, dict[Any, float]] = {}
+        total_weight: float = 0
 
         for model_name, pred in predictions.items():
             model_weight = self.models[model_name].weight
@@ -496,7 +496,7 @@ class EnsembleModelManager:
         # Prédiction finale
         if weighted_predictions:
             final_pred_weights = weighted_predictions[0]
-            final_prediction = max(final_pred_weights, key=final_pred_weights.get)
+            final_prediction = max(final_pred_weights, key=final_pred_weights.__getitem__)
             confidence = final_pred_weights[final_prediction] / total_weight
         else:
             final_prediction = list(predictions.values())[0]
@@ -510,7 +510,7 @@ class EnsembleModelManager:
         """Moyenne des prédictions numériques"""
 
         numeric_predictions = []
-        total_confidence = 0
+        total_confidence: float = 0
 
         for model_name, pred in predictions.items():
             try:
@@ -559,7 +559,7 @@ class EnsembleModelManager:
 
         # Prédiction pondérée
         final_prediction = None
-        final_confidence = 0
+        final_confidence: float = 0
 
         for model_name, pred in predictions.items():
             weight = weights.get(model_name, 0)
@@ -584,9 +584,9 @@ class EnsembleModelManager:
         """Sélection dynamique du meilleur modèle"""
 
         # Sélectionner le modèle avec la meilleure combinaison métrique/confiance
-        best_score = 0
+        best_score: float = 0
         best_prediction = None
-        best_confidence = 0
+        best_confidence: float = 0
 
         for model_name, pred in predictions.items():
             model_metrics = self.models[model_name].metrics
@@ -644,7 +644,7 @@ class EnsembleModelManager:
                 return False
 
             # Optimisation simple par grid search
-            best_accuracy = 0
+            best_accuracy: float = 0
             best_weights = {}
 
             weight_ranges = np.arange(0.1, 2.1, 0.2)
@@ -715,7 +715,7 @@ class EnsembleModelManager:
     def get_ensemble_summary(self) -> dict[str, Any]:
         """Obtenir un résumé de l'ensemble"""
 
-        summary = {
+        summary: dict[str, Any] = {
             "total_models": len(self.models),
             "trained_models": len([m for m in self.models.values() if m.is_trained]),
             "loaded_models": len(self.loaded_models),
@@ -775,7 +775,10 @@ class EnsembleModelManager:
         config_path = self.models_directory / "ensemble_config.json"
 
         try:
-            config_data = {"ensemble_strategy": self.ensemble_strategy, "models": {}}
+            config_data: dict[str, Any] = {
+                "ensemble_strategy": self.ensemble_strategy,
+                "models": {},
+            }
 
             for name, model in self.models.items():
                 config_data["models"][name] = {

@@ -296,7 +296,7 @@ class CorrelationTracker:
         if not all_spans:
             return {"trace_id": trace_id, "spans": 0}
 
-        total_duration = 0
+        total_duration: float = 0
         operations = set()
         error_count = 0
 

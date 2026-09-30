@@ -11,6 +11,11 @@ pytest-benchmark>=4.0.0
 black>=23.0.0
 ruff>=0.1.0
 mypy>=1.7.0
+types-PyYAML
+types-psutil
+types-networkx
+types-qrcode
+pandas-stubs
 pre-commit>=3.5.0
 
 # Documentation

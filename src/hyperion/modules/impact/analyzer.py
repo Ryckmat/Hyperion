@@ -56,7 +56,7 @@ class ImpactAnalyzer:
     def _extract_imports(self, tree: ast.AST) -> list[str]:
         """Extrait les imports d'un AST."""
         # TODO: Implémenter extraction imports
-        imports = []
+        imports: list[str] = []
         for node in ast.walk(tree):
             if isinstance(node, ast.Import):
                 imports.extend(alias.name for alias in node.names)
@@ -104,6 +104,6 @@ class ImpactAnalyzer:
         if not self.dependency_graph:
             self.build_dependency_graph()
 
-        impacted = set()
+        impacted: set[str] = set()
         # Logique de traversal à implémenter
         return impacted

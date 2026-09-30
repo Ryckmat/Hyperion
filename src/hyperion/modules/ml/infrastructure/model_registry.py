@@ -272,7 +272,7 @@ class ModelRegistry:
             raise FileNotFoundError(f"Métadonnées non trouvées pour {name} v{version}")
 
         with open(metadata_path, encoding="utf-8") as f:
-            info = json.load(f)
+            info: dict[str, Any] = json.load(f)
 
         # Convertir string datetime en datetime object si nécessaire
         if "created_at" in info and isinstance(info["created_at"], str):

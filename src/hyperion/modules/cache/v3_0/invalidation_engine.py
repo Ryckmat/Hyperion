@@ -53,7 +53,7 @@ class InvalidationEngine:
 
     def invalidate_by_tags(self, tags: set[str]) -> list[str]:
         """Invalide les clés par tags"""
-        invalidated_keys = []
+        invalidated_keys: list[str] = []
         for tag in tags:
             if tag in self.tag_mappings:
                 invalidated_keys.extend(self.tag_mappings[tag])

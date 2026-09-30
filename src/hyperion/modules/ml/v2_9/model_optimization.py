@@ -56,7 +56,7 @@ class OptimizationResult:
 class ModelOptimizer:
     """Optimiseur de modèles ML"""
 
-    def __init__(self, config: OptimizationConfig = None):
+    def __init__(self, config: OptimizationConfig | None = None):
         self.config = config or OptimizationConfig()
         self.optimization_history: list[OptimizationResult] = []
 
@@ -237,9 +237,9 @@ class ModelOptimizer:
     ) -> OptimizationResult:
         """Optimisation bayésienne (implémentation simplifiée)"""
         # Pour cette version simplifiée, on utilise une stratégie adaptative
-        best_params = {}
+        best_params: dict[str, Any] = {}
         best_score = -np.inf
-        optimization_history = []
+        optimization_history: list[dict[str, Any]] = []
 
         # Commencer par des échantillons aléatoires
         initial_samples = min(10, self.config.max_iterations // 4)
@@ -353,6 +353,9 @@ class ModelOptimizer:
                 continue
 
             if param_space.parameter_type == "continuous":
+                if param_space.min_value is None or param_space.max_value is None:
+                    # Sans bornes, on conserve la valeur courante
+                    continue
                 current_value = params[param_name]
                 # Ajouter du bruit gaussien
                 noise_scale = (param_space.max_value - param_space.min_value) * 0.1
@@ -398,8 +401,9 @@ class ModelOptimizer:
 
             elif param_space.parameter_type == "discrete":
                 if param_space.min_value is not None and param_space.max_value is not None:
-                    values = list(range(int(param_space.min_value), int(param_space.max_value) + 1))
-                    param_grids[param_name] = values
+                    param_grids[param_name] = list(
+                        range(int(param_space.min_value), int(param_space.max_value) + 1)
+                    )
                 else:
                     param_grids[param_name] = [param_space.default_value]
 
@@ -452,7 +456,7 @@ class ModelOptimizer:
                 # Cross-validation sur l'ensemble d'entraînement
                 score = self._cross_validate_model(model, X_train, y_train)
 
-            return score
+            return float(score)
 
         except Exception as e:
             logger.warning(f"Erreur évaluation modèle: {e}")
@@ -466,7 +470,7 @@ class ModelOptimizer:
             scores = cross_val_score(
                 model, X, y, cv=self.config.cv_folds, scoring=self.config.scoring_metric
             )
-            return scores.mean()
+            return float(scores.mean())
         except ImportError:
             # Validation croisée manuelle simple
             from sklearn.model_selection import KFold
@@ -490,11 +494,11 @@ class ModelOptimizer:
 
                 scores.append(score)
 
-            return np.mean(scores)
+            return float(np.mean(scores))
         except Exception:
             # Fallback: score sur l'ensemble d'entraînement
             if hasattr(model, "score"):
-                return model.score(X, y)
+                return float(model.score(X, y))
             else:
                 predictions = model.predict(X)
                 return self._calculate_score(y, predictions)
@@ -502,14 +506,14 @@ class ModelOptimizer:
     def _calculate_score(self, y_true: np.ndarray, y_pred: np.ndarray) -> float:
         """Calcule un score simple"""
         if self.config.scoring_metric == "accuracy":
-            return np.mean(y_true == y_pred)
+            return float(np.mean(y_true == y_pred))
         elif self.config.scoring_metric == "mse":
-            return -np.mean((y_true - y_pred) ** 2)
+            return float(-np.mean((y_true - y_pred) ** 2))
         elif self.config.scoring_metric == "mae":
-            return -np.mean(np.abs(y_true - y_pred))
+            return float(-np.mean(np.abs(y_true - y_pred)))
         else:
             # Défaut: accuracy pour classification
-            return np.mean(y_true == y_pred)
+            return float(np.mean(y_true == y_pred))
 
     def get_optimization_history(self) -> list[OptimizationResult]:
         """Retourne l'historique des optimisations"""

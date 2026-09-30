@@ -12,6 +12,7 @@ import logging
 import os
 import time
 from datetime import datetime
+from typing import Any
 
 from .confidence_scorer import ConfidenceScorer
 from .hallucination_detector import HallucinationDetector
@@ -52,7 +53,7 @@ class ResponseValidator:
         self.enable_logging = os.getenv("ENABLE_QUALITY_LOGGING", "true").lower() == "true"
 
         # Statistiques de session
-        self.session_stats = {
+        self.session_stats: dict[str, Any] = {
             "total_validations": 0,
             "accepted": 0,
             "flagged": 0,
@@ -167,7 +168,8 @@ class ResponseValidator:
                 )
 
             # 8. Nettoyage des types pour sérialisation JSON
-            return sanitize_for_json(validation_result)
+            sanitized: dict = sanitize_for_json(validation_result)
+            return sanitized
 
         except Exception as e:
             logger.error(f"Erreur validation réponse: {e}")

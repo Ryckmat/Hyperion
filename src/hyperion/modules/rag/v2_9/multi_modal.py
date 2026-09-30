@@ -25,7 +25,7 @@ class MultiModalRAG:
     def __init__(self):
         self.supported_types = ["text", "image", "audio"]
 
-    def process_query(self, query: str, content_types: list[str] = None) -> dict[str, Any]:
+    def process_query(self, query: str, content_types: list[str] | None = None) -> dict[str, Any]:
         """Traite une requête multi-modale"""
         return {"response": f"Processed query: {query}", "content_types": content_types or ["text"]}
 

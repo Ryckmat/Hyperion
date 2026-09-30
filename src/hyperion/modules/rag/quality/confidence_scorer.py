@@ -163,7 +163,7 @@ class ConfidenceScorer:
 
         final_score = base_score + high_quality_bonus + diversity_bonus - low_quality_penalty
 
-        return max(0.0, min(1.0, final_score))
+        return float(max(0.0, min(1.0, final_score)))
 
     def _calculate_semantic_relevance(self, question: str, answer: str) -> float:
         """
