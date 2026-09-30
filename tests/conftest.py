@@ -53,8 +53,7 @@ def sample_repo(tmp_path):
     repo_path.mkdir()
 
     # Fichier principal
-    (repo_path / "main.py").write_text(
-        """
+    (repo_path / "main.py").write_text("""
 from utils import helper
 from api.endpoints import get_data
 
@@ -62,43 +61,36 @@ def main():
     data = get_data()
     result = helper(data)
     return result
-"""
-    )
+""")
 
     # Utils
-    (repo_path / "utils.py").write_text(
-        """
+    (repo_path / "utils.py").write_text("""
 def helper(data):
     \"\"\"Process data.\"\"\"
     return data.upper()
-"""
-    )
+""")
 
     # API
     api_dir = repo_path / "api"
     api_dir.mkdir()
     (api_dir / "__init__.py").write_text("")
-    (api_dir / "endpoints.py").write_text(
-        """
+    (api_dir / "endpoints.py").write_text("""
 from core.business import process
 
 def get_data():
     \"\"\"Get data from source.\"\"\"
     return process("raw_data")
-"""
-    )
+""")
 
     # Core
     core_dir = repo_path / "core"
     core_dir.mkdir()
     (core_dir / "__init__.py").write_text("")
-    (core_dir / "business.py").write_text(
-        """
+    (core_dir / "business.py").write_text("""
 def process(data):
     \"\"\"Business logic.\"\"\"
     return data.strip().lower()
-"""
-    )
+""")
 
     return repo_path
 
@@ -125,15 +117,13 @@ def large_repo(tmp_path):
             [f"from module_{(i-1) % 100:03d}.logic import func_{(i-1) % 100}" for _ in range(3)]
         )
 
-        (module_dir / "logic.py").write_text(
-            f"""
+        (module_dir / "logic.py").write_text(f"""
 {imports}
 
 def func_{i}():
     \"\"\"Function {i}.\"\"\"
     return {i}
-"""
-        )
+""")
 
     return repo_path
 

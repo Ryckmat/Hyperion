@@ -18,21 +18,17 @@ def temp_repo(tmp_path):
     repo_path.mkdir()
 
     # Créer des fichiers Python test
-    (repo_path / "main.py").write_text(
-        """
+    (repo_path / "main.py").write_text("""
 import utils
 
 def main():
     utils.helper()
-"""
-    )
+""")
 
-    (repo_path / "utils.py").write_text(
-        """
+    (repo_path / "utils.py").write_text("""
 def helper():
     pass
-"""
-    )
+""")
 
     return repo_path
 

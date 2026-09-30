@@ -20,34 +20,28 @@ def sample_repo(tmp_path):
     repo_path.mkdir()
 
     # Fichier principal
-    (repo_path / "main.py").write_text(
-        """
+    (repo_path / "main.py").write_text("""
 from utils import helper
 from config import settings
 
 def main():
     result = helper()
     print(settings.DEBUG)
-"""
-    )
+""")
 
     # Utilitaires
-    (repo_path / "utils.py").write_text(
-        """
+    (repo_path / "utils.py").write_text("""
 def helper():
     return "helper result"
-"""
-    )
+""")
 
     # Configuration
-    (repo_path / "config.py").write_text(
-        """
+    (repo_path / "config.py").write_text("""
 class Settings:
     DEBUG = True
 
 settings = Settings()
-"""
-    )
+""")
 
     return repo_path
 

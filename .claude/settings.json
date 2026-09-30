@@ -1,0 +1,45 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pytest:*)",
+      "Bash(python -m pytest:*)",
+      "Bash(python3 -m pytest:*)",
+      "Bash(black:*)",
+      "Bash(python3 -m black:*)",
+      "Bash(python3 -m ruff:*)",
+      "Bash(python3 -m mypy:*)",
+      "Bash(ruff:*)",
+      "Bash(mypy:*)",
+      "Bash(bandit:*)",
+      "Bash(pre-commit run:*)",
+      "Bash(hyperion:*)",
+      "Bash(python eval/run.py:*)",
+      "Bash(python3 eval/run.py:*)",
+      "Bash(pip install:*)",
+      "Bash(pip list:*)",
+      "Bash(pip show:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Bash(git push --force:*)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-start.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -273,7 +273,7 @@ def test_rag_v29():
         raise AssertionError(f"RAG test failed: {e}") from e
 
 
-def test_ml_v29():
+def test_ml_v29(tmp_path):
     """Test des modèles ML ensemble v2.9"""
     print("\n🤖 Test ML Ensemble v2.9...")
 
@@ -282,8 +282,8 @@ def test_ml_v29():
 
         from hyperion.modules.ml.v2_9.ensemble_models import EnsembleModel, EnsembleModelManager
 
-        # Initialiser gestionnaire ensemble
-        manager = EnsembleModelManager()
+        # Initialiser gestionnaire ensemble (hors de models/ pour ne pas écraser les artefacts)
+        manager = EnsembleModelManager(models_directory=str(tmp_path))
 
         # Ajouter modèle test (simulation)
         model_config = EnsembleModel(

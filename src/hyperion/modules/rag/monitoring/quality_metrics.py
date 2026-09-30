@@ -48,8 +48,7 @@ class QualityMetricsTracker:
                 cursor = conn.cursor()
 
                 # Table principale des métriques
-                cursor.execute(
-                    """
+                cursor.execute("""
                     CREATE TABLE IF NOT EXISTS response_quality (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -81,34 +80,26 @@ class QualityMetricsTracker:
                         validator_version TEXT,
                         answer_modified BOOLEAN DEFAULT FALSE
                     )
-                """
-                )
+                """)
 
                 # Index pour performances
-                cursor.execute(
-                    """
+                cursor.execute("""
                     CREATE INDEX IF NOT EXISTS idx_timestamp
                     ON response_quality(timestamp)
-                """
-                )
+                """)
 
-                cursor.execute(
-                    """
+                cursor.execute("""
                     CREATE INDEX IF NOT EXISTS idx_repo_timestamp
                     ON response_quality(repo_filter, timestamp)
-                """
-                )
+                """)
 
-                cursor.execute(
-                    """
+                cursor.execute("""
                     CREATE INDEX IF NOT EXISTS idx_action_timestamp
                     ON response_quality(action, timestamp)
-                """
-                )
+                """)
 
                 # Table alertes qualité
-                cursor.execute(
-                    """
+                cursor.execute("""
                     CREATE TABLE IF NOT EXISTS quality_alerts (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -120,8 +111,7 @@ class QualityMetricsTracker:
                         resolved BOOLEAN DEFAULT FALSE,
                         resolved_at DATETIME
                     )
-                """
-                )
+                """)
 
                 conn.commit()
                 logger.debug("Schéma base de données initialisé")
@@ -622,12 +612,10 @@ class QualityMetricsTracker:
                 total_records = cursor.fetchone()[0]
 
                 # Plus ancien/récent
-                cursor.execute(
-                    """
+                cursor.execute("""
                     SELECT MIN(timestamp), MAX(timestamp)
                     FROM response_quality
-                """
-                )
+                """)
                 oldest, newest = cursor.fetchone()
 
                 # Taille fichier
