@@ -14,7 +14,6 @@ from hyperion.modules.rag.config import (
     EMBEDDING_MODEL,
     LLM_MAX_TOKENS,
     LLM_TEMPERATURE,
-    LLM_TIMEOUT,
     LLM_TOP_K,
     OLLAMA_BASE_URL,
     OLLAMA_MODEL,
@@ -80,7 +79,6 @@ class RAGQueryEngine:
             model=ollama_model,
             temperature=LLM_TEMPERATURE,
             num_predict=LLM_MAX_TOKENS,
-            timeout=LLM_TIMEOUT,  # Timeout pour éviter attentes longues
         )
         print("✅ LLM prêt")
 
