@@ -474,7 +474,7 @@ class BehavioralAnalyzer:
 class PatternAnalyzer:
     """Analyseur principal de patterns"""
 
-    def __init__(self, config: AnalysisConfig = None):
+    def __init__(self, config: AnalysisConfig | None = None):
         self.config = config or AnalysisConfig()
         self.temporal_analyzer = TemporalAnalyzer(self.config.temporal_window_minutes)
         self.behavioral_analyzer = BehavioralAnalyzer()

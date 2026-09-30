@@ -106,7 +106,7 @@ class IntelligenceEngine:
         self.pattern_confidence_threshold = 0.7
 
         # Analytics en temps réel
-        self.real_time_stats = {
+        self.real_time_stats: dict[str, Any] = {
             "events_per_minute": deque(maxlen=60),
             "active_users": set(),
             "current_trends": [],
