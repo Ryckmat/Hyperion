@@ -593,10 +593,12 @@ class AuthManager:
 
     def _is_account_locked(self, user: User) -> bool:
         """Vérifier si le compte est verrouillé"""
-        return user.locked_until and datetime.now() < user.locked_until
+        return user.locked_until is not None and datetime.now() < user.locked_until
 
-    async def _verify_password(self, password: str, password_hash: str) -> bool:
+    async def _verify_password(self, password: str, password_hash: str | None) -> bool:
         """Vérifier mot de passe avec bcrypt"""
+        if password_hash is None:
+            return False
         try:
             return bool(bcrypt.checkpw(password.encode("utf-8"), password_hash.encode("utf-8")))
         except Exception:

@@ -449,7 +449,7 @@ class CodeMetricsAnalyzer:
         if not reports:
             return {}
 
-        summary = {
+        summary: dict[str, Any] = {
             "files_analyzed": len(reports),
             "average_quality_score": 0.0,
             "total_issues": 0,

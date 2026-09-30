@@ -57,7 +57,7 @@ class CodeExtractor:
 
         return result
 
-    def _extract_file_content(self, file_path: Path) -> dict:
+    def _extract_file_content(self, file_path: Path) -> dict | None:
         """Extrait métadonnées d'un fichier."""
         try:
             with open(file_path, encoding="utf-8") as f:
@@ -84,9 +84,10 @@ class CodeExtractor:
             if (
                 tree.body
                 and isinstance(tree.body[0], ast.Expr)
-                and isinstance(tree.body[0].value, ast.Str)
+                and isinstance(tree.body[0].value, ast.Constant)
+                and isinstance(tree.body[0].value.value, str)
             ):
-                return tree.body[0].value.s[:200] + "..."
+                return tree.body[0].value.value[:200] + "..."
         except (SyntaxError, ValueError, AttributeError):
             pass
 
@@ -192,7 +193,7 @@ class CodeExtractor:
             "is_private": node.name.startswith("_"),
         }
 
-    def _extract_import(self, node, file_path: str) -> dict:
+    def _extract_import(self, node, file_path: str) -> dict | None:
         """Extrait info d'un import."""
         if isinstance(node, ast.Import):
             modules = [alias.name for alias in node.names]
@@ -210,11 +211,12 @@ class CodeExtractor:
                 "file": file_path,
                 "line": node.lineno,
             }
+        return None
 
     def _is_method(self, node: ast.FunctionDef) -> bool:
         """Vérifie si une fonction est une méthode."""
         # Approximation : fonction avec 'self' en premier argument
-        return node.args.args and node.args.args[0].arg in ["self", "cls"]
+        return bool(node.args.args) and node.args.args[0].arg in ["self", "cls"]
 
     def _should_skip_file(self, file_path: Path) -> bool:
         """Vérifie si un fichier doit être ignoré."""

@@ -125,7 +125,7 @@ class GatewayStats:
     avg_response_time: float = 0.0
 
     # Par endpoint
-    endpoint_stats: dict[str, dict[str, int]] = field(default_factory=dict)
+    endpoint_stats: dict[str, dict[str, float]] = field(default_factory=dict)
 
     # Rate limiting
     rate_limited_requests: int = 0
@@ -317,7 +317,7 @@ class APIGateway:
             logger.error(f"Erreur traitement requête {request.request_id}: {e}")
 
             # Mettre à jour circuit breaker en cas d'erreur
-            if "route" in locals():
+            if "route" in locals() and route is not None:
                 await self._update_circuit_breaker(route.backend_url, False)
 
             error_response = self._create_error_response(500, "Internal server error")
@@ -672,7 +672,7 @@ class APIGateway:
     async def health_check(self) -> dict[str, Any]:
         """Vérification de santé du gateway"""
 
-        health_status = {
+        health_status: dict[str, Any] = {
             "status": "healthy",
             "timestamp": time.time(),
             "uptime": time.time() - getattr(self, "_start_time", time.time()),

@@ -236,7 +236,7 @@ class PythonASTParser:
                 if not in_multiline_string:
                     quote_char = '"""' if '"""' in stripped else "'''"
                     in_multiline_string = True
-                elif quote_char in stripped:
+                elif quote_char is not None and quote_char in stripped:
                     in_multiline_string = False
                     quote_char = None
 
@@ -552,9 +552,7 @@ class PythonASTParser:
                     ):
                         # Extraire la liste
                         for elt in node.value.elts:
-                            if isinstance(elt, ast.Str):
-                                exports.add(elt.s)
-                            elif isinstance(elt, ast.Constant) and isinstance(elt.value, str):
+                            if isinstance(elt, ast.Constant) and isinstance(elt.value, str):
                                 exports.add(elt.value)
 
         return exports
