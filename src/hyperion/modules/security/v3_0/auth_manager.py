@@ -13,67 +13,9 @@ from datetime import datetime, timedelta
 from enum import Enum
 from typing import Any
 
-try:
-    import jwt
-except ImportError:
-    from ..jwt_fallback import jwt
-
-try:
-    import bcrypt
-except ImportError:
-    # Mock bcrypt
-    class bcrypt:
-        @staticmethod
-        def gensalt(_rounds=12):
-            return b"$2b$12$mock_salt"
-
-        @staticmethod
-        def hashpw(_password, _salt):
-            return b"$2b$12$mock_hash"
-
-        @staticmethod
-        def checkpw(_password, _hashed):
-            return True
-
-
-try:
-    import pyotp
-except ImportError:
-    # Mock pyotp
-    class pyotp:
-        @staticmethod
-        def random_base32():
-            return "MOCK_SECRET_KEY"
-
-        @staticmethod
-        def TOTP(_secret):
-            class MockTOTP:
-                def now(self):
-                    return "123456"
-
-                def verify(self, token):
-                    return token == "123456"
-
-                def provisioning_uri(self, name, issuer_name):
-                    return f"otpauth://totp/{issuer_name}:{name}?secret=MOCK_SECRET&issuer={issuer_name}"
-
-            return MockTOTP()
-
-
-try:
-    import qrcode
-except ImportError:
-    # Mock qrcode
-    class qrcode:
-        @staticmethod
-        def make(data):
-            class MockQR:
-                def save(self, path):
-                    with open(path, "w") as f:
-                        f.write(f"QR Code: {data}")
-
-            return MockQR()
-
+import bcrypt
+import jwt
+import pyotp
 
 logger = logging.getLogger(__name__)
 
