@@ -29,7 +29,7 @@ La CI (`.github/workflows/ci.yml`) exécute black, ruff, pytest et gitleaks : le
 ## Conventions
 - Python >= 3.10, lignes de 100 caractères, black + ruff (isort, bugbear, pyupgrade)
 - Docstrings et messages utilisateur en français
-- `pytest.ini` est prioritaire sur `[tool.pytest.ini_options]` de `pyproject.toml`
+- Configuration pytest dans `pytest.ini` uniquement ; couverture dans `[tool.coverage]` de `pyproject.toml`
 - Marqueurs pytest stricts : `unit`, `integration`, `e2e`, `slow`, `benchmark`
 - Services externes (Neo4j, Qdrant, Ollama) : toujours mockés dans les tests unitaires
 - Configuration via `.env` (modèle : `.env.example`) ; aucun secret en clair, gitleaks tourne en CI
