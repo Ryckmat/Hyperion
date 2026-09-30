@@ -10,6 +10,7 @@ import threading
 import time
 import traceback
 import uuid
+from collections.abc import Callable
 from contextlib import contextmanager
 from dataclasses import asdict, dataclass, field
 from datetime import datetime
@@ -53,7 +54,7 @@ class LogEntry:
     message: str
     logger_name: str
     context: LogContext
-    exception: dict[str, str] | None = None
+    exception: dict[str, Any] | None = None
     performance: dict[str, float] | None = None
     metadata: dict[str, Any] = field(default_factory=dict)
 
@@ -102,7 +103,7 @@ class StructuredLogger:
         self._setup_handlers(file_path)
 
         # Callbacks pour intégrations externes
-        self._external_handlers: list[callable] = []
+        self._external_handlers: list[Callable[[LogEntry], Any]] = []
 
         self._logger.info(f"StructuredLogger '{name}' initialisé")
 
@@ -336,7 +337,7 @@ class StructuredLogger:
                 )
                 raise
 
-    def add_external_handler(self, handler: callable):
+    def add_external_handler(self, handler: Callable[[LogEntry], Any]):
         """Ajouter un handler externe (ex: envoi vers monitoring)"""
         self._external_handlers.append(handler)
 

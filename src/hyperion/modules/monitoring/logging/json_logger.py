@@ -13,6 +13,7 @@ from typing import Any
 
 import structlog
 from structlog.stdlib import BoundLogger
+from structlog.typing import EventDict, Processor
 
 from hyperion.settings import settings
 
@@ -28,7 +29,7 @@ def configure_structlog() -> None:
     - Intégration Request ID automatique
     """
     # Processeurs communs
-    shared_processors = [
+    shared_processors: list[Processor] = [
         # Filtrer les paramètres sensibles
         structlog.stdlib.filter_by_level,
         # Ajouter le nom du logger
@@ -76,30 +77,30 @@ def make_filtering_bound_logger(min_level: str):
             super().__init__(logger, processors, context)
             self.min_level = getattr(structlog.stdlib.logging, min_level.upper(), 20)
 
-        def debug(self, event, **kw):
+        def debug(self, event: str | None = None, *args: Any, **kw: Any) -> None:
             if self.min_level <= 10:
-                super().debug(event, **kw)
+                super().debug(event, *args, **kw)
 
-        def info(self, event, **kw):
+        def info(self, event: str | None = None, *args: Any, **kw: Any) -> None:
             if self.min_level <= 20:
-                super().info(event, **kw)
+                super().info(event, *args, **kw)
 
-        def warning(self, event, **kw):
+        def warning(self, event: str | None = None, *args: Any, **kw: Any) -> None:
             if self.min_level <= 30:
-                super().warning(event, **kw)
+                super().warning(event, *args, **kw)
 
-        def error(self, event, **kw):
+        def error(self, event: str | None = None, *args: Any, **kw: Any) -> None:
             if self.min_level <= 40:
-                super().error(event, **kw)
+                super().error(event, *args, **kw)
 
-        def critical(self, event, **kw):
+        def critical(self, event: str | None = None, *args: Any, **kw: Any) -> None:
             if self.min_level <= 50:
-                super().critical(event, **kw)
+                super().critical(event, *args, **kw)
 
     return FilteringBoundLogger
 
 
-def add_system_metadata(_logger, _method_name: str, event_dict: dict[str, Any]) -> dict[str, Any]:
+def add_system_metadata(_logger: Any, _method_name: str, event_dict: EventDict) -> EventDict:
     """
     Ajoute des métadonnées système aux logs.
 

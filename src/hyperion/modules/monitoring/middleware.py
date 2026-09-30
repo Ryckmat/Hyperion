@@ -11,6 +11,7 @@ import uuid
 
 from fastapi import FastAPI, Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
+from starlette.types import ASGIApp
 
 from hyperion.modules.monitoring.logging.json_logger import (
     get_logger,
@@ -32,7 +33,7 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
     - Headers de monitoring
     """
 
-    def __init__(self, app: FastAPI, logger_name: str = "hyperion.api"):
+    def __init__(self, app: ASGIApp, logger_name: str = "hyperion.api"):
         super().__init__(app)
         self.logger = get_logger(logger_name)
 
@@ -146,7 +147,7 @@ class MetricsMiddleware(BaseHTTPMiddleware):
     - Taille des réponses
     """
 
-    def __init__(self, app: FastAPI):
+    def __init__(self, app: ASGIApp):
         super().__init__(app)
         self.metrics_enabled = settings.enable_metrics
         self._setup_metrics()

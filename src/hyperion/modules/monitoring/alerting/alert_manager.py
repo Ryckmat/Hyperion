@@ -180,7 +180,7 @@ class AlertManager:
         self.suppression_rules: list[dict] = []
 
         # Métriques
-        self.alert_metrics = {
+        self.alert_metrics: dict[str, Any] = {
             "total_fired": 0,
             "total_resolved": 0,
             "by_severity": {s.name: 0 for s in AlertSeverity},
@@ -189,7 +189,7 @@ class AlertManager:
 
         # Threading
         self._lock = threading.Lock()
-        self._evaluator_thread = None
+        self._evaluator_thread: threading.Thread | None = None
         self._running = False
 
         # Callbacks personnalisés

@@ -39,7 +39,7 @@ class MetricConfig:
 
     port: int = 8090
     enable_default_metrics: bool = True
-    custom_labels: dict[str, str] = None
+    custom_labels: dict[str, str] | None = None
 
 
 class PrometheusExporter:
