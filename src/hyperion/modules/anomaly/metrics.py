@@ -151,4 +151,4 @@ class CodeMetrics:
             metrics_list
         )
 
-        return min(avg_maintainability, 100.0)
+        return float(min(avg_maintainability, 100.0))

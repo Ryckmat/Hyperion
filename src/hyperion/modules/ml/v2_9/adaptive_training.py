@@ -144,7 +144,7 @@ class PerformanceMonitor:
             return False
 
         recent_loss = [m.loss for m in self.metrics_history[-10:]]
-        return np.mean(recent_loss) > np.mean([m.loss for m in self.metrics_history[-30:-20]])
+        return bool(np.mean(recent_loss) > np.mean([m.loss for m in self.metrics_history[-30:-20]]))
 
 
 class AdaptiveTrainer:
@@ -156,7 +156,7 @@ class AdaptiveTrainer:
         self.adaptation_history: list[AdaptationDecision] = []
         self.current_phase = LearningPhase.EXPLORATION
         self.learning_rate = 0.001
-        self.model_ensemble = {}
+        self.model_ensemble: dict[str, Any] = {}
         self.training_active = False
 
     async def train_adaptive(

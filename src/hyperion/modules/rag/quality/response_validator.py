@@ -167,7 +167,8 @@ class ResponseValidator:
                 )
 
             # 8. Nettoyage des types pour sérialisation JSON
-            return sanitize_for_json(validation_result)
+            sanitized: dict = sanitize_for_json(validation_result)
+            return sanitized
 
         except Exception as e:
             logger.error(f"Erreur validation réponse: {e}")

@@ -5,6 +5,7 @@ Ingénierie des features pour les modèles ML
 
 import logging
 from dataclasses import dataclass
+from typing import Any
 
 import numpy as np
 
@@ -36,11 +37,15 @@ class FeatureEngineer:
 
     def _normalize(self, X: np.ndarray) -> np.ndarray:
         """Normalisation simple"""
-        return (X - np.mean(X, axis=0)) / (np.std(X, axis=0) + 1e-8)
+        normalized: np.ndarray = (X - np.mean(X, axis=0)) / (np.std(X, axis=0) + 1e-8)
+        return normalized
 
     def _scale(self, X: np.ndarray) -> np.ndarray:
         """Mise à l'échelle"""
-        return (X - np.min(X, axis=0)) / (np.max(X, axis=0) - np.min(X, axis=0) + 1e-8)
+        scaled: np.ndarray = (X - np.min(X, axis=0)) / (
+            np.max(X, axis=0) - np.min(X, axis=0) + 1e-8
+        )
+        return scaled
 
 
 class AdvancedFeatureEngineer(FeatureEngineer):
@@ -48,8 +53,8 @@ class AdvancedFeatureEngineer(FeatureEngineer):
 
     def __init__(self, config: FeatureConfig = None):
         super().__init__(config)
-        self.feature_cache = {}
-        self.feature_importance = {}
+        self.feature_cache: dict[str, Any] = {}
+        self.feature_importance: dict[str, float] = {}
 
     def engineer_advanced_features(self, X: np.ndarray) -> np.ndarray:
         """Génère des features avancées"""

@@ -299,7 +299,7 @@ class AdvancedEncryptionService(EncryptionService):
 
     def __init__(self, config: EncryptionConfig = None):
         super().__init__(config)
-        self.audit_log = []
+        self.audit_log: list[dict[str, Any]] = []
 
     def encrypt_with_audit(self, data: str | bytes, context: str = "unknown") -> EncryptionResult:
         """Chiffrement avec audit trail"""

@@ -55,12 +55,14 @@ class RAGEvaluator:
     def load_test_suite(self, suite_path: str) -> Dict[str, Any]:
         """Charge une suite de tests depuis un fichier YAML."""
         with open(suite_path, 'r', encoding='utf-8') as f:
-            return yaml.safe_load(f)
+            suite: Dict[str, Any] = yaml.safe_load(f)
+            return suite
 
     def load_questions_dataset(self, dataset_path: str) -> Dict[str, Any]:
         """Charge le dataset de questions."""
         with open(dataset_path, 'r', encoding='utf-8') as f:
-            return json.load(f)
+            dataset: Dict[str, Any] = json.load(f)
+            return dataset
 
     async def execute_test(self, test_config: Dict[str, Any]) -> TestResult:
         """

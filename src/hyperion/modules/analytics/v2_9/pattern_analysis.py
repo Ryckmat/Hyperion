@@ -61,9 +61,9 @@ class TemporalAnalyzer:
 
     def __init__(self, window_minutes: int = 60):
         self.window_minutes = window_minutes
-        self.event_timeline = deque()
-        self.hourly_patterns = defaultdict(list)
-        self.daily_patterns = defaultdict(list)
+        self.event_timeline: deque[dict] = deque()
+        self.hourly_patterns: defaultdict[int, list[Any]] = defaultdict(list)
+        self.daily_patterns: defaultdict[int, list[Any]] = defaultdict(list)
 
     def analyze_temporal_patterns(self, events: list[dict]) -> list[DetectedPattern]:
         """Analyse les patterns temporels dans les événements"""
@@ -95,13 +95,13 @@ class TemporalAnalyzer:
 
     def _detect_hourly_patterns(self) -> list[DetectedPattern]:
         """Détecte les patterns par heure"""
-        patterns = []
+        patterns: list[DetectedPattern] = []
 
         if len(self.event_timeline) < 10:
             return patterns
 
         # Grouper par heure
-        hourly_counts = defaultdict(int)
+        hourly_counts: defaultdict[int, int] = defaultdict(int)
         for event in self.event_timeline:
             hour = datetime.fromtimestamp(event["timestamp"]).hour
             hourly_counts[hour] += 1
@@ -140,13 +140,13 @@ class TemporalAnalyzer:
 
     def _detect_spike_patterns(self) -> list[DetectedPattern]:
         """Détecte les pics soudains d'activité"""
-        patterns = []
+        patterns: list[DetectedPattern] = []
 
         if len(self.event_timeline) < 20:
             return patterns
 
         # Analyser par tranches de 5 minutes
-        time_buckets = defaultdict(int)
+        time_buckets: defaultdict[int, int] = defaultdict(int)
         for event in self.event_timeline:
             bucket = int(event["timestamp"] // 300) * 300  # Tranches de 5 min
             time_buckets[bucket] += 1
@@ -181,14 +181,14 @@ class TemporalAnalyzer:
 
     def _detect_cyclic_patterns(self) -> list[DetectedPattern]:
         """Détecte les patterns cycliques"""
-        patterns = []
+        patterns: list[DetectedPattern] = []
 
         # Simple détection de cyclicité basée sur l'autocorrélation
         if len(self.event_timeline) < 50:
             return patterns
 
         # Créer série temporelle par minutes
-        minute_counts = defaultdict(int)
+        minute_counts: defaultdict[int, int] = defaultdict(int)
         for event in self.event_timeline:
             minute = int(event["timestamp"] // 60) * 60
             minute_counts[minute] += 1
@@ -197,7 +197,7 @@ class TemporalAnalyzer:
             return patterns
 
         # Calculer autocorrélation simple
-        counts_series = list(minute_counts.values())
+        counts_series: list[float] = list(minute_counts.values())
         for lag in [5, 10, 15, 30]:  # Cycles de 5, 10, 15, 30 minutes
             if len(counts_series) > lag * 2:
                 correlation = self._calculate_lag_correlation(counts_series, lag)
@@ -239,9 +239,9 @@ class BehavioralAnalyzer:
     """Analyseur de patterns comportementaux"""
 
     def __init__(self):
-        self.user_sessions = defaultdict(dict)
+        self.user_sessions: defaultdict[str, dict[str, Any]] = defaultdict(dict)
         self.action_sequences = defaultdict(list)
-        self.user_profiles = defaultdict(dict)
+        self.user_profiles: defaultdict[str, dict[str, Any]] = defaultdict(dict)
 
     def analyze_behavioral_patterns(self, events: list[dict]) -> list[DetectedPattern]:
         """Analyse les patterns comportementaux"""
@@ -381,7 +381,7 @@ class BehavioralAnalyzer:
 
     def _detect_user_clusters(self) -> list[DetectedPattern]:
         """Détecte les groupes d'utilisateurs similaires"""
-        patterns = []
+        patterns: list[DetectedPattern] = []
 
         if len(self.user_profiles) < 3:
             return patterns
@@ -432,7 +432,7 @@ class BehavioralAnalyzer:
 
     def _simple_clustering(self, user_vectors: dict, threshold: float = 0.7) -> dict:
         """Clustering simple basé sur similarité"""
-        clusters = defaultdict(list)
+        clusters: defaultdict[int, list[str]] = defaultdict(list)
         cluster_id = 0
 
         for user1, vector1 in user_vectors.items():
@@ -468,7 +468,7 @@ class BehavioralAnalyzer:
         if norm1 == 0 or norm2 == 0:
             return 0.0
 
-        return dot_product / (norm1 * norm2)
+        return float(dot_product / (norm1 * norm2))
 
 
 class PatternAnalyzer:

@@ -87,7 +87,7 @@ class SlidingWindow:
     def __init__(self, rate: int, window_size: int = 60):
         self.rate = rate
         self.window_size = window_size
-        self.requests = deque()
+        self.requests: deque[float] = deque()
 
     def is_allowed(self) -> bool:
         """Vérifie si une requête est autorisée"""

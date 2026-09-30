@@ -39,7 +39,7 @@ class ResponseOptimizer:
 
     def __init__(self, config: OptimizationConfig = None):
         self.config = config or OptimizationConfig()
-        self.optimization_cache = {}
+        self.optimization_cache: dict[str, OptimizationResult] = {}
 
         # Patterns pour l'optimisation
         self.redundancy_patterns = [

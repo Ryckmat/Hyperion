@@ -211,7 +211,8 @@ class StructuredLogger:
         """Obtenir le contexte actuel"""
         if not hasattr(self._local, "context"):
             self._local.context = LogContext(correlation_id=str(uuid.uuid4()))
-        return self._local.context
+        context: LogContext = self._local.context
+        return context
 
     @contextmanager
     def context_manager(self, **kwargs):

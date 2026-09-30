@@ -467,7 +467,7 @@ class EnsembleModelManager:
     ) -> tuple[Any, float]:
         """Vote pondéré par poids et performance"""
 
-        weighted_predictions = {}
+        weighted_predictions: dict[int, dict[Any, float]] = {}
         total_weight = 0
 
         for model_name, pred in predictions.items():
@@ -496,7 +496,7 @@ class EnsembleModelManager:
         # Prédiction finale
         if weighted_predictions:
             final_pred_weights = weighted_predictions[0]
-            final_prediction = max(final_pred_weights, key=final_pred_weights.get)
+            final_prediction = max(final_pred_weights, key=final_pred_weights.__getitem__)
             confidence = final_pred_weights[final_prediction] / total_weight
         else:
             final_prediction = list(predictions.values())[0]

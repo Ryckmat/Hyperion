@@ -506,7 +506,7 @@ class BehavioralAnalyzer:
             p for p in self.detected_patterns if p.last_occurrence > time.time() - 86400
         ]
 
-        pattern_counts = defaultdict(int)
+        pattern_counts: defaultdict[BehaviorType, int] = defaultdict(int)
         for pattern in recent_patterns:
             pattern_counts[pattern.behavior_type] += 1
 

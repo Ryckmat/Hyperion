@@ -392,7 +392,7 @@ class EnhancedRAGPipeline:
         sentences = content.split(".")
 
         # Garder les phrases les plus pertinentes
-        relevant_sentences = []
+        relevant_sentences: list[str] = []
         query_words = set(query.lower().split())
 
         for sentence in sentences:
@@ -482,7 +482,7 @@ class EnhancedRAGPipeline:
             return candidates[0]
 
         # Prendre les parties les plus informatives de chaque candidat
-        fused_parts = []
+        fused_parts: list[str] = []
 
         for i, candidate in enumerate(candidates):
             # Prendre une partie de chaque candidat

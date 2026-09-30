@@ -32,7 +32,7 @@ class QualityMetricsTracker:
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
 
         # Cache en mémoire pour performances
-        self._metrics_cache = {}
+        self._metrics_cache: dict[str, dict] = {}
         self._cache_timestamp = None
         self._cache_ttl_seconds = 30  # Cache 30 secondes
 

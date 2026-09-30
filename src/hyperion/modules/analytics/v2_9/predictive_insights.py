@@ -38,7 +38,7 @@ class PredictiveInsights:
 
         if len(events) > 10:
             # Prédiction simple basée sur tendances
-            event_counts = {}
+            event_counts: dict[str, int] = {}
             for event in events:
                 event_type = event.get("event_type", "unknown")
                 event_counts[event_type] = event_counts.get(event_type, 0) + 1
@@ -70,7 +70,7 @@ class PredictiveEngine:
 
         if len(events) > 10:
             # Prédiction simple basée sur tendances
-            event_counts = {}
+            event_counts: dict[str, int] = {}
             for event in events:
                 event_type = event.get("event_type", "unknown")
                 event_counts[event_type] = event_counts.get(event_type, 0) + 1

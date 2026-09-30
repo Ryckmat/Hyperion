@@ -197,7 +197,7 @@ class FeatureStore:
 
             # Charger features
             with open(features_path, "rb") as f:
-                features = pickle.load(f)
+                features: dict[str, Any] = pickle.load(f)
 
             print(f"✅ Features récupérées du cache: {feature_set_id}")
 

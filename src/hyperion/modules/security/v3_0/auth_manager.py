@@ -598,14 +598,14 @@ class AuthManager:
     async def _verify_password(self, password: str, password_hash: str) -> bool:
         """Vérifier mot de passe avec bcrypt"""
         try:
-            return bcrypt.checkpw(password.encode("utf-8"), password_hash.encode("utf-8"))
+            return bool(bcrypt.checkpw(password.encode("utf-8"), password_hash.encode("utf-8")))
         except Exception:
             return False
 
     async def _hash_password(self, password: str) -> str:
         """Hasher mot de passe avec bcrypt"""
         salt = bcrypt.gensalt(rounds=self.bcrypt_rounds)
-        hashed = bcrypt.hashpw(password.encode("utf-8"), salt)
+        hashed: bytes = bcrypt.hashpw(password.encode("utf-8"), salt)
         return hashed.decode("utf-8")
 
     async def _verify_mfa(self, user: User, code: str) -> bool:

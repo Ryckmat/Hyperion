@@ -247,7 +247,7 @@ class GitRepo:
             Nom du langage détecté ou "unknown"
         """
         # Compter les fichiers par extension
-        extensions = {}
+        extensions: dict[str, int] = {}
 
         try:
             lines = self._run_git("ls-files")

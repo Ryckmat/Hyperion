@@ -248,7 +248,7 @@ class IntelligenceEngine:
         """Détection de patterns temporels"""
 
         # Analyser les événements par heure
-        hourly_counts = defaultdict(int)
+        hourly_counts: defaultdict[int, int] = defaultdict(int)
 
         current_time = time.time()
         day_ago = current_time - (24 * 3600)
@@ -357,7 +357,7 @@ class IntelligenceEngine:
                 user_sequences[event.user_id].append(action)
 
         # Détecter patterns de navigation communs
-        common_sequences = defaultdict(int)
+        common_sequences: defaultdict[tuple[str, ...], int] = defaultdict(int)
 
         for user_actions in user_sequences.values():
             for i in range(len(user_actions) - 2):
@@ -751,7 +751,7 @@ class IntelligenceEngine:
         unique_users = len({e.user_id for e in period_events if e.user_id})
 
         # Top événements
-        event_counts = defaultdict(int)
+        event_counts: defaultdict[str, int] = defaultdict(int)
         for event in period_events:
             event_counts[event.event_type] += 1
 

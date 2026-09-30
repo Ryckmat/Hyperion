@@ -237,9 +237,9 @@ class ModelOptimizer:
     ) -> OptimizationResult:
         """Optimisation bayésienne (implémentation simplifiée)"""
         # Pour cette version simplifiée, on utilise une stratégie adaptative
-        best_params = {}
+        best_params: dict[str, Any] = {}
         best_score = -np.inf
-        optimization_history = []
+        optimization_history: list[dict[str, Any]] = []
 
         # Commencer par des échantillons aléatoires
         initial_samples = min(10, self.config.max_iterations // 4)
@@ -452,7 +452,7 @@ class ModelOptimizer:
                 # Cross-validation sur l'ensemble d'entraînement
                 score = self._cross_validate_model(model, X_train, y_train)
 
-            return score
+            return float(score)
 
         except Exception as e:
             logger.warning(f"Erreur évaluation modèle: {e}")
@@ -466,7 +466,7 @@ class ModelOptimizer:
             scores = cross_val_score(
                 model, X, y, cv=self.config.cv_folds, scoring=self.config.scoring_metric
             )
-            return scores.mean()
+            return float(scores.mean())
         except ImportError:
             # Validation croisée manuelle simple
             from sklearn.model_selection import KFold
@@ -490,11 +490,11 @@ class ModelOptimizer:
 
                 scores.append(score)
 
-            return np.mean(scores)
+            return float(np.mean(scores))
         except Exception:
             # Fallback: score sur l'ensemble d'entraînement
             if hasattr(model, "score"):
-                return model.score(X, y)
+                return float(model.score(X, y))
             else:
                 predictions = model.predict(X)
                 return self._calculate_score(y, predictions)
@@ -502,14 +502,14 @@ class ModelOptimizer:
     def _calculate_score(self, y_true: np.ndarray, y_pred: np.ndarray) -> float:
         """Calcule un score simple"""
         if self.config.scoring_metric == "accuracy":
-            return np.mean(y_true == y_pred)
+            return float(np.mean(y_true == y_pred))
         elif self.config.scoring_metric == "mse":
-            return -np.mean((y_true - y_pred) ** 2)
+            return float(-np.mean((y_true - y_pred) ** 2))
         elif self.config.scoring_metric == "mae":
-            return -np.mean(np.abs(y_true - y_pred))
+            return float(-np.mean(np.abs(y_true - y_pred)))
         else:
             # Défaut: accuracy pour classification
-            return np.mean(y_true == y_pred)
+            return float(np.mean(y_true == y_pred))
 
     def get_optimization_history(self) -> list[OptimizationResult]:
         """Retourne l'historique des optimisations"""

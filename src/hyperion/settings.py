@@ -171,7 +171,8 @@ class Settings(BaseSettings):
         """Charge les filtres depuis config/filters.yaml."""
         filters_path = self.config_dir / "filters.yaml"
         if filters_path.exists():
-            return yaml.safe_load(filters_path.read_text())
+            filters: dict = yaml.safe_load(filters_path.read_text())
+            return filters
 
         # Filtres par défaut
         return {

@@ -526,7 +526,7 @@ class ContextManager:
 
     def _get_most_common_topics(self) -> list[str]:
         """Obtenir les topics les plus communs"""
-        topic_counts = {}
+        topic_counts: dict[str, int] = {}
 
         for context in self.active_contexts.values():
             for topic in context.active_topics:

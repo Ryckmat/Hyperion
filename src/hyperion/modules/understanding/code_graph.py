@@ -70,7 +70,7 @@ class CodeGraph:
     """
 
     def __init__(self):
-        self.graph = nx.DiGraph()
+        self.graph: nx.DiGraph[str] = nx.DiGraph()
         self.nodes: dict[str, CodeNode] = {}
         self.edges: dict[tuple[str, str], CodeEdge] = {}
         self.logger = get_logger("hyperion.code_graph")
@@ -531,7 +531,7 @@ class CodeGraph:
         Returns:
             Ensemble des dépendances
         """
-        dependencies = set()
+        dependencies: set[str] = set()
 
         if node_id not in self.graph:
             return dependencies

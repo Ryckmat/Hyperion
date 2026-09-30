@@ -3,6 +3,7 @@
 import re
 from collections import Counter
 from pathlib import Path
+from typing import Any
 
 from hyperion.settings import FILTERS
 from hyperion.utils.git_utils import GitRepo
@@ -139,7 +140,7 @@ class GitAnalyzer:
             Liste dédupliquée et triée par nombre de commits
         """
         # Agrégation par nom canonique
-        aggregated = {}
+        aggregated: dict[str, dict[str, Any]] = {}
 
         for c in contributors:
             name = self._normalize_name(c["name"])
@@ -217,7 +218,7 @@ class GitAnalyzer:
         Returns:
             Liste triée (path, total_changes) des hotspots
         """
-        changes = Counter()
+        changes: Counter[str] = Counter()
 
         for add, delete, path in numstat:
             # Normaliser le chemin
@@ -273,8 +274,8 @@ class GitAnalyzer:
         Returns:
             Liste de {"ext": ".py", "files": 99, "changes": 63769}
         """
-        ext_files = {}  # {".py": {"fichiers_set", total_changes}}
-        ext_changes = Counter()
+        ext_files: dict[str, set[str]] = {}  # {".py": {"fichiers_set", total_changes}}
+        ext_changes: Counter[str] = Counter()
 
         for add, delete, path in numstat:
             path = self._normalize_path(path)
@@ -307,7 +308,7 @@ class GitAnalyzer:
         Returns:
             Liste de {"dir": "requests", "changes": 38075}
         """
-        dir_changes = Counter()
+        dir_changes: Counter[str] = Counter()
 
         for add, delete, path in numstat:
             path = self._normalize_path(path)
