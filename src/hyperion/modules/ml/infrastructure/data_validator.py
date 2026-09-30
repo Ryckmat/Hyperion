@@ -140,8 +140,11 @@ class DataValidator:
         self._validate_data_quality(df, result)
 
         # Validation target si fournie
-        if target_column and target_column in df.columns:
-            self._validate_target(df[target_column], result)
+        if target_column:
+            if target_column in df.columns:
+                self._validate_target(df[target_column], result)
+            else:
+                result.errors.append(f"Colonne target absente: {target_column}")
 
         # Validation distributions
         self._validate_distributions(df, result)

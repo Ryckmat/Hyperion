@@ -8,6 +8,7 @@ Plateforme d'analyse de dépôts Git : profilage, RAG (Qdrant + Ollama), graphe 
 - `src/hyperion/api/` : API FastAPI (`main.py`, `v2_endpoints.py`, `openai_compat.py`)
 - `src/hyperion/modules/` : un sous-dossier par domaine (rag, anomaly, impact, quality, gateway, cache, security, ml...)
 - `tests/` : `unit/`, `integration/`, `api/`, `rag/`, `e2e/`, `benchmarks/`, `validation/`
+- `src/hyperion/modules/ml/tests/` : tests du module ml, exécutés aussi par la CI
 - `eval/` : évaluation RAG (`eval/run.py`, suites YAML dans `eval/suites/`)
 - `scripts/` : déploiement, docker, setup, maintenance
 - `modeles/`, `mlruns/`, `models/` : artefacts ML, ne pas modifier à la main
@@ -17,6 +18,7 @@ Plateforme d'analyse de dépôts Git : profilage, RAG (Qdrant + Ollama), graphe 
 pip install -e ".[all]"                  # installation dev
 python3 -m pytest tests/unit -q                     # tests rapides
 python3 -m pytest tests/ -m "not slow and not e2e"  # hors tests lents
+python3 -m pytest tests/ src/hyperion/modules/      # suite complète, comme la CI
 python3 -m black --check src/ tests/                # format (CI)
 python3 -m ruff check src/ tests/                   # lint (CI)
 python3 -m mypy src/                                # typage (non bloquant en CI)

@@ -9,7 +9,7 @@ export PIP_IGNORE_INSTALLED=1
 cd "$CLAUDE_PROJECT_DIR"
 
 # Conteneur déjà préparé (reprise de session) : rien à faire
-python3 -c "import hyperion, torch, pytest_cov, black" 2>/dev/null && exit 0
+python3 -c "import hyperion, torch, pytest_cov, black, xgboost, bcrypt, pyotp, jwt" 2>/dev/null && exit 0
 
 # torch en version CPU (évite plusieurs Go de CUDA) ; repli sur PyPI si l'index PyTorch est bloqué
 if ! python3 -c "import torch" 2>/dev/null; then
