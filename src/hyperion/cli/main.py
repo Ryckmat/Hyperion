@@ -300,7 +300,7 @@ def services(profile: str, detach: bool):
     help="Format d'affichage",
     type=click.Choice(["detailed", "compact"]),
 )
-def status():
+def status(format: str):
     """
     Affiche le statut des services Hyperion
 

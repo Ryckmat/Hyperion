@@ -79,6 +79,9 @@ security = [
     "cryptography>=41.0.0",
     "pydantic-settings>=2.0.0",
     "structlog>=24.0.0",
+    "bcrypt>=4.0.0",
+    "pyotp>=2.9.0",
+    "PyJWT>=2.8.0",
 ]
 
 ml = [

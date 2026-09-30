@@ -135,7 +135,7 @@ class Neo4jV2GitIngester:
 
         result = subprocess.run(cmd, capture_output=True, text=True, check=True)
 
-        contributors = {}
+        contributors: dict[str, dict[str, Any]] = {}
         for line in result.stdout.strip().split("\n"):
             if "|" in line:
                 email, name = line.split("|", 1)

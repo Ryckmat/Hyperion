@@ -219,7 +219,7 @@ class MemoryBackend(CacheBackend):
         elif self.strategy == CacheStrategy.LFU:
             # Supprimer le moins fréquemment utilisé
             if self.access_frequency:
-                lfu_key = min(self.access_frequency, key=self.access_frequency.get)
+                lfu_key = min(self.access_frequency, key=self.access_frequency.__getitem__)
                 await self.delete(lfu_key)
 
         elif self.strategy == CacheStrategy.TTL:
@@ -393,7 +393,7 @@ class DistributedCacheManager:
         self.executor = ThreadPoolExecutor(max_workers=4)
 
         # Métriques de performance
-        self.performance_history: list[dict[str, float]] = []
+        self.performance_history: list[dict[str, Any]] = []
 
         logger.info("DistributedCacheManager v3.0 initialisé")
 
@@ -744,7 +744,11 @@ class DistributedCacheManager:
     async def optimize_cache_levels(self) -> dict[str, Any]:
         """Optimisation automatique des niveaux de cache"""
 
-        optimization_results = {"l1_promoted": 0, "l1_demoted": 0, "recommendations": []}
+        optimization_results: dict[str, Any] = {
+            "l1_promoted": 0,
+            "l1_demoted": 0,
+            "recommendations": [],
+        }
 
         # Analyser les patterns d'accès
         if CacheLevel.L2_REDIS in self.backends and CacheLevel.L1_MEMORY in self.backends:
@@ -779,7 +783,11 @@ class DistributedCacheManager:
     async def health_check(self) -> dict[str, Any]:
         """Vérification de santé du cache"""
 
-        health_status = {"overall_status": "healthy", "backends_status": {}, "issues": []}
+        health_status: dict[str, Any] = {
+            "overall_status": "healthy",
+            "backends_status": {},
+            "issues": [],
+        }
 
         # Tester chaque backend
         for level, backend in self.backends.items():

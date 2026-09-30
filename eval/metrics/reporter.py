@@ -109,7 +109,7 @@ class EvaluationReporter:
         latencies = [r.latency_ms for r in results if r.latency_ms is not None]
         confidences = [r.confidence_score for r in results if r.confidence_score is not None]
 
-        stats = {}
+        stats: Dict[str, Any] = {}
 
         if latencies:
             stats["latency"] = {
@@ -130,7 +130,7 @@ class EvaluationReporter:
             }
 
         # Analyse par catégorie si disponible
-        categories = {}
+        categories: Dict[str, Dict[str, Any]] = {}
         for result in results:
             category = result.metadata.get("category", "unknown")
             if category not in categories:

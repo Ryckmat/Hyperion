@@ -228,7 +228,13 @@ class RAGEvaluator:
 
         return results
 
-    def generate_reports(self, results: List[TestResult], suite_name: str, output_formats: List[str]) -> List[str]:
+    def generate_reports(
+        self,
+        results: List[TestResult],
+        suite_name: str,
+        output_formats: List[str],
+        output_dir: Optional[str] = None,
+    ) -> List[str]:
         """
         Génère les rapports dans les formats demandés.
 
@@ -236,10 +242,15 @@ class RAGEvaluator:
             results: Résultats des tests
             suite_name: Nom de la suite
             output_formats: Formats de sortie ('json', 'markdown', 'html')
+            output_dir: Dossier de sortie (par défaut celui du reporter)
 
         Returns:
             Liste des chemins des rapports générés
         """
+        if output_dir is not None:
+            self.reporter.output_dir = Path(output_dir)
+            self.reporter.output_dir.mkdir(parents=True, exist_ok=True)
+
         report = self.reporter.analyze_results(results, suite_name)
         generated_files = []
 

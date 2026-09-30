@@ -39,7 +39,7 @@ class RequestRouter:
         self.patterns: list[dict] = []
 
     def add_route(
-        self, route_id: str, pattern: str, backend: str, methods: list[HTTPMethod] = None
+        self, route_id: str, pattern: str, backend: str, methods: list[HTTPMethod] | None = None
     ):
         """Ajoute une route"""
         if methods is None:

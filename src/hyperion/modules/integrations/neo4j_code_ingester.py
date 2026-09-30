@@ -43,7 +43,9 @@ class Neo4jCodeIngester:
         """Ferme la connexion Neo4j."""
         self.driver.close()
 
-    def ingest_repo_code(self, repo_path: str | Path, repo_name: str = None) -> dict[str, int]:
+    def ingest_repo_code(
+        self, repo_path: str | Path, repo_name: str | None = None
+    ) -> dict[str, int]:
         """
         Ingère tout le code source dans Neo4j v2.
 

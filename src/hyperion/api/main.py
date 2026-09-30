@@ -1,5 +1,7 @@
 """API REST Hyperion - Backend FastAPI avec monitoring qualité v2.8."""
 
+from typing import Any
+
 import yaml
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -16,7 +18,7 @@ DATA_DIR = settings.data_dir
 try:
     from hyperion.modules.integrations.neo4j_ingester import Neo4jIngester
 except ModuleNotFoundError:
-    Neo4jIngester = None
+    Neo4jIngester = None  # type: ignore[assignment,misc]
 
 # Import système de monitoring qualité v2.8
 try:
@@ -128,7 +130,7 @@ def read_root():
 @app.get("/api/health")
 def health_check():
     """Health check API + Neo4j + RAG optimisé."""
-    status = {
+    status: dict[str, Any] = {
         "status": "healthy",
         "api": "ok",
         "neo4j": "unknown",
@@ -399,7 +401,7 @@ app.include_router(v2_router)
 
 
 @app.get("/api/quality/metrics")
-def get_quality_metrics(hours: int = 24, repo: str = None):
+def get_quality_metrics(hours: int = 24, repo: str | None = None):
     """
     Obtenir métriques qualité des réponses sur une période.
 
@@ -429,7 +431,7 @@ def get_quality_metrics(hours: int = 24, repo: str = None):
 
 
 @app.get("/api/quality/trends")
-def get_quality_trends(days: int = 7, repo: str = None):
+def get_quality_trends(days: int = 7, repo: str | None = None):
     """
     Obtenir tendances qualité pour graphiques.
 

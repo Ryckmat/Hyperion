@@ -376,6 +376,11 @@ async def analyze_impact(request: ImpactAnalysisRequest):
 @router.post("/anomaly/scan")
 async def scan_anomalies(request: AnomalyRequest):
     """Détection d'anomalies dans le code."""
+    # types à null : même comportement que la valeur par défaut (tous les types)
+    scan_types = (
+        request.types if request.types is not None else AnomalyRequest.model_fields["types"].default
+    )
+
     try:
         ingester = Neo4jCodeIngester()
 
@@ -383,7 +388,7 @@ async def scan_anomalies(request: AnomalyRequest):
 
         with ingester.driver.session(database=ingester.database) as session:
             # Anomalie : Fonctions avec beaucoup d'arguments
-            if "complexity" in request.types:
+            if "complexity" in scan_types:
                 result = session.run(
                     """
                     MATCH (f:Function {repo: $repo})
@@ -409,7 +414,7 @@ async def scan_anomalies(request: AnomalyRequest):
                     )
 
             # Anomalie : Fichiers avec beaucoup de fonctions
-            if "size" in request.types:
+            if "size" in scan_types:
                 result = session.run(
                     """
                     MATCH (file:File {repo: $repo})-[:CONTAINS]->(f:Function)
@@ -523,7 +528,7 @@ async def health_check_v2():
 
 
 @router.get("/repos/{repo_name}/search")
-async def search_repo_code(repo_name: str, query: str, type: str = None, limit: int = 10):
+async def search_repo_code(repo_name: str, query: str, type: str | None = None, limit: int = 10):
     """Recherche GET dans le code d'un repo."""
     try:
         ingester = Neo4jCodeIngester()

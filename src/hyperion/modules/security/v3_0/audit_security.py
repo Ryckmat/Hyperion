@@ -308,8 +308,8 @@ class SecurityAuditor:
     def perform_full_audit(
         self,
         target_path: str,
-        compliance_frameworks: list[str] = None,
-        system_config: dict[str, Any] = None,
+        compliance_frameworks: list[str] | None = None,
+        system_config: dict[str, Any] | None = None,
     ) -> SecurityAuditReport:
         """Effectue un audit de sécurité complet"""
         audit_id = hashlib.sha256(f"{target_path}:{time.time()}".encode()).hexdigest()[:12]

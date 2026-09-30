@@ -52,8 +52,8 @@ class GraphMetrics:
     avg_clustering: float
     max_depth: int
     cyclomatic_complexity: int
-    coupling_metrics: dict[str, float]
-    cohesion_metrics: dict[str, float]
+    coupling_metrics: dict[str, dict[str, float]]
+    cohesion_metrics: dict[str, dict[str, float]]
 
 
 class CodeGraph:
@@ -425,7 +425,7 @@ class CodeGraph:
 
         return max_depth
 
-    def _calculate_coupling_metrics(self) -> dict[str, float]:
+    def _calculate_coupling_metrics(self) -> dict[str, dict[str, float]]:
         """Calcule les métriques de couplage."""
         metrics = {}
 
@@ -464,7 +464,7 @@ class CodeGraph:
 
         return metrics
 
-    def _calculate_cohesion_metrics(self) -> dict[str, float]:
+    def _calculate_cohesion_metrics(self) -> dict[str, dict[str, float]]:
         """Calcule les métriques de cohésion."""
         metrics = {}
 
@@ -520,7 +520,7 @@ class CodeGraph:
         except nx.NetworkXNoPath:
             return None
 
-    def get_node_dependencies(self, node_id: str, max_depth: int = None) -> set[str]:
+    def get_node_dependencies(self, node_id: str, max_depth: int | None = None) -> set[str]:
         """
         Obtient toutes les dépendances d'un nœud.
 
@@ -554,7 +554,7 @@ class CodeGraph:
 
         return dependencies
 
-    def export_to_dot(self, output_path: str | Path, include_types: set[str] = None) -> None:
+    def export_to_dot(self, output_path: str | Path, include_types: set[str] | None = None) -> None:
         """
         Exporte le graphe en format DOT pour Graphviz.
 

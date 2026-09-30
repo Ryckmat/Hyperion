@@ -37,7 +37,7 @@ class FeatureMapper:
             Liste de localisations code avec scores
         """
         # TODO: Implémenter recherche sémantique via embeddings
-        results = []
+        results: list[dict[str, Any]] = []
 
         # Recherche simple par mots-clés (à remplacer par embeddings)
         keywords = set(feature_description.lower().split())

@@ -40,7 +40,7 @@ class EncryptionConfig:
 class EncryptionService:
     """Service de chiffrement enterprise avec rotation des clés"""
 
-    def __init__(self, config: EncryptionConfig = None):
+    def __init__(self, config: EncryptionConfig | None = None):
         self.config = config or EncryptionConfig()
         self.master_key: bytes | None = None
         self.keys_cache: dict[str, Fernet] = {}
@@ -297,7 +297,7 @@ class EncryptionService:
 class AdvancedEncryptionService(EncryptionService):
     """Service de chiffrement avancé avec fonctionnalités enterprise"""
 
-    def __init__(self, config: EncryptionConfig = None):
+    def __init__(self, config: EncryptionConfig | None = None):
         super().__init__(config)
         self.audit_log: list[dict[str, Any]] = []
 
