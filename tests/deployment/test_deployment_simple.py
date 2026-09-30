@@ -275,11 +275,14 @@ class SimpleDeploymentTest:
         print("\n🤖 Test ML Ensemble v2.9...")
 
         try:
+            import tempfile
+
             import numpy as np
 
             from hyperion.modules.ml.v2_9.ensemble_models import EnsembleModel, EnsembleModelManager
 
-            manager = EnsembleModelManager()
+            # Hors de models/ pour ne pas écraser les artefacts
+            manager = EnsembleModelManager(models_directory=tempfile.mkdtemp())
 
             # Ajouter modèle de test
             test_model = EnsembleModel(
