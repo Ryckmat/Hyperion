@@ -130,8 +130,8 @@ class HyperionDeployment:
         required_files = [
             "src/hyperion/__version__.py",
             "src/hyperion/modules/monitoring/metrics/prometheus_exporter.py",
-            "src/hyperion/modules/cache/v3_0/distributed_cache.py",
-            "src/hyperion/modules/security/v3_0/auth_manager.py"
+            "src/hyperion/modules/cache/distributed_cache.py",
+            "src/hyperion/modules/security/auth_manager.py"
         ]
 
         for file_path in required_files:
@@ -221,7 +221,7 @@ class HyperionDeployment:
         """Déployer le cache distribué v3.0"""
         print("   💾 Lancement Cache Distribué v3.0...")
 
-        from hyperion.modules.cache.v3_0.distributed_cache import DistributedCacheManager
+        from hyperion.modules.cache.distributed_cache import DistributedCacheManager
 
         # Cache avec L1 seulement (pas de Redis pour demo)
         self.cache_manager = DistributedCacheManager(
@@ -245,7 +245,7 @@ class HyperionDeployment:
         print("   🔐 Lancement Sécurité v3.0...")
 
         import secrets
-        from hyperion.modules.security.v3_0.auth_manager import AuthManager
+        from hyperion.modules.security.auth_manager import AuthManager
 
         # Auth Manager avec clé secrète
         self.auth_manager = AuthManager(jwt_secret=secrets.token_urlsafe(32))
@@ -276,7 +276,7 @@ class HyperionDeployment:
         """Déployer l'API Gateway v3.0"""
         print("   🌐 Lancement API Gateway v3.0...")
 
-        from hyperion.modules.gateway.v3_0.api_gateway import APIGateway, Route, HTTPMethod
+        from hyperion.modules.gateway.api_gateway import APIGateway, Route, HTTPMethod
 
         self.api_gateway = APIGateway(
             enable_auth=True,
@@ -326,8 +326,8 @@ class HyperionDeployment:
         """Déployer le RAG Pipeline v2.9"""
         print("   🔍 Lancement RAG Pipeline v2.9...")
 
-        from hyperion.modules.rag.v2_9.enhanced_pipeline import EnhancedRAGPipeline, RAGConfig
-        from hyperion.modules.rag.v2_9.context_manager import ContextManager
+        from hyperion.modules.rag.enhanced_pipeline import EnhancedRAGPipeline, RAGConfig
+        from hyperion.modules.rag.context_manager import ContextManager
 
         # Configuration RAG optimisée
         config = RAGConfig(
@@ -359,7 +359,7 @@ class HyperionDeployment:
         """Déployer les modèles ML v2.9"""
         print("   🤖 Lancement ML Ensemble v2.9...")
 
-        from hyperion.modules.ml.v2_9.ensemble_models import EnsembleModelManager, EnsembleModel
+        from hyperion.modules.ml.ensemble_models import EnsembleModelManager, EnsembleModel
 
         self.ml_manager = EnsembleModelManager()
 
@@ -397,7 +397,7 @@ class HyperionDeployment:
         """Déployer l'intelligence analytics v2.9"""
         print("   📈 Lancement Analytics v2.9...")
 
-        from hyperion.modules.analytics.v2_9.intelligence_engine import IntelligenceEngine, create_event
+        from hyperion.modules.analytics.intelligence_engine import IntelligenceEngine, create_event
 
         self.analytics_engine = IntelligenceEngine(enable_real_time_analysis=True)
         self.analytics_engine.start_real_time_analysis()
@@ -485,7 +485,7 @@ class HyperionDeployment:
             assert cached_profile is not None, "Cache failed"
 
             # Test gateway avec auth
-            from hyperion.modules.gateway.v3_0.api_gateway import Request, HTTPMethod
+            from hyperion.modules.gateway.api_gateway import Request, HTTPMethod
             request = Request(
                 method=HTTPMethod.GET,
                 path="/api/v1/health",
@@ -515,7 +515,7 @@ class HyperionDeployment:
             assert rag_response.answer, "RAG query failed"
 
             # Enregistrer événement analytics
-            from hyperion.modules.analytics.v2_9.intelligence_engine import create_event
+            from hyperion.modules.analytics.intelligence_engine import create_event
             rag_event = create_event(
                 "rag_query",
                 "pipeline",
@@ -720,7 +720,7 @@ class HyperionDeployment:
                     print(f"   📊 Health: {health['overall_status']} | Events: {dashboard.get('events_last_minute', 0)}")
 
                 # Générer activité
-                from hyperion.modules.analytics.v2_9.intelligence_engine import create_event
+                from hyperion.modules.analytics.intelligence_engine import create_event
                 activity_event = create_event(
                     "system_activity",
                     "production",

@@ -1,5 +1,5 @@
 """
-Tests pour les modules ML d'Hyperion v3.0.
+Tests pour les modules ML d'Hyperion.
 
 Tests complets de l'infrastructure ML incluant:
 - Configuration ML

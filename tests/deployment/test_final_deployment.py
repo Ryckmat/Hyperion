@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test Final de Déploiement Hyperion v2.9 + v3.0
+Test Final de Déploiement Hyperion
 Test complet et final de l'architecture enterprise
 """
 
@@ -22,7 +22,7 @@ class HyperionFinalTest:
 
     async def run_comprehensive_test(self):
         """Lance le test complet"""
-        print("🌟 HYPERION v2.9 + v3.0 - TEST FINAL DE DÉPLOIEMENT")
+        print("🌟 HYPERION - TEST FINAL DE DÉPLOIEMENT")
         print("=" * 70)
         print("Architecture Enterprise - Validation Production")
         print("=" * 70)
@@ -46,13 +46,13 @@ class HyperionFinalTest:
     async def test_core_components(self):
         """Test des composants principaux"""
         components = [
-            ("Monitoring v3.0", self.test_monitoring_core),
-            ("Cache v3.0", self.test_cache_core),
-            ("Security v3.0", self.test_security_core),
-            ("Gateway v3.0", self.test_gateway_core),
-            ("RAG v2.9", self.test_rag_core),
-            ("ML v2.9", self.test_ml_core),
-            ("Analytics v2.9", self.test_analytics_core),
+            ("Monitoring", self.test_monitoring_core),
+            ("Cache", self.test_cache_core),
+            ("Security", self.test_security_core),
+            ("Gateway", self.test_gateway_core),
+            ("RAG", self.test_rag_core),
+            ("ML", self.test_ml_core),
+            ("Analytics", self.test_analytics_core),
         ]
 
         for component_name, test_func in components:
@@ -66,7 +66,7 @@ class HyperionFinalTest:
                 print(f"   {component_name:<20} ❌ ERROR: {str(e)[:50]}...")
 
     async def test_monitoring_core(self) -> bool:
-        """Test du monitoring v3.0"""
+        """Test du monitoring"""
         try:
             from hyperion.modules.monitoring.logging.structured_logger import StructuredLogger
 
@@ -84,9 +84,9 @@ class HyperionFinalTest:
             return False
 
     async def test_cache_core(self) -> bool:
-        """Test du cache v3.0"""
+        """Test du cache"""
         try:
-            from hyperion.modules.cache.v3_0.cache_strategies import LRUStrategy
+            from hyperion.modules.cache.cache_strategies import LRUStrategy
 
             strategy = LRUStrategy(max_size=10)
             strategy.record_access("test_key")
@@ -96,7 +96,7 @@ class HyperionFinalTest:
             return False
 
     async def test_security_core(self) -> bool:
-        """Test de la sécurité v3.0"""
+        """Test de la sécurité"""
         try:
             # Test simple sans dépendances JWT
             import secrets
@@ -107,9 +107,9 @@ class HyperionFinalTest:
             return False
 
     async def test_gateway_core(self) -> bool:
-        """Test de l'API Gateway v3.0"""
+        """Test de l'API Gateway"""
         try:
-            from hyperion.modules.gateway.v3_0.rate_limiter import RateLimit, RateLimiter
+            from hyperion.modules.gateway.rate_limiter import RateLimit, RateLimiter
 
             RateLimiter()  # Test instantiation
             RateLimit(requests_per_second=10, burst_capacity=20)  # Test instantiation
@@ -119,9 +119,9 @@ class HyperionFinalTest:
             return False
 
     async def test_rag_core(self) -> bool:
-        """Test du RAG v2.9"""
+        """Test du RAG"""
         try:
-            from hyperion.modules.rag.v2_9.response_optimizer import ResponseOptimizer
+            from hyperion.modules.rag.response_optimizer import ResponseOptimizer
 
             optimizer = ResponseOptimizer()
             result = await optimizer.optimize_response("Test response for optimization")
@@ -131,9 +131,9 @@ class HyperionFinalTest:
             return False
 
     async def test_ml_core(self) -> bool:
-        """Test du ML v2.9"""
+        """Test du ML"""
         try:
-            from hyperion.modules.ml.v2_9.adaptive_training import AdaptiveTrainer
+            from hyperion.modules.ml.adaptive_training import AdaptiveTrainer
 
             trainer = AdaptiveTrainer()
             summary = trainer.get_training_summary()
@@ -143,9 +143,9 @@ class HyperionFinalTest:
             return False
 
     async def test_analytics_core(self) -> bool:
-        """Test de l'analytics v2.9"""
+        """Test de l'analytics"""
         try:
-            from hyperion.modules.analytics.v2_9.pattern_analysis import PatternAnalyzer
+            from hyperion.modules.analytics.pattern_analysis import PatternAnalyzer
 
             analyzer = PatternAnalyzer()
             patterns = analyzer.analyze_patterns([])
@@ -176,7 +176,7 @@ class HyperionFinalTest:
     async def integration_cache_monitoring(self) -> bool:
         """Intégration Cache + Monitoring"""
         try:
-            from hyperion.modules.cache.v3_0.cache_strategies import LRUStrategy
+            from hyperion.modules.cache.cache_strategies import LRUStrategy
             from hyperion.modules.monitoring.logging.structured_logger import StructuredLogger
 
             cache_strategy = LRUStrategy(max_size=5)
@@ -192,7 +192,7 @@ class HyperionFinalTest:
     async def integration_security_gateway(self) -> bool:
         """Intégration Security + Gateway"""
         try:
-            from hyperion.modules.gateway.v3_0.rate_limiter import RateLimit, global_rate_limiter
+            from hyperion.modules.gateway.rate_limiter import RateLimit, global_rate_limiter
 
             rate_limit = RateLimit(requests_per_second=5, burst_capacity=10)
             global_rate_limiter.add_rate_limit("security_test", rate_limit)
@@ -204,8 +204,8 @@ class HyperionFinalTest:
     async def integration_rag_analytics(self) -> bool:
         """Intégration RAG + Analytics"""
         try:
-            from hyperion.modules.analytics.v2_9.pattern_analysis import default_pattern_analyzer
-            from hyperion.modules.rag.v2_9.response_optimizer import default_optimizer
+            from hyperion.modules.analytics.pattern_analysis import default_pattern_analyzer
+            from hyperion.modules.rag.response_optimizer import default_optimizer
 
             # Test simple d'optimisation
             result = await default_optimizer.optimize_response("Test integration response")
@@ -221,8 +221,8 @@ class HyperionFinalTest:
     async def integration_ml_cache(self) -> bool:
         """Intégration ML + Cache"""
         try:
-            from hyperion.modules.cache.v3_0.cache_strategies import default_adaptive_strategy
-            from hyperion.modules.ml.v2_9.adaptive_training import default_adaptive_trainer
+            from hyperion.modules.cache.cache_strategies import default_adaptive_strategy
+            from hyperion.modules.ml.adaptive_training import default_adaptive_trainer
 
             # Test simple
             summary = default_adaptive_trainer.get_training_summary()
@@ -237,7 +237,7 @@ class HyperionFinalTest:
         print("   🔄 Test de charge cache...")
 
         try:
-            from hyperion.modules.cache.v3_0.cache_strategies import LRUStrategy
+            from hyperion.modules.cache.cache_strategies import LRUStrategy
 
             strategy = LRUStrategy(max_size=100)
 

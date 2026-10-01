@@ -43,7 +43,7 @@ Documentation complète de l'architecture enterprise v3.0 d'Hyperion.
 #### Architecture Interne
 ```python
 # Structure API Gateway
-src/hyperion/modules/gateway/v3_0/
+src/hyperion/modules/gateway/
 ├── api_gateway.py          # Gateway principal
 ├── rate_limiter.py         # Rate limiting
 ├── load_balancer.py        # Load balancing
@@ -86,7 +86,7 @@ cache:
 #### Architecture Interne
 ```python
 # Structure RAG v2.9
-src/hyperion/modules/rag/v2_9/
+src/hyperion/modules/rag/
 ├── enhanced_pipeline.py    # Pipeline principal
 ├── response_optimizer.py   # Optimisation réponses
 ├── context_manager.py      # Gestion contexte
@@ -111,7 +111,7 @@ src/hyperion/modules/rag/v2_9/
 #### Architecture Interne
 ```python
 # Structure Analytics v2.9
-src/hyperion/modules/analytics/v2_9/
+src/hyperion/modules/analytics/
 ├── intelligence_engine.py     # Moteur principal
 ├── pattern_analysis.py        # Analyse patterns
 ├── behavioral_analysis.py     # Analyse comportements
@@ -130,7 +130,7 @@ src/hyperion/modules/analytics/v2_9/
 #### Auth Manager
 ```python
 # Authentification Enterprise
-src/hyperion/modules/security/v3_0/
+src/hyperion/modules/security/
 ├── auth_manager.py         # Gestionnaire auth principal
 ├── jwt_handler.py          # JWT tokens
 ├── session_manager.py      # Sessions utilisateur
@@ -176,7 +176,7 @@ src/hyperion/modules/monitoring/
 #### Architecture Cache
 ```python
 # Cache Distribué
-src/hyperion/modules/cache/v3_0/
+src/hyperion/modules/cache/
 ├── distributed_cache.py       # Cache manager
 ├── cache_strategies.py        # Stratégies éviction
 ├── cache_analytics.py         # Métriques cache

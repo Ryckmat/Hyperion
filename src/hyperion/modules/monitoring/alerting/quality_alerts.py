@@ -1,5 +1,5 @@
 """
-Quality-specific Alerts for Hyperion v3.0
+Quality-specific Alerts for Hyperion
 
 Alertes spécialisées pour la qualité RAG et ML avec seuils intelligents.
 """

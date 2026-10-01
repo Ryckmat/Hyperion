@@ -1,5 +1,5 @@
 """
-Pipeline d'entraînement ML orchestré pour Hyperion v3.0.
+Pipeline d'entraînement ML orchestré pour Hyperion.
 
 Pipeline complet qui gère:
 - Préparation et validation des données

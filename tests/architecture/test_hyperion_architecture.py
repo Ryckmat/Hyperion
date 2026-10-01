@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test Suite for Hyperion v2.9 + v3.0 Architecture
+Test Suite for Hyperion Architecture
 Test complet de l'architecture enterprise
 """
 
@@ -22,38 +22,38 @@ def test_imports():
 
     print(f"   ✅ Version Hyperion: {__version__}")
 
-    # Monitoring v3.0
+    # Monitoring
 
-    print("   ✅ Monitoring v3.0 - OK")
+    print("   ✅ Monitoring - OK")
 
-    # RAG v2.9
+    # RAG
 
-    print("   ✅ RAG Pipeline v2.9 - OK")
+    print("   ✅ RAG Pipeline - OK")
 
-    # ML v2.9
+    # ML
 
-    print("   ✅ ML Ensemble v2.9 - OK")
+    print("   ✅ ML Ensemble - OK")
 
-    # Analytics v2.9
+    # Analytics
 
-    print("   ✅ Analytics v2.9 - OK")
+    print("   ✅ Analytics - OK")
 
-    # Cache v3.0
+    # Cache
 
-    print("   ✅ Cache distribué v3.0 - OK")
+    print("   ✅ Cache distribué - OK")
 
-    # Security v3.0
+    # Security
 
-    print("   ✅ Sécurité v3.0 - OK")
+    print("   ✅ Sécurité - OK")
 
-    # Gateway v3.0
+    # Gateway
 
-    print("   ✅ API Gateway v3.0 - OK")
+    print("   ✅ API Gateway - OK")
 
 
 def test_monitoring_v3():
-    """Test du système de monitoring v3.0"""
-    print("\n📊 Test Monitoring v3.0...")
+    """Test du système de monitoring"""
+    print("\n📊 Test Monitoring...")
 
     from hyperion.modules.monitoring.logging.structured_logger import StructuredLogger
     from hyperion.modules.monitoring.metrics.performance_tracker import PerformanceTracker
@@ -80,11 +80,11 @@ def test_monitoring_v3():
 
 
 def test_cache_v3():
-    """Test du cache distribué v3.0"""
-    print("\n💾 Test Cache Distribué v3.0...")
+    """Test du cache distribué"""
+    print("\n💾 Test Cache Distribué...")
 
     async def _async_test():
-        from hyperion.modules.cache.v3_0.distributed_cache import DistributedCacheManager
+        from hyperion.modules.cache.distributed_cache import DistributedCacheManager
 
         # Initialiser cache
         cache = DistributedCacheManager(
@@ -121,13 +121,13 @@ def test_cache_v3():
 
 
 def test_auth_v3():
-    """Test du système d'authentification v3.0"""
-    print("\n🔐 Test Authentification v3.0...")
+    """Test du système d'authentification"""
+    print("\n🔐 Test Authentification...")
 
     async def _async_test():
         import secrets
 
-        from hyperion.modules.security.v3_0.auth_manager import AuthManager
+        from hyperion.modules.security.auth_manager import AuthManager
 
         # Initialiser gestionnaire auth
         auth = AuthManager(jwt_secret=secrets.token_urlsafe(32))
@@ -169,11 +169,11 @@ def test_auth_v3():
 
 
 def test_gateway_v3():
-    """Test de l'API Gateway v3.0"""
-    print("\n🌐 Test API Gateway v3.0...")
+    """Test de l'API Gateway"""
+    print("\n🌐 Test API Gateway...")
 
     async def _async_test():
-        from hyperion.modules.gateway.v3_0.api_gateway import APIGateway, HTTPMethod, Request, Route
+        from hyperion.modules.gateway.api_gateway import APIGateway, HTTPMethod, Request, Route
 
         # Initialiser gateway
         gateway = APIGateway(enable_auth=False)  # Désactiver auth pour test
@@ -220,12 +220,12 @@ def test_gateway_v3():
 
 
 def test_rag_v29():
-    """Test du pipeline RAG v2.9"""
-    print("\n🔍 Test RAG Pipeline v2.9...")
+    """Test du pipeline RAG"""
+    print("\n🔍 Test RAG Pipeline...")
 
     async def _async_test():
-        from hyperion.modules.rag.v2_9.context_manager import ContextManager
-        from hyperion.modules.rag.v2_9.enhanced_pipeline import EnhancedRAGPipeline, RAGConfig
+        from hyperion.modules.rag.context_manager import ContextManager
+        from hyperion.modules.rag.enhanced_pipeline import EnhancedRAGPipeline, RAGConfig
 
         # Initialiser pipeline RAG
         config = RAGConfig(
@@ -269,18 +269,18 @@ def test_rag_v29():
         result = asyncio.run(_async_test())
         assert result is True
     except Exception as e:
-        print(f"   ❌ Erreur RAG v2.9: {e}")
+        print(f"   ❌ Erreur RAG: {e}")
         raise AssertionError(f"RAG test failed: {e}") from e
 
 
 def test_ml_v29(tmp_path):
-    """Test des modèles ML ensemble v2.9"""
-    print("\n🤖 Test ML Ensemble v2.9...")
+    """Test des modèles ML ensemble"""
+    print("\n🤖 Test ML Ensemble...")
 
     async def _async_test():
         import numpy as np
 
-        from hyperion.modules.ml.v2_9.ensemble_models import EnsembleModel, EnsembleModelManager
+        from hyperion.modules.ml.ensemble_models import EnsembleModel, EnsembleModelManager
 
         # Initialiser gestionnaire ensemble (hors de models/ pour ne pas écraser les artefacts)
         manager = EnsembleModelManager(models_directory=str(tmp_path))
@@ -326,16 +326,16 @@ def test_ml_v29(tmp_path):
         result = asyncio.run(_async_test())
         assert result is True
     except Exception as e:
-        print(f"   ❌ Erreur ML v2.9: {e}")
+        print(f"   ❌ Erreur ML: {e}")
         raise AssertionError(f"ML test failed: {e}") from e
 
 
 def test_analytics_v29():
-    """Test du moteur d'intelligence v2.9"""
-    print("\n📈 Test Analytics v2.9...")
+    """Test du moteur d'intelligence"""
+    print("\n📈 Test Analytics...")
 
     async def _async_test():
-        from hyperion.modules.analytics.v2_9.intelligence_engine import (
+        from hyperion.modules.analytics.intelligence_engine import (
             IntelligenceEngine,
             create_event,
         )
@@ -378,17 +378,17 @@ def test_analytics_v29():
         result = asyncio.run(_async_test())
         assert result is True
     except Exception as e:
-        print(f"   ❌ Erreur Analytics v2.9: {e}")
+        print(f"   ❌ Erreur Analytics: {e}")
         raise AssertionError(f"Analytics test failed: {e}") from e
 
 
 async def run_integration_test():
     """Test d'intégration complet"""
-    print("\n🔄 Test d'intégration Hyperion v2.9 + v3.0...")
+    print("\n🔄 Test d'intégration Hyperion...")
 
     try:
         # Simuler workflow complet
-        from hyperion.modules.cache.v3_0.distributed_cache import distributed_cache
+        from hyperion.modules.cache.distributed_cache import distributed_cache
         from hyperion.modules.monitoring.logging.structured_logger import default_logger
 
         # 1. Logger le début du workflow
@@ -430,7 +430,7 @@ async def run_integration_test():
 
 async def main():
     """Fonction principale de test"""
-    print("🚀 HYPERION v2.9 + v3.0 - TEST SUITE COMPLET")
+    print("🚀 HYPERION - TEST SUITE COMPLET")
     print("=" * 60)
 
     results = {}
@@ -461,7 +461,7 @@ async def main():
     print(f"\n🎯 TAUX DE RÉUSSITE: {passed_tests}/{total_tests} ({success_rate:.1f}%)")
 
     if success_rate >= 90:
-        print("🎉 HYPERION v2.9 + v3.0 - ARCHITECTURE VALIDÉE!")
+        print("🎉 HYPERION - ARCHITECTURE VALIDÉE!")
     elif success_rate >= 75:
         print("⚠️  ARCHITECTURE FONCTIONNELLE AVEC QUELQUES PROBLÈMES")
     else:

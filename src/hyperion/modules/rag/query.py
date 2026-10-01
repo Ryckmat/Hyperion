@@ -23,7 +23,7 @@ from hyperion.modules.rag.config import (
     QUERY_PROMPT_TEMPLATE,
 )
 
-# Import du système de validation qualité v2.8
+# Import du système de validation qualité
 try:
     from hyperion.modules.rag.quality.response_validator import ResponseValidator
 
@@ -53,7 +53,7 @@ class RAGQueryEngine:
         ollama_base_url: str = OLLAMA_BASE_URL,
         ollama_model: str = OLLAMA_MODEL,
     ):
-        """Initialise le query engine avec validation qualité v2.8."""
+        """Initialise le query engine avec validation qualité."""
         # Qdrant client
         self.qdrant_client = QdrantClient(host=qdrant_host, port=qdrant_port)
         self.collection_name = collection_name
@@ -82,12 +82,12 @@ class RAGQueryEngine:
         )
         print("✅ LLM prêt")
 
-        # Système de validation qualité v2.8
+        # Système de validation qualité
         self.enable_validation = os.getenv("ENABLE_RESPONSE_VALIDATION", "true").lower() == "true"
         self.validation_mode = os.getenv("VALIDATION_MODE", "flag")  # "flag" ou "reject"
 
         if self.enable_validation and VALIDATION_AVAILABLE:
-            print("🔍 Initialisation validation qualité v2.8...")
+            print("🔍 Initialisation validation qualité...")
             try:
                 self.response_validator: ResponseValidator | None = ResponseValidator(
                     self.embedding_model
@@ -106,7 +106,7 @@ class RAGQueryEngine:
 
     def query(self, question: str, repo_filter: str | None = None, top_k: int = LLM_TOP_K) -> dict:
         """
-        Répond à une question via RAG avec validation qualité v2.8.
+        Répond à une question via RAG avec validation qualité.
 
         Args:
             question: Question en langage naturel
@@ -188,7 +188,7 @@ class RAGQueryEngine:
 
             processing_time = time.time() - start_time
 
-            # 6. NOUVEAU: Validation qualité v2.8
+            # 6. NOUVEAU: Validation qualité
             validation_result = None
             if self.enable_validation and self.response_validator:
                 try:

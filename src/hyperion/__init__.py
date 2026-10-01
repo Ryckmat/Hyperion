@@ -1,5 +1,5 @@
 """
-Hyperion v3.0 - AI-Native Enterprise Platform
+Hyperion - AI-Native Enterprise Platform
 
 Plateforme d'analyse de code et RAG enterprise avec architecture distribuée.
 """

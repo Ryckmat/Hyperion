@@ -150,16 +150,15 @@ Hyperion/
 │   ├── cli/                   # Interface ligne de commande
 │   ├── core/                  # Analyseur Git principal
 │   ├── modules/               # Modules métier v3.0
-│   │   ├── analytics/v2_9/    # Analytics Engine + intelligence comportementale
-│   │   ├── cache/v3_0/        # Cache distribué L1/L2 + invalidation tags
-│   │   ├── gateway/v3_0/      # API Gateway + routage + auth + rate limiting
+│   │   ├── analytics/         # Analytics Engine + intelligence comportementale
+│   │   ├── cache/             # Cache distribué L1/L2 + invalidation tags
+│   │   ├── gateway/           # API Gateway + routage + auth + rate limiting
 │   │   ├── ml/                # Infrastructure ML + ensemble models (tests dans ml/tests/)
 │   │   ├── monitoring/        # Monitoring v3.0 + Prometheus + structured logs
 │   │   ├── rag/               # Pipeline RAG classique
-│   │   │   ├── v2_9/          # Enhanced RAG + response optimization
 │   │   │   ├── monitoring/    # Quality metrics tracking
 │   │   │   └── quality/       # Système validation qualité v2.8
-│   │   └── security/v3_0/     # Sécurité JWT + TOTP + RBAC
+│   │   └── security/          # Sécurité JWT + TOTP + RBAC
 │   └── utils/                 # Utilitaires + helpers
 ├── docs/                      # Documentation complète
 │   ├── cours/                 # 📚 Formation complète (10 chapitres français)

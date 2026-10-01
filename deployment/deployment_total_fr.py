@@ -68,38 +68,38 @@ class HyperionDeploymentTotal:
             print("   ✅ Monitoring v3.0 - Architecture validée")
 
             # Cache v3.0
-            from hyperion.modules.cache.v3_0 import DistributedCacheManager, LRUStrategy, InvalidationEngine, CacheAnalytics
+            from hyperion.modules.cache import DistributedCacheManager, LRUStrategy, InvalidationEngine, CacheAnalytics
             print("   ✅ Cache distribué v3.0 - Architecture validée")
 
             # Security v3.0
-            from hyperion.modules.security.v3_0 import AuthManager
-            from hyperion.modules.security.v3_0.rbac_engine import RBACEngine
-            from hyperion.modules.security.v3_0.security_scanner import SecurityScanner
+            from hyperion.modules.security import AuthManager
+            from hyperion.modules.security.rbac_engine import RBACEngine
+            from hyperion.modules.security.security_scanner import SecurityScanner
             print("   ✅ Sécurité v3.0 - Architecture validée")
 
             # Gateway v3.0
-            from hyperion.modules.gateway.v3_0 import APIGateway
-            from hyperion.modules.gateway.v3_0.rate_limiter import RateLimiter
-            from hyperion.modules.gateway.v3_0.request_router import RequestRouter
-            from hyperion.modules.gateway.v3_0.load_balancer import LoadBalancer
+            from hyperion.modules.gateway import APIGateway
+            from hyperion.modules.gateway.rate_limiter import RateLimiter
+            from hyperion.modules.gateway.request_router import RequestRouter
+            from hyperion.modules.gateway.load_balancer import LoadBalancer
             print("   ✅ API Gateway v3.0 - Architecture validée")
 
             # RAG v2.9
-            from hyperion.modules.rag.v2_9 import EnhancedRAGPipeline, ContextManager
-            from hyperion.modules.rag.v2_9.response_optimizer import ResponseOptimizer
-            from hyperion.modules.rag.v2_9.multi_modal import MultiModalRAG
+            from hyperion.modules.rag import EnhancedRAGPipeline, ContextManager
+            from hyperion.modules.rag.response_optimizer import ResponseOptimizer
+            from hyperion.modules.rag.multi_modal import MultiModalRAG
             print("   ✅ RAG Pipeline v2.9 - Architecture validée")
 
             # ML v2.9
-            from hyperion.modules.ml.v2_9 import EnsembleModelManager
-            from hyperion.modules.ml.v2_9.adaptive_training import AdaptiveTrainer
-            from hyperion.modules.ml.v2_9.feature_engineering import FeatureEngineer
+            from hyperion.modules.ml import EnsembleModelManager
+            from hyperion.modules.ml.adaptive_training import AdaptiveTrainer
+            from hyperion.modules.ml.feature_engineering import FeatureEngineer
             print("   ✅ ML Ensemble v2.9 - Architecture validée")
 
             # Analytics v2.9
-            from hyperion.modules.analytics.v2_9 import IntelligenceEngine
-            from hyperion.modules.analytics.v2_9.pattern_analysis import PatternAnalyzer
-            from hyperion.modules.analytics.v2_9.predictive_insights import PredictiveInsights
+            from hyperion.modules.analytics import IntelligenceEngine
+            from hyperion.modules.analytics.pattern_analysis import PatternAnalyzer
+            from hyperion.modules.analytics.predictive_insights import PredictiveInsights
             print("   ✅ Analytics v2.9 - Architecture validée")
 
             print("   🎯 ARCHITECTURE ENTERPRISE COMPLÈTEMENT VALIDÉE!")
@@ -182,8 +182,8 @@ class HyperionDeploymentTotal:
 
     async def deploy_cache_distribue(self) -> bool:
         """Déploie le cache distribué"""
-        from hyperion.modules.cache.v3_0.distributed_cache import DistributedCacheManager
-        from hyperion.modules.cache.v3_0.cache_analytics import CacheAnalytics
+        from hyperion.modules.cache.distributed_cache import DistributedCacheManager
+        from hyperion.modules.cache.cache_analytics import CacheAnalytics
 
         # Cache avec analytics
         cache = DistributedCacheManager(enable_l1=True, l1_max_size=10000)
@@ -201,8 +201,8 @@ class HyperionDeploymentTotal:
 
     async def deploy_securite_avancee(self) -> bool:
         """Déploie la sécurité avancée"""
-        from hyperion.modules.security.v3_0.auth_manager import AuthManager
-        from hyperion.modules.security.v3_0.rbac_engine import RBACEngine, Role, Permission
+        from hyperion.modules.security.auth_manager import AuthManager
+        from hyperion.modules.security.rbac_engine import RBACEngine, Role, Permission
         import secrets
 
         # Auth manager
@@ -229,8 +229,8 @@ class HyperionDeploymentTotal:
 
     async def deploy_api_gateway(self) -> bool:
         """Déploie l'API Gateway"""
-        from hyperion.modules.gateway.v3_0.api_gateway import APIGateway, Route, HTTPMethod
-        from hyperion.modules.gateway.v3_0.rate_limiter import RateLimiter, RateLimit
+        from hyperion.modules.gateway.api_gateway import APIGateway, Route, HTTPMethod
+        from hyperion.modules.gateway.rate_limiter import RateLimiter, RateLimit
 
         # Gateway principal
         gateway = APIGateway(enable_auth=False)
@@ -269,8 +269,8 @@ class HyperionDeploymentTotal:
 
     async def deploy_rag_v29(self) -> bool:
         """Déploie le RAG Pipeline v2.9"""
-        from hyperion.modules.rag.v2_9.enhanced_pipeline import EnhancedRAGPipeline, RAGConfig
-        from hyperion.modules.rag.v2_9.response_optimizer import ResponseOptimizer, OptimizationConfig
+        from hyperion.modules.rag.enhanced_pipeline import EnhancedRAGPipeline, RAGConfig
+        from hyperion.modules.rag.response_optimizer import ResponseOptimizer, OptimizationConfig
 
         # Configuration pour français
         config = RAGConfig(
@@ -299,8 +299,8 @@ class HyperionDeploymentTotal:
 
     async def deploy_ml_v29(self) -> bool:
         """Déploie le ML Ensemble v2.9"""
-        from hyperion.modules.ml.v2_9.ensemble_models import EnsembleModelManager, EnsembleModel
-        from hyperion.modules.ml.v2_9.adaptive_training import AdaptiveTrainer
+        from hyperion.modules.ml.ensemble_models import EnsembleModelManager, EnsembleModel
+        from hyperion.modules.ml.adaptive_training import AdaptiveTrainer
         import numpy as np
         import time
 
@@ -338,8 +338,8 @@ class HyperionDeploymentTotal:
 
     async def deploy_analytics_v29(self) -> bool:
         """Déploie l'Analytics v2.9"""
-        from hyperion.modules.analytics.v2_9.intelligence_engine import IntelligenceEngine, create_event
-        from hyperion.modules.analytics.v2_9.pattern_analysis import PatternAnalyzer
+        from hyperion.modules.analytics.intelligence_engine import IntelligenceEngine, create_event
+        from hyperion.modules.analytics.pattern_analysis import PatternAnalyzer
 
         # Moteur d'intelligence
         engine = IntelligenceEngine(enable_real_time_analysis=True)
@@ -391,7 +391,7 @@ class HyperionDeploymentTotal:
         """Test spécifique à l'intégration française"""
         try:
             from hyperion.modules.monitoring.logging.structured_logger import StructuredLogger
-            from hyperion.modules.cache.v3_0.distributed_cache import DistributedCacheManager
+            from hyperion.modules.cache.distributed_cache import DistributedCacheManager
 
             # Logger français
             logger = StructuredLogger(name="hyperion-fr", enable_console=False)
@@ -421,7 +421,7 @@ class HyperionDeploymentTotal:
     async def test_cache_monitoring_integration(self) -> bool:
         """Test intégration Cache + Monitoring"""
         try:
-            from hyperion.modules.cache.v3_0.cache_analytics import CacheAnalytics
+            from hyperion.modules.cache.cache_analytics import CacheAnalytics
             from hyperion.modules.monitoring.metrics.performance_tracker import PerformanceTracker
 
             analytics = CacheAnalytics()
@@ -440,8 +440,8 @@ class HyperionDeploymentTotal:
     async def test_security_gateway_integration(self) -> bool:
         """Test intégration Security + Gateway"""
         try:
-            from hyperion.modules.gateway.v3_0.rate_limiter import global_rate_limiter, RateLimit
-            from hyperion.modules.security.v3_0.security_scanner import SecurityScanner
+            from hyperion.modules.gateway.rate_limiter import global_rate_limiter, RateLimit
+            from hyperion.modules.security.security_scanner import SecurityScanner
 
             # Rate limiting sécurisé
             rate_limit = RateLimit(requests_per_second=10, burst_capacity=20)
@@ -458,8 +458,8 @@ class HyperionDeploymentTotal:
     async def test_rag_analytics_integration(self) -> bool:
         """Test intégration RAG + Analytics"""
         try:
-            from hyperion.modules.rag.v2_9.response_optimizer import default_optimizer
-            from hyperion.modules.analytics.v2_9.pattern_analysis import default_pattern_analyzer
+            from hyperion.modules.rag.response_optimizer import default_optimizer
+            from hyperion.modules.analytics.pattern_analysis import default_pattern_analyzer
 
             # Optimisation + analytique
             result = await default_optimizer.optimize_response(
@@ -476,8 +476,8 @@ class HyperionDeploymentTotal:
     async def test_ml_cache_integration(self) -> bool:
         """Test intégration ML + Cache"""
         try:
-            from hyperion.modules.ml.v2_9.feature_engineering import default_feature_engineer
-            from hyperion.modules.cache.v3_0.distributed_cache import DistributedCacheManager
+            from hyperion.modules.ml.feature_engineering import default_feature_engineer
+            from hyperion.modules.cache.distributed_cache import DistributedCacheManager
 
             cache = DistributedCacheManager()
             engineer = default_feature_engineer
@@ -571,7 +571,7 @@ class HyperionDeploymentTotal:
     async def test_rag_francais(self) -> bool:
         """Test RAG avec questions en français"""
         try:
-            from hyperion.modules.rag.v2_9.enhanced_pipeline import EnhancedRAGPipeline, RAGConfig
+            from hyperion.modules.rag.enhanced_pipeline import EnhancedRAGPipeline, RAGConfig
 
             config = RAGConfig(max_chunks=3, enable_semantic_reranking=True)
             pipeline = EnhancedRAGPipeline(config)
@@ -600,7 +600,7 @@ class HyperionDeploymentTotal:
     async def test_analytics_francais(self) -> bool:
         """Test analytics avec données françaises"""
         try:
-            from hyperion.modules.analytics.v2_9.intelligence_engine import IntelligenceEngine, create_event
+            from hyperion.modules.analytics.intelligence_engine import IntelligenceEngine, create_event
 
             engine = IntelligenceEngine()
 
@@ -626,7 +626,7 @@ class HyperionDeploymentTotal:
     async def test_admin_francais(self) -> bool:
         """Test fonctions d'administration en français"""
         try:
-            from hyperion.modules.security.v3_0.auth_manager import AuthManager
+            from hyperion.modules.security.auth_manager import AuthManager
             import secrets
 
             auth = AuthManager(jwt_secret=secrets.token_urlsafe(32))
@@ -699,7 +699,7 @@ class HyperionDeploymentTotal:
     async def test_securite_francais(self) -> bool:
         """Test fonctions de sécurité en français"""
         try:
-            from hyperion.modules.security.v3_0.security_scanner import SecurityScanner
+            from hyperion.modules.security.security_scanner import SecurityScanner
 
             scanner = SecurityScanner()
 
@@ -726,7 +726,7 @@ class HyperionDeploymentTotal:
         print("   ⚡ Tests de performance haute charge...")
 
         # Test cache haute performance
-        from hyperion.modules.cache.v3_0.cache_strategies import LRUStrategy
+        from hyperion.modules.cache.cache_strategies import LRUStrategy
 
         strategy = LRUStrategy(max_size=10000)
         start_time = time.time()
@@ -755,7 +755,7 @@ class HyperionDeploymentTotal:
 
         # Test analytics
         start_time = time.time()
-        from hyperion.modules.analytics.v2_9.pattern_analysis import PatternAnalyzer
+        from hyperion.modules.analytics.pattern_analysis import PatternAnalyzer
 
         analyzer = PatternAnalyzer()
         events = [{"event_type": f"event_{i}", "timestamp": time.time()} for i in range(1000)]

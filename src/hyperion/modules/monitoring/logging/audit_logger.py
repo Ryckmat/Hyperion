@@ -1,5 +1,5 @@
 """
-Audit Logger for Hyperion v3.0
+Audit Logger for Hyperion
 
 Logging d'audit sécurisé et immuable pour conformité enterprise.
 """
@@ -100,7 +100,7 @@ class AuditConfig:
 
 class AuditLogger:
     """
-    Logger d'audit enterprise pour Hyperion v3.0
+    Logger d'audit enterprise pour Hyperion
 
     Fonctionnalités :
     - Audit trail immuable avec checksums

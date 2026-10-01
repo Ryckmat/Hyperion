@@ -1,4 +1,4 @@
-"""API REST Hyperion - Backend FastAPI avec monitoring qualité v2.8."""
+"""API REST Hyperion - Backend FastAPI avec monitoring qualité."""
 
 from typing import Any
 
@@ -20,7 +20,7 @@ try:
 except ModuleNotFoundError:
     Neo4jIngester = None  # type: ignore[assignment,misc]
 
-# Import système de monitoring qualité v2.8
+# Import système de monitoring qualité
 try:
     from hyperion.modules.rag.monitoring.quality_metrics import QualityMetricsTracker
 
@@ -118,7 +118,7 @@ def read_root():
             # endpoints OpenAI-compat (pour Open WebUI sans Pipe)
             "openai_models": "/v1/models",
             "openai_chat": "/v1/chat/completions",
-            # endpoints Quality Monitoring v2.8
+            # endpoints Quality Monitoring
             "quality_metrics": "/api/quality/metrics",
             "quality_trends": "/api/quality/trends",
             "quality_alerts": "/api/quality/alerts",
@@ -305,7 +305,7 @@ def get_neo4j_repo(repo_name: str):
 @app.post("/api/chat")
 def chat(request: ChatRequest):
     """
-    Chat RAG avec les repos et monitoring qualité v2.8.
+    Chat RAG avec les repos et monitoring qualité.
 
     Body:
         {
@@ -393,7 +393,7 @@ app.include_router(v2_router)
 
 
 # ============================================================================
-# Quality Monitoring Endpoints v2.8
+# Quality Monitoring Endpoints
 # ============================================================================
 
 

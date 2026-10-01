@@ -1,5 +1,5 @@
 """
-Modules d'entraînement ML pour Hyperion v3.0.
+Modules d'entraînement ML pour Hyperion.
 
 Pipeline complet d'entraînement incluant:
 - Préprocessing des données

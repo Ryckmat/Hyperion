@@ -1,5 +1,5 @@
 """
-Modules Machine Learning Avancés - Hyperion v3.0 Enterprise.
+Modules Machine Learning Avancés - Hyperion.
 
 Ce package contient l'infrastructure ML complète pour:
 - Prédiction de risque avancée (ensemble de modèles)
@@ -20,10 +20,18 @@ __version__ = "3.0.0-dev"
 __author__ = "Équipe Hyperion"
 
 # Imports principaux pour faciliter l'utilisation
+from .adaptive_training import AdaptiveTrainer
+from .ensemble_models import EnsembleModelManager
+from .feature_engineering import AdvancedFeatureEngineer
 from .infrastructure.ml_config import MLConfig
 from .infrastructure.model_registry import ModelRegistry
+from .model_optimization import ModelOptimizer
 
 __all__ = [
     "MLConfig",
     "ModelRegistry",
+    "EnsembleModelManager",
+    "AdaptiveTrainer",
+    "AdvancedFeatureEngineer",
+    "ModelOptimizer",
 ]

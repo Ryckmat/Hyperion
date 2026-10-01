@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test de Validation Architecture Hyperion v2.9 + v3.0
+Test de Validation Architecture Hyperion
 Test sans dépendances externes pour validation de l'architecture
 """
 
@@ -23,7 +23,7 @@ def check_file_structure():
     essential_files = [
         "__version__.py",
         "__init__.py",
-        "modules/monitoring/v3_0/__init__.py",
+        "modules/monitoring/__init__.py",
         "modules/monitoring/metrics/prometheus_exporter.py",
         "modules/monitoring/metrics/performance_tracker.py",
         "modules/monitoring/metrics/health_monitor.py",
@@ -32,13 +32,13 @@ def check_file_structure():
         "modules/monitoring/logging/audit_logger.py",
         "modules/monitoring/alerting/alert_manager.py",
         "modules/monitoring/alerting/quality_alerts.py",
-        "modules/rag/v2_9/enhanced_pipeline.py",
-        "modules/rag/v2_9/context_manager.py",
-        "modules/ml/v2_9/ensemble_models.py",
-        "modules/analytics/v2_9/intelligence_engine.py",
-        "modules/cache/v3_0/distributed_cache.py",
-        "modules/security/v3_0/auth_manager.py",
-        "modules/gateway/v3_0/api_gateway.py",
+        "modules/rag/enhanced_pipeline.py",
+        "modules/rag/context_manager.py",
+        "modules/ml/ensemble_models.py",
+        "modules/analytics/intelligence_engine.py",
+        "modules/cache/distributed_cache.py",
+        "modules/security/auth_manager.py",
+        "modules/gateway/api_gateway.py",
     ]
 
     missing_files = []
@@ -91,9 +91,9 @@ def check_code_quality():
     try:
         key_files = [
             "src/hyperion/modules/monitoring/metrics/prometheus_exporter.py",
-            "src/hyperion/modules/cache/v3_0/distributed_cache.py",
-            "src/hyperion/modules/security/v3_0/auth_manager.py",
-            "src/hyperion/modules/rag/v2_9/enhanced_pipeline.py",
+            "src/hyperion/modules/cache/distributed_cache.py",
+            "src/hyperion/modules/security/auth_manager.py",
+            "src/hyperion/modules/rag/enhanced_pipeline.py",
         ]
 
         total_lines = 0
@@ -154,7 +154,7 @@ def check_architectural_patterns():
                     print("   ✅ Pattern Enterprise Metrics détecté")
 
         # Vérifier pattern Cache Distribué
-        cache_file = "src/hyperion/modules/cache/v3_0/distributed_cache.py"
+        cache_file = "src/hyperion/modules/cache/distributed_cache.py"
         if Path(cache_file).exists():
             with open(cache_file) as f:
                 content = f.read()
@@ -167,7 +167,7 @@ def check_architectural_patterns():
                     print("   ✅ Pattern Cache Distribué détecté")
 
         # Vérifier pattern Security
-        auth_file = "src/hyperion/modules/security/v3_0/auth_manager.py"
+        auth_file = "src/hyperion/modules/security/auth_manager.py"
         if Path(auth_file).exists():
             with open(auth_file) as f:
                 content = f.read()
@@ -176,7 +176,7 @@ def check_architectural_patterns():
                     print("   ✅ Pattern Enterprise Security détecté")
 
         # Vérifier pattern RAG Avancé
-        rag_file = "src/hyperion/modules/rag/v2_9/enhanced_pipeline.py"
+        rag_file = "src/hyperion/modules/rag/enhanced_pipeline.py"
         if Path(rag_file).exists():
             with open(rag_file) as f:
                 content = f.read()
@@ -185,7 +185,7 @@ def check_architectural_patterns():
                     print("   ✅ Pattern RAG Avancé détecté")
 
         # Vérifier pattern ML Ensemble
-        ml_file = "src/hyperion/modules/ml/v2_9/ensemble_models.py"
+        ml_file = "src/hyperion/modules/ml/ensemble_models.py"
         if Path(ml_file).exists():
             with open(ml_file) as f:
                 content = f.read()
@@ -194,7 +194,7 @@ def check_architectural_patterns():
                     print("   ✅ Pattern ML Ensemble détecté")
 
         # Vérifier pattern Analytics
-        analytics_file = "src/hyperion/modules/analytics/v2_9/intelligence_engine.py"
+        analytics_file = "src/hyperion/modules/analytics/intelligence_engine.py"
         if Path(analytics_file).exists():
             with open(analytics_file) as f:
                 content = f.read()
@@ -219,37 +219,37 @@ def check_module_completeness():
     print("\n📦 Test de complétude des modules...")
 
     modules_v3 = [
-        ("Monitoring", "modules/monitoring/v3_0"),
-        ("Cache", "modules/cache/v3_0"),
-        ("Security", "modules/security/v3_0"),
-        ("Gateway", "modules/gateway/v3_0"),
+        ("Monitoring", "modules/monitoring"),
+        ("Cache", "modules/cache"),
+        ("Security", "modules/security"),
+        ("Gateway", "modules/gateway"),
     ]
 
     modules_v29 = [
-        ("RAG Enhanced", "modules/rag/v2_9"),
-        ("ML Ensemble", "modules/ml/v2_9"),
-        ("Analytics", "modules/analytics/v2_9"),
+        ("RAG Enhanced", "modules/rag"),
+        ("ML Ensemble", "modules/ml"),
+        ("Analytics", "modules/analytics"),
     ]
 
     complete_modules = []
 
-    # Test modules v3.0
+    # Test modules
     for name, path in modules_v3:
         full_path = Path(f"src/hyperion/{path}")
         if full_path.exists() and list(full_path.glob("*.py")):
-            complete_modules.append(f"{name} v3.0")
-            print(f"   ✅ Module {name} v3.0")
+            complete_modules.append(f"{name}")
+            print(f"   ✅ Module {name}")
         else:
-            print(f"   ❌ Module {name} v3.0 manquant")
+            print(f"   ❌ Module {name} manquant")
 
-    # Test modules v2.9
+    # Test modules
     for name, path in modules_v29:
         full_path = Path(f"src/hyperion/{path}")
         if full_path.exists() and list(full_path.glob("*.py")):
-            complete_modules.append(f"{name} v2.9")
-            print(f"   ✅ Module {name} v2.9")
+            complete_modules.append(f"{name}")
+            print(f"   ✅ Module {name}")
         else:
-            print(f"   ❌ Module {name} v2.9 manquant")
+            print(f"   ❌ Module {name} manquant")
 
     total_expected = len(modules_v3) + len(modules_v29)
     completeness_rate = len(complete_modules) / total_expected * 100
@@ -263,7 +263,7 @@ def main():
     """Fonction principale"""
     print("🎯 HYPERION ARCHITECTURE VALIDATION")
     print("=" * 60)
-    print("Test de validation de l'architecture enterprise v2.9 + v3.0")
+    print("Test de validation de l'architecture enterprise")
     print("=" * 60)
 
     tests = [
@@ -297,12 +297,12 @@ def main():
     if success_rate >= 90:
         print("\n🎉 ARCHITECTURE HYPERION ENTERPRISE VALIDÉE!")
         print("\n📋 MODULES IMPLEMENTÉS:")
-        print("   🚀 v3.0 Enterprise Architecture:")
+        print("   🚀 Architecture:")
         print("      • Monitoring (Prometheus, Performance, Health, Logs, Alerting)")
         print("      • Cache Distribué (Multi-niveaux L1/L2/L3)")
         print("      • Sécurité (Auth MFA, JWT, RBAC, Audit)")
         print("      • API Gateway (Rate limiting, Circuit breakers)")
-        print("\n   ⚡ v2.9 Enhanced Features:")
+        print("\n   ⚡ Enhanced Features:")
         print("      • RAG Pipeline (Reranking, Compression, Contexte)")
         print("      • ML Ensemble (Modèles multiples, Optimisation)")
         print("      • Intelligence Analytics (Insights, Patterns)")

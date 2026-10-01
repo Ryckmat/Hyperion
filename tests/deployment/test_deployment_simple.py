@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test de Déploiement Simplifié Hyperion v2.9 + v3.0
+Test de Déploiement Simplifié Hyperion
 Test sans dépendances externes pour validation du déploiement
 """
 
@@ -22,7 +22,7 @@ class SimpleDeploymentTest:
 
     async def test_full_deployment(self):
         """Test complet du déploiement"""
-        print("🚀 HYPERION v2.9 + v3.0 - DÉPLOIEMENT SIMPLIFIÉ")
+        print("🚀 HYPERION - DÉPLOIEMENT SIMPLIFIÉ")
         print("=" * 60)
 
         # Tests de déploiement des services
@@ -41,8 +41,8 @@ class SimpleDeploymentTest:
         self.print_final_summary()
 
     async def test_monitoring_v3(self):
-        """Test du système de monitoring v3.0"""
-        print("\n📊 Test Monitoring v3.0...")
+        """Test du système de monitoring"""
+        print("\n📊 Test Monitoring...")
 
         try:
             # Test Performance Tracker
@@ -74,18 +74,18 @@ class SimpleDeploymentTest:
 
             self.services["monitoring"] = True
             self.test_results["monitoring"] = True
-            print("   ✅ Monitoring v3.0 - DÉPLOYÉ")
+            print("   ✅ Monitoring - DÉPLOYÉ")
 
         except Exception as e:
             print(f"   ❌ Erreur monitoring: {e}")
             self.test_results["monitoring"] = False
 
     async def test_cache_v3(self):
-        """Test du système de cache v3.0"""
-        print("\n💾 Test Cache Distribué v3.0...")
+        """Test du système de cache"""
+        print("\n💾 Test Cache Distribué...")
 
         try:
-            from hyperion.modules.cache.v3_0.distributed_cache import DistributedCacheManager
+            from hyperion.modules.cache.distributed_cache import DistributedCacheManager
 
             # Initialiser avec L1 seulement (pas de Redis)
             cache_manager = DistributedCacheManager(
@@ -113,20 +113,20 @@ class SimpleDeploymentTest:
 
             self.services["cache"] = cache_manager
             self.test_results["cache"] = True
-            print("   ✅ Cache v3.0 - DÉPLOYÉ")
+            print("   ✅ Cache - DÉPLOYÉ")
 
         except Exception as e:
             print(f"   ❌ Erreur cache: {e}")
             self.test_results["cache"] = False
 
     async def test_security_v3(self):
-        """Test du système de sécurité v3.0"""
-        print("\n🔐 Test Sécurité v3.0...")
+        """Test du système de sécurité"""
+        print("\n🔐 Test Sécurité...")
 
         try:
             import secrets
 
-            from hyperion.modules.security.v3_0.auth_manager import AuthManager
+            from hyperion.modules.security.auth_manager import AuthManager
 
             # Initialiser sans dépendances JWT externes
             auth_manager = AuthManager(jwt_secret=secrets.token_urlsafe(32))
@@ -156,18 +156,18 @@ class SimpleDeploymentTest:
 
             self.services["auth"] = auth_manager
             self.test_results["security"] = True
-            print("   ✅ Sécurité v3.0 - DÉPLOYÉ")
+            print("   ✅ Sécurité - DÉPLOYÉ")
 
         except Exception as e:
             print(f"   ❌ Erreur sécurité: {e}")
             self.test_results["security"] = False
 
     async def test_gateway_v3(self):
-        """Test de l'API Gateway v3.0"""
-        print("\n🌐 Test API Gateway v3.0...")
+        """Test de l'API Gateway"""
+        print("\n🌐 Test API Gateway...")
 
         try:
-            from hyperion.modules.gateway.v3_0.api_gateway import (
+            from hyperion.modules.gateway.api_gateway import (
                 APIGateway,
                 HTTPMethod,
                 Request,
@@ -210,19 +210,19 @@ class SimpleDeploymentTest:
 
             self.services["gateway"] = gateway
             self.test_results["gateway"] = True
-            print("   ✅ API Gateway v3.0 - DÉPLOYÉ")
+            print("   ✅ API Gateway - DÉPLOYÉ")
 
         except Exception as e:
             print(f"   ❌ Erreur gateway: {e}")
             self.test_results["gateway"] = False
 
     async def test_rag_v29(self):
-        """Test du pipeline RAG v2.9"""
-        print("\n🔍 Test RAG Pipeline v2.9...")
+        """Test du pipeline RAG"""
+        print("\n🔍 Test RAG Pipeline...")
 
         try:
-            from hyperion.modules.rag.v2_9.context_manager import ContextManager
-            from hyperion.modules.rag.v2_9.enhanced_pipeline import EnhancedRAGPipeline, RAGConfig
+            from hyperion.modules.rag.context_manager import ContextManager
+            from hyperion.modules.rag.enhanced_pipeline import EnhancedRAGPipeline, RAGConfig
 
             # Configuration pour test
             config = RAGConfig(
@@ -264,22 +264,22 @@ class SimpleDeploymentTest:
 
             self.services["rag"] = rag_pipeline
             self.test_results["rag"] = True
-            print("   ✅ RAG v2.9 - DÉPLOYÉ")
+            print("   ✅ RAG - DÉPLOYÉ")
 
         except Exception as e:
-            print(f"   ❌ Erreur RAG v2.9: {e}")
+            print(f"   ❌ Erreur RAG: {e}")
             self.test_results["rag"] = False
 
     async def test_ml_v29(self):
-        """Test ML Ensemble v2.9"""
-        print("\n🤖 Test ML Ensemble v2.9...")
+        """Test ML Ensemble"""
+        print("\n🤖 Test ML Ensemble...")
 
         try:
             import tempfile
 
             import numpy as np
 
-            from hyperion.modules.ml.v2_9.ensemble_models import EnsembleModel, EnsembleModelManager
+            from hyperion.modules.ml.ensemble_models import EnsembleModel, EnsembleModelManager
 
             # Hors de models/ pour ne pas écraser les artefacts
             manager = EnsembleModelManager(models_directory=tempfile.mkdtemp())
@@ -322,18 +322,18 @@ class SimpleDeploymentTest:
 
             self.services["ml"] = manager
             self.test_results["ml"] = True
-            print("   ✅ ML Ensemble v2.9 - DÉPLOYÉ")
+            print("   ✅ ML Ensemble - DÉPLOYÉ")
 
         except Exception as e:
-            print(f"   ❌ Erreur ML v2.9: {e}")
+            print(f"   ❌ Erreur ML: {e}")
             self.test_results["ml"] = False
 
     async def test_analytics_v29(self):
-        """Test Analytics v2.9"""
-        print("\n📈 Test Analytics v2.9...")
+        """Test Analytics"""
+        print("\n📈 Test Analytics...")
 
         try:
-            from hyperion.modules.analytics.v2_9.intelligence_engine import (
+            from hyperion.modules.analytics.intelligence_engine import (
                 IntelligenceEngine,
                 create_event,
             )
@@ -372,10 +372,10 @@ class SimpleDeploymentTest:
 
             self.services["analytics"] = engine
             self.test_results["analytics"] = True
-            print("   ✅ Analytics v2.9 - DÉPLOYÉ")
+            print("   ✅ Analytics - DÉPLOYÉ")
 
         except Exception as e:
-            print(f"   ❌ Erreur Analytics v2.9: {e}")
+            print(f"   ❌ Erreur Analytics: {e}")
             self.test_results["analytics"] = False
 
     async def test_integration_flows(self):
@@ -426,7 +426,7 @@ class SimpleDeploymentTest:
         try:
             if "rag" in self.services and "analytics" in self.services:
                 # Simuler requête RAG avec analytique
-                from hyperion.modules.analytics.v2_9.intelligence_engine import create_event
+                from hyperion.modules.analytics.intelligence_engine import create_event
 
                 rag_event = create_event(
                     "rag_query",
@@ -476,14 +476,14 @@ class SimpleDeploymentTest:
         print(f"\n📊 TAUX DE RÉUSSITE: {passed_tests}/{total_tests} ({success_rate:.1f}%)")
 
         if success_rate >= 90:
-            print("\n🎉 DÉPLOIEMENT HYPERION v2.9 + v3.0 RÉUSSI!")
+            print("\n🎉 DÉPLOIEMENT HYPERION RÉUSSI!")
             print("\n📋 SERVICES DÉPLOYÉS:")
-            print("   🚀 v3.0 Enterprise:")
+            print("   🚀:")
             print("      • Monitoring (Performance, Health, Logs)")
             print("      • Cache Distribué (Multi-niveaux)")
             print("      • Sécurité (Auth, MFA, Sessions)")
             print("      • API Gateway (Rate limiting)")
-            print("\n   ⚡ v2.9 Enhanced:")
+            print("\n   ⚡ Enhanced:")
             print("      • RAG Pipeline (Reranking, Contexte)")
             print("      • ML Ensemble (Modèles adaptatifs)")
             print("      • Analytics (Intelligence, Insights)")

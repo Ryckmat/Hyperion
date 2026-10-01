@@ -1,5 +1,5 @@
 """
-Performance Tracker for Hyperion v3.0
+Performance Tracker for Hyperion
 
 Suivi de performance en temps réel avec analytics intelligents.
 """
@@ -47,7 +47,7 @@ class ResourceUsage:
 
 class PerformanceTracker:
     """
-    Tracker de performance pour Hyperion v3.0
+    Tracker de performance pour Hyperion
 
     Fonctionnalités :
     - Suivi temps réel des opérations

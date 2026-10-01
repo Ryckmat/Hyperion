@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test simple de validation du système de qualité v2.8
+Test simple de validation du système de qualité
 
 Ce script teste le système de validation qualité sans nécessiter
 de services externes (Qdrant, Neo4j, etc.)
@@ -206,7 +206,7 @@ def test_quality_metrics():
 
 def main():
     """Fonction principale de test"""
-    print("🚀 Test système de validation qualité v2.8")
+    print("🚀 Test système de validation qualité")
     print("=" * 50)
 
     try:
@@ -216,7 +216,7 @@ def main():
         test_quality_metrics()
 
         print("\n" + "=" * 50)
-        print("✅ TOUS LES TESTS PASSÉS - Système qualité v2.8 opérationnel !")
+        print("✅ TOUS LES TESTS PASSÉS - Système qualité opérationnel !")
         print("\n🎯 Prêt pour intégration dans Hyperion")
         print("📊 Fonctionnalités validées :")
         print("   - Détection d'hallucinations multi-niveaux")
