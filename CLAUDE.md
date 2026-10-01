@@ -11,7 +11,7 @@ Plateforme d'analyse de dépôts Git : profilage, RAG (Qdrant + Ollama), graphe 
 - `src/hyperion/modules/ml/tests/` : tests du module ml, exécutés aussi par la CI
 - `eval/` : évaluation RAG (`eval/run.py`, suites YAML dans `eval/suites/`)
 - `scripts/` : déploiement, docker, setup, maintenance
-- `modeles/`, `mlruns/`, `models/` : artefacts ML, ne pas modifier à la main
+- `modeles/` : modèles de référence versionnés, ne pas modifier à la main (`models/`, `mlruns/`, `audit/` sont générés et ignorés par git)
 
 ## Commandes
 ```bash
