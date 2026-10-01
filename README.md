@@ -1,9 +1,10 @@
 # 🧠 Hyperion
 
-[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![Tests](https://img.shields.io/badge/tests-189%2F189-green.svg)](#)
+[![Tests](https://img.shields.io/badge/tests-305%20passing-green.svg)](#-développement)
+[![mypy](https://img.shields.io/badge/mypy-0%20erreur-blue.svg)](#-développement)
 
 **Hyperion v2.9 + v3.0** - Plateforme d'intelligence locale pour repositories Git avec architecture microservices.
 
@@ -33,8 +34,11 @@
 ```bash
 git clone <repository>
 cd Hyperion
+pip install -r requirements.txt   # inclut bcrypt, pyotp, PyJWT, xgboost
 pip install -e .
 ```
+
+Les dépendances de sécurité (`bcrypt`, `pyotp`, `PyJWT`) sont obligatoires : sans elles, l'import du module d'authentification échoue volontairement au lieu de basculer sur un mode dégradé.
 
 ### 2. Vérification
 ```bash
@@ -122,6 +126,21 @@ curl -X POST http://localhost:8000/api/v2/anomaly/scan \
   -d '{"repo": "requests", "types": ["complexity", "size"]}'
 ```
 
+## 🧪 Développement
+
+```bash
+pip install -e ".[all]"                       # installation dev complète
+python3 -m pytest                             # suite complète (tests/ + src/hyperion/modules/)
+python3 -m pytest -m "not slow and not e2e"   # hors tests lents
+python3 -m black --check src/ tests/          # format
+python3 -m ruff check src/ tests/             # lint
+python3 -m mypy src/                          # typage
+```
+
+* Configuration pytest dans `pytest.ini`, couverture dans `[tool.coverage]` de `pyproject.toml`
+* La CI (`.github/workflows/ci.yml`) exécute black, ruff, la suite de tests complète et gitleaks ; mypy et bandit tournent en non bloquant
+* Services externes (Neo4j, Qdrant, Ollama) mockés dans les tests unitaires
+
 ## 🏗️ Architecture du Repository
 
 ```
@@ -134,7 +153,7 @@ Hyperion/
 │   │   ├── analytics/v2_9/    # Analytics Engine + intelligence comportementale
 │   │   ├── cache/v3_0/        # Cache distribué L1/L2 + invalidation tags
 │   │   ├── gateway/v3_0/      # API Gateway + routage + auth + rate limiting
-│   │   ├── ml/v2_9/           # Infrastructure ML + ensemble models
+│   │   ├── ml/                # Infrastructure ML + ensemble models (tests dans ml/tests/)
 │   │   ├── monitoring/        # Monitoring v3.0 + Prometheus + structured logs
 │   │   ├── rag/               # Pipeline RAG classique
 │   │   │   ├── v2_9/          # Enhanced RAG + response optimization
@@ -149,7 +168,7 @@ Hyperion/
 │   ├── deploy/                # hyperion_master.sh + orchestrateurs
 │   ├── docker/                # Containerisation enterprise (8 services)
 │   └── dev/                   # Outils développement
-├── tests/                     # Tests complets (architecture + validation + intégration)
+├── tests/                     # Tests (unitaires, intégration, API, architecture, validation)
 ├── frontend/                  # Dashboard React enterprise
 └── data/                      # Données + profils Git + index RAG
 ```
@@ -199,7 +218,7 @@ Documentation complète disponible dans `docs/` :
 
 ## 🔧 Prérequis
 
-* Python 3.11+
+* Python 3.10+
 * Docker (pour services)
 * 8GB RAM minimum, 16GB recommandé
 * Neo4j, Redis, Ollama (gérés par scripts)
