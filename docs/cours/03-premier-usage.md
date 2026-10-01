@@ -1,4 +1,9 @@
-# 🚀 Chapitre 03 - Premier Usage
+---
+title: "Chapitre 03 - Premier Usage"
+toc: true
+description: "Votre première analyse avec Hyperion : Comprendre les résultats et explorer votre code"
+weight: 4
+---
 
 **Votre première analyse avec Hyperion** - Comprendre les résultats et explorer votre code
 
@@ -322,7 +327,7 @@ flask run
 - **Tests** : 89% coverage
 - **Team** : 15 contributors actifs
 
-*Documentation générée automatiquement par Hyperion v2.7.0*
+*Documentation générée automatiquement par Hyperion*
 ```
 
 ### 3️⃣ **Types de Documentation Disponibles**
@@ -524,7 +529,7 @@ hyperion profile . --git-depth 100
 
 Vous êtes maintenant prêt pour approfondir l'utilisation d'Hyperion :
 
-👉 **Continuez avec** : [Chapitre 04 - CLI Essentials](04-cli-essentials.md)
+👉 **Continuez avec** : [Chapitre 04 - CLI Essentials](04-cli-essentials)
 
 Au prochain chapitre, vous apprendrez :
 - Les 5 commandes principales en détail
@@ -559,8 +564,8 @@ En attendant le prochain chapitre :
 
 ---
 
-*Excellent travail ! Vous maîtrisez maintenant les bases d'Hyperion. Rendez-vous au [Chapitre 04](04-cli-essentials.md) !* 🚀
+*Excellent travail ! Vous maîtrisez maintenant les bases d'Hyperion. Rendez-vous au [Chapitre 04](04-cli-essentials) !* 🚀
 
 ---
 
-*Cours Hyperion v2.7.0 - Chapitre 03*
+*Cours Hyperion - Chapitre 03*

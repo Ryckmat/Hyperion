@@ -1,4 +1,9 @@
-# Hyperion Utils - Git Utils
+---
+title: "Hyperion Utils - Git Utils"
+toc: true
+description: "Wrapper Python pour interactions avec Git via subprocess."
+weight: 6
+---
 
 ## 📦 Module `git_utils.py`
 

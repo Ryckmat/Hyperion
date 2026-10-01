@@ -1,4 +1,9 @@
-# 🔌 Hyperion API - Backend FastAPI
+---
+title: "Hyperion API - Backend FastAPI"
+toc: true
+description: "API REST pour interroger les données Hyperion."
+weight: 2
+---
 
 API REST pour interroger les données Hyperion.
 

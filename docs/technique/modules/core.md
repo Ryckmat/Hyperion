@@ -1,4 +1,9 @@
-# Hyperion Core - Git Analyzer
+---
+title: "Hyperion Core - Git Analyzer"
+toc: true
+description: "Analyseur Git complet qui génère des profils Hyperion à partir de dépôts Git."
+weight: 3
+---
 
 ## 📦 Module `git_analyzer.py`
 

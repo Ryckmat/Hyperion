@@ -1,4 +1,9 @@
-# 🎭 Orchestrateur Master Hyperion
+---
+title: "Orchestrateur Master Hyperion"
+toc: true
+description: "L'orchestrateur master (scripts/deploy/hyperion_master.sh) est le script principal de déploiement et gestion d'Hyperion. Il automatise l'installation, la..."
+weight: 4
+---
 
 ## Vue d'ensemble
 
@@ -295,4 +300,4 @@ export HYPERION_METRICS_ENABLED=1
 
 ---
 
-**Note** : L'orchestrateur master est l'interface principale recommandée pour gérer Hyperion en mode traditionnel (non-Docker). Pour le déploiement Docker, voir [Docker Deployment](README.md).
+**Note** : L'orchestrateur master est l'interface principale recommandée pour gérer Hyperion en mode traditionnel (non-Docker). Pour le déploiement Docker, voir [Docker Deployment](./).

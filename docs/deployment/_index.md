@@ -1,8 +1,13 @@
-# 🐳 Déploiement Docker Hyperion v2.7
+---
+title: "Déploiement Docker Hyperion"
+toc: true
+description: "Hyperion offre une solution de containerisation complète avec Docker et Docker Compose, permettant un déploiement simplifié et robuste de l'ensemble de la..."
+weight: 1
+---
 
 ## Vue d'ensemble
 
-Hyperion v2.7 offre une solution de containerisation complète avec Docker et Docker Compose, permettant un déploiement simplifié et robuste de l'ensemble de la stack.
+Hyperion offre une solution de containerisation complète avec Docker et Docker Compose, permettant un déploiement simplifié et robuste de l'ensemble de la stack.
 
 ## 📋 Prérequis
 
@@ -331,4 +336,4 @@ Pour toute question sur le déploiement Docker :
 
 ---
 
-**Hyperion v2.7** - Docker-Ready Enterprise Platform
+**Hyperion** - Docker-Ready Enterprise Platform

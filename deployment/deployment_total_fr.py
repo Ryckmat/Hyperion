@@ -61,42 +61,42 @@ class HyperionDeploymentTotal:
         print("   🔍 Validation des modules Enterprise...")
 
         try:
-            # Monitoring v3.0
+            # Monitoring
             from hyperion.modules.monitoring.metrics import PrometheusExporter, PerformanceTracker, HealthMonitor
             from hyperion.modules.monitoring.logging import StructuredLogger, CorrelationTracker, AuditLogger
             from hyperion.modules.monitoring.alerting import AlertManager, QualityAlerts
             print("   ✅ Monitoring v3.0 - Architecture validée")
 
-            # Cache v3.0
+            # Cache
             from hyperion.modules.cache import DistributedCacheManager, LRUStrategy, InvalidationEngine, CacheAnalytics
             print("   ✅ Cache distribué v3.0 - Architecture validée")
 
-            # Security v3.0
+            # Security
             from hyperion.modules.security import AuthManager
             from hyperion.modules.security.rbac_engine import RBACEngine
             from hyperion.modules.security.security_scanner import SecurityScanner
             print("   ✅ Sécurité v3.0 - Architecture validée")
 
-            # Gateway v3.0
+            # Gateway
             from hyperion.modules.gateway import APIGateway
             from hyperion.modules.gateway.rate_limiter import RateLimiter
             from hyperion.modules.gateway.request_router import RequestRouter
             from hyperion.modules.gateway.load_balancer import LoadBalancer
             print("   ✅ API Gateway v3.0 - Architecture validée")
 
-            # RAG v2.9
+            # RAG
             from hyperion.modules.rag import EnhancedRAGPipeline, ContextManager
             from hyperion.modules.rag.response_optimizer import ResponseOptimizer
             from hyperion.modules.rag.multi_modal import MultiModalRAG
             print("   ✅ RAG Pipeline v2.9 - Architecture validée")
 
-            # ML v2.9
+            # ML
             from hyperion.modules.ml import EnsembleModelManager
             from hyperion.modules.ml.adaptive_training import AdaptiveTrainer
             from hyperion.modules.ml.feature_engineering import FeatureEngineer
             print("   ✅ ML Ensemble v2.9 - Architecture validée")
 
-            # Analytics v2.9
+            # Analytics
             from hyperion.modules.analytics import IntelligenceEngine
             from hyperion.modules.analytics.pattern_analysis import PatternAnalyzer
             from hyperion.modules.analytics.predictive_insights import PredictiveInsights

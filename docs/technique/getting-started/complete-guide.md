@@ -1,4 +1,9 @@
-# Guide d'Utilisation Complète - Hyperion v2.5.0 Enterprise Ready
+---
+title: "Guide d'Utilisation Complète - Hyperion Ready"
+toc: true
+description: "1. Vue d'ensemble"
+weight: 2
+---
 
 ## Table des matières
 
@@ -15,7 +20,7 @@
 
 ## Vue d'ensemble
 
-Hyperion v2.5.0 Enterprise Ready est une plateforme d'analyse de code avancée qui combine :
+Hyperion Ready est une plateforme d'analyse de code avancée qui combine :
 
 - **Analyse Git intelligente** avec métriques approfondies
 - **Infrastructure ML complète** avec prédiction de risques et détection d'anomalies
@@ -23,7 +28,7 @@ Hyperion v2.5.0 Enterprise Ready est une plateforme d'analyse de code avancée q
 - **API OpenAI-compatible** pour intégration avec outils externes
 - **Dashboard interactif** et interface conversationnelle
 
-### Nouveautés v2.5.0
+### Nouveautés
 
 - ✅ **Infrastructure ML Enterprise** : MLflow, Feature Store, Training Pipeline
 - ✅ **4 modèles ML opérationnels** : RiskPredictor, AnomalyDetector, ImpactAnalyzer, BugPredictor
@@ -174,7 +179,7 @@ hyperion export /path/to/repo --since="2024-01-01"
 
 ### Vue d'ensemble ML
 
-Hyperion v2.5.0 inclut une infrastructure ML complète avec :
+Hyperion inclut une infrastructure ML complète avec :
 
 - **MLflow** : Tracking et registry de modèles
 - **Feature Store** : Gestion centralisée des features
@@ -677,7 +682,6 @@ jobs:
 
 ### Documentation
 - **Guide Architecture** : `docs/architecture/architecture.md`
-- **Plan v3.0** : `docs/v3.0-enterprise-plan.md`
 - **API Reference** : http://localhost:8000/docs
 - **Code Examples** : `scripts/dev/`
 
@@ -692,6 +696,6 @@ jobs:
 
 ---
 
-**Hyperion v2.5.0 Enterprise Ready** - Analyse de code intelligente avec infrastructure ML complète.
+**Hyperion Ready** - Analyse de code intelligente avec infrastructure ML complète.
 
 Dernière mise à jour : 25 décembre 2024

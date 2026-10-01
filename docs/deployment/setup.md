@@ -1,4 +1,9 @@
-# 🚀 Script d'installation ultime Hyperion
+---
+title: "Script d'installation ultime Hyperion"
+toc: true
+description: "Script interactif qui gère TOUT"
+weight: 5
+---
 
 Script interactif qui gère **TOUT** :
 - Installation services (Docker, Qdrant, Ollama, Neo4j)

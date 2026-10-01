@@ -1,7 +1,11 @@
-# 🤖 Infrastructure ML Hyperion v2.7
+---
+title: "Infrastructure ML Hyperion"
+toc: true
+description: "Version : **Platform**: Machine Learning Infrastructure"
+weight: 1
+---
 
-**Version**: v2.7.0
-**Platform**: Machine Learning Infrastructure
+**Version**: **Platform**: Machine Learning Infrastructure
 
 ---
 
@@ -22,7 +26,7 @@
 
 ## 🎯 Vue d'ensemble
 
-L'infrastructure ML de Hyperion v2.7 est conçue comme une plateforme **Enterprise-grade** pour :
+L'infrastructure ML de Hyperion est conçue comme une plateforme **Enterprise-grade** pour :
 
 1. **Extraire et ingénier** 35+ features à partir de données Git et code
 2. **Entraîner automatiquement** 4 modèles ML + ensemble pour prédictions
@@ -303,7 +307,7 @@ models = registry.list_models()
 ```python
 class ModelMetadata:
     name: str                          # Nom du modèle
-    version: str                       # Version sémantique (v1.0.0)
+    version: str                       # Version sémantique
     model_type: str                    # Type (RandomForest, XGBoost, etc)
     created_at: datetime               # Timestamp création
     created_by: str = "hyperion-ml"   # Créateur
@@ -997,4 +1001,4 @@ mlflow ui --host 0.0.0.0 --port 5000
 
 ---
 
-Cette documentation complète couvre l'ensemble de l'infrastructure ML de Hyperion v2.7. Pour toute question ou suggestion d'amélioration, n'hésitez pas à consulter les tests dans `src/hyperion/modules/ml/tests/` qui contiennent de nombreux exemples d'usage.
+Cette documentation complète couvre l'ensemble de l'infrastructure ML de Hyperion. Pour toute question ou suggestion d'amélioration, n'hésitez pas à consulter les tests dans `src/hyperion/modules/ml/tests/` qui contiennent de nombreux exemples d'usage.

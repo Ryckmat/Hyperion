@@ -1,4 +1,9 @@
-# 🚀 API Documentation Hyperion v2.7
+---
+title: "API Documentation Hyperion"
+toc: true
+description: "Hyperion expose une API REST complète pour interagir avec la plateforme d'analyse de code et RAG."
+weight: 1
+---
 
 ## Overview
 

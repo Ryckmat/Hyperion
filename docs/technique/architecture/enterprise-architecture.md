@@ -1,14 +1,18 @@
-# 🏗️ Architecture v3.0 Enterprise - Hyperion
+---
+title: "Architecture - Hyperion"
+toc: true
+description: "Documentation complète de l'architecture enterprise d'Hyperion."
+weight: 4
+---
 
-![Architecture](https://img.shields.io/badge/Architecture-v3.0-blue.svg)
 ![Enterprise](https://img.shields.io/badge/Enterprise-Ready-green.svg)
 ![Microservices](https://img.shields.io/badge/Microservices-8_Services-orange.svg)
 
-Documentation complète de l'architecture enterprise v3.0 d'Hyperion.
+Documentation complète de l'architecture enterprise d'Hyperion.
 
 ---
 
-## 🎯 **Vue d'Ensemble Architecture v3.0**
+## 🎯 **Vue d'Ensemble Architecture**
 
 ### 🏗️ **Principes Architecturaux**
 - **Microservices** : Architecture modulaire découplée
@@ -27,9 +31,9 @@ Documentation complète de l'architecture enterprise v3.0 d'Hyperion.
 
 ---
 
-## 🔧 **Services Core v3.0**
+## 🔧 **Services Core**
 
-### 1. 🌐 **API Gateway v3.0**
+### 1. 🌐 **API Gateway**
 **Port** : `8000` | **Route** : `/` | **Status** : Production Ready
 
 #### Fonctionnalités
@@ -73,24 +77,24 @@ cache:
   enable_l2: true
 ```
 
-### 2. 🔍 **Enhanced RAG Pipeline v2.9**
+### 2. 🔍 **Enhanced RAG Pipeline**
 **Port** : `8001` | **Route** : `/rag` | **Status** : Production Ready
 
 #### Fonctionnalités
 - **Context Compression** : Compression intelligente contextes longs
 - **Semantic Reranking** : Reclassement sémantique des résultats
 - **Response Optimization** : Amélioration clarté/concision/cohérence
-- **Quality Validation v2.8** : Scoring qualité + validation réponses
+- **Quality Validation** : Scoring qualité + validation réponses
 - **Context Manager** : Gestion conversations + profils utilisateur
 
 #### Architecture Interne
 ```python
-# Structure RAG v2.9
+# Structure RAG
 src/hyperion/modules/rag/
 ├── enhanced_pipeline.py    # Pipeline principal
 ├── response_optimizer.py   # Optimisation réponses
 ├── context_manager.py      # Gestion contexte
-├── quality/                # Système qualité v2.8
+├── quality/                # Système qualité
 │   ├── confidence_scorer.py
 │   ├── hallucination_detector.py
 │   └── response_validator.py
@@ -98,7 +102,7 @@ src/hyperion/modules/rag/
     └── quality_metrics.py
 ```
 
-### 3. 📊 **Analytics Engine v2.9**
+### 3. 📊 **Analytics Engine**
 **Port** : `8002` | **Route** : `/analytics` | **Status** : Production Ready
 
 #### Fonctionnalités
@@ -110,7 +114,7 @@ src/hyperion/modules/rag/
 
 #### Architecture Interne
 ```python
-# Structure Analytics v2.9
+# Structure Analytics
 src/hyperion/modules/analytics/
 ├── intelligence_engine.py     # Moteur principal
 ├── pattern_analysis.py        # Analyse patterns
@@ -125,7 +129,7 @@ src/hyperion/modules/analytics/
 
 ## 🔐 **Cross-Cutting Services**
 
-### 1. 🛡️ **Security Layer v3.0**
+### 1. 🛡️ **Security Layer**
 
 #### Auth Manager
 ```python
@@ -147,7 +151,7 @@ src/hyperion/modules/security/
 - **Session Management** : Sessions sécurisées avec TTL
 - **API Key Management** : Clés API pour services
 
-### 2. 📊 **Monitoring Stack v3.0**
+### 2. 📊 **Monitoring Stack**
 
 #### Structured Logging
 ```python
@@ -171,7 +175,7 @@ src/hyperion/modules/monitoring/
 - **Health Monitoring** : Health checks automatiques
 - **Alerting** : Alertes configurables (email, Slack, webhook)
 
-### 3. 💾 **Distributed Cache v3.0**
+### 3. 💾 **Distributed Cache**
 
 #### Architecture Cache
 ```python
@@ -199,7 +203,7 @@ src/hyperion/modules/cache/
 ### Layer 1: **API Gateway (Entry Point)**
 ```mermaid
 graph TD
-    Client --> Gateway[API Gateway v3.0]
+    Client --> Gateway[API Gateway]
     Gateway --> Auth[Auth Middleware]
     Gateway --> RateLimit[Rate Limiter]
     Gateway --> Cache[Cache Middleware]
@@ -209,9 +213,9 @@ graph TD
 ### Layer 2: **Core Services (Business Logic)**
 ```mermaid
 graph LR
-    Gateway --> RAG[RAG Pipeline v2.9]
-    Gateway --> Analytics[Analytics Engine v2.9]
-    Gateway --> ML[ML Platform v2.9]
+    Gateway --> RAG[RAG Pipeline]
+    Gateway --> Analytics[Analytics Engine]
+    Gateway --> ML[ML Platform]
     Gateway --> Admin[Admin Service]
 ```
 
@@ -227,10 +231,10 @@ graph TD
 ### Cross-Cutting: **Infrastructure Services**
 ```mermaid
 graph TB
-    Monitor[Monitoring v3.0] -.-> All[All Services]
-    Security[Security v3.0] -.-> All
-    Cache[Cache v3.0] -.-> All
-    Analytics[Analytics v2.9] -.-> All
+    Monitor[Monitoring] -.-> All[All Services]
+    Security[Security] -.-> All
+    Cache[Cache] -.-> All
+    Analytics[Analytics] -.-> All
 ```
 
 ---
@@ -239,10 +243,10 @@ graph TB
 
 ### Docker Compose Architecture
 ```yaml
-# docker-compose.yml - Architecture v3.0
+# docker-compose.yml - Architecture
 version: '3.8'
 services:
-  # API Gateway v3.0
+  # API Gateway
   api-gateway:
     build: ./gateway
     ports: ["8000:8000"]
@@ -251,22 +255,20 @@ services:
       - ENABLE_MONITORING=true
     depends_on: [redis, prometheus]
 
-  # RAG Pipeline v2.9
+  # RAG Pipeline
   rag-service:
     build: ./rag
     ports: ["8001:8001"]
     environment:
-      - PIPELINE_VERSION=v2.9
-      - ENABLE_OPTIMIZATION=true
+      - PIPELINE_VERSION=ENABLE_OPTIMIZATION=true
     depends_on: [postgresql, neo4j]
 
-  # Analytics Engine v2.9
+  # Analytics Engine
   analytics:
     build: ./analytics
     ports: ["8002:8002"]
     environment:
-      - ENGINE_VERSION=v2.9
-      - ENABLE_REALTIME=true
+      - ENGINE_VERSION=ENABLE_REALTIME=true
 
   # Infrastructure
   redis:
@@ -305,8 +307,7 @@ spec:
     spec:
       containers:
       - name: gateway
-        image: hyperion/api-gateway:v3.0
-        ports:
+        image: hyperion/api-gateway:ports:
         - containerPort: 8000
         env:
         - name: REDIS_URL
@@ -372,7 +373,7 @@ sequenceDiagram
 
 ## 📊 **Performance & Scalability**
 
-### 🎯 **Performance Targets v3.0**
+### 🎯 **Performance Targets**
 
 | Service | Latency P95 | Throughput | Availability |
 |---------|-------------|------------|--------------|
@@ -508,7 +509,7 @@ service_health = Gauge('service_health', 'Service health status')
 ```json
 {
   "dashboard": {
-    "title": "Hyperion v3.0 Enterprise",
+    "title": "Hyperion",
     "panels": [
       {
         "title": "Request Rate",
@@ -597,14 +598,13 @@ bandit -r src/
 semgrep --config=auto src/
 
 # Vulnerability assessment
-trivy image hyperion/api-gateway:v3.0
-```
+trivy image hyperion/api-gateway:```
 
 ---
 
 ## 📞 **Troubleshooting & Support**
 
-### 🔍 **Debug Tools v3.0**
+### 🔍 **Debug Tools**
 
 #### Health Checks
 ```bash
@@ -665,4 +665,4 @@ redis-cli info stats
 
 ---
 
-*Documentation Architecture Enterprise v3.0*
+*Documentation Architecture Enterprise*

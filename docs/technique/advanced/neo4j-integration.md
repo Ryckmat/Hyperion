@@ -1,8 +1,12 @@
-# 📥 Guide Ingestion Généralisée
+---
+title: "Guide Ingestion Généralisée"
+toc: true
+description: "Script : scripts/maintenance/ingest_generalized.py"
+weight: 4
+---
 
 **Script** : `scripts/maintenance/ingest_generalized.py`
-**Version** : v2.0.0
-**Component** : Neo4j Data Ingestion
+**Version** : **Component** : Neo4j Data Ingestion
 
 ---
 

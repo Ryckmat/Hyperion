@@ -1,13 +1,13 @@
 #!/bin/bash
 # ============================================================================
-# 🚀 HYPERION MASTER FINAL - Orchestrateur Unique avec Options
+# 🚀 HYPERION MASTER - Orchestrateur Unique avec Options
 #
 # Usage:
-#   ./hyperion_master_final.sh                    # Mode interactif
-#   ./hyperion_master_final.sh --auto             # Mode automatique
-#   ./hyperion_master_final.sh --repo /path       # Repository spécifique
-#   ./hyperion_master_final.sh --modules v1,v2    # Modules spécifiques
-#   ./hyperion_master_final.sh --help             # Aide
+#   ./hyperion_master.sh                    # Mode interactif
+#   ./hyperion_master.sh --auto             # Mode automatique
+#   ./hyperion_master.sh --repo /path       # Repository spécifique
+#   ./hyperion_master.sh --modules v1,v2    # Modules spécifiques
+#   ./hyperion_master.sh --help             # Aide
 # ============================================================================
 
 set -euo pipefail

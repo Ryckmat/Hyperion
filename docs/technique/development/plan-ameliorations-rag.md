@@ -1,11 +1,15 @@
-# Hyperion v3.1 - Améliorations RAG
+---
+title: "Hyperion - Améliorations RAG"
+toc: true
+description: "Actuellement Hyperion utilise uniquement Qdrant (recherche vectorielle). Ajouter BM25 améliore le recall de 15-20% sur les termes techniques exacts."
+weight: 4
+---
 
 ## Vue d'ensemble
 
 **Objectif**: Améliorer la qualité du pipeline RAG existant avec des techniques éprouvées.
 
-**Version cible**: v3.1.0
-**Base**: v3.0 Enterprise Ready
+**Version cible**: **Base**: Enterprise Ready
 **Inspiration sélective**: Techniques RAG de [Docify](https://github.com/keshavashiya/docify)
 
 > **Note**: Docify est un RAG documentaire, pas un générateur de docs. Seules les techniques RAG pertinentes sont retenues.
@@ -255,7 +259,7 @@ class RAGQueryEngine:
     def __init__(self, config: RAGConfig):
         # ... existing code ...
 
-        # v3.1 additions
+        # additions
         self.hybrid_search = HybridSearchEngine(self.qdrant_client, HybridConfig())
         self.reranker = SimpleReranker(self.embedder, RerankerConfig())
         self.citation_verifier = CitationVerifier(self.embedder)
@@ -285,7 +289,7 @@ class RAGQueryEngine:
 
 ## Métriques de Succès
 
-| Métrique | v3.0 | Cible v3.1 |
+| Métrique | | Cible |
 |----------|------|------------|
 | Recall@10 | ~65% | >75% |
 | Precision@5 | ~70% | >80% |
@@ -293,13 +297,13 @@ class RAGQueryEngine:
 
 ---
 
-## Ce qui n'est PAS dans v3.1
+## Ce qui n'est PAS dans
 
 - ❌ Query Expansion LLM (coût trop élevé pour le gain)
 - ❌ Pipeline 12 étapes (over-engineering)
 - ❌ Parsers PDF/URL (hors scope)
 - ❌ Déduplication sémantique (complexité)
-- ❌ Conflict Detection (v3.2 peut-être)
+- ❌ Conflict Detection (peut-être)
 
 ---
 

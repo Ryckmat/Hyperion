@@ -1,4 +1,9 @@
-# 🚀 Script Master Hyperion
+---
+title: "Script Master Hyperion"
+toc: true
+description: "cd /home/kortazo/Documents/Hyperion"
+weight: 3
+---
 
 ## 📦 `hyperion_full_workflow.py`
 

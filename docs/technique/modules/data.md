@@ -1,4 +1,9 @@
-# Data Directory
+---
+title: "Data Directory"
+toc: true
+description: "Ce dossier contient les données générées par Hyperion."
+weight: 4
+---
 
 Ce dossier contient les données générées par Hyperion.
 

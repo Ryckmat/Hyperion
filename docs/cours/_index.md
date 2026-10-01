@@ -1,4 +1,9 @@
-# 📚 Cours Hyperion v2.7 - Apprendre et Maîtriser
+---
+title: "Cours Hyperion - Apprendre et Maîtriser"
+toc: true
+description: "Formation complète à Hyperion : De débutant à expert en 10 chapitres"
+weight: 1
+---
 
 **Formation complète à Hyperion** - De débutant à expert en 10 chapitres
 
@@ -20,7 +25,7 @@ Cette section **cours/** est conçue pour vous accompagner dans l'apprentissage 
 
 ### 🟢 **NIVEAU DÉBUTANT**
 
-#### [📖 Chapitre 01 - Introduction](01-introduction.md)
+#### [📖 Chapitre 01 - Introduction](01-introduction)
 **Qu'est-ce que Hyperion et pourquoi l'utiliser ?**
 - Présentation de la plateforme
 - Cas d'usage concrets
@@ -29,7 +34,7 @@ Cette section **cours/** est conçue pour vous accompagner dans l'apprentissage 
 
 *⏱️ Durée estimée : 15 minutes*
 
-#### [⚙️ Chapitre 02 - Installation](02-installation.md)
+#### [⚙️ Chapitre 02 - Installation](02-installation)
 **Setup complet et vérification**
 - Prérequis système
 - Installation pas-à-pas
@@ -38,7 +43,7 @@ Cette section **cours/** est conçue pour vous accompagner dans l'apprentissage 
 
 *⏱️ Durée estimée : 30 minutes*
 
-#### [🚀 Chapitre 03 - Premier Usage](03-premier-usage.md)
+#### [🚀 Chapitre 03 - Premier Usage](03-premier-usage)
 **Votre premier profiling avec Hyperion**
 - Analyser votre premier repository
 - Comprendre les résultats
@@ -51,7 +56,7 @@ Cette section **cours/** est conçue pour vous accompagner dans l'apprentissage 
 
 ### 🟡 **NIVEAU INTERMÉDIAIRE**
 
-#### [💻 Chapitre 04 - CLI Essentials](04-cli-essentials.md)
+#### [💻 Chapitre 04 - CLI Essentials](04-cli-essentials)
 **Maîtriser l'interface ligne de commande**
 - Les 5 commandes principales
 - Options et paramètres
@@ -60,7 +65,7 @@ Cette section **cours/** est conçue pour vous accompagner dans l'apprentissage 
 
 *⏱️ Durée estimée : 45 minutes*
 
-#### [🌐 Chapitre 05 - API Basics](05-api-basics.md)
+#### [🌐 Chapitre 05 - API Basics](05-api-basics)
 **Utiliser l'API REST et OpenAI**
 - API Core pour les repositories
 - Compatibilité OpenAI
@@ -69,7 +74,7 @@ Cette section **cours/** est conçue pour vous accompagner dans l'apprentissage 
 
 *⏱️ Durée estimée : 40 minutes*
 
-#### [🤖 Chapitre 06 - RAG et Chat](06-rag-chat.md)
+#### [🤖 Chapitre 06 - RAG et Chat](06-rag-chat)
 **Interroger vos repos avec l'IA**
 - Comprendre le RAG (Retrieval Augmented Generation)
 - Poser les bonnes questions
@@ -78,7 +83,7 @@ Cette section **cours/** est conçue pour vous accompagner dans l'apprentissage 
 
 *⏱️ Durée estimée : 30 minutes*
 
-#### [🧠 Chapitre 07 - Infrastructure ML](07-infrastructure-ml.md)
+#### [🧠 Chapitre 07 - Infrastructure ML](07-infrastructure-ml)
 **Comprendre les modèles et prédictions**
 - Les 5 modèles ML d'Hyperion
 - Prédiction de risques
@@ -91,7 +96,7 @@ Cette section **cours/** est conçue pour vous accompagner dans l'apprentissage 
 
 ### 🔴 **NIVEAU AVANCÉ**
 
-#### [⚡ Chapitre 08 - Workflows](08-workflows.md)
+#### [⚡ Chapitre 08 - Workflows](08-workflows)
 **Workflows avancés et automatisation**
 - Batch processing multi-repos
 - Intégration CI/CD
@@ -100,7 +105,7 @@ Cette section **cours/** est conçue pour vous accompagner dans l'apprentissage 
 
 *⏱️ Durée estimée : 60 minutes*
 
-#### [🔧 Chapitre 09 - Troubleshooting](09-troubleshooting.md)
+#### [🔧 Chapitre 09 - Troubleshooting](09-troubleshooting)
 **Résoudre les problèmes courants**
 - Diagnostic et logs
 - Erreurs fréquentes
@@ -109,7 +114,7 @@ Cette section **cours/** est conçue pour vous accompagner dans l'apprentissage 
 
 *⏱️ Durée estimée : 45 minutes*
 
-#### [🚀 Chapitre 10 - Usage Avancé](10-advanced-usage.md)
+#### [🚀 Chapitre 10 - Usage Avancé](10-advanced-usage)
 **Fonctionnalités expertes**
 - Code Intelligence v2
 - Impact Analysis
@@ -194,7 +199,7 @@ Tous les exemples sont testés et fonctionnels. N'hésitez pas à les reproduire
 | **Swagger Docs** | http://localhost:8000/docs | Chapitre 05 |
 
 ### 📖 **Documentation Technique**
-Pour aller plus loin après la formation, consultez [Documentation Technique](../technique/) qui contient :
+Pour aller plus loin après la formation, consultez [Documentation Technique](../technique) qui contient :
 - Référence complète API et CLI
 - Architecture système détaillée
 - Guides de développement
@@ -229,7 +234,7 @@ Vous devriez être capable de :
 ## 🆘 **Aide et Support**
 
 ### 💬 **Questions pendant la Formation**
-- Consultez d'abord le [Chapitre 09 - Troubleshooting](09-troubleshooting.md)
+- Consultez d'abord le [Chapitre 09 - Troubleshooting](09-troubleshooting)
 - Utilisez `hyperion info` pour diagnostic
 - Vérifiez les logs dans `logs/`
 
@@ -244,10 +249,10 @@ Cette formation peut être améliorée ! N'hésitez pas à signaler :
 
 ## 🚀 **Prêt à Commencer ?**
 
-👉 **Démarrez votre formation** : [Chapitre 01 - Introduction](01-introduction.md)
+👉 **Démarrez votre formation** : [Chapitre 01 - Introduction](01-introduction)
 
 *Bonne formation avec Hyperion ! 🎓*
 
 ---
 
-*Formation mise à jour pour Hyperion v2.7.0*
+*Formation mise à jour pour Hyperion*

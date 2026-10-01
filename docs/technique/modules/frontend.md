@@ -1,4 +1,9 @@
-# 🌐 Hyperion Dashboard
+---
+title: "Hyperion Dashboard"
+toc: true
+description: "Interface web moderne pour explorer les dépôts Git analysés par Hyperion."
+weight: 5
+---
 
 Interface web moderne pour explorer les dépôts Git analysés par Hyperion.
 

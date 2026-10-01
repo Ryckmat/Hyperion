@@ -34,3 +34,6 @@ La CI (`.github/workflows/ci.yml`) exécute black, ruff, pytest et gitleaks : le
 - Services externes (Neo4j, Qdrant, Ollama) : toujours mockés dans les tests unitaires
 - Configuration via `.env` (modèle : `.env.example`) ; aucun secret en clair, gitleaks tourne en CI
 - Pas de tiret cadratin dans la doc ni les messages
+- Documentation dans `docs/` (Hugo) : frontmatter `title`/`toc`/`description`/`weight` sur chaque page, `_index.md` par section, liens internes sans `.md`
+- Socle : `docs/_index.md` (glossaire + 8 sections), `docs/operations.md` (runbook), `docs/slo.md`, `docs/data.yaml`
+- Aucune version dans le texte de la doc ni le code : les versions vont dans `docs/data.yaml`

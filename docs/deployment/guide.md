@@ -1,4 +1,9 @@
-# 🚀 Hyperion Enterprise Deployment Guide
+---
+title: "Hyperion Enterprise Deployment Guide"
+toc: true
+description: "Le projet a été réorganisé pour une meilleure structure"
+weight: 2
+---
 
 ## 📁 Organisation du Projet
 
@@ -47,7 +52,7 @@ Le script `deploy.py` unifie tous les déploiements avec:
 
 #### ✅ Phases de Déploiement
 1. **🏗️ Validation Architecture** - Vérification des modules enterprise
-2. **🚀 Déploiement Services** - Lancement de tous les services v3.0 + v2.9
+2. **🚀 Déploiement Services** - Lancement de tous les services
 3. **🔗 Tests d'Intégration** - Validation des interactions entre services
 4. **🇫🇷 Tests Français** - Validation du support français complet
 5. **⚡ Tests Performance** - Validation des performances enterprise
@@ -55,12 +60,12 @@ Le script `deploy.py` unifie tous les déploiements avec:
 #### ✅ Services Enterprise
 - 🏥 **Health Monitor** - Monitoring de santé système
 - 📊 **Monitoring Enterprise** - Metrics et observabilité
-- 💾 **Cache Distribué** - Cache multi-niveaux v3.0
+- 💾 **Cache Distribué** - Cache multi-niveaux
 - 🔐 **Sécurité Avancée** - Auth, RBAC, Audit, Chiffrement
 - 🌐 **API Gateway** - Routage et load balancing
-- 🧠 **RAG Pipeline v2.9** - Pipeline RAG optimisé
-- 🤖 **ML Ensemble v2.9** - Modèles ML adaptatifs
-- 📈 **Analytics v2.9** - Intelligence et analytics
+- 🧠 **RAG Pipeline** - Pipeline RAG optimisé
+- 🤖 **ML Ensemble** - Modèles ML adaptatifs
+- 📈 **Analytics** - Intelligence et analytics
 
 #### ✅ Capacités Françaises
 - 💬 Questions générales en français
@@ -91,9 +96,9 @@ Le script génère automatiquement:
    ✅ 💾 Cache Distribué
    ✅ 🔐 Sécurité Avancée
    ✅ 🌐 API Gateway
-   ✅ 🧠 RAG Pipeline v2.9
-   ✅ 🤖 ML Ensemble v2.9
-   ✅ 📈 Analytics v2.9
+   ✅ 🧠 RAG Pipeline
+   ✅ 🤖 ML Ensemble
+   ✅ 📈 Analytics
 
 📊 SCORE GLOBAL: 20/20 (100.0%)
 
@@ -163,8 +168,8 @@ python deploy.py --help
 
 Le déploiement configure une architecture enterprise complète:
 
-- **Infrastructure v3.0** - Monitoring, Cache, Sécurité, Gateway
-- **Intelligence v2.9** - RAG, ML, Analytics
+- **Infrastructure** - Monitoring, Cache, Sécurité, Gateway
+- **Intelligence** - RAG, ML, Analytics
 - **Support Français** - Natif dans tous les composants
 - **Performances** - >4M ops/sec cache, >150K logs/sec
 - **Production Ready** - Haute disponibilité, monitoring complet
@@ -178,4 +183,4 @@ Pour toute question sur le déploiement:
 3. Consultez la documentation des modules
 4. Testez avec `--quick` en cas de problème
 
-**Status**: ✅ Production Ready - Architecture Enterprise v3.0
+**Status**: ✅ Production Ready - Architecture Enterprise

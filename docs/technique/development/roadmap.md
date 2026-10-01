@@ -1,4 +1,9 @@
-# Hyperion v3.0 Enterprise Ready - Plan d'Implémentation
+---
+title: "Hyperion v3.0 Enterprise Ready - Plan d'Implémentation"
+toc: true
+description: "src/hyperion/modules/"
+weight: 5
+---
 
 ## Vue d'ensemble
 

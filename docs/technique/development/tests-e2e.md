@@ -1,4 +1,9 @@
-# Tests End-to-End Hyperion
+---
+title: "Tests End-to-End Hyperion"
+toc: true
+description: "Suite complète de tests automatisés pour valider le fonctionnement d'Hyperion."
+weight: 6
+---
 
 Suite complète de tests automatisés pour valider le fonctionnement d'Hyperion.
 

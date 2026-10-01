@@ -1,4 +1,9 @@
-# 🤖 Chapitre 06 - RAG et Chat
+---
+title: "Chapitre 06 - RAG et Chat"
+toc: true
+description: "Interroger vos repos avec l'IA : Maîtriser le Retrieval Augmented Generation"
+weight: 7
+---
 
 **Interroger vos repos avec l'IA** - Maîtriser le Retrieval Augmented Generation
 
@@ -589,7 +594,7 @@ async function queryHyperion(question: string): Promise<string> {
 
 ### 📚 **Prochaines Étapes**
 
-👉 **Continuez avec** : [Chapitre 07 - Infrastructure ML](07-infrastructure-ml.md)
+👉 **Continuez avec** : [Chapitre 07 - Infrastructure ML](07-infrastructure-ml)
 
 Au prochain chapitre, vous découvrirez :
 - Les 5 modèles ML d'Hyperion en détail
@@ -599,8 +604,8 @@ Au prochain chapitre, vous découvrirez :
 
 ---
 
-*Parfait ! Vous maîtrisez maintenant le chat intelligent avec votre code. Rendez-vous au [Chapitre 07](07-infrastructure-ml.md) !* 🤖
+*Parfait ! Vous maîtrisez maintenant le chat intelligent avec votre code. Rendez-vous au [Chapitre 07](07-infrastructure-ml) !* 🤖
 
 ---
 
-*Cours Hyperion v2.7.0 - Chapitre 06*
+*Cours Hyperion - Chapitre 06*

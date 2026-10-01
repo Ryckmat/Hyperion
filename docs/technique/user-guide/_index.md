@@ -1,4 +1,9 @@
-# 👥 Guide Utilisateur - Hyperion v2.7
+---
+title: "Guide Utilisateur - Hyperion"
+toc: true
+description: "Documentation détaillée pour l'utilisation d'Hyperion"
+weight: 1
+---
 
 Documentation détaillée pour l'utilisation d'Hyperion
 
@@ -6,7 +11,7 @@ Documentation détaillée pour l'utilisation d'Hyperion
 
 ## 📚 **Guides Détaillés**
 
-### 💻 **[CLI - Interface Ligne de Commande](cli/)**
+### 💻 **CLI - Interface Ligne de Commande**
 Documentation complète du CLI Hyperion avec ses 5 commandes principales.
 
 #### Contenu CLI
@@ -17,7 +22,7 @@ Documentation complète du CLI Hyperion avec ses 5 commandes principales.
 - `hyperion info` - Diagnostic système
 - Workflows avancés et automatisation
 
-### 🌐 **[API - Interface REST](api/)**
+### 🌐 **API - Interface REST**
 Documentation de l'API REST complète (Core + OpenAI + v2).
 
 #### Contenu API
@@ -27,7 +32,7 @@ Documentation de l'API REST complète (Core + OpenAI + v2).
 - Code Intelligence v2 (search, impact, anomaly)
 - Modèles de données et exemples
 
-### ⚙️ **[Configuration](configuration.md)**
+### ⚙️ **Configuration**
 Guide complet de configuration d'Hyperion.
 
 #### Contenu Configuration
@@ -41,25 +46,25 @@ Guide complet de configuration d'Hyperion.
 ## 🎯 **Navigation par Besoin**
 
 ### 🚀 **Je veux utiliser Hyperion via CLI**
-👉 **Consultez** : [Documentation CLI](cli/) - Interface complète
+👉 **Consultez** : Documentation CLI - Interface complète
 
 ### 🌐 **Je veux intégrer l'API dans mon projet**
-👉 **Consultez** : [Documentation API](api/) - API REST complète
+👉 **Consultez** : Documentation API - API REST complète
 
 ### ⚙️ **Je veux configurer Hyperion**
-👉 **Consultez** : [Configuration](configuration.md) - Setup complet
+👉 **Consultez** : Configuration - Setup complet
 
 ### 🔧 **Je veux optimiser les performances**
-👉 **Consultez** : [Configuration](configuration.md) - Section performance
+👉 **Consultez** : Configuration - Section performance
 
 ---
 
 ## 🔗 **Liens Connexes**
 
-- **[Getting Started](../getting-started/)** : Premier setup
-- **[Reference](../reference/)** : Documentation de référence
-- **[Advanced](../advanced/)** : Fonctionnalités avancées
+- **[Getting Started](../getting-started)** : Premier setup
+- **[Reference](../reference)** : Documentation de référence
+- **[Advanced](../advanced)** : Fonctionnalités avancées
 
 ---
 
-*Guide utilisateur pour Hyperion v2.7.0*
+*Guide utilisateur pour Hyperion*

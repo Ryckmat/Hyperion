@@ -1,4 +1,9 @@
-# 🚀 Chapitre 10 - Usage Avancé
+---
+title: "Chapitre 10 - Usage Avancé"
+toc: true
+description: "Fonctionnalités expertes : Code Intelligence v2, Impact Analysis et personnalisation"
+weight: 11
+---
 
 **Fonctionnalités expertes** - Code Intelligence v2, Impact Analysis et personnalisation
 
@@ -886,7 +891,7 @@ print(f"Exercises: {len(training_plan['exercises'])}")
 
 ### 🏆 **Compétences Maîtrisées**
 
-Vous maîtrisez maintenant **toutes** les fonctionnalités d'Hyperion v2.7 :
+Vous maîtrisez maintenant **toutes** les fonctionnalités d'Hyperion :
 
 #### 🟢 **Niveau Débutant** ✅
 - ✅ Installation et configuration
@@ -954,7 +959,7 @@ Avec Hyperion, vous pouvez obtenir :
 - Aidez d'autres utilisateurs
 
 ### 📚 **Approfondissement**
-- Consultez la [Documentation Technique](../technique/) pour aller plus loin
+- Consultez la [Documentation Technique](../technique) pour aller plus loin
 - Explorez les APIs avancées
 - Développez vos propres extensions
 
@@ -962,7 +967,7 @@ Avec Hyperion, vous pouvez obtenir :
 
 ## 🎓 **Certificat de Complétion**
 
-**🏆 Vous avez terminé avec succès la formation complète Hyperion v2.7.0 !**
+**🏆 Vous avez terminé avec succès la formation complète Hyperion !**
 
 **Compétences certifiées :**
 - ✅ Installation et configuration experte
@@ -975,15 +980,15 @@ Avec Hyperion, vous pouvez obtenir :
 - ✅ Formation d'équipe
 
 **Date de complétion :** *26 décembre 2024*
-**Formation :** *Cours Hyperion v2.7.0 Complet (10 chapitres)*
+**Formation :** *Cours Hyperion Complet (10 chapitres)*
 **Durée totale :** *6 heures de formation intensive*
 
 ---
 
 **🎉 Bravo ! Vous êtes maintenant un Expert Hyperion certifié !**
 
-*N'hésitez pas à consulter la [Documentation Technique](../technique/) pour continuer à approfondir vos connaissances.*
+*N'hésitez pas à consulter la [Documentation Technique](../technique) pour continuer à approfondir vos connaissances.*
 
 ---
 
-*Cours Hyperion v2.7.0 - Chapitre 10 Final*
+*Cours Hyperion - Chapitre 10 Final*
