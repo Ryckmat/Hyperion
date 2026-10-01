@@ -138,7 +138,7 @@ class Settings(BaseSettings):
 
     log_level: str = Field(default="INFO", description="Niveau de logging")
     enable_metrics: bool = Field(default=True, description="Activer les métriques Prometheus")
-    metrics_port: int = Field(default=8001, description="Port pour les métriques")
+    metrics_port: int = Field(default=8090, description="Port pour les métriques")
 
     # ============================================================================
     # API Configuration
