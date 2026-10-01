@@ -1,5 +1,5 @@
 """
-Tests unitaires pour le système de validation qualité v2.8
+Tests unitaires pour le système de validation qualité
 
 Tests couvrant :
 - Détecteur d'hallucinations

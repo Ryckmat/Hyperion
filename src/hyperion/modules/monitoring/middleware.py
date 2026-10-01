@@ -1,5 +1,5 @@
 """
-Middleware de monitoring pour FastAPI - Hyperion v3.0
+Middleware de monitoring pour FastAPI - Hyperion
 
 Middleware pour Request ID, logging automatique, métriques et observabilité.
 """

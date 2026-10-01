@@ -1,0 +1,96 @@
+# Versions et configuration de référence d'Hyperion.
+# Seul endroit où figurent les versions : la documentation n'en cite aucune.
+# Source de vérité : pyproject.toml, docker-compose.yml, Dockerfile, src/hyperion/settings.py.
+
+projet:
+  nom: hyperion
+  version: 3.0.0
+  python_requis: ">=3.10"
+  image_python: python:3.11-slim
+
+services:
+  api:
+    port: 8000
+    framework: fastapi
+    version_min: 0.104.0
+    serveur: uvicorn
+    serveur_version_min: 0.24.0
+  metriques_prometheus:
+    port: 8090
+  neo4j:
+    image: neo4j:5
+    ports: { navigateur: 7474, bolt: 7687 }
+    driver_version_min: 5.28.0
+    uri_defaut: bolt://localhost:7687
+    utilisateur_defaut: neo4j
+    mot_de_passe: "***REDACTED***"   # NEO4J_PASSWORD dans .env
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports: { http: 6333, grpc: 6334 }
+    client_version_min: 1.7.0
+    collection_defaut: hyperion_repos
+  ollama:
+    image: ollama/ollama:latest
+    port: 11434
+    modele_defaut: qwen2.5:32b
+    temperature: 0.1
+    max_tokens: 2048
+  redis:
+    url_defaut: redis://localhost:6379
+    obligatoire: false
+  dashboard:
+    image: node:18-alpine
+    port: 3000
+  open_webui:
+    image: ghcr.io/open-webui/open-webui:main
+    port: 3001
+
+rag:
+  embeddings:
+    modele: BAAI/bge-large-en-v1.5
+    dimension: 1024
+    device_defaut: cuda          # bascule automatique sur cpu
+  dependances:
+    sentence_transformers: ">=2.2.0"
+    langchain: ">=0.1.0"
+    langchain_ollama: ">=0.1.0"
+    torch: ">=2.0.0"
+  seuils_qualite:              # eval/suites/core.yaml
+    latency_ms: { alerte: 5000, critique: 10000 }
+    confidence_score: { alerte: 0.7, critique: 0.5 }
+    source_coverage: { alerte: 0.6, critique: 0.3 }
+    hallucination_rate: { alerte: 0.2, critique: 0.5 }
+    relevance_score: { alerte: 0.7, critique: 0.5 }
+
+securite:
+  jwt:
+    algorithme: HS256
+    cle: "***REDACTED***"        # JWT_SECRET_KEY dans .env
+  dependances:
+    bcrypt: ">=4.0.0"
+    pyotp: ">=2.9.0"
+    pyjwt: ">=2.8.0"
+    cryptography: ">=41.0.0"
+
+ml:
+  dependances:
+    scikit_learn: ">=1.3.0"
+    xgboost: ">=2.0.0"
+    mlflow: ">=2.8.0"
+    pandas: ">=2.0.0"
+    numpy: ">=1.24.0"
+  modeles_reference:           # modeles/
+    risk_predictor_random_forest: 1.1.0
+    risk_predictor_isolation_forest: 1.1.0
+    risk_predictor_meta_learner: 1.1.0
+    risk_predictor_xgboost: 1.0.0
+  analyse_comportementale:
+    anomaly_threshold: 0.7
+    baseline_period_hours: 24
+
+qualite_code:
+  black: ">=23.0.0"
+  ruff: ">=0.1.0"
+  mypy: ">=1.7.0"
+  pytest: ">=7.4.0"
+  pydantic: ">=2.0.0"

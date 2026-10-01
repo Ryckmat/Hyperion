@@ -1,5 +1,5 @@
 """
-Logging infrastructure pour Hyperion v3.0
+Logging infrastructure pour Hyperion
 """
 
 from .audit_logger import AuditLogger

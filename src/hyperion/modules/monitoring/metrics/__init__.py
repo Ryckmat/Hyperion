@@ -1,5 +1,5 @@
 """
-Métriques et monitoring pour Hyperion v3.0
+Métriques et monitoring pour Hyperion
 """
 
 from .health_monitor import HealthMonitor

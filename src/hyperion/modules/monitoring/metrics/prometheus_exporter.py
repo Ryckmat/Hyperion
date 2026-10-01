@@ -1,5 +1,5 @@
 """
-Prometheus Metrics Exporter for Hyperion v3.0
+Prometheus Metrics Exporter for Hyperion
 
 Expose des métriques enterprise-grade pour supervision et alerting.
 """

@@ -199,3 +199,11 @@ Thumbs.db
 
 # Legacy directories
 /output/
+
+# Artefacts générés à l'exécution (modèles de référence versionnés dans modeles/)
+/models/
+/mlruns/
+/audit/
+/data/ml/feature_store/
+/data/quality_metrics.db
+/.benchmarks/

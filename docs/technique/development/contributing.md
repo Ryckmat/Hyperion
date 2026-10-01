@@ -1,4 +1,9 @@
-# Guide de contribution
+---
+title: "Guide de contribution"
+toc: true
+description: "Merci de votre intérêt pour contribuer à Hyperion !"
+weight: 3
+---
 
 Merci de votre intérêt pour contribuer à Hyperion ! 🎉
 

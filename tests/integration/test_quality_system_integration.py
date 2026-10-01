@@ -1,5 +1,5 @@
 """
-Test d'intégration du système de validation qualité v2.8 avec Hyperion
+Test d'intégration du système de validation qualité avec Hyperion
 
 Ce test valide que le système de qualité fonctionne correctement
 dans l'environnement complet de Hyperion (API, RAG, base de données).
@@ -311,7 +311,7 @@ class TestMasterScriptIntegration:
         if env_file.exists():
             env_content = env_file.read_text()
 
-            # Vérifier présence variables qualité v2.8
+            # Vérifier présence variables qualité
             required_vars = [
                 "ENABLE_RESPONSE_VALIDATION",
                 "VALIDATION_MODE",
@@ -322,7 +322,7 @@ class TestMasterScriptIntegration:
             for var in required_vars:
                 assert var in env_content, f"Variable d'environnement manquante: {var}"
 
-            print("✅ Variables d'environnement qualité v2.8 présentes")
+            print("✅ Variables d'environnement qualité présentes")
 
         else:
             pytest.skip("Fichier .env non trouvé")
@@ -352,7 +352,7 @@ class TestMasterScriptIntegration:
 
 def run_integration_tests():
     """Fonction utilitaire pour lancer les tests d'intégration"""
-    print("🚀 Démarrage tests d'intégration système qualité v2.8")
+    print("🚀 Démarrage tests d'intégration système qualité")
     print("=" * 60)
 
     # Check API accessibility first

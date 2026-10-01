@@ -1,8 +1,12 @@
-# 🧠 Code Understanding Engine
+---
+title: "Code Understanding Engine"
+toc: true
+description: "Module : hyperion.modules.understanding"
+weight: 2
+---
 
 **Module** : `hyperion.modules.understanding`
-**Version** : v2.0.0
-**Component** : Code Understanding Engine
+**Version** : **Component** : Code Understanding Engine
 
 ---
 

@@ -1,5 +1,5 @@
 """
-Alerting infrastructure pour Hyperion v3.0
+Alerting infrastructure pour Hyperion
 """
 
 from .alert_manager import AlertManager

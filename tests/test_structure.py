@@ -21,7 +21,8 @@ def test_project_structure(project_root):
 
     # Vérifier fichiers racine
     assert (project_root / "README.md").exists()
-    assert (project_root / "docs" / "CHANGELOG.md").exists()
+    assert (project_root / "CHANGELOG.md").exists()
+    assert (project_root / "docs" / "_index.md").exists()
     assert (project_root / "setup.py").exists()
     assert (project_root / "requirements.txt").exists()
     assert (project_root / ".gitignore").exists()

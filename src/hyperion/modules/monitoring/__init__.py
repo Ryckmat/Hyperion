@@ -1,5 +1,5 @@
 """
-Hyperion v3.0 Monitoring Infrastructure
+Hyperion Monitoring Infrastructure
 
 Module de surveillance et observabilité enterprise pour Hyperion.
 Fournit métriques Prometheus, logging structuré et alerting intelligent.

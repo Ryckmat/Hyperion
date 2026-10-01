@@ -1,7 +1,11 @@
-# 🏗️ Architecture Hyperion v2.7
+---
+title: "Architecture Hyperion"
+toc: true
+description: "Version : **Architecture**: System Overview"
+weight: 5
+---
 
-**Version**: v2.7.0
-**Architecture**: System Overview
+**Version**: **Architecture**: System Overview
 
 ---
 
@@ -19,7 +23,7 @@
 
 ## 🎯 Vue d'ensemble
 
-Hyperion v2.7 est une plateforme d'intelligence locale complète pour repositories Git avec infrastructure ML enterprise, conçue pour :
+Hyperion est une plateforme d'intelligence locale complète pour repositories Git avec infrastructure ML enterprise, conçue pour :
 
 1. **Analyser en profondeur** les dépôts Git (commits, contributeurs, hotspots, métriques qualité)
 2. **Indexer sémantiquement** les profils Git dans Qdrant avec RAG contextuel
@@ -34,7 +38,7 @@ Hyperion v2.7 est une plateforme d'intelligence locale complète pour repositori
 
 ```
 ┌───────────────────────────────────────────────────────────────────────────────────┐
-│                                  HYPERION v2.7                                    │
+│                                  HYPERION                                    │
 │                          Enterprise ML Platform                                   │
 ├───────────────────────────────────────────────────────────────────────────────────┤
 │                                                                                   │
@@ -228,7 +232,7 @@ Hyperion/
 
 ### 1. **CLI (Command Line Interface)**
 
-**Fichier**: [src/hyperion/cli/main.py](src/hyperion/cli/main.py)
+**Fichier**: src/hyperion/cli/main.py
 
 **Framework**: Click
 
@@ -251,7 +255,7 @@ hyperion info                    # Affiche configuration
 
 ### 2. **GitAnalyzer (Core)**
 
-**Fichier**: [src/hyperion/core/git_analyzer.py](src/hyperion/core/git_analyzer.py)
+**Fichier**: src/hyperion/core/git_analyzer.py
 
 **Responsabilités**:
 1. Analyser un dépôt Git local
@@ -280,7 +284,7 @@ print(profile["git_summary"]["hotspots_top10"])
 
 ### 3. **API REST (FastAPI)**
 
-**Fichier**: [src/hyperion/api/main.py](src/hyperion/api/main.py)
+**Fichier**: src/hyperion/api/main.py
 
 **Framework**: FastAPI
 
@@ -309,12 +313,12 @@ print(profile["git_summary"]["hotspots_top10"])
 ### 4. **RAG Engine**
 
 **Fichiers**:
-- [src/hyperion/modules/rag/query.py](src/hyperion/modules/rag/query.py) - Moteur de requêtes
-- [src/hyperion/modules/rag/ingestion.py](src/hyperion/modules/rag/ingestion.py) - Indexation
+- src/hyperion/modules/rag/query.py - Moteur de requêtes
+- src/hyperion/modules/rag/ingestion.py - Indexation
 
 **Stack technique**:
 - **Vector DB** : Qdrant
-- **Embeddings** : BAAI/bge-large-en-v1.5 (1024 dim)
+- **Embeddings** : BAAI/bge-large-en-(1024 dim)
 - **LLM** : Ollama + Qwen 2.5 32B
 - **Framework** : LangChain
 
@@ -351,7 +355,7 @@ print(result["sources"])
 
 ### 5. **Configuration Centralisée**
 
-**Fichier**: [src/hyperion/config.py](src/hyperion/config.py)
+**Fichier**: src/hyperion/config.py
 
 **Responsabilités**:
 - Chemins projet (PROJECT_ROOT, DATA_DIR, etc.)
@@ -373,8 +377,7 @@ QDRANT_PORT=6333
 QDRANT_COLLECTION=hyperion_profiles
 
 # Embeddings
-EMBEDDING_MODEL=BAAI/bge-large-en-v1.5
-EMBEDDING_DEVICE=cuda
+EMBEDDING_MODEL=BAAI/bge-large-en-EMBEDDING_DEVICE=cuda
 
 # LLM
 OLLAMA_MODEL=qwen2.5:32b
@@ -515,9 +518,7 @@ OLLAMA_BASE_URL=http://localhost:11434
 
 ---
 
-## 🚀 Évolution v1.5 → v2.0
-
-### Limitations v1.5
+## 🚀 Évolution → ### Limitations
 
 1. **Tests insuffisants** : Coverage ~10%
 2. **Pas d'auth API** : Sécurité manquante
@@ -525,7 +526,7 @@ OLLAMA_BASE_URL=http://localhost:11434
 4. **Pas de domain models** : Dictionnaires partout
 5. **Config hardcodée** : Ports, chemins
 
-### Objectifs v2.0
+### Objectifs
 
 1. ✅ **Impact Analysis Engine** : Prédire impacts modifications
 2. ✅ **Code Understanding** : Mapper business → code
@@ -535,7 +536,7 @@ OLLAMA_BASE_URL=http://localhost:11434
 6. ✅ **Auth & Security** : JWT, rate limiting
 7. ✅ **AST parsing** : tree-sitter multi-langage
 
-Voir la [Documentation Legacy](../legacy/) pour les détails des versions précédentes.
+Voir la Documentation Legacy pour les détails des versions précédentes.
 
 ---
 
@@ -565,10 +566,10 @@ Voir la [Documentation Legacy](../legacy/) pour les détails des versions préc�
 
 ## 📚 Ressources
 
-- [README.md](../../README.md) - Documentation utilisateur
-- [CHANGELOG.md](../../../CHANGELOG.md) - Historique versions
-- [CONTRIBUTING.md](../../../CONTRIBUTING.md) - Guide contribution
-- [Legacy Documents](../legacy/) - Documents historiques
+- [Accueil de la documentation](../../) - Documentation utilisateur
+- `CHANGELOG.md` à la racine du dépôt - Historique versions
+- CONTRIBUTING.md - Guide contribution
+- Legacy Documents - Documents historiques
 
 ---
 

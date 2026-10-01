@@ -1,4 +1,9 @@
-# 🧠 Chapitre 07 - Infrastructure ML
+---
+title: "Chapitre 07 - Infrastructure ML"
+toc: true
+description: "Comprendre les modèles et prédictions : L'intelligence artificielle d'Hyperion"
+weight: 8
+---
 
 **Comprendre les modèles et prédictions** - L'intelligence artificielle d'Hyperion
 
@@ -609,7 +614,7 @@ class MLPredictionCache:
 
 ### 📚 **Prochaines Étapes**
 
-👉 **Continuez avec** : [Chapitre 08 - Workflows](08-workflows.md)
+👉 **Continuez avec** : [Chapitre 08 - Workflows](08-workflows)
 
 Au prochain chapitre, vous apprendrez :
 - Automatisation de workflows complets
@@ -619,8 +624,8 @@ Au prochain chapitre, vous apprendrez :
 
 ---
 
-*Parfait ! Vous comprenez maintenant l'intelligence artificielle d'Hyperion. Rendez-vous au [Chapitre 08](08-workflows.md) !* 🧠
+*Parfait ! Vous comprenez maintenant l'intelligence artificielle d'Hyperion. Rendez-vous au [Chapitre 08](08-workflows) !* 🧠
 
 ---
 
-*Cours Hyperion v2.7.0 - Chapitre 07*
+*Cours Hyperion - Chapitre 07*

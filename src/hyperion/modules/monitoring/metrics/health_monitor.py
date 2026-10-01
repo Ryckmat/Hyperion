@@ -1,5 +1,5 @@
 """
-Health Monitor for Hyperion v3.0
+Health Monitor for Hyperion
 
 Monitoring de santé système avec checks automatisés et dashboard temps réel.
 """
@@ -88,7 +88,7 @@ class SystemHealth:
 
 class HealthMonitor:
     """
-    Moniteur de santé système pour Hyperion v3.0
+    Moniteur de santé système pour Hyperion
 
     Fonctionnalités :
     - Checks de santé automatisés pour tous les composants

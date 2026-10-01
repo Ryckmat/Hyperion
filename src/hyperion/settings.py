@@ -111,7 +111,7 @@ class Settings(BaseSettings):
     )
 
     # ============================================================================
-    # Security Configuration (v3.0)
+    # Security Configuration
     # ============================================================================
 
     jwt_secret_key: str | None = Field(default=None, description="Clé secrète JWT")
@@ -124,7 +124,7 @@ class Settings(BaseSettings):
     )
 
     # ============================================================================
-    # Cache Configuration (v3.0)
+    # Cache Configuration
     # ============================================================================
 
     redis_url: str = Field(default="redis://localhost:6379", description="URL Redis pour le cache")

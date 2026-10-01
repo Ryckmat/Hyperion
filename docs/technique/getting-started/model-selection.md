@@ -1,4 +1,9 @@
-# 🎯 Guide de Sélection des Modèles LLM - Hyperion v2.5.0
+---
+title: "Guide de Sélection des Modèles LLM - Hyperion"
+toc: true
+description: "Hyperion est une plateforme d'intelligence locale pour repositories Git qui utilise le RAG (Retrieval Augmented Generation) pour analyser et comprendre le..."
+weight: 3
+---
 
 ## 📋 Vue d'Ensemble
 

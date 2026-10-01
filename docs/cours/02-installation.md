@@ -1,4 +1,9 @@
-# ⚙️ Chapitre 02 - Installation Hyperion v2.7
+---
+title: "Chapitre 02 - Installation Hyperion"
+toc: true
+description: "Installez Hyperion sur votre machine : Guide complet pas-à-pas"
+weight: 3
+---
 
 **Installez Hyperion sur votre machine** - Guide complet pas-à-pas
 
@@ -9,7 +14,7 @@
 ## 🎯 **Objectifs de ce Chapitre**
 
 À la fin de ce chapitre, vous aurez :
-- ✅ Hyperion v2.7 installé et fonctionnel
+- ✅ Hyperion installé et fonctionnel
 - ✅ Tous les services démarrés (Neo4j, Redis, Ollama)
 - ✅ Configuration de base validée
 - ✅ Premier test réussi sur un repository
@@ -98,7 +103,7 @@ pip install hyperion==2.7.0
 
 # Vérifier l'installation
 hyperion --version
-# Doit afficher : Hyperion v2.7.0
+# Doit afficher : Hyperion
 ```
 
 ### 2️⃣ **Installation Développeur (Alternative)**
@@ -122,7 +127,7 @@ hyperion --version
 hyperion info
 
 # Devrait afficher quelque chose comme :
-# 🤖 Hyperion v2.7.0 - Code Intelligence Platform
+# 🤖 Hyperion - Code Intelligence Platform
 # 📊 Status: Ready for setup
 # 🔧 Services: Not configured yet
 ```
@@ -277,7 +282,7 @@ hyperion setup --interactive
 Créer `~/.hyperion/config.yaml` :
 
 ```yaml
-# Configuration Hyperion v2.7
+# Configuration Hyperion
 version: "2.7.0"
 
 # Services
@@ -353,7 +358,7 @@ hyperion health
 hyperion serve
 
 # Devrait afficher :
-# 🚀 Starting Hyperion v2.7.0...
+# 🚀 Starting Hyperion...
 # 📊 API Server: http://localhost:8000
 # 🎯 Health Check: http://localhost:8000/health
 # 📚 Documentation: http://localhost:8000/docs
@@ -501,7 +506,7 @@ hyperion diagnose
 ### ✅ **Checklist Finale**
 
 - [ ] Python 3.8+ installé et fonctionnel
-- [ ] Hyperion v2.7.0 installé via pip
+- [ ] Hyperion installé via pip
 - [ ] Neo4j installé et accessible (port 7474)
 - [ ] Redis installé et fonctionnel
 - [ ] Ollama installé avec au moins un modèle LLM
@@ -532,21 +537,21 @@ Maintenant que Hyperion est installé, vous allez apprendre à :
 - Utiliser le chat IA pour explorer votre code
 - Générer votre première documentation
 
-👉 **Continuez avec** : [Chapitre 03 - Premier Usage](03-premier-usage.md)
+👉 **Continuez avec** : [Chapitre 03 - Premier Usage](03-premier-usage)
 
 ### 💡 **Configuration Avancée (Optionnel)**
 
 Si vous voulez optimiser votre installation :
-- [Configuration Avancée](../technique/user-guide/configuration.md) : Tuning performance
-- [Architecture](../technique/architecture/system-overview.md) : Comprendre l'architecture
-- [Déploiement](../technique/architecture/deployment.md) : Installation en production
+- Configuration Avancée : Tuning performance
+- [Architecture](../technique/architecture/system-overview) : Comprendre l'architecture
+- [Déploiement](../technique/architecture/deployment) : Installation en production
 
 ---
 
 ## 📖 **Récapitulatif du Chapitre**
 
 ### ✅ **Ce que vous avez fait :**
-- Installé Hyperion v2.7 et ses dépendances
+- Installé Hyperion et ses dépendances
 - Configuré Neo4j, Redis et Ollama
 - Créé la configuration de base
 - Vérifié que tout fonctionne
@@ -560,8 +565,8 @@ Si vous voulez optimiser votre installation :
 
 ---
 
-*Félicitations ! Vous avez installé Hyperion avec succès. Rendez-vous au [Chapitre 03](03-premier-usage.md) !* 🎉
+*Félicitations ! Vous avez installé Hyperion avec succès. Rendez-vous au [Chapitre 03](03-premier-usage) !* 🎉
 
 ---
 
-*Cours Hyperion v2.7.0 - Chapitre 02*
+*Cours Hyperion - Chapitre 02*

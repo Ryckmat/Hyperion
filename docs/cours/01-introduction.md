@@ -1,4 +1,9 @@
-# 📖 Chapitre 01 - Introduction à Hyperion v2.7
+---
+title: "Chapitre 01 - Introduction à Hyperion"
+toc: true
+description: "Bienvenue dans Hyperion ! : Découvrez la plateforme d'intelligence locale pour vos repositories Git"
+weight: 2
+---
 
 **Bienvenue dans Hyperion !** - Découvrez la plateforme d'intelligence locale pour vos repositories Git
 
@@ -20,7 +25,7 @@
 
 ### 📋 **Définition**
 
-**Hyperion v2.7** est une plateforme d'intelligence artificielle **locale** qui analyse en profondeur vos repositories Git pour vous fournir :
+**Hyperion** est une plateforme d'intelligence artificielle **locale** qui analyse en profondeur vos repositories Git pour vous fournir :
 
 - 🧠 **Intelligence de code** : Compréhension automatique de votre codebase
 - 🔍 **Recherche sémantique** : Questions en langage naturel sur votre code
@@ -274,9 +279,9 @@ hyperion generate rapport-executif/ --business-metrics
 
 ---
 
-## 🚀 **Pourquoi Hyperion v2.7 ?**
+## 🚀 **Pourquoi Hyperion ?**
 
-### 🆕 **Nouveautés v2.7**
+### 🆕 **Nouveautés**
 
 #### 🤖 **Infrastructure ML Complète**
 - **Feature Store** : 35+ features engineered
@@ -291,7 +296,7 @@ hyperion generate rapport-executif/ --business-metrics
 - **API v2** avec plus d'endpoints
 
 #### ⚡ **Performance**
-- **Analyse 3x plus rapide** que v2.5
+- **Analyse 3x plus rapide** que
 - **RAG optimisé** : réponses <3s
 - **Cache intelligent** : Redis + optimisations
 - **Scalabilité** : Support repositories >100k files
@@ -351,7 +356,7 @@ Vous devriez maintenant :
 
 Vous avez maintenant une vue d'ensemble complète d'Hyperion !
 
-👉 **Prochaine étape** : [Chapitre 02 - Installation](02-installation.md)
+👉 **Prochaine étape** : [Chapitre 02 - Installation](02-installation)
 
 Dans le prochain chapitre, vous allez installer Hyperion sur votre machine et faire vos premiers tests.
 
@@ -375,8 +380,8 @@ Dans le prochain chapitre, vous allez installer Hyperion sur votre machine et fa
 
 ---
 
-*Merci d'avoir lu le Chapitre 01 ! Rendez-vous au [Chapitre 02](02-installation.md) pour commencer l'installation.* 📖
+*Merci d'avoir lu le Chapitre 01 ! Rendez-vous au [Chapitre 02](02-installation) pour commencer l'installation.* 📖
 
 ---
 
-*Cours Hyperion v2.7.0 - Chapitre 01*
+*Cours Hyperion - Chapitre 01*

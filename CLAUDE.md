@@ -11,7 +11,7 @@ Plateforme d'analyse de dépôts Git : profilage, RAG (Qdrant + Ollama), graphe 
 - `src/hyperion/modules/ml/tests/` : tests du module ml, exécutés aussi par la CI
 - `eval/` : évaluation RAG (`eval/run.py`, suites YAML dans `eval/suites/`)
 - `scripts/` : déploiement, docker, setup, maintenance
-- `modeles/`, `mlruns/`, `models/` : artefacts ML, ne pas modifier à la main
+- `modeles/` : modèles de référence versionnés, ne pas modifier à la main (`models/`, `mlruns/`, `audit/` sont générés et ignorés par git)
 
 ## Commandes
 ```bash
@@ -34,3 +34,6 @@ La CI (`.github/workflows/ci.yml`) exécute black, ruff, pytest et gitleaks : le
 - Services externes (Neo4j, Qdrant, Ollama) : toujours mockés dans les tests unitaires
 - Configuration via `.env` (modèle : `.env.example`) ; aucun secret en clair, gitleaks tourne en CI
 - Pas de tiret cadratin dans la doc ni les messages
+- Documentation dans `docs/` (Hugo) : frontmatter `title`/`toc`/`description`/`weight` sur chaque page, `_index.md` par section, liens internes sans `.md`
+- Socle : `docs/_index.md` (glossaire + 8 sections), `docs/operations.md` (runbook), `docs/slo.md`, `docs/data.yaml`
+- Aucune version dans le texte de la doc ni le code : les versions vont dans `docs/data.yaml`

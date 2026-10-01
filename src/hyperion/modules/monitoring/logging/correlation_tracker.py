@@ -1,5 +1,5 @@
 """
-Correlation Tracker for Hyperion v3.0
+Correlation Tracker for Hyperion
 
 Système de corrélation pour traçabilité des requêtes distribuées.
 """
@@ -50,7 +50,7 @@ class Span:
 
 class CorrelationTracker:
     """
-    Tracker de corrélation pour Hyperion v3.0
+    Tracker de corrélation pour Hyperion
 
     Fonctionnalités :
     - Génération automatique d'IDs de corrélation

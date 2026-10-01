@@ -1,44 +1,48 @@
-# 🚀 API Gateway v3.0 - Hyperion Enterprise
+---
+title: "API Gateway - Hyperion Enterprise"
+toc: true
+description: "Hyperion expose une architecture microservices complète avec 8 services et un API Gateway intelligent"
+weight: 2
+---
 
-![API](https://img.shields.io/badge/API-v3.0-blue.svg)
 ![Gateway](https://img.shields.io/badge/Gateway-Enterprise-green.svg)
 ![Quality](https://img.shields.io/badge/Quality-100%25-green.svg)
 ![Tests](https://img.shields.io/badge/Tests-189/189-green.svg)
 
-**Version**: v2.9 + v3.0 Enterprise
-**Architecture**: API Gateway v3.0 + 8 microservices
+**Version**: Enterprise
+**Architecture**: API Gateway + 8 microservices
 
 ---
 
 ## 📋 Table des Matières
 
-- [Vue d'ensemble v3.0](#vue-densemble-v30)
+- [Vue d'ensemble](#vue-densemble-v30)
 - [Architecture Enterprise](#architecture-enterprise)
-- [API Gateway v3.0](#api-gateway-v30)
+- [API Gateway](#api-gateway-v30)
 - [Services Architecture](#services-architecture)
-- [Authentication v3.0](#authentication-v30)
+- [Authentication](#authentication-v30)
 - [Core API (v1)](#core-api-v1)
-- [Enhanced RAG API v2.9](#enhanced-rag-api-v29)
-- [Analytics Engine API v2.9](#analytics-engine-api-v29)
+- [Enhanced RAG API](#enhanced-rag-api-v29)
+- [Analytics Engine API](#analytics-engine-api-v29)
 - [Code Intelligence API v2.x](#code-intelligence-api-v2x)
-- [Monitoring API v3.0](#monitoring-api-v30)
-- [Quality System API v2.8](#quality-system-api-v28)
-- [Modèles de données v3.0](#modèles-de-données-v30)
+- [Monitoring API](#monitoring-api-v30)
+- [Quality System API](#quality-system-api-v28)
+- [Modèles de données](#modèles-de-données-v30)
 - [Codes d'erreur](#codes-derreur)
-- [Exemples d'utilisation v3.0](#exemples-dutilisation-v30)
+- [Exemples d'utilisation](#exemples-dutilisation-v30)
 
 ---
 
-## 🎯 Vue d'ensemble v3.0
+## 🎯 Vue d'ensemble
 
-Hyperion v2.9 + v3.0 Enterprise expose une **architecture microservices complète** avec **8 services** et un **API Gateway v3.0** intelligent :
+Hyperion expose une **architecture microservices complète** avec **8 services** et un **API Gateway** intelligent :
 
-### 🏗️ **Architecture Enterprise v3.0**
-- **API Gateway v3.0** : Routage intelligent, auth, rate limiting, cache distribué
-- **Enhanced RAG v2.9** : Pipeline optimisé avec qualité et response optimization
-- **Analytics Engine v2.9** : Intelligence comportementale et pattern analysis
-- **Monitoring v3.0** : Prometheus, structured logging, performance tracking
-- **Quality System v2.8** : Validation qualité, confidence scoring, hallucination detection
+### 🏗️ **Architecture Enterprise**
+- **API Gateway** : Routage intelligent, auth, rate limiting, cache distribué
+- **Enhanced RAG** : Pipeline optimisé avec qualité et response optimization
+- **Analytics Engine** : Intelligence comportementale et pattern analysis
+- **Monitoring** : Prometheus, structured logging, performance tracking
+- **Quality System** : Validation qualité, confidence scoring, hallucination detection
 
 ### 📊 **Qualité Code Atteinte**
 - **Ruff Linting** : ✅ **0 erreurs** (100% compliance)
@@ -50,10 +54,10 @@ Hyperion v2.9 + v3.0 Enterprise expose une **architecture microservices complèt
 
 | Service | Port | URL | Status | Description |
 |---------|------|-----|--------|-------------|
-| **API Gateway v3.0** | 8000 | http://localhost:8000 | ✅ Ready | Gateway principal + docs |
-| **RAG Pipeline v2.9** | 8001 | http://localhost:8001 | ✅ Enhanced | Service RAG optimisé |
-| **Analytics Engine v2.9** | 8002 | http://localhost:8002 | ✅ Intelligence | Moteur d'intelligence |
-| **Dashboard v3.0** | 3000 | http://localhost:3000 | ✅ Enterprise | Interface admin |
+| **API Gateway** | 8000 | http://localhost:8000 | ✅ Ready | Gateway principal + docs |
+| **RAG Pipeline** | 8001 | http://localhost:8001 | ✅ Enhanced | Service RAG optimisé |
+| **Analytics Engine** | 8002 | http://localhost:8002 | ✅ Intelligence | Moteur d'intelligence |
+| **Dashboard** | 3000 | http://localhost:3000 | ✅ Enterprise | Interface admin |
 | **Chat Interface** | 3001 | http://localhost:3001 | ✅ Ready | Open WebUI |
 | **Prometheus** | 9090 | http://localhost:9090 | ✅ Active | Monitoring |
 | **Neo4j** | 7474 | http://localhost:7474 | ✅ Enhanced | Graphe v5.x |
@@ -1186,20 +1190,20 @@ print(f"Found {len(high_severity)} high severity anomalies")
 
 ---
 
-## 🎯 **Résumé API v2.9 + v3.0 Enterprise**
+## 🎯 **Résumé API**
 
 ### ✅ **Architecture Microservices Déployée**
 
-L'API Gateway v3.0 orchestre **8 services enterprise** avec routage intelligent et monitoring avancé :
+L'API Gateway orchestre **8 services enterprise** avec routage intelligent et monitoring avancé :
 
 ```yaml
-Architecture API v3.0:
+Architecture API:
   Gateway: localhost:8000      # Routage + auth + cache + docs
-  RAG Service: localhost:8001  # Enhanced pipeline v2.9
-  Analytics: localhost:8002    # Intelligence engine v2.9
-  Dashboard: localhost:3000    # Interface enterprise v3.0
+  RAG Service: localhost:8001  # Enhanced pipeline
+  Analytics: localhost:8002    # Intelligence engine
+  Dashboard: localhost:3000    # Interface enterprise
   Chat UI: localhost:3001      # Open WebUI conversationnel
-  Monitoring: localhost:9090   # Prometheus + métriques v3.0
+  Monitoring: localhost:9090   # Prometheus + métriques
   Neo4j: localhost:7474        # Database graphe v5.x
   MLflow: localhost:5000       # ML platform + tracking
 ```
@@ -1208,20 +1212,20 @@ Architecture API v3.0:
 
 - **Code Quality** : ✅ **0 erreurs Ruff** + 148 fichiers Black compliant
 - **Tests API** : ✅ **189/189 tests** passing (100% success rate)
-- **Type Safety** : ✅ **95%+ annotations** avec validation Pydantic v2.0
+- **Type Safety** : ✅ **95%+ annotations** avec validation Pydantic
 - **Documentation** : ✅ **Swagger/ReDoc** complet + exemples pratiques
 
 ### 🚀 **Points d'Accès Rapide**
 
 ```bash
-# API Gateway v3.0 - Point d'entrée principal
+# API Gateway - Point d'entrée principal
 curl http://localhost:8000/api/health          # Health check complet
 curl http://localhost:8000/docs                # Documentation Swagger
 curl http://localhost:8000/api/v2/health       # Health check v2 services
 
 # Services Enterprise Directs
-curl http://localhost:8001/health              # RAG Pipeline v2.9
-curl http://localhost:8002/health              # Analytics Engine v2.9
+curl http://localhost:8001/health              # RAG Pipeline
+curl http://localhost:8002/health              # Analytics Engine
 curl http://localhost:9090/metrics             # Métriques Prometheus
 
 # Interfaces Web
@@ -1241,10 +1245,10 @@ open http://localhost:3001                     # Chat conversationnel
 
 ---
 
-*Documentation API Enterprise - Hyperion v2.9 + v3.0 Architecture*
+*Documentation API Enterprise - Hyperion Architecture*
 
 **📚 Pour Plus d'Informations :**
-- **Architecture** : `docs/technique/architecture/v3-enterprise-architecture.md`
+- **Architecture** : `docs/technique/architecture/enterprise-architecture.md`
 - **Déploiement** : `docs/technique/architecture/deployment.md`
 - **Qualité Code** : `docs/technique/development/code-quality.md`
 - **Formation** : `docs/cours/` (guides utilisateur français)

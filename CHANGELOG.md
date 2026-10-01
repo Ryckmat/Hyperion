@@ -212,3 +212,104 @@ src/hyperion/modules/
 - Dashboard React
 
 *Note : Cette version reste la base stable pendant développement v3.0*
+
+## [1.5.0] - 2024-12-22
+
+### 🎯 Préparation Hyperion v2 - Infrastructure RAG + Neo4j
+
+#### Ajouté
+- ✅ **Infrastructure v2 complète** pour 8 moteurs
+- ✅ **RAG Pipeline** : Qdrant + BGE embeddings + Ollama LLM
+- ✅ **Neo4j v2 preparation** : Structures pour code analysis
+- ✅ **API endpoints foundation** pour moteurs intelligents
+
+## [1.0.0] - 2024-12-18
+
+### 🎉 Refactoring majeur - Architecture professionnelle
+
+#### Ajouté
+- ✅ **Package Python structuré** (`hyperion/`)
+  - `cli/` : Interface ligne de commande avec Click
+  - `core/` : Logique métier (analyseurs, calculateurs)
+  - `generators/` : Générateurs de documentation
+  - `integrations/` : Neo4j, GitLab, GitHub (futurs)
+  - `models/` : Modèles de données
+  - `utils/` : Utilitaires
+- ✅ **CLI unifié** : `hyperion profile|generate|export|ingest|info`
+- ✅ **Configuration externalisée** : `config/filters.yaml`
+- ✅ **Documentation complète** :
+  - README.md avec exemples
+  - CHANGELOG.md
+  - CONTRIBUTING.md
+  - LICENSE Apache-2.0
+  - docs/getting_started.md
+  - docs/architecture.md
+- ✅ **Tests unitaires** : structure pytest + conftest
+- ✅ **Setup.py** : Installation package (`pip install -e .`)
+- ✅ **Templates Jinja2** : Extension `.j2` (templates/markdown/)
+- ✅ **Organisation data** : `data/repositories/{repo}/profile.yaml`
+
+#### Modifié
+- 🔄 **Restructuration complète** du projet
+- 🔄 **Nomenclature cohérente** : PascalCase classes, snake_case modules
+- 🔄 **Séparation legacy** : Scripts originaux supprimés après refactoring
+
+#### Supprimé
+- ❌ `code/` : Scripts standalone (refactorés en package)
+- ❌ `scripts/legacy/` : Code original (migré vers `hyperion/`)
+
+#### Architecture
+
+```
+Hyperion/
+├── hyperion/              # 📦 Package Python principal
+│   ├── __init__.py
+│   ├── __version__.py
+│   ├── config.py          # Configuration centralisée
+│   ├── cli/               # Interface CLI
+│   ├── core/              # Analyseurs Git
+│   ├── generators/        # Générateurs documentation
+│   ├── integrations/      # Neo4j, APIs
+│   ├── models/            # Modèles de données
+│   └── utils/             # Utilitaires
+├── config/                # ⚙️ Configuration
+│   └── filters.yaml       # Filtres hotspots
+├── templates/             # 📄 Templates Jinja2
+│   └── markdown/
+│       ├── index.md.j2
+│       └── registre.md.j2
+├── data/                  # 📁 Données générées
+│   └── repositories/
+├── output/                # 📤 Documentation générée
+├── tests/                 # 🧪 Tests unitaires
+├── docs/                  # 📚 Documentation
+├── scripts/               # 🔧 Scripts utilitaires
+│   └── migrate_old_data.py
+├── README.md
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── setup.py
+└── requirements.txt
+```
+
+---
+
+## [0.x.x] - Pré-refactoring (historique)
+
+### Fonctionnalités originales
+
+Scripts Python standalone :
+- `hyperion_git_profil.py` : Profiling Git complet avec déduplication contributeurs
+- `generate_markdown_from_yaml.py` : Génération documentation Markdown
+- `export_prod_history.py` : Export historique releases production
+- `ingest_prod_history_to_neo4j.py` : Ingestion Neo4j
+- `mini_git_summary.py` : Résumé Git rapide
+- `json_to_hyperion_yaml.py` : Migration JSON → YAML
+
+### Données
+- Analyse complète du projet `requests` (Python)
+- Templates Markdown simples
+- Exports TSV/JSON/JSONL
+
+---

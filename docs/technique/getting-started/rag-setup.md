@@ -1,4 +1,9 @@
-# 🚀 Setup Hyperion RAG - Guide d'installation complet
+---
+title: "Setup Hyperion RAG - Guide d'installation complet"
+toc: true
+description: "Ce guide configure le RAG 100% local avec Qdrant + Ollama + BGE embeddings."
+weight: 5
+---
 
 Ce guide configure le RAG 100% local avec Qdrant + Ollama + BGE embeddings.
 
@@ -120,8 +125,7 @@ QDRANT_PORT=6333
 QDRANT_COLLECTION=hyperion_repos
 
 # Embeddings (GPU)
-EMBEDDING_MODEL=BAAI/bge-large-en-v1.5
-EMBEDDING_DEVICE=cuda
+EMBEDDING_MODEL=BAAI/bge-large-en-EMBEDDING_DEVICE=cuda
 
 # LLM Ollama
 OLLAMA_BASE_URL=http://localhost:11434

@@ -1,5 +1,5 @@
 """
-Alert Manager for Hyperion v3.0
+Alert Manager for Hyperion
 
 Système d'alerting intelligent avec escalade et intégrations multiples.
 """
@@ -146,7 +146,7 @@ class NotificationChannel:
 
 class AlertManager:
     """
-    Gestionnaire d'alertes enterprise pour Hyperion v3.0
+    Gestionnaire d'alertes enterprise pour Hyperion
 
     Fonctionnalités :
     - Règles d'alerting configurables

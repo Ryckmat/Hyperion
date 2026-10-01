@@ -1,5 +1,5 @@
 """
-Configuration ML centralisée pour Hyperion v3.0 Enterprise.
+Configuration ML centralisée pour Hyperion.
 
 Gère toute la configuration des modèles ML, features, et paramètres d'entraînement.
 Utilise des patterns professionnels avec validation Pydantic.
@@ -153,7 +153,7 @@ class MLFlowConfig(BaseModel):
 
 
 class MLConfig:
-    """Configuration ML centralisée pour Hyperion v3.0."""
+    """Configuration ML centralisée pour Hyperion."""
 
     def __init__(self, config_path: str | None = None):
         """

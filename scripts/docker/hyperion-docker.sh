@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================================
-# 🐳 HYPERION DOCKER v2.7 - Orchestrateur Docker Compose
+# 🐳 HYPERION DOCKER - Orchestrateur Docker Compose
 #
 # Usage:
 #   ./scripts/docker/hyperion-docker.sh [OPTIONS]

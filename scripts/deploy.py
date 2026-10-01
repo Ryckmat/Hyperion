@@ -121,28 +121,28 @@ class HyperionDeployer:
 
     async def _validate_cache(self):
         """Valide le cache v3.0"""
-        from hyperion.modules.cache.v3_0.distributed_cache import DistributedCacheManager
+        from hyperion.modules.cache.distributed_cache import DistributedCacheManager
 
     async def _validate_security(self):
         """Valide la sécurité v3.0"""
-        from hyperion.modules.security.v3_0 import AuthManager, SecurityAuditor, EncryptionService
+        from hyperion.modules.security import AuthManager, SecurityAuditor, EncryptionService
 
     async def _validate_gateway(self):
         """Valide l'API Gateway v3.0"""
-        from hyperion.modules.gateway.v3_0.api_gateway import APIGateway
+        from hyperion.modules.gateway.api_gateway import APIGateway
 
     async def _validate_rag(self):
         """Valide le RAG v2.9"""
-        from hyperion.modules.rag.v2_9.enhanced_pipeline import EnhancedRAGPipeline
+        from hyperion.modules.rag.enhanced_pipeline import EnhancedRAGPipeline
 
     async def _validate_ml(self):
         """Valide le ML v2.9"""
-        from hyperion.modules.ml.v2_9.ensemble_models import EnsembleModelManager
-        from hyperion.modules.ml.v2_9.model_optimization import ModelOptimizer
+        from hyperion.modules.ml.ensemble_models import EnsembleModelManager
+        from hyperion.modules.ml.model_optimization import ModelOptimizer
 
     async def _validate_analytics(self):
         """Valide l'analytics v2.9"""
-        from hyperion.modules.analytics.v2_9 import IntelligenceEngine, BehavioralAnalyzer
+        from hyperion.modules.analytics import IntelligenceEngine, BehavioralAnalyzer
 
     async def _deploy_services(self):
         """Déploiement des services enterprise"""
@@ -209,8 +209,8 @@ class HyperionDeployer:
     async def _deploy_cache(self) -> bool:
         """Déploie le cache distribué"""
         try:
-            from hyperion.modules.cache.v3_0.distributed_cache import DistributedCacheManager
-            from hyperion.modules.cache.v3_0.cache_analytics import CacheAnalytics
+            from hyperion.modules.cache.distributed_cache import DistributedCacheManager
+            from hyperion.modules.cache.cache_analytics import CacheAnalytics
 
             cache = DistributedCacheManager()
             analytics = CacheAnalytics()
@@ -226,7 +226,7 @@ class HyperionDeployer:
     async def _deploy_security(self) -> bool:
         """Déploie la sécurité avancée"""
         try:
-            from hyperion.modules.security.v3_0.auth_manager import AuthManager
+            from hyperion.modules.security.auth_manager import AuthManager
             import secrets
 
             auth = AuthManager(jwt_secret=secrets.token_urlsafe(32))
@@ -246,8 +246,8 @@ class HyperionDeployer:
     async def _deploy_gateway(self) -> bool:
         """Déploie l'API Gateway"""
         try:
-            from hyperion.modules.gateway.v3_0.api_gateway import APIGateway
-            from hyperion.modules.security.v3_0.auth_manager import AuthManager
+            from hyperion.modules.gateway.api_gateway import APIGateway
+            from hyperion.modules.security.auth_manager import AuthManager
             import secrets
 
             # Gateway avec routes françaises
@@ -266,7 +266,7 @@ class HyperionDeployer:
     async def _deploy_rag(self) -> bool:
         """Déploie le RAG Pipeline"""
         try:
-            from hyperion.modules.rag.v2_9.enhanced_pipeline import EnhancedRAGPipeline
+            from hyperion.modules.rag.enhanced_pipeline import EnhancedRAGPipeline
 
             # Pipeline RAG optimisé
             pipeline = EnhancedRAGPipeline()
@@ -282,7 +282,7 @@ class HyperionDeployer:
     async def _deploy_ml(self) -> bool:
         """Déploie le ML Ensemble"""
         try:
-            from hyperion.modules.ml.v2_9.ensemble_models import EnsembleModelManager, EnsembleModel
+            from hyperion.modules.ml.ensemble_models import EnsembleModelManager, EnsembleModel
             import numpy as np
             import time
 
@@ -314,7 +314,7 @@ class HyperionDeployer:
     async def _deploy_analytics(self) -> bool:
         """Déploie l'Analytics v2.9"""
         try:
-            from hyperion.modules.analytics.v2_9.intelligence_engine import IntelligenceEngine, create_event
+            from hyperion.modules.analytics.intelligence_engine import IntelligenceEngine, create_event
 
             engine = IntelligenceEngine(enable_real_time_analysis=True)
 

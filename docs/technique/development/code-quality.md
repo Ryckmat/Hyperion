@@ -1,11 +1,16 @@
-# 🔧 Code Quality Standards - Hyperion v3.0
+---
+title: "Code Quality Standards - Hyperion"
+toc: true
+description: "Guide complet des standards de qualité code pour Hyperion."
+weight: 2
+---
 
 ![Quality](https://img.shields.io/badge/Code_Quality-100%25-green.svg)
 ![Ruff](https://img.shields.io/badge/Ruff-0_errors-green.svg)
 ![Black](https://img.shields.io/badge/Black-100%25-green.svg)
 ![Tests](https://img.shields.io/badge/Tests-189/189-green.svg)
 
-Guide complet des standards de qualité code pour Hyperion v3.0 Enterprise.
+Guide complet des standards de qualité code pour Hyperion.
 
 ---
 
@@ -135,10 +140,10 @@ markers =
 #### Structure Tests
 ```
 tests/
-├── api/                    # Tests API Gateway v3.0
-├── architecture/           # Tests architecture v3.0
+├── api/                    # Tests API Gateway
+├── architecture/           # Tests architecture
 ├── integration/            # Tests intégration
-├── rag/                   # Tests RAG v2.9
+├── rag/                   # Tests RAG
 ├── unit/                  # Tests unitaires
 └── validation/            # Tests validation
 ```
@@ -343,7 +348,7 @@ mypy src/ || echo "Type warnings detected"
 
 ## 📊 **Métriques et Monitoring**
 
-### 🎯 **Objectifs Qualité v3.0**
+### 🎯 **Objectifs Qualité**
 
 | Métrique | Objectif | Actuel | Status |
 |----------|----------|--------|--------|
@@ -361,7 +366,7 @@ mypy src/ || echo "Type warnings detected"
 #!/bin/bash
 # quality-check.sh - Script monitoring qualité
 
-echo "🔍 Hyperion v3.0 Quality Check"
+echo "🔍 Hyperion Quality Check"
 echo "================================"
 
 # Ruff
@@ -556,4 +561,4 @@ pytest tests/ --pdb
 
 ---
 
-*Documentation Code Quality Standards - Hyperion v3.0 Enterprise*
+*Documentation Code Quality Standards - Hyperion*

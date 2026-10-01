@@ -1,4 +1,9 @@
-# 💻 Chapitre 04 - CLI Essentials
+---
+title: "Chapitre 04 - CLI Essentials"
+toc: true
+description: "Maîtriser l'interface ligne de commande : Les 5 commandes principales d'Hyperion"
+weight: 5
+---
 
 **Maîtriser l'interface ligne de commande** - Les 5 commandes principales d'Hyperion
 
@@ -820,7 +825,7 @@ hyperion clean-cache
 
 Vous êtes maintenant expert du CLI Hyperion !
 
-👉 **Continuez avec** : [Chapitre 05 - API Basics](05-api-basics.md)
+👉 **Continuez avec** : [Chapitre 05 - API Basics](05-api-basics)
 
 Au prochain chapitre :
 - API REST complète
@@ -847,8 +852,8 @@ Au prochain chapitre :
 
 ---
 
-*Excellent ! Vous maîtrisez maintenant complètement le CLI d'Hyperion. Rendez-vous au [Chapitre 05](05-api-basics.md) !* 💪
+*Excellent ! Vous maîtrisez maintenant complètement le CLI d'Hyperion. Rendez-vous au [Chapitre 05](05-api-basics) !* 💪
 
 ---
 
-*Cours Hyperion v2.7.0 - Chapitre 04*
+*Cours Hyperion - Chapitre 04*

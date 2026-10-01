@@ -1,12 +1,17 @@
-# 📊 Flux de Données - Hyperion v2.7
+---
+title: "Flux de Données - Hyperion"
+toc: true
+description: "Documentation détaillée des flux de données dans l'architecture Hyperion"
+weight: 2
+---
 
-Documentation détaillée des flux de données dans l'architecture Hyperion v2.7
+Documentation détaillée des flux de données dans l'architecture Hyperion
 
 ---
 
 ## 🌊 **Vue d'ensemble des Flux de Données**
 
-Hyperion v2.7 traite les données selon plusieurs pipelines interconnectés :
+Hyperion traite les données selon plusieurs pipelines interconnectés :
 
 ### 📋 **Types de Flux**
 1. **🔄 Pipeline Git** : Analyse repositories → Extraction données
@@ -396,11 +401,11 @@ hyperion profile --enable-profiling
 
 ## 🔗 **Références**
 
-- **[System Overview](system-overview.md)** : Architecture générale
-- **[ML Platform](../ml-platform/README.md)** : Infrastructure ML
-- **[API Reference](../reference/api-reference.md)** : Documentation API
-- **[Configuration](../user-guide/configuration.md)** : Configuration des pipelines
+- **[System Overview](system-overview)** : Architecture générale
+- **[ML Platform](../ml-platform)** : Infrastructure ML
+- **[API Reference](../reference/api-reference)** : Documentation API
+- **Configuration** : Configuration des pipelines
 
 ---
 
-*Documentation flux de données mise à jour pour Hyperion v2.7.0*
+*Documentation flux de données mise à jour pour Hyperion*

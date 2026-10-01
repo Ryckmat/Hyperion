@@ -1,4 +1,9 @@
-# 🌐 Chapitre 05 - API Basics
+---
+title: "Chapitre 05 - API Basics"
+toc: true
+description: "Utiliser l'API REST et OpenAI : Intégrer Hyperion dans vos outils"
+weight: 6
+---
 
 **Utiliser l'API REST et OpenAI** - Intégrer Hyperion dans vos outils
 
@@ -662,7 +667,7 @@ async def get_repo_metrics(session, repo_name):
 
 Vous maîtrisez maintenant les APIs d'Hyperion !
 
-👉 **Continuez avec** : [Chapitre 06 - RAG et Chat](06-rag-chat.md)
+👉 **Continuez avec** : [Chapitre 06 - RAG et Chat](06-rag-chat)
 
 Au prochain chapitre :
 - Comprendre le RAG en profondeur
@@ -688,8 +693,8 @@ Au prochain chapitre :
 
 ---
 
-*Excellent ! Vous pouvez maintenant intégrer Hyperion partout. Rendez-vous au [Chapitre 06](06-rag-chat.md) !* 🌐
+*Excellent ! Vous pouvez maintenant intégrer Hyperion partout. Rendez-vous au [Chapitre 06](06-rag-chat) !* 🌐
 
 ---
 
-*Cours Hyperion v2.7.0 - Chapitre 05*
+*Cours Hyperion - Chapitre 05*

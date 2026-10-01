@@ -1,7 +1,11 @@
-# 💻 CLI Hyperion v2.7
+---
+title: "CLI Hyperion"
+toc: true
+description: "Version : **CLI Reference**: Hyperion Command Line Interface"
+weight: 3
+---
 
-**Version**: v2.7.0
-**CLI Reference**: Hyperion Command Line Interface
+**Version**: **CLI Reference**: Hyperion Command Line Interface
 
 ---
 
@@ -88,7 +92,7 @@ hyperion info
 
 # Output attendu:
 # ============================================================
-# 🚀 Hyperion v2.7.0
+# 🚀 Hyperion
 # ============================================================
 #
 # 📁 Chemins :
@@ -613,7 +617,7 @@ hyperion info
 
 ```
 ============================================================
-🚀 Hyperion v2.7.0
+🚀 Hyperion
 ============================================================
 
 📁 Chemins :
@@ -1459,4 +1463,4 @@ echo "✅ Reset complete. Please reconfigure your .env file."
 
 ---
 
-Cette documentation CLI complète couvre tous les aspects d'utilisation d'Hyperion v2.7. Pour des questions spécifiques ou des problèmes non couverts, consultez les logs détaillés ou utilisez le script de diagnostic fourni.
+Cette documentation CLI complète couvre tous les aspects d'utilisation d'Hyperion. Pour des questions spécifiques ou des problèmes non couverts, consultez les logs détaillés ou utilisez le script de diagnostic fourni.

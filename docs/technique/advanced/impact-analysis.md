@@ -1,8 +1,12 @@
-# 🎯 Impact Analysis Engine
+---
+title: "Impact Analysis Engine"
+toc: true
+description: "Module : hyperion.modules.impact"
+weight: 3
+---
 
 **Module** : `hyperion.modules.impact`
-**Version** : v2.0.0
-**Component** : Impact Analysis Engine
+**Version** : **Component** : Impact Analysis Engine
 
 ---
 

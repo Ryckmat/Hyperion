@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test Simple pour Hyperion v2.9 + v3.0 Architecture
+Test Simple pour Hyperion Architecture
 Test rapide de validation de l'architecture
 """
 
@@ -21,20 +21,20 @@ def test_basic_structure():
 
     print(f"   ✅ Version Hyperion: {__version__}")
 
-    # Check des modules v3.0
+    # Check des modules
 
-    print("   ✅ Modules v3.0 importés")
+    print("   ✅ Modules importés")
 
-    # Check des modules v2.9
+    # Check des modules
 
-    print("   ✅ Modules v2.9 importés")
+    print("   ✅ Modules importés")
 
 
 def test_basic_instantiation():
     """Test d'instanciation de base"""
     print("\n⚙️  Test d'instanciation...")
 
-    # Monitoring v3.0
+    # Monitoring
     from hyperion.modules.monitoring.metrics.prometheus_exporter import PrometheusExporter
 
     PrometheusExporter()  # Test instantiation
@@ -45,34 +45,34 @@ def test_basic_instantiation():
     PerformanceTracker()  # Test instantiation
     print("   ✅ PerformanceTracker instancié")
 
-    # Cache v3.0
-    from hyperion.modules.cache.v3_0.distributed_cache import DistributedCacheManager
+    # Cache
+    from hyperion.modules.cache.distributed_cache import DistributedCacheManager
 
     DistributedCacheManager(enable_l2=False)  # Test instantiation, no Redis for test
     print("   ✅ DistributedCacheManager instancié")
 
-    # Security v3.0
+    # Security
     import secrets
 
-    from hyperion.modules.security.v3_0.auth_manager import AuthManager
+    from hyperion.modules.security.auth_manager import AuthManager
 
     AuthManager(jwt_secret=secrets.token_urlsafe(32))  # Test instantiation
     print("   ✅ AuthManager instancié")
 
-    # Gateway v3.0
-    from hyperion.modules.gateway.v3_0.api_gateway import APIGateway
+    # Gateway
+    from hyperion.modules.gateway.api_gateway import APIGateway
 
     APIGateway(enable_auth=False)  # Test instantiation
     print("   ✅ APIGateway instancié")
 
-    # RAG v2.9
-    from hyperion.modules.rag.v2_9.enhanced_pipeline import EnhancedRAGPipeline
+    # RAG
+    from hyperion.modules.rag.enhanced_pipeline import EnhancedRAGPipeline
 
     EnhancedRAGPipeline()  # Test instantiation
     print("   ✅ EnhancedRAGPipeline instancié")
 
-    # Analytics v2.9
-    from hyperion.modules.analytics.v2_9.intelligence_engine import IntelligenceEngine
+    # Analytics
+    from hyperion.modules.analytics.intelligence_engine import IntelligenceEngine
 
     IntelligenceEngine(enable_real_time_analysis=False)  # Test instantiation
     print("   ✅ IntelligenceEngine instancié")
@@ -101,15 +101,15 @@ def test_basic_functionality():
     logger.info("Test log message")
     print("   ✅ StructuredLogger: log émis")
 
-    # Test Context Manager v2.9
-    from hyperion.modules.rag.v2_9.context_manager import ContextManager
+    # Test Context Manager
+    from hyperion.modules.rag.context_manager import ContextManager
 
     context_mgr = ContextManager()
     context_mgr.get_or_create_context("test_session", "test_user")  # Test context creation
     print("   ✅ ContextManager: contexte créé")
 
-    # Test Intelligence Engine v2.9
-    from hyperion.modules.analytics.v2_9.intelligence_engine import (
+    # Test Intelligence Engine
+    from hyperion.modules.analytics.intelligence_engine import (
         IntelligenceEngine,
         create_event,
     )
@@ -135,7 +135,7 @@ def test_architecture_coherence():
     assert hasattr(exporter, "record_api_request"), "PrometheusExporter missing record_api_request"
     print("   ✅ PrometheusExporter: interface cohérente")
 
-    from hyperion.modules.cache.v3_0.distributed_cache import DistributedCacheManager
+    from hyperion.modules.cache.distributed_cache import DistributedCacheManager
 
     cache = DistributedCacheManager(enable_l2=False)
 
@@ -149,7 +149,7 @@ def test_architecture_coherence():
 
     import secrets
 
-    from hyperion.modules.security.v3_0.auth_manager import AuthManager
+    from hyperion.modules.security.auth_manager import AuthManager
 
     auth = AuthManager(jwt_secret=secrets.token_urlsafe(32))
 
@@ -164,7 +164,7 @@ def test_architecture_coherence():
 
 def main():
     """Fonction principale de test"""
-    print("🚀 HYPERION v2.9 + v3.0 - TEST SIMPLE")
+    print("🚀 HYPERION - TEST SIMPLE")
     print("=" * 50)
 
     tests = [
@@ -196,14 +196,14 @@ def main():
     if success_rate >= 90:
         print("🎉 ARCHITECTURE HYPERION VALIDÉE!")
         print("\n📋 MODULES DISPONIBLES:")
-        print("   v3.0 Enterprise:")
+        print(":")
         print("     • Monitoring (Prometheus, Performance, Health)")
         print("     • Logging (Structured, Correlation, Audit)")
         print("     • Alerting (AlertManager, Quality)")
         print("     • Cache distribué (Multi-niveaux)")
         print("     • Sécurité (Auth MFA, RBAC)")
         print("     • API Gateway (Rate limiting, Circuit breakers)")
-        print("\n   v2.9 Enhanced:")
+        print("\n Enhanced:")
         print("     • RAG Pipeline (Reranking, Context compression)")
         print("     • ML Ensemble (Modèles multiples, Vote intelligent)")
         print("     • Analytics (Intelligence, Insights automatiques)")

@@ -1,5 +1,5 @@
 """
-Structured Logger for Hyperion v3.0
+Structured Logger for Hyperion
 
 Logging structuré avec contexte, corrélation et intégration monitoring.
 """
@@ -61,7 +61,7 @@ class LogEntry:
 
 class StructuredLogger:
     """
-    Logger structuré enterprise pour Hyperion v3.0
+    Logger structuré enterprise pour Hyperion
 
     Fonctionnalités :
     - Logs structurés JSON avec contexte enrichi

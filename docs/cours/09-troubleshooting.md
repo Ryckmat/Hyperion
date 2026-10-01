@@ -1,4 +1,9 @@
-# 🔧 Chapitre 09 - Troubleshooting
+---
+title: "Chapitre 09 - Troubleshooting"
+toc: true
+description: "Résoudre les problèmes courants : Diagnostic, optimisation et maintenance"
+weight: 10
+---
 
 **Résoudre les problèmes courants** - Diagnostic, optimisation et maintenance
 
@@ -875,7 +880,7 @@ fi
 
 ### 📚 **Dernière Étape**
 
-👉 **Terminez avec** : [Chapitre 10 - Usage Avancé](10-advanced-usage.md)
+👉 **Terminez avec** : [Chapitre 10 - Usage Avancé](10-advanced-usage)
 
 Le dernier chapitre vous révélera :
 - Fonctionnalités expertes et cas d'usage avancés
@@ -885,8 +890,8 @@ Le dernier chapitre vous révélera :
 
 ---
 
-*Parfait ! Vous savez maintenant maintenir Hyperion en parfait état. Rendez-vous au [Chapitre 10](10-advanced-usage.md) pour les fonctionnalités expertes !* 🔧
+*Parfait ! Vous savez maintenant maintenir Hyperion en parfait état. Rendez-vous au [Chapitre 10](10-advanced-usage) pour les fonctionnalités expertes !* 🔧
 
 ---
 
-*Cours Hyperion v2.7.0 - Chapitre 09*
+*Cours Hyperion - Chapitre 09*

@@ -1,5 +1,5 @@
 """
-JSON Logger amélioré avec structlog pour Hyperion v3.0
+JSON Logger amélioré avec structlog pour Hyperion
 
 Intégration de structlog pour un logging encore plus structuré et performant.
 """
@@ -20,7 +20,7 @@ from hyperion.settings import settings
 
 def configure_structlog() -> None:
     """
-    Configure structlog pour Hyperion v3.0
+    Configure structlog pour Hyperion
 
     Configuration optimisée pour :
     - JSON structuré en production

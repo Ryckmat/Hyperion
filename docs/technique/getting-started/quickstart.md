@@ -1,4 +1,9 @@
-# Getting Started - Hyperion
+---
+title: "Getting Started - Hyperion"
+toc: true
+description: "Guide rapide pour démarrer avec Hyperion."
+weight: 4
+---
 
 Guide rapide pour démarrer avec Hyperion.
 
@@ -168,10 +173,10 @@ export TAGS_REGEX="^release-\d+\.\d+$"
 
 ## 📚 Prochaines étapes
 
-- [Architecture](../architecture/system-overview.md) : Architecture détaillée du projet
-- [CLI Reference](../reference/cli-reference.md) : Référence complète des commandes
-- [Configuration](../user-guide/configuration.md) : Configuration et format YAML
-- [Neo4j Integration](../advanced/neo4j-integration.md) : Modèle de graphe
+- [Architecture](../architecture/system-overview) : Architecture détaillée du projet
+- [CLI Reference](../reference/cli-reference) : Référence complète des commandes
+- Configuration : Configuration et format YAML
+- [Neo4j Integration](../advanced/neo4j-integration) : Modèle de graphe
 
 ## 🐛 Troubleshooting
 
